@@ -1,7 +1,6 @@
 package book.flow.enity;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -22,11 +21,11 @@ public class BookRoute implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date routeDate;
     /** 借阅图书. */
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "bookId")
     private Book book;
     /** 借阅用户. */
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
 

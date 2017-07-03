@@ -1,4 +1,4 @@
-# 用户表
+-- 用户表
 CREATE TABLE user (
   user_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '用户编号',
   user_name VARCHAR(30) NOT NULL COMMENT '用户名',
@@ -13,7 +13,7 @@ CREATE TABLE user (
   CHECK (user_sex IN ('男', '女'))
 ) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;
 
-# 图书表
+-- 图书表
 CREATE TABLE book (
   book_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '图书编号',
   book_name VARCHAR(50) NOT NULL COMMENT '图书名',
@@ -25,7 +25,7 @@ CREATE TABLE book (
   book_img TEXT NOT NULL COMMENT '图书图片'
 ) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;
 
-# 图书评论表
+-- 图书评论表
 CREATE TABLE comment (
   comment_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '评论编号',
   comment_text TEXT NOT NULL COMMENT '评论内容' ,
