@@ -1,0 +1,59 @@
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.top_logo {
+    width: 1366px;
+    height: 50px;
+    margin: 0 auto;
+    background-image: url("../img/topbackground.png");
+}
+
+.logo_img {
+    margin-left: 50px;
+}
+
+.top_logo ul {
+    float: right;
+    margin-right: 50px;
+}
+
+.top_logo li {
+    list-style: none;
+    float: right;
+    line-height: 50px;
+    width: 100px;
+    font-family: 黑体;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.top_logo li a {
+    color: black;
+}
+
+.center_bg {
+    //border: 1px solid red;
+    margin: 0 auto;
+    width: 1100px;
+}
+
+.center_search {
+    margin-top: 80px;
+    margin-left: 240px;
+}
+
+.center_search li a {
+    cursor: pointer;
+}
+
+.search_input {
+    border: 1px solid gray;
+    width: 500px;
+    height: 50px;
+}
+
