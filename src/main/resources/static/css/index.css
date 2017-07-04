@@ -7,7 +7,7 @@ a:hover {
 }
 
 .top_logo {
-    width: 1366px;
+    width: 100%;
     height: 50px;
     margin: 0 auto;
     background-image: url("../img/topbackground.png");
@@ -40,11 +40,13 @@ a:hover {
     //border: 1px solid red;
     margin: 0 auto;
     width: 1100px;
+    position: relative;
 }
 
 .center_search {
     margin-top: 80px;
-    margin-left: 240px;
+    margin-left: 270px;
+    margin-bottom: 50px;
 }
 
 .center_search li a {
@@ -57,3 +59,131 @@ a:hover {
     height: 50px;
 }
 
+.center_type {
+    //border: 1px solid red;
+    width: 200px;
+    float: left;
+}
+
+.center_notice {
+    width: 200px;
+    float: right;
+}
+
+.center_notice li a :nth-child(1){
+    width: 60px;
+}
+
+.center_notice li a:nth-child(2){
+    width: 90px;
+}
+
+.center_notice li a:nth-child(3){
+    width: 90px;
+    margin-right: 0px;
+}
+
+.center_notice li a {
+    font-size: 10px;
+}
+
+.list {
+    //border: 1px solid red;
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+}
+
+.center_notice_title {
+    background: rgba(0,0,0,.5);
+    color: #fff;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.center_recommend_book {
+    border-top: 1px solid gray;
+    padding-top: 10px;
+    width: 1100px;
+    float: left;
+}
+
+.recommend_book_label {
+    border-left: 4px solid orange;
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.recommend_book_list {
+    border: 1px solid red;
+    margin: 10px auto;
+    width: 900px;
+    height: 170px;
+}
+
+.center_hot_book {
+    border-top: 1px solid gray;
+    padding-top: 10px;
+    width: 1100px;
+    float: left;
+}
+
+.hot_book_label {
+    border-left: 4px solid orange;
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.hot_book_list {
+    //border: 1px solid red;
+    //margin-top: 10px;
+    width: 1100px;
+    height: 200px;
+    margin: 10px auto;
+}
+
+.hot_book_list li {
+    margin: 0 10px;
+    list-style: none;
+    float: left;
+}
+
+.book_div img {
+    width: 175px;
+    height: 170px;
+}
+
+.book_div span {
+    height: 30px;
+    line-height: 30px;
+    color: black;
+}
+
+.footer {
+    clear: both;
+    width: 100%;
+    height: 50px;
+    margin: 0 auto;
+    background-color: #353C41;
+}
+
+.copyright {
+    margin-left: 50px;
+    color: gray;
+    line-height: 50px;
+}
+
+#back-to-top {
+    float: right;
+    margin-right: 10px;
+    border: 1px solid gray;
+}
+
+#back-to-top a {
+    color: black;
+}
