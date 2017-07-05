@@ -10,7 +10,8 @@ a:hover {
     width: 100%;
     height: 50px;
     margin: 0 auto;
-    background-image: url("../img/topbackground.png");
+    //background-image: url("../img/topbackground.png");
+    background-color: #F0AD4E;
 }
 
 .logo_img {
@@ -37,7 +38,6 @@ a:hover {
 }
 
 .center_bg {
-    //border: 1px solid red;
     margin: 0 auto;
     width: 1100px;
     position: relative;
@@ -60,7 +60,6 @@ a:hover {
 }
 
 .center_type {
-    //border: 1px solid red;
     width: 200px;
     float: left;
 }
@@ -88,10 +87,9 @@ a:hover {
 }
 
 .list {
-    //border: 1px solid red;
     position: relative;
     overflow: hidden;
-    height: 250px;
+    height: 256px;
 }
 
 .center_notice_title {
@@ -102,6 +100,88 @@ a:hover {
     padding: 0 10px;
     font-size: 12px;
     font-weight: bold;
+}
+
+.center_activity {
+    float: left;
+    margin-left: 30px;
+    width: 640px;
+    height: 290px;
+    overflow: hidden;
+    position: relative;
+}
+
+.center_activity_list {
+    position: absolute;
+    width: 3566px;
+    height: 290px;
+    z-index: 1;
+}
+
+.center_activity_list li {
+    float: left;
+    list-style: none;
+}
+
+.center_activity_list img {
+    width: 640px;
+    height: 290px;
+}
+
+#activity_buttons {
+    position: absolute;
+    height: 10px;
+    width: 100px;
+    z-index: 2;
+    bottom: 20px;
+    left: 270px;
+}
+
+#activity_buttons span {
+    cursor: pointer;
+    float: left;
+    border: 1px solid #fff;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #333;
+    margin-right: 5px;
+}
+
+#activity_buttons .on {
+    background: orangered;
+}
+
+.activity_arrow {
+    cursor: pointer;
+    display: none;
+    line-height: 100px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    width: 40px;
+    height: 100px;
+    position: absolute;
+    z-index: 2;
+    top: 95px;
+    background-color: RGBA(0,0,0,.3);
+    color: #fff;
+}
+
+.activity_arrow:hover {
+    background-color: RGBA(0,0,0,.7);
+}
+
+.center_activity:hover .activity_arrow {
+    display: block;
+}
+
+#activity_prev {
+    left: 2px;
+}
+
+#activity_next {
+    right: 2px;
 }
 
 .center_recommend_book {
@@ -119,10 +199,88 @@ a:hover {
 }
 
 .recommend_book_list {
-    border: 1px solid red;
+    position: relative;
+    //border: 1px solid gray;
     margin: 10px auto;
-    width: 900px;
+    width: 1000px;
     height: 170px;
+    overflow: hidden;
+    padding-left: 0;
+}
+
+.recommend_book_img_list {
+    position: absolute;
+    z-index: 1;
+    width: 4200px;
+    height: 170px;
+    left: 0;
+}
+
+.recommend_book_list li {
+    float: left;
+    list-style: none;
+    margin-right: 10px;
+}
+
+.recommend_book_div img {
+    width: 175px;
+    height:168px;
+}
+
+.buttons {
+    position: absolute;
+    height: 10px;
+    width: 100px;
+    z-index: 2;
+    bottom: 20px;
+    left: 460px;
+}
+
+.buttons span {
+    cursor: pointer;
+    float: left;
+    border: 1px solid #fff;
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    background: #333;
+    margin-right: 5px;
+}
+
+.buttons .on {
+    background: orangered;
+}
+
+.arrow {
+    position: absolute;
+    cursor: pointer;
+    display: none;
+    line-height: 70px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    width: 40px;
+    height: 70px;
+    z-index: 2;
+    top: 50px;
+    background-color: RGBA(0,0,0,.3);
+    color: #fff;
+}
+
+.arrow a:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.recommend_book_list:hover .arrow {
+    display: block;
+}
+
+#prev {
+    left: 5px;
+}
+
+#next {
+    right: 5px;
 }
 
 .center_hot_book {
@@ -140,8 +298,7 @@ a:hover {
 }
 
 .hot_book_list {
-    //border: 1px solid red;
-    //margin-top: 10px;
+    padding-left: 20px;
     width: 1100px;
     height: 200px;
     margin: 10px auto;
@@ -173,7 +330,7 @@ a:hover {
 }
 
 .copyright {
-    margin-left: 50px;
+    //margin-left: 50px;
     color: gray;
     line-height: 50px;
 }
@@ -186,4 +343,8 @@ a:hover {
 
 #back-to-top a {
     color: black;
+}
+
+.search_on_top {
+    position: fixed;
 }
