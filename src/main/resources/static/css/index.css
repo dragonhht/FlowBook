@@ -7,15 +7,21 @@ a:hover {
 }
 
 .top_logo {
-    width: 100%;
+    width: 1200px;
     height: 50px;
     margin: 0 auto;
     //background-image: url("../img/topbackground.png");
-    background-color: #F0AD4E;
+    background-color: white;
+    padding-bottom: 3px;
+    //border-bottom: 1px solid gray;
 }
 
 .logo_img {
     margin-left: 50px;
+}
+
+.logo_img img {
+    height: 49px;
 }
 
 .top_logo ul {
@@ -323,14 +329,14 @@ a:hover {
 
 .footer {
     clear: both;
-    width: 100%;
+    width: 1200px;
     height: 50px;
     margin: 0 auto;
-    background-color: #353C41;
+    border-top: 1px solid gray;
+    background-color: white;
 }
 
 .copyright {
-    //margin-left: 50px;
     color: gray;
     line-height: 50px;
 }
