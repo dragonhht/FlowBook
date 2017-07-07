@@ -351,6 +351,8 @@ a:hover {
     color: black;
 }
 
-.search_on_top {
+.back_top {
     position: fixed;
+    top: 300px;
+    right: 20px;
 }
