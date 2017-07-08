@@ -101,8 +101,8 @@
                     <div class="form-group form_group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" />
+                                <label id="checkboxLabel">
+                                    <input type="checkbox" id="checkbox" />
                                     同意
                                     <a href="#">"服务条款"</a>
                                     和
@@ -114,7 +114,7 @@
 
                     <div class="form-group form_group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-info">立即注册</button>
+                            <button type="submit" id="register_btn" class="btn btn-info disabled">立即注册</button>
                         </div>
                     </div>
 
@@ -135,4 +135,22 @@
         </p>
     </div>
 </body>
+
+<script type="text/javascript">
+    $(function(){
+
+        /** 同意条款. */
+        $('#checkboxLabel').click(function(){
+            //判断复选框是否被选中
+            var isChecked=$('#checkbox').is(':checked');
+            if (isChecked) {
+                $('#register_btn').removeClass('disabled')
+            } else {
+                $('#register_btn').addClass('disabled')
+            }
+        });
+
+    })
+</script>
+
 </html>

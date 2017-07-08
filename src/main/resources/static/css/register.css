@@ -38,7 +38,7 @@ a:hover {
 }
 
 .center_bg {
-    border: 1px solid gray;
+    border: 1px solid #DDDDDD;
     width: 960px;
     height: 700px;
     margin: 50px auto;
@@ -56,14 +56,13 @@ a:hover {
 
 .center_left_div {
     float: left;
-    border-right: 1px solid gray;
+    border-right: 1px solid #DDDDDD;
     height: 700px;
     width: 640px;
     padding-top: 20px;
 }
 
 .center_register {
-    //border: 1px solid red;
     width: 550px;
     margin: 0 auto;
 }
@@ -86,7 +85,6 @@ a:hover {
 }
 
 .center_right_div {
-    //background-color: #F5F5F5;
     float: left;
     height: 698px;
     width: 318px;
