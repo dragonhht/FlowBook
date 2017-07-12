@@ -74,18 +74,107 @@ a:hover {
 }
 
 .book_message {
-    border: 1px solid gray;
+    //border: 1px solid gray;
     float: left;
-    height: 500px;
+    //height: 500px;
     width: 680px;
+    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 100px;
+    margin-bottom: 70px;
+    min-height: 500px;
+}
+
+.book_message_message {
+    //border: 1px solid red;
+    margin-bottom: 10px;
+}
+
+.book_message .book_name {
+    font-weight: bolder;
+    font-size: large;
+}
+
+.book_message .book_message_message label {
+    font-weight: bolder;
+    font-size: large;
+    line-height: 30px;
+}
+
+.book_message .book_message_message span {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.book_publish {
+    border-bottom: 1px dashed #DDDDDD;
+}
+
+.book_now_owner {
+    height: 30px;
+}
+
+.book_now_owner label {
+    float: left;
+    line-height: 30px;
+}
+
+.book_now_owner .user_message {
+    //border: 1px solid green;
+    float: left;
+    width: 400px;
+}
+
+.book_now_owner .user_message img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.book_now_owner .user_message a {
+    line-height: 24px;
+    color: #7B4444;
+    font-weight: bold;
+}
+
+.book_now_owner .user_message .date {
+    float: right;
+    font-size: 10px;
+    line-height: 24px;
+}
+
+.book_route {
+    height: 30px;
+    border-bottom: 1px dashed #DDDDDD;
+}
+
+.book_route a {
+    line-height: 30px;
+}
+
+.book_introduction {
+    border-bottom: 1px dashed #DDDDDD;
+}
+
+.book_introduction label {
+    float: left;
+}
+
+.book_introduction textarea {
+    width: 475px;
+    height: 167px;
+    resize: none;
 }
 
 .book_img_small {
     //border: 1px solid gray;
-    float: left;
+    position: absolute;
+    //float: left;
     width: 400px;
     height: 70px;
-    margin-left: 10px;
+    left: 10px;
+    top: 640px;
 }
 
 .book_img_small .small_img_div {
@@ -102,6 +191,7 @@ a:hover {
     //border: 1px solid orange;
     width: 900px;
     float: left;
+    //margin-top: 700px;
     padding-left: 10px;
 }
 
