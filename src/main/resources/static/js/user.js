@@ -28,11 +28,21 @@ function selectTab(n) {
        $(links[i]).removeClass('active');
    }
     $(n).addClass('active');
+    console.log(index);
     if (index == 1) {
         $('#contribution').hide();
+        $('#notice').hide();
         $('#borrow').show();
     } else {
-        $('#borrow').hide();
-        $('#contribution').show();
+        if (index == 0) {
+            $('#borrow').hide();
+            $('#notice').hide();
+            $('#contribution').show();
+        } else {
+            $('#borrow').hide();
+            $('#contribution').hide();
+            $('#notice').show();
+        }
     }
+
 }

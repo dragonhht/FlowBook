@@ -45,3 +45,21 @@ $(document).ready(function() {
         });
     });
 });
+
+/** 选择信息标签页. */
+function selectTab(n) {
+    var index = $(n).attr('index');
+    var links = $('#nav_tabs').children('li');
+    for (var i = 0; i < links.length; i++) {
+        $(links[i]).removeClass('active');
+    }
+    $(n).addClass('active');
+    if (index == 0) {
+        $('#route').hide();
+        $('#book_comment').show();
+    } else {
+        $('#book_comment').hide();
+        $('#route').show();
+    }
+
+}

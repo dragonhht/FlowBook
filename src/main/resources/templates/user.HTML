@@ -43,7 +43,7 @@
 
         <div class="center_user">
             <div class="user_img">
-                <img class="img-responsive" src="../static/img/21.png" />
+                <img class="img-thumbnail" src="../static/img/21.png" />
             </div>
             <div class="user_message">
                 <div class="user_message_name">用户名</div>
@@ -74,6 +74,7 @@
             <ul class="nav nav-tabs" id="nav_tabs">
                 <li class="active" index="0" onclick="selectTab(this)"><a>贡献书籍</a></li>
                 <li index="1" onclick="selectTab(this)"><a>借阅记录</a></li>
+                <li index="2" onclick="selectTab(this)"><a>发布的公告</a></li>
             </ul>
             <!--贡献书籍表-->
             <table id="contribution" class="table table-striped">
@@ -164,6 +165,18 @@
                     <td>这本书的作者</td>
                     <td>这就是出版社</td>
                     <td>2017-07-12 12:03:30</td>
+                </tr>
+            </table>
+
+            <!--发布公告-->
+            <table id="notice" class="table table-striped" hidden="hidden">
+                <tr>
+                    <td>公告信息</td>
+                    <td>日期</td>
+                </tr>
+                <tr>
+                    <td>公告信息</td>
+                    <td>日期</td>
                 </tr>
             </table>
         </div>
