@@ -147,6 +147,9 @@ a:hover {
 
 .book_id {
     height: 30px;
+}
+
+.book_route {
     border-bottom: 1px dashed #DDDDDD;
 }
 
