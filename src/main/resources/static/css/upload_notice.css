@@ -66,6 +66,13 @@ a:hover {
     margin-bottom: 50px;
 }
 
+.center_left_body textarea {
+    width: 660px;
+    height: 200px;
+    margin-left: 85px;
+    resize: none;
+}
+
 .center_right {
     border: 1px solid #DDDDDD;
     float: right;
