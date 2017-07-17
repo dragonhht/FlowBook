@@ -73,6 +73,11 @@ a:hover {
     cursor: pointer;
 }
 
+#select_book a {
+    color: black;
+    cursor: pointer;
+}
+
 #notice {
     // border: 1px solid red;
     height: 300px;
@@ -81,6 +86,35 @@ a:hover {
 .apply_out {
     // border: 1px solid green;
     padding-left: 100px;
+}
+
+.update_div {
+// display: none;
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    padding: 16px;
+    border: 3px solid gray;
+    background-color: white;
+    z-index: 3;
+    overflow: auto;
+}
+
+.update_top {
+    border: 1px solid white;
+    height: 40px;
+}
+
+.update_div .close {
+    color: #0e0e0e;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 20px;
+    display: block;
+    height: 30px;
 }
 
 .book_img_div {

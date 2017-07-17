@@ -46,3 +46,17 @@ function selectTab(n) {
         $('#notice').show();
     }
 }
+
+/** 显示修改框. */
+function showUpdateDiv(n) {
+    var index = $(n).attr('index');
+    if (index == 'name') {
+        $('#update_name').show();
+    }
+}
+
+/** 隐藏修改框. */
+function hideUpdateDiv(n) {
+    var parent = $(n).parent();
+    $(parent).hide();
+}

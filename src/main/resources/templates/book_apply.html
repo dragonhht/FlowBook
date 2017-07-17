@@ -161,8 +161,12 @@
                     <div class="form-group" style="margin-left: auto;margin-right: auto;">
                         <label class="col-sm-2 control-label">图书漂流编号：</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" />
+                            <input type="text" class="form-control" disabled="disabled" />
                         </div>
+                        <div class="col-sm-3" id="select_book">
+                            <a index="name" onclick="showUpdateDiv(this)">选择图书</a>
+                        </div>
+
                     </div>
                     <div class="form-group" style="margin-left: auto;margin-right: auto;">
                         <label class="col-sm-2 control-label">图书损坏图片：</label>
@@ -237,44 +241,91 @@
     </div>
 </div>
 
-<!--修改用户名-->
+<!--选择图书-->
 <div class="update_div" id="update_name" hidden="hidden">
-    <span class="close" onclick="hideUpdateDiv(this)">x</span>
-
-</div>
-
-<!--修改手机号码-->
-<div class="update_div" id="update_phone" hidden="hidden">
     <span class="update_top"></span>
     <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
-    <div class="form-group form_group">
-        <label class="col-sm-2 control-label"><span style="color: red">*</span>原手机号</label>
-        <div class="col-sm-9 input-group">
-            <input type="text" class="form-control" placeholder="请输入原手机号" />
-        </div>
-    </div>
-    <div class="form-group form_group">
-        <label class="col-sm-2 control-label"><span style="color: red">*</span>新手机号</label>
-        <div class="col-sm-9 input-group">
-            <input type="text" class="form-control" placeholder="请输入新手机号" />
-        </div>
-    </div>
-    <div class="form-group form_group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="button" style="margin-bottom: 20px;" class="btn btn-info">获取短信验证码</button>
-        </div>
-    </div>
-    <div class="form-group form_group">
-        <label class="col-sm-2 control-label"><span style="color: red">*</span>短信验证码:</label>
-        <div class="col-sm-9 input-group">
-            <input type="text" class="form-control" placeholder="请查收手机短信，并填写短信中的验证码" />
-        </div>
-    </div>
-    <div class="form-group form_group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" id="register_btn" class="btn btn-info">确认修改</button>
-        </div>
-    </div>
+    <table class="table table-responsive">
+        <tr>
+            <td>图书编号</td>
+            <td>图书名</td>
+            <td>出版社</td>
+            <td>作者</td>
+            <td>选择</td>
+        </tr>
+        <tr>
+            <td>A2345</td>
+            <td>图书名</td>
+            <td>出版社</td>
+            <td>作者</td>
+            <td>
+                <button class="btn btn-info">选择</button>
+            </td>
+        </tr>
+        <tr>
+            <td>A2345</td>
+            <td>图书名</td>
+            <td>出版社</td>
+            <td>作者</td>
+            <td>
+                <button class="btn btn-info">选择</button>
+            </td>
+        </tr>
+        <tr>
+            <td>A2345</td>
+            <td>图书名</td>
+            <td>出版社</td>
+            <td>作者</td>
+            <td>
+                <button class="btn btn-info">选择</button>
+            </td>
+        </tr>
+        <tr>
+            <td>A2345</td>
+            <td>图书名</td>
+            <td>出版社</td>
+            <td>作者</td>
+            <td>
+                <button class="btn btn-info">选择</button>
+            </td>
+        </tr>
+        <tr>
+            <td>A2345</td>
+            <td>图书名</td>
+            <td>出版社</td>
+            <td>作者</td>
+            <td>
+                <button class="btn btn-info">选择</button>
+            </td>
+        </tr>
+        <tr>
+            <td>A2345</td>
+            <td>图书名</td>
+            <td>出版社</td>
+            <td>作者</td>
+            <td>
+                <button class="btn btn-info">选择</button>
+            </td>
+        </tr>
+        <tr>
+            <td>A2345</td>
+            <td>图书名</td>
+            <td>出版社</td>
+            <td>作者</td>
+            <td>
+                <button class="btn btn-info">选择</button>
+            </td>
+        </tr>
+        <tr>
+            <td>A2345</td>
+            <td>图书名</td>
+            <td>出版社</td>
+            <td>作者</td>
+            <td>
+                <button class="btn btn-info">选择</button>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <!--底部-->
