@@ -10,16 +10,17 @@
     <script src="../static/js/login.js" ></script>
 </head>
 <body>
+
     <!--顶部-->
     <div class="top_logo">
         <span class="logo_img">
-            <img src="../static/img/flowbook1.png" />
+            <img th:src="@{/img/flowbook1.png}" />
         </span>
         <ul id="top_ul">
-            <li><a href="./login.html" onclick="selectNav(this)" style="color: gray;">登录</a> | <a href="./register.html" onclick="selectNav(this)">注册</a></li>
+            <li><a th:href="@{/login}" onclick="selectNav(this)" style="color: gray;">登录</a> | <a th:href="@{/register}" onclick="selectNav(this)">注册</a></li>
             <li><a href="#" onclick="selectNav(this)">活动</a></li>
-            <li><a href="./notice.html" onclick="selectNav(this)">公告</a></li>
-            <li><a href="./index.html" onclick="selectNav(this)" style="color: gray;">首页</a></li>
+            <li><a th:href="@{/notice}" onclick="selectNav(this)">公告</a></li>
+            <li><a th:href="@{/index}" onclick="selectNav(this)" >首页</a></li>
         </ul>
     </div>
 

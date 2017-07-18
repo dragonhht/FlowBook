@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>$Title$</title>
+    <script th:src="@{/js/assembly.js}" type="text/javascript"></script>
+</head>
+<body>
+<!--顶部-->
+<div class="top_logo" th:fragment="top_logo">
+        <span class="logo_img">
+            <img th:src="@{/img/flowbook1.png}" />
+        </span>
+        <ul id="top_ul">
+            <li><a th:href="@{/login}" onclick="selectNav(this)">登录</a> | <a th:href="@{/register}" onclick="selectNav(this)">注册</a></li>
+            <li><a href="#" onclick="selectNav(this)">活动</a></li>
+            <li><a th:href="@{/notice}" onclick="selectNav(this)">公告</a></li>
+            <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;">首页</a></li>
+        </ul>
+</div>
+</body>
+</html>
