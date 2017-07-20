@@ -51,7 +51,7 @@ spring:
       enabled: detect
 
 # 将日志输出的最高级别置成debug
-debug: true
+# debug: true
 
 logging:
   # 设置日志输出文件
