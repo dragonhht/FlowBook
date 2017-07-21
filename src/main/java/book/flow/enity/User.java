@@ -265,4 +265,20 @@ public class User implements Serializable {
     public void setBookRoute(BookRoute bookRoute) {
         this.bookRoute = bookRoute;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userAge=" + userAge +
+                ", userSex='" + userSex + '\'' +
+                ", userAddress='" + userAddress + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", userImg='" + userImg + '\'' +
+                ", userDate=" + userDate +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

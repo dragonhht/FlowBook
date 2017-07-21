@@ -1,4 +1,4 @@
-package service.imp;
+package book.flow.service.imp;
 
 import book.flow.enity.Book;
 import book.flow.enity.User;
@@ -10,7 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import service.TouristService;
+import book.flow.service.TouristService;
 
 /**
  * 游客操作服务层实现.
@@ -70,5 +70,12 @@ public class TouristServiceImp implements TouristService {
         Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
         users = userRepository.searchUserByName(name, pageable);
         return null;
+    }
+
+    @Override
+    public User register(User user) {
+        User u = null;
+        u = userRepository.save(user);
+        return u;
     }
 }

@@ -1,4 +1,4 @@
-package service;
+package book.flow.service;
 
 import book.flow.enity.Book;
 import book.flow.enity.User;
@@ -42,4 +42,11 @@ public interface TouristService {
      * @return 查找到的结果
      */
     Page<User> searchUserByName(String name, int pageNum);
+
+    /**
+     * 用户注册.
+     * @param user 填写的用户信息
+     * @return 保存后的用户信息
+     */
+    User register(User user);
 }

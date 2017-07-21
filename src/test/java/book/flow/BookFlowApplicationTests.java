@@ -3,6 +3,7 @@ package book.flow;
 
 import book.flow.enity.Book;
 import book.flow.repository.BookReqpsitory;
+import book.flow.utils.PasswordTool;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import service.TouristService;
-import service.imp.TouristServiceImp;
 
-import javax.jws.WebService;
 import java.util.Date;
 
 @RunWith(SpringRunner.class)
@@ -51,6 +48,15 @@ public class BookFlowApplicationTests {
         for (Book book : books) {
             System.out.println(book);
         }
+    }
+
+    @Test
+    public void encryptionMD5Test() {
+        String s = "你好";
+        String s1 = PasswordTool.encryptionMD5(s);
+        String s2 = PasswordTool.encryptionMD5(s);
+        System.out.println(s1);
+        assert s1.equals(s2);
     }
 
 }
