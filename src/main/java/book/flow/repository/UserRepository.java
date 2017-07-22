@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return 搜索到的结果
      */
     @Query("select u from User u where u.userName like ?1")
-    public Page<User> searchUserByName(String name, Pageable pageable);
+    Page<User> searchUserByName(String name, Pageable pageable);
 
     /**
      * 用户登录查询.
@@ -29,5 +29,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return 用户信息
      */
     @Query("select u from User u where u.userId = ?1 and u.password = ?2")
-    public User login(int userId, String password);
+    User login(int userId, String password);
+
+    /**
+     * 通过编号查询用户.
+     * @param id 用户编号
+     * @return 用户信息
+     */
+    @Query("select u from User u where u.userId = ?1")
+    User getUserById(int id);
 }

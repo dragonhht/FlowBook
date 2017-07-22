@@ -3,7 +3,7 @@ package book.flow.service.imp;
 import book.flow.enity.Book;
 import book.flow.enity.Notice;
 import book.flow.enity.User;
-import book.flow.repository.BookReqpsitory;
+import book.flow.repository.BookRepository;
 import book.flow.repository.NoticeRepository;
 import book.flow.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import book.flow.service.TouristService;
 public class TouristServiceImp implements TouristService {
 
     @Autowired
-    private BookReqpsitory bookReqpsitory;
+    private BookRepository bookRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -41,7 +41,7 @@ public class TouristServiceImp implements TouristService {
         // 按图书星级倒序
         Sort sort = new Sort(Sort.Direction.DESC, "bookStart");
         Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
-        books = bookReqpsitory.searchBookByBookName(name, pageable);
+        books = bookRepository.searchBookByBookName(name, pageable);
         return books;
     }
 
@@ -52,7 +52,7 @@ public class TouristServiceImp implements TouristService {
         // 按图书星级倒序
         Sort sort = new Sort(Sort.Direction.DESC, "bookStart");
         Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
-        books = bookReqpsitory.searchBookByBookAuthor(author, pageable);
+        books = bookRepository.searchBookByBookAuthor(author, pageable);
         return books;
     }
 
@@ -63,7 +63,7 @@ public class TouristServiceImp implements TouristService {
         // 按图书星级倒序
         Sort sort = new Sort(Sort.Direction.DESC, "bookStart");
         Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
-        books = bookReqpsitory.searchBookByBookPublish(publish, pageable);
+        books = bookRepository.searchBookByBookPublish(publish, pageable);
         return books;
     }
 
@@ -98,7 +98,21 @@ public class TouristServiceImp implements TouristService {
     public Page<Book> getHotBook() {
         Page<Book> books = null;
         Pageable pageable = new PageRequest(0, HOT_SIZE);
-        books = bookReqpsitory.getHotBooks(pageable);
+        books = bookRepository.getHotBooks(pageable);
         return books;
+    }
+
+    @Override
+    public Book getBookById(int id) {
+        Book book = null;
+        book = bookRepository.getBookById(id);
+        return book;
+    }
+
+    @Override
+    public User getUserById(int id) {
+        User user = null;
+        user = userRepository.getUserById(id);
+        return user;
     }
 }

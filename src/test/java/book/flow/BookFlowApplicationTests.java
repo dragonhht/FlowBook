@@ -4,7 +4,7 @@ package book.flow;
 import book.flow.enity.Book;
 import book.flow.enity.Comment;
 import book.flow.enity.User;
-import book.flow.repository.BookReqpsitory;
+import book.flow.repository.BookRepository;
 import book.flow.repository.CommentRepository;
 import book.flow.utils.PasswordTool;
 import org.junit.Test;
@@ -18,14 +18,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BookFlowApplicationTests {
     @Autowired
-    private BookReqpsitory bookReqpsitory;
+    private BookRepository bookRepository;
     @Autowired
     private CommentRepository commentRepository;
 
@@ -39,7 +37,7 @@ public class BookFlowApplicationTests {
             book.setBookStart(0);
             book.setIntroduction("图书介绍" + i);
             book.setPublish("图书出版社" + i);
-            bookReqpsitory.save(book);
+            bookRepository.save(book);
         }
     }
 
@@ -71,7 +69,7 @@ public class BookFlowApplicationTests {
         // 按图书星级倒序
         Sort sort = new Sort(Sort.Direction.DESC, "bookStart");
         Pageable pageable = new PageRequest(0, 20, sort);
-        books = bookReqpsitory.searchBookByBookName(name, pageable);
+        books = bookRepository.searchBookByBookName(name, pageable);
         for (Book book : books) {
             System.out.println(book);
         }
@@ -90,7 +88,7 @@ public class BookFlowApplicationTests {
     public void testHotBook() {
         Page<Book> books = null;
         Pageable pageable = new PageRequest(0, 10);
-        books = bookReqpsitory.getHotBooks(pageable);
+        books = bookRepository.getHotBooks(pageable);
         for (Book book : books) {
             System.out.println(book);
         }

@@ -13,7 +13,7 @@ import java.util.List;
  * User: huang
  * Date: 17-7-19
  */
-public interface BookReqpsitory extends JpaRepository<Book, Integer> {
+public interface BookRepository extends JpaRepository<Book, Integer> {
 
     /**
      * 通过书名搜索图书.
@@ -48,4 +48,12 @@ public interface BookReqpsitory extends JpaRepository<Book, Integer> {
      */
     @Query("select c.book from Comment c group by c.book order by count(c.book) desc")
     Page<Book> getHotBooks(Pageable pageable);
+
+    /**
+     * 通过图书编号查询图书.
+     * @param id 图书编号
+     * @return 图书信息
+     */
+    @Query("select b from Book b where b.bookId = ?1")
+    Book getBookById(int id);
 }

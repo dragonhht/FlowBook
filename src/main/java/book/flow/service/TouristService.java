@@ -63,4 +63,18 @@ public interface TouristService {
      * @return 热门图书
      */
     Page<Book> getHotBook();
+
+    /**
+     * 通过图书编号查询图书.
+     * @param id 图书编号
+     * @return 图书信息
+     */
+    Book getBookById(int id);
+
+    /**
+     * 通过编号查询用户.
+     * @param id 用户编号
+     * @return 用户信息
+     */
+    User getUserById(int id);
 }
