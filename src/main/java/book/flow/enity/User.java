@@ -52,9 +52,9 @@ public class User implements Serializable {
     @JoinColumn(name = "userId")
     private Set<Comment> comments;
     /** 图书路线. */
-    @OneToOne(mappedBy = "user")
+    @OneToMany
     @JoinColumn(name = "userId")
-    private BookRoute bookRoute;
+    private Set<BookRoute> bookRoute;
     /** 发布的公告. */
     @OneToMany
     @JoinColumn(name = "userId")
@@ -264,22 +264,11 @@ public class User implements Serializable {
         this.comments = comments;
     }
 
-
-    /**
-     * 获取 图书路线.
-     *
-     * @return bookRoute 图书路线.
-     */
-    public BookRoute getBookRoute() {
-        return this.bookRoute;
+    public Set<BookRoute> getBookRoute() {
+        return bookRoute;
     }
 
-    /**
-     * 设置 图书路线.
-     *
-     * @param bookRoute 图书路线.
-     */
-    public void setBookRoute(BookRoute bookRoute) {
+    public void setBookRoute(Set<BookRoute> bookRoute) {
         this.bookRoute = bookRoute;
     }
 

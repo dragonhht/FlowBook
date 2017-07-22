@@ -2,9 +2,11 @@ package book.flow;
 
 
 import book.flow.enity.Book;
+import book.flow.enity.BookRoute;
 import book.flow.enity.Comment;
 import book.flow.enity.User;
 import book.flow.repository.BookRepository;
+import book.flow.repository.BookRouteRepository;
 import book.flow.repository.CommentRepository;
 import book.flow.utils.PasswordTool;
 import org.junit.Test;
@@ -26,6 +28,8 @@ public class BookFlowApplicationTests {
     private BookRepository bookRepository;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private BookRouteRepository bookRouteRepository;
 
     @Test
     public void addBook() {
@@ -93,5 +97,30 @@ public class BookFlowApplicationTests {
             System.out.println(book);
         }
     }
+
+    @Test
+    public void addRoute() {
+        Book book = new Book();
+        book.setBookId(1000000);
+        User user = new User();
+        user.setUserId(1000000);
+        for (int i = 0; i < 10; i++) {
+            BookRoute route = new BookRoute();
+            route.setBook(book);
+            route.setRouteDate(new Date());
+            route.setUser(user);
+            bookRouteRepository.save(route);
+        }
+    }
+
+    @Test
+    public void getBook() {
+        int id = 1000000;
+        Book book = bookRepository.getBookById(id);
+        for (BookRoute route : book.getBookRoute()) {
+            System.out.println(route.getUser());
+        }
+    }
+
 
 }

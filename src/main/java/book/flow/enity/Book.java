@@ -41,9 +41,9 @@ public class Book implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date bookDate;
     /** 借阅路线. */
-    @OneToOne(mappedBy = "book")
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "bookId")
-    private BookRoute bookRoute;
+    private Set<BookRoute> bookRoute;
     /** 评论. */
     @OneToMany
     @JoinColumn(name = "bookId")
@@ -205,21 +205,11 @@ public class Book implements Serializable {
     }
 
 
-    /**
-     * 获取 借阅路线.
-     *
-     * @return bookRoute 借阅路线.
-     */
-    public BookRoute getBookRoute() {
-        return this.bookRoute;
+    public Set<BookRoute> getBookRoute() {
+        return bookRoute;
     }
 
-    /**
-     * 设置 借阅路线.
-     *
-     * @param bookRoute 借阅路线.
-     */
-    public void setBookRoute(BookRoute bookRoute) {
+    public void setBookRoute(Set<BookRoute> bookRoute) {
         this.bookRoute = bookRoute;
     }
 

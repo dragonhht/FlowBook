@@ -101,4 +101,14 @@ public class BookRoute implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "BookRoute{" +
+                "routeId=" + routeId +
+                ", routeDate=" + routeDate +
+                ", book=" + book +
+                ", user=" + user +
+                '}';
+    }
 }
