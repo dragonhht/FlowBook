@@ -1,5 +1,6 @@
 package book.flow.enity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -52,7 +53,11 @@ public class Book implements Serializable {
     @JoinTable(name = "book_type", joinColumns = {@JoinColumn(name = "bookId")},
             inverseJoinColumns = {@JoinColumn(name = "typeId")})
     private Set<Type> types;
-
+    /** 图书贡献者. */
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    @JsonBackReference
+    private User contributor;
 
     /**
      * 获取 图书编号.
@@ -232,6 +237,14 @@ public class Book implements Serializable {
 
     public void setTypes(Set<Type> types) {
         this.types = types;
+    }
+
+    public User getContributor() {
+        return contributor;
+    }
+
+    public void setContributor(User contributor) {
+        this.contributor = contributor;
     }
 
     @Override

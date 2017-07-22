@@ -21,11 +21,11 @@ public class BookRoute implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date routeDate;
     /** 借阅图书. */
-    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "bookId")
     private Book book;
     /** 借阅用户. */
-    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
 

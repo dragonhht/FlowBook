@@ -23,7 +23,8 @@ CREATE TABLE book (
   introduction TEXT COMMENT '简介',
   book_date DATE NOT NULL COMMENT '上传时间',
   book_start INT DEFAULT 0 COMMENT '评价星级' ,
-  book_img TEXT NOT NULL COMMENT '图书图片'
+  book_img TEXT NOT NULL COMMENT '图书图片',
+  contributor INT NOT NULL COMMENT '图书贡献者'
 ) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;
 
 -- 图书评论表
@@ -55,3 +56,9 @@ CREATE TABLE notice (
   user_id INT NOT NULL ,
   FOREIGN KEY (user_id) REFERENCES user(user_id)
 ) CHARSET = utf8;
+
+-- 图书类型表
+CREATE TABLE type (
+  type_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '编号',
+  type_name VARCHAR(30) NOT NULL COMMENT '类型名称'
+)

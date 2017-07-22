@@ -59,6 +59,10 @@ public class User implements Serializable {
     @OneToMany
     @JoinColumn(name = "userId")
     private Set<Notice> notices;
+    /** 贡献的图书. */
+    @OneToMany
+    @JoinColumn(name = "userId")
+    private Set<Book> contribution;
 
 
     /**
@@ -285,6 +289,14 @@ public class User implements Serializable {
 
     public void setNotices(Set<Notice> notices) {
         this.notices = notices;
+    }
+
+    public Set<Book> getContribution() {
+        return contribution;
+    }
+
+    public void setContribution(Set<Book> contribution) {
+        this.contribution = contribution;
     }
 
     @Override
