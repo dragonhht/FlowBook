@@ -34,7 +34,7 @@ public class UserTest {
             user.setUserDate(new Date());
             user.setUserEmail("dragon_hht@163.com");
             user.setUserName("用户名" + i);
-            user.setUserPhone("12345678932");
+            user.setUserPhone("15180133043");
             user.setUserSex("男");
             user.setUserImg("头像");
             userRepository.save(user);

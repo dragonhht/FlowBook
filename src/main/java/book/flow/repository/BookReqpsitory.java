@@ -42,5 +42,10 @@ public interface BookReqpsitory extends JpaRepository<Book, Integer> {
     @Query("select b from Book b where b.publish like ?1")
     Page<Book> searchBookByBookPublish(String publish, Pageable pageable);
 
-
+    /**
+     * 查询热门图书（评论最多）.
+     * @return 人们图书
+     */
+    @Query("select c.book from Comment c group by c.book order by count(c.book) desc")
+    Page<Book> getHotBooks(Pageable pageable);
 }

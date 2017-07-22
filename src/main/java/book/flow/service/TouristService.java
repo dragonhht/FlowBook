@@ -1,6 +1,7 @@
 package book.flow.service;
 
 import book.flow.enity.Book;
+import book.flow.enity.Notice;
 import book.flow.enity.User;
 import org.springframework.data.domain.Page;
 
@@ -49,4 +50,17 @@ public interface TouristService {
      * @return 保存后的用户信息
      */
     User register(User user);
+
+    /**
+     * 获取所有的公告信息.
+     * @param pageNum 显示的当前页数
+     * @return 公告信息
+     */
+    Page<Notice> getNotice(int pageNum);
+
+    /**
+     * 获取热门图书.
+     * @return 热门图书
+     */
+    Page<Book> getHotBook();
 }

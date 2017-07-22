@@ -3,8 +3,11 @@ package book.flow.enity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 图书表.
@@ -19,10 +22,13 @@ public class Book implements Serializable {
     @GeneratedValue
     private int bookId;
     /** 图书名. */
+    @Size(min = 1, message = "{book.name.null.error}")
     private String bookName;
     /** 作者. */
+    @Size(min = 1, message = "{book.author.null.error}")
     private String author;
     /** 出版社. */
+    @Size(min = 1, message = "{book.publish.null.error}")
     private String publish;
     /** 简介. */
     private String introduction;
@@ -37,6 +43,15 @@ public class Book implements Serializable {
     @OneToOne(mappedBy = "book")
     @JoinColumn(name = "bookId")
     private BookRoute bookRoute;
+    /** 评论. */
+    @OneToMany
+    @JoinColumn(name = "bookId")
+    private Set<Comment> comments;
+    /** 图书类型. */
+    @ManyToMany(cascade = {}, fetch = FetchType.EAGER)
+    @JoinTable(name = "book_type", joinColumns = {@JoinColumn(name = "bookId")},
+            inverseJoinColumns = {@JoinColumn(name = "typeId")})
+    private Set<Type> types;
 
 
     /**
@@ -201,6 +216,22 @@ public class Book implements Serializable {
      */
     public void setBookRoute(BookRoute bookRoute) {
         this.bookRoute = bookRoute;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Set<Type> getTypes() {
+        return types;
+    }
+
+    public void setTypes(Set<Type> types) {
+        this.types = types;
     }
 
     @Override

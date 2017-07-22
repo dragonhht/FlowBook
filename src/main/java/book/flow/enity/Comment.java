@@ -28,6 +28,11 @@ public class Comment implements Serializable {
     @JoinColumn(name = "userId")
     @JsonBackReference
     private User user;
+    /** 评论的书籍. */
+    @ManyToOne
+    @JoinColumn(name = "bookId")
+    @JsonBackReference
+    private Book book;
 
 
     /**
@@ -100,5 +105,13 @@ public class Comment implements Serializable {
      */
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }

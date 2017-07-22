@@ -1,10 +1,15 @@
 package book.flow.enity;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -20,6 +25,7 @@ public class User implements Serializable {
     @GeneratedValue
     private int userId;
     /** 用户名称. */
+    @Size(min = 1, max = 30, message = "{user.name.length.error}")
     private String userName;
     /** 用户年龄. */
     private int userAge;
@@ -28,8 +34,10 @@ public class User implements Serializable {
     /** 住址. */
     private String userAddress;
     /** 电子邮箱. */
+    @Email(message = "{user.email.format.error}")
     private String userEmail;
     /** 电话号码. */
+    //@Pattern(regexp = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\\\d{8}$", message = "{user.phone.format.error}")
     private String userPhone;
     /** 用户头像. */
     private String userImg;
@@ -37,6 +45,7 @@ public class User implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date userDate;
     /** 密码. */
+    @Size(min = 1)
     private String password;
     /** 评论. */
     @OneToMany
@@ -46,6 +55,10 @@ public class User implements Serializable {
     @OneToOne(mappedBy = "user")
     @JoinColumn(name = "userId")
     private BookRoute bookRoute;
+    /** 发布的公告. */
+    @OneToMany
+    @JoinColumn(name = "userId")
+    private Set<Notice> notices;
 
 
     /**
@@ -264,6 +277,14 @@ public class User implements Serializable {
      */
     public void setBookRoute(BookRoute bookRoute) {
         this.bookRoute = bookRoute;
+    }
+
+    public Set<Notice> getNotices() {
+        return notices;
+    }
+
+    public void setNotices(Set<Notice> notices) {
+        this.notices = notices;
     }
 
     @Override

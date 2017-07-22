@@ -1,8 +1,10 @@
 package book.flow.service.imp;
 
 import book.flow.enity.Book;
+import book.flow.enity.Notice;
 import book.flow.enity.User;
 import book.flow.repository.BookReqpsitory;
+import book.flow.repository.NoticeRepository;
 import book.flow.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,9 +26,13 @@ public class TouristServiceImp implements TouristService {
     private BookReqpsitory bookReqpsitory;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NoticeRepository noticeRepository;
 
     /** 分页， 每页显示的最大数量. */
     private static final int PAGE_SIZE = 20;
+    /** 热门图书数量. */
+    private static final int HOT_SIZE = 10;
 
     @Override
     public Page<Book> searchBookByBookName(String name, int pageNum) {
@@ -77,5 +83,22 @@ public class TouristServiceImp implements TouristService {
         User u = null;
         u = userRepository.save(user);
         return u;
+    }
+
+    @Override
+    public Page<Notice> getNotice(int pageNum) {
+        Page<Notice> notices = null;
+        Sort sort = new Sort(Sort.Direction.DESC, "noticeDate");
+        Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
+        notices = noticeRepository.getNotice(pageable);
+        return notices;
+    }
+
+    @Override
+    public Page<Book> getHotBook() {
+        Page<Book> books = null;
+        Pageable pageable = new PageRequest(0, HOT_SIZE);
+        books = bookReqpsitory.getHotBooks(pageable);
+        return books;
     }
 }
