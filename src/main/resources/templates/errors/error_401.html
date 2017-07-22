@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>未经授权</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <script th:src="@{/js/jquery-3.2.1.min.js}" ></script>
+    <script th:src="@{/js/bootstrap.min.js}" ></script>
+</head>
+<body>
+<section id="error" class="container text-center" style="height:800px;margin-top: 100px;">
+    <h1>401, 访问未经授权</h1>
+    <a class="btn btn-danger" th:href="index">回到首页</a>
+</section>
+</body>
+</html>

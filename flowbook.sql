@@ -61,4 +61,23 @@ CREATE TABLE notice (
 CREATE TABLE type (
   type_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '编号',
   type_name VARCHAR(30) NOT NULL COMMENT '类型名称'
-)
+) CHARSET = utf8;
+
+-- 图书类型对应表
+CREATE TABLE book_type (
+  type_id INT COMMENT '类型编号',
+  book_id INT COMMENT '图书编号',
+  FOREIGN KEY (type_id) REFERENCES type(type_id),
+  FOREIGN KEY (book_id) REFERENCES book(book_id)
+) CHARSET = utf8;
+
+-- 借阅记录表
+CREATE TABLE loan_record (
+  record_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '记录编号',
+  is_out BOOLEAN COMMENT '是否借出标志',
+  record_date DATE COMMENT '借阅时间',
+  book_id INT NOT NULL COMMENT '借阅书籍',
+  user_id INT NOT NULL COMMENT '借阅人',
+  FOREIGN KEY (user_id) REFERENCES user(user_id),
+  FOREIGN KEY (book_id) REFERENCES book(book_id)
+) CHARSET = utf8;
