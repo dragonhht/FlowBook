@@ -3,6 +3,7 @@ package book.flow.service;
 import book.flow.enity.Book;
 import book.flow.enity.Notice;
 import book.flow.enity.User;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 
 /**

@@ -7,6 +7,7 @@ import book.flow.repository.BookRepository;
 import book.flow.repository.NoticeRepository;
 import book.flow.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -103,7 +104,9 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
+    @Cacheable(value = "get_book_id")
     public Book getBookById(int id) {
+        System.out.println("运行");
         Book book = null;
         book = bookRepository.getBookById(id);
         return book;
