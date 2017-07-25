@@ -46,7 +46,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * 查询热门图书（评论最多）.
      * @return 人们图书
      */
-    @Query("select c.book from Comment c group by c.book order by count(c.book) desc")
+    @Query("select b from Book b order by b.comments.size desc")
     Page<Book> getHotBooks(Pageable pageable);
 
     /**

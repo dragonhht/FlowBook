@@ -60,6 +60,12 @@ public interface TouristService {
     Page<Notice> getNotice(int pageNum);
 
     /**
+     * 获取首页需显示的公告信息.
+     * @return 公告信息
+     */
+    Page<Notice> getIndexNotice();
+
+    /**
      * 获取热门图书.
      * @return 热门图书
      */

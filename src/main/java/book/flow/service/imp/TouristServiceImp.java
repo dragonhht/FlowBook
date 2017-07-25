@@ -36,6 +36,7 @@ public class TouristServiceImp implements TouristService {
     private static final int HOT_SIZE = 10;
 
     @Override
+    //@Cacheable(value = "search_book_name")
     public Page<Book> searchBookByBookName(String name, int pageNum) {
         name = "%" + name + "%";
         Page<Book> books = null;
@@ -47,6 +48,7 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
+    @Cacheable(value = "search_book_author")
     public Page<Book> searchBookByBookAuthor(String author, int pageNum) {
         author = "%" + author + "%";
         Page<Book> books = null;
@@ -58,6 +60,7 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
+    @Cacheable(value = "search_book_publish")
     public Page<Book> searchBookByBookPublish(String publish, int pageNum) {
         publish = "%" + publish + "%";
         Page<Book> books = null;
@@ -69,6 +72,7 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
+    @Cacheable(value = "search_user_name")
     public Page<User> searchUserByName(String name, int pageNum) {
         name = "%" + name + "%";
         Page<User> users = null;
@@ -76,7 +80,7 @@ public class TouristServiceImp implements TouristService {
         Sort sort = new Sort(Sort.Direction.ASC, "userId");
         Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
         users = userRepository.searchUserByName(name, pageable);
-        return null;
+        return users;
     }
 
     @Override
@@ -89,13 +93,33 @@ public class TouristServiceImp implements TouristService {
     @Override
     public Page<Notice> getNotice(int pageNum) {
         Page<Notice> notices = null;
-        Sort sort = new Sort(Sort.Direction.DESC, "noticeDate");
-        Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
-        notices = noticeRepository.getNotice(pageable);
+        notices = notice(pageNum, PAGE_SIZE);
         return notices;
     }
 
     @Override
+    public Page<Notice> getIndexNotice() {
+        Page<Notice> notices = null;
+        notices = notice(0, HOT_SIZE);
+        return notices;
+    }
+
+    /**
+     * 获取公告.
+     * @param pageNum 显示的页数
+     * @return 公告信息
+     */
+    private Page<Notice> notice(int pageNum, int pageSize) {
+        Page<Notice> notices = null;
+        Sort sort = new Sort(Sort.Direction.DESC, "noticeDate");
+        Pageable pageable = new PageRequest(pageNum, pageSize, sort);
+        notices = noticeRepository.getNotice(pageable);
+        return notices;
+    }
+
+
+    @Override
+    // @Cacheable(value = "hot_boot")
     public Page<Book> getHotBook() {
         Page<Book> books = null;
         Pageable pageable = new PageRequest(0, HOT_SIZE);

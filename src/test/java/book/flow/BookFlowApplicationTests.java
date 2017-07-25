@@ -94,7 +94,7 @@ public class BookFlowApplicationTests {
         Pageable pageable = new PageRequest(0, 10);
         books = bookRepository.getHotBooks(pageable);
         for (Book book : books) {
-            System.out.println(book);
+            System.out.println(book.getBookId());
         }
     }
 

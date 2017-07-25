@@ -17,7 +17,7 @@ function selectSearchType(n) {
         $(lis[i]).removeClass('active');
     }
     $(n).addClass('active');
-    $('#search_flag').val($(n).children('a').html().trim());
+    $('#search_flag').val($(n).children('a').attr('index').trim());
 }
 
 /** 选择信息标签页. */

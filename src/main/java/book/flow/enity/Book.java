@@ -36,7 +36,7 @@ public class Book implements Serializable {
     /** 评价星级. */
     private int bookStart;
     /** 图书图片. */
-    private String bookImg = "/static/img/21.png";
+    private String bookImg = "/img/21.png";
     /** 上传时间. */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date bookDate;
@@ -237,18 +237,4 @@ public class Book implements Serializable {
         this.contributor = contributor;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "bookId=" + bookId +
-                ", bookName='" + bookName + '\'' +
-                ", author='" + author + '\'' +
-                ", publish='" + publish + '\'' +
-                ", introduction='" + introduction + '\'' +
-                ", bookStart=" + bookStart +
-                ", bookImg='" + bookImg + '\'' +
-                ", bookDate=" + bookDate +
-                ", bookRoute=" + bookRoute +
-                '}';
-    }
 }

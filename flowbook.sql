@@ -10,6 +10,8 @@ CREATE TABLE user (
   user_phone VARCHAR(11) NOT NULL COMMENT '电话号码' ,
   user_img TEXT NOT NULL COMMENT '用户头像',
   user_date DATE NOT NULL COMMENT '用户注册时间',
+  contribute_num INT COMMENT '贡献度',
+  credit INT COMMENT '信用度',
   password TEXT NOT NULL COMMENT '密码'
   CHECK (user_sex IN ('男', '女'))
 ) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;

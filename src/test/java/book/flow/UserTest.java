@@ -1,6 +1,8 @@
 package book.flow;
 
+import book.flow.enity.Notice;
 import book.flow.enity.User;
+import book.flow.repository.NoticeRepository;
 import book.flow.repository.UserRepository;
 import book.flow.utils.PasswordTool;
 import org.junit.Test;
@@ -23,6 +25,8 @@ public class UserTest {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private NoticeRepository noticeRepository;
 
     @Test
     public void testAddUser() {
@@ -47,4 +51,16 @@ public class UserTest {
         System.out.println(user);
     }
 
+    @Test
+    public void addNotice() {
+        User user = new User();
+        user.setUserId(1000000);
+        for (int i = 0; i < 100; i++) {
+            Notice notice = new Notice();
+            notice.setNoticeDate(new Date());
+            notice.setNoticeText("内容：：：：" + i);
+            notice.setUser(user);
+            noticeRepository.save(notice);
+        }
+    }
 }

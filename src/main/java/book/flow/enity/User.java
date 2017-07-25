@@ -63,6 +63,10 @@ public class User implements Serializable {
     @OneToMany
     @JoinColumn(name = "userId")
     private Set<Book> contribution;
+    /** 贡献度. */
+    private Integer contributeNum;
+    /** 信用度. */
+    private Integer credit;
 
 
     /**
@@ -286,6 +290,22 @@ public class User implements Serializable {
 
     public void setContribution(Set<Book> contribution) {
         this.contribution = contribution;
+    }
+
+    public Integer getContributeNum() {
+        return contributeNum;
+    }
+
+    public void setContributeNum(Integer contributeNum) {
+        this.contributeNum = contributeNum;
+    }
+
+    public Integer getCredit() {
+        return credit;
+    }
+
+    public void setCredit(Integer credit) {
+        this.credit = credit;
     }
 
     @Override
