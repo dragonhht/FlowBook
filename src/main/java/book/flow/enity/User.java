@@ -45,7 +45,7 @@ public class User implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date userDate;
     /** 密码. */
-    @Size(min = 1)
+    @Size(min = 1, message = "{user.password.length.error}")
     private String password;
     /** 评论. */
     @OneToMany

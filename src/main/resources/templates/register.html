@@ -29,39 +29,54 @@
         <div class="center_left_div">
             <span class="register_title">注册</span>
             <div class="center_register container">
-                <form class="form-horizontal">
+                <form class="form-horizontal" th:action="@{/tourist/register}" method="post">
 
                     <div class="form-group form_group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>用户名:</label>
                         <div class="col-sm-9 input-group">
-                            <input type="text" class="form-control" placeholder="6~18个字符，可使用字母、数字、下划线，需以字母开头" />
+                            <input type="text" name="userName" class="form-control" placeholder="6~18个字符，可使用字母、数字、下划线，需以字母开头" />
                         </div>
+                    </div>
+                    <div class="form-group" align="center">
+                        <span style="color: red;">&nbsp;</span>
                     </div>
 
                     <div class="form-group form_group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>密码:</label>
                         <div class="col-sm-9 input-group">
-                            <input type="password" class="form-control" placeholder="6~16个字符，区分大小写" />
+                            <input type="password" name="password" class="form-control" placeholder="6~16个字符，区分大小写" />
                         </div>
+                    </div>
+
+                    <div class="form-group" align="center">
+                        <span style="color: red;">&nbsp;</span>
                     </div>
 
                     <div class="form-group form_group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>确认密码:</label>
                         <div class="col-sm-9 input-group">
-                            <input type="password" class="form-control" placeholder="请再次填写密码" />
+                            <input type="password" name="repassword" class="form-control" placeholder="请再次填写密码" />
                         </div>
+                    </div>
+
+                    <div class="form-group"  align="center">
+                        <span style="color: red;">&nbsp;</span>
                     </div>
 
                     <div class="form-group form_group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>手机号码:</label>
                         <div class="col-sm-9 input-group">
-                            <input type="text" class="form-control"/>
+                            <input type="text" name="userPhone" class="form-control"/>
                         </div>
+                    </div>
+
+                    <div class="form-group" align="center">
+                        <span style="color: red;">&nbsp;</span>
                     </div>
 
                     <div class="form-inline register_img_div">
                         <label class="col-lg-2 control-label"><span style="color: red">*</span>验证码:</label>
-                        <div class="col-lg-4">
+                        <div class="col-lg-5">
                             <input type="password" class="form-control" placeholder="请输入验证码" />
                         </div>
                         <div class="col-lg-3">
@@ -72,20 +87,20 @@
                         </div>
                     </div>
 
-                    <div class="form-group form_group">
+                    <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="button" class="btn btn-info">获取短信验证码</button>
                         </div>
                     </div>
 
-                    <div class="form-group form_group">
+                    <div class="form-group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>短信验证码:</label>
                         <div class="col-sm-9 input-group">
-                            <input type="password" class="form-control" placeholder="请查收手机短信，并填写短信中的验证码" />
+                            <input type="password" name="verificationCode" class="form-control" placeholder="请查收手机短信，并填写短信中的验证码" />
                         </div>
                     </div>
 
-                    <div class="form-group form_group">
+                    <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label id="checkboxLabel">
@@ -99,7 +114,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group form_group">
+                    <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" id="register_btn" class="btn btn-info disabled">立即注册</button>
                         </div>

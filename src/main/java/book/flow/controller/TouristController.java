@@ -5,12 +5,18 @@ import book.flow.enity.User;
 import book.flow.service.TouristService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 /**
  * 游客操作控制器.
@@ -61,18 +67,33 @@ public class TouristController {
      * 用户注册.
      * @param user 填写的用户信息
      * @param bindingResult 填写信息检验错误
+     * @param verificationCode 手机验证码
      * @param model 用户返回数据
      * @return 相关结果页面
      */
     @PostMapping("/register")
-    public String register(@Valid User user, BindingResult bindingResult, Model model) {
+    public String register(@Valid User user, BindingResult bindingResult, String verificationCode, Model model){
         if (bindingResult.hasErrors()) {
-            // TODO 检验错误信息
-            return null;
+
+            return "msg";
         }
         User u = touristService.register(user);
         model.addAttribute("userId", u.getUserId());
         return "msg";
+    }
+
+    /**
+     * 检测用户名是否已经注册.
+     * @param userName 用户名
+     * @param response 用于返回信息
+     */
+    @PostMapping("/test_username")
+    public void testUserName(String userName, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        boolean ok;
+        ok = touristService.isUserExist(userName);
+        out.print(ok);
     }
 
 }

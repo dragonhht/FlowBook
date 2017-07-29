@@ -142,4 +142,14 @@ public class TouristServiceImp implements TouristService {
         user = userRepository.getUserById(id);
         return user;
     }
+
+    @Override
+    public boolean isUserExist(String userName) {
+        boolean ok = false;
+        User user = userRepository.getUserByUserName(userName);
+        if (user != null) {
+            ok = true;
+        }
+        return ok;
+    }
 }

@@ -9,3 +9,5 @@ function selectNav(n) {
     }
     $(n).css('color', 'gray');
 }
+
+/** 校验用户名是否存在. */

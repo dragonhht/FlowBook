@@ -84,4 +84,11 @@ public interface TouristService {
      * @return 用户信息
      */
     User getUserById(int id);
+
+    /**
+     * 通过用户名判断用户是否存在.
+     * @param userName 用户名
+     * @return 用户是否存在，true为存在
+     */
+    boolean isUserExist(String userName);
 }

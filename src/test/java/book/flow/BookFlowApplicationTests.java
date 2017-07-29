@@ -30,6 +30,7 @@ public class BookFlowApplicationTests {
     private CommentRepository commentRepository;
     @Autowired
     private BookRouteRepository bookRouteRepository;
+    
 
     @Test
     public void addBook() {
@@ -122,5 +123,13 @@ public class BookFlowApplicationTests {
         }
     }
 
+    @Test
+    public void testGetHotBook() {
+        Pageable pageable = new PageRequest(0, 10);
+        Page<Book> books = bookRepository.getHotBooks(pageable);
+        for (Book book : books) {
+            System.out.println(book.getBookId());
+        }
+    }
 
 }

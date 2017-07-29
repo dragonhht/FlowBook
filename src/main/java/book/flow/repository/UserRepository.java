@@ -38,4 +38,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      */
     @Query("select u from User u where u.userId = ?1")
     User getUserById(int id);
+
+    /**
+     * 通过用户名获取用户.
+     * @param userName 用户名
+     * @return 用户信息
+     */
+    @Query("select u from User u where u.userName = ?1")
+    User getUserByUserName(String userName);
 }
