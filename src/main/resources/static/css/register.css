@@ -74,6 +74,7 @@ a:hover {
 .register_img_div img {
     width: 120px;
     height: 50px;
+    cursor: pointer;
 }
 
 .register_img_div {
@@ -81,6 +82,10 @@ a:hover {
     height: 55px;
     //margin-bottom: 20px;
     width: 550px;
+}
+
+#changImg {
+    cursor: pointer;
 }
 
 .center_right_div {

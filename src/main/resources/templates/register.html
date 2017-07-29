@@ -75,7 +75,7 @@
                     <div class="form-group form_group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>手机号码:</label>
                         <div class="col-sm-9 input-group">
-                            <input type="text" id="userPhone" name="userPhone" class="form-control"/>
+                            <input type="text" id="userPhone" name="userPhone" placeholder="请填入正确的手机号" class="form-control"/>
                         </div>
                     </div>
 
@@ -86,13 +86,13 @@
                     <div class="form-inline register_img_div">
                         <label class="col-lg-2 control-label"><span style="color: red">*</span>验证码:</label>
                         <div class="col-lg-5">
-                            <input type="password" class="form-control" placeholder="请输入验证码" />
+                            <input type="password" name="verificationCode" class="form-control" placeholder="请输入验证码" />
                         </div>
                         <div class="col-lg-3">
-                            <img th:src="@{/img/21.png}" />
+                            <img onclick="changImg()" id="codeImg" th:src="@{/tourist/captcha_image}" />
                         </div>
                         <div class="col-lg-2">
-                            <a href="#">看不清楚?换张图片</a>
+                            <a onclick="changImg()" id="changImg">看不清楚?换张图片</a>
                         </div>
                     </div>
 

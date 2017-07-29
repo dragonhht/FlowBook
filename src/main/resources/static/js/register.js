@@ -85,7 +85,7 @@ $(document).ready(function(){
         } else {
             $('#register_btn').addClass('disabled')
         }
-    })
+    });
 
 });
 
@@ -103,4 +103,9 @@ function registerPost() {
         console.log("失败");
         return false;
     }
+}
+
+// 切换验证码
+function changImg() {
+    $('#codeImg').attr('src','tourist/captcha_image');
 }
