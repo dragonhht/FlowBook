@@ -14,8 +14,8 @@
 <!--顶部-->
 <div class="top_logo">
     <span class="logo_img">
-            <img th:src="@{/img/flowbook1.png}" />
-        </span>
+        <img th:src="@{/img/flowbook1.png}" />
+    </span>
     <ul id="top_ul">
         <li><a th:href="@{/login}" onclick="selectNav(this)">登录</a> | <a  style="color: gray;" th:href="@{/register}" onclick="selectNav(this)">注册</a></li>
         <li><a href="#" onclick="selectNav(this)">活动</a></li>
@@ -31,47 +31,56 @@
             <div class="center_register container">
                 <form class="form-horizontal" th:action="@{/tourist/register}" method="post">
 
+                    <div class="form-group" align="center">
+                        <th:block th:if="${error != null}">
+                            <span th:text="${error}" style="color: red;">&nbsp;</span>
+                        </th:block>
+                        <th:block th:unless="${error != null}">
+                            <span  style="color: red;">&nbsp;</span>
+                        </th:block>
+                    </div>
+
                     <div class="form-group form_group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>用户名:</label>
                         <div class="col-sm-9 input-group">
-                            <input type="text" name="userName" class="form-control" placeholder="6~18个字符，可使用字母、数字、下划线，需以字母开头" />
+                            <input type="text" name="userName" id="userName" class="form-control" placeholder="6~18个字符，可使用字母、数字、下划线，需以字母开头" />
                         </div>
                     </div>
                     <div class="form-group" align="center">
-                        <span style="color: red;">&nbsp;</span>
+                        <span id="userNameMessage" style="color: red;">&nbsp;</span>
                     </div>
 
                     <div class="form-group form_group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>密码:</label>
                         <div class="col-sm-9 input-group">
-                            <input type="password" name="password" class="form-control" placeholder="6~16个字符，区分大小写" />
+                            <input type="password" name="password" id="password" class="form-control" placeholder="6~16个字符，区分大小写" />
                         </div>
                     </div>
 
                     <div class="form-group" align="center">
-                        <span style="color: red;">&nbsp;</span>
+                        <span id="passwordMessage" style="color: red;">&nbsp;</span>
                     </div>
 
                     <div class="form-group form_group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>确认密码:</label>
                         <div class="col-sm-9 input-group">
-                            <input type="password" name="repassword" class="form-control" placeholder="请再次填写密码" />
+                            <input type="password" id="repassword" name="repassword" class="form-control" placeholder="请再次填写密码" />
                         </div>
                     </div>
 
                     <div class="form-group"  align="center">
-                        <span style="color: red;">&nbsp;</span>
+                        <span id="repasswordMessage" style="color: red;">&nbsp;</span>
                     </div>
 
                     <div class="form-group form_group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>手机号码:</label>
                         <div class="col-sm-9 input-group">
-                            <input type="text" name="userPhone" class="form-control"/>
+                            <input type="text" id="userPhone" name="userPhone" class="form-control"/>
                         </div>
                     </div>
 
                     <div class="form-group" align="center">
-                        <span style="color: red;">&nbsp;</span>
+                        <span id="phoneMessage" style="color: red;">&nbsp;</span>
                     </div>
 
                     <div class="form-inline register_img_div">
@@ -116,7 +125,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" id="register_btn" class="btn btn-info disabled">立即注册</button>
+                            <button onclick="return registerPost()" type="submit" id="register_btn" class="btn btn-info disabled">立即注册</button>
                         </div>
                     </div>
 
@@ -137,22 +146,4 @@
         </p>
     </div>
 </body>
-
-<script type="text/javascript">
-    $(function(){
-
-        /** 同意条款. */
-        $('#checkboxLabel').click(function(){
-            //判断复选框是否被选中
-            var isChecked=$('#checkbox').is(':checked');
-            if (isChecked) {
-                $('#register_btn').removeClass('disabled')
-            } else {
-                $('#register_btn').addClass('disabled')
-            }
-        });
-
-    })
-</script>
-
 </html>

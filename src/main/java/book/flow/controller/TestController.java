@@ -21,4 +21,9 @@ public class TestController {
         touristService.getBookById(1000000);
         return "index";
     }
+
+    @RequestMapping("/msg")
+    public String msg() {
+        return "msg";
+    }
 }

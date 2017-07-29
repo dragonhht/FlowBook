@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -74,11 +76,13 @@ public class TouristController {
     @PostMapping("/register")
     public String register(@Valid User user, BindingResult bindingResult, String verificationCode, Model model){
         if (bindingResult.hasErrors()) {
-
-            return "msg";
+            model.addAttribute("error", bindingResult.getFieldError().getDefaultMessage());
+            return "register";
         }
         User u = touristService.register(user);
         model.addAttribute("userId", u.getUserId());
+        model.addAttribute("userName", u.getUserName());
+        model.addAttribute("flag", "registerSeccuss");
         return "msg";
     }
 
@@ -88,12 +92,17 @@ public class TouristController {
      * @param response 用于返回信息
      */
     @PostMapping("/test_username")
-    public void testUserName(String userName, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+    @ResponseBody
+    public boolean testUserName(String userName, HttpServletResponse response) throws IOException {
+        /*response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();*/
         boolean ok;
         ok = touristService.isUserExist(userName);
-        out.print(ok);
+        if (userName == null || "".equals(userName.trim())) {
+            ok = true;
+        }
+        //out.print(ok);
+        return ok;
     }
 
 }

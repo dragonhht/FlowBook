@@ -6,6 +6,7 @@ import book.flow.enity.User;
 import book.flow.repository.BookRepository;
 import book.flow.repository.NoticeRepository;
 import book.flow.repository.UserRepository;
+import book.flow.utils.PasswordTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import book.flow.service.TouristService;
+
+import java.util.Date;
 
 /**
  * 游客操作服务层实现.
@@ -86,6 +89,10 @@ public class TouristServiceImp implements TouristService {
     @Override
     public User register(User user) {
         User u = null;
+        user.setUserDate(new Date());
+        String password = user.getPassword();
+        password = PasswordTool.encryptionMD5(password);
+        user.setPassword(password);
         u = userRepository.save(user);
         return u;
     }

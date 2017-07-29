@@ -37,10 +37,10 @@ public class User implements Serializable {
     @Email(message = "{user.email.format.error}")
     private String userEmail;
     /** 电话号码. */
-    //@Pattern(regexp = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\\\\d{8}$", message = "{user.phone.format.error}")
+    //@Pattern(regexp = "/^1[3|4|5|8][0-9]\\d{4,8}$/", message = "{user.phone.format.error}")
     private String userPhone;
     /** 用户头像. */
-    private String userImg;
+    private String userImg = "/img/21.png";
     /** 注册时间. */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date userDate;
@@ -64,9 +64,9 @@ public class User implements Serializable {
     @JoinColumn(name = "userId")
     private Set<Book> contribution;
     /** 贡献度. */
-    private Integer contributeNum;
+    private Integer contributeNum = 0;
     /** 信用度. */
-    private Integer credit;
+    private Integer credit = 0;
 
 
     /**
