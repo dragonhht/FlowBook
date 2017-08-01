@@ -47,7 +47,7 @@ public class UserTest {
 
     @Test
     public void testLogin() {
-        User user = userRepository.login(10, PasswordTool.encryptionMD5("用户9"));
+        User user = userRepository.loginById(10, PasswordTool.encryptionMD5("用户9"));
         System.out.println(user);
     }
 

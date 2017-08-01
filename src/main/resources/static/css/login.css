@@ -54,6 +54,7 @@ a:hover {
     height: 350px;
     right: 90px;
     top: 125px;
+    padding-top: 30px;
 }
 
 .form_title {
@@ -64,6 +65,11 @@ a:hover {
     margin-top: 20px;
     padding-bottom: 8px;
     font-weight: 700;
+}
+
+.login_tip {
+    margin-left: 50px;
+    color: red;
 }
 
 .login_input_div {

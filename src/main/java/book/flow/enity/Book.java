@@ -54,7 +54,7 @@ public class Book implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "typeId")})
     private Set<Type> types;
     /** 图书贡献者. */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     @JsonBackReference
     private User contributor;

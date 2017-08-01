@@ -23,13 +23,31 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Page<User> searchUserByName(String name, Pageable pageable);
 
     /**
-     * 用户登录查询.
+     * 用户登录查询(通过编号).
      * @param userId 用户编号
      * @param password 用户密码
      * @return 用户信息
      */
     @Query("select u from User u where u.userId = ?1 and u.password = ?2")
-    User login(int userId, String password);
+    User loginById(int userId, String password);
+
+    /**
+     * 用户登录查询(通过用户名).
+     * @param userName 用户名
+     * @param password 用户密码
+     * @return 用户信息
+     */
+    @Query("select u from User u where u.userName = ?1 and u.password = ?2")
+    User loginByName(String userName, String password);
+
+    /**
+     * 用户登录查询(通过用户手机号).
+     * @param userPhone 用户手机号
+     * @param password 用户密码
+     * @return 用户信息
+     */
+    @Query("select u from User u where u.userPhone = ?1 and u.password = ?2")
+    User loginByPhone(String userPhone, String password);
 
     /**
      * 通过编号查询用户.

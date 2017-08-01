@@ -11,8 +11,9 @@ public interface UserService {
 
     /**
      * 用户登录.
-     * @param user 用户信息
+     * @param text 用户名/手机号/编号
+     * @param password 用户密码
      * @return 数据库中的用户信息
      */
-    User login(User user);
+    User login(String text, String password);
 }

@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>用户主页</title>
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="../static/js/jquery-3.2.1.min.js"></script>
-    <script src="../static/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../static/css/user_home.css" />
-    <script src="../static/js/user_home.js" ></script>
+    <meta charset="UTF-8" />
+    <title th:text="${session.user.getUserName() + '的主页'}"></title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/user_home.css}" />
+    <script th:src="@{/js/user_home.js}" ></script>
 </head>
 <body>
-    <!--顶部-->
-    <div class="top_logo">
+<!--顶部-->
+<div class="top_logo">
         <span class="logo_img">
-            <img src="../static/img/flowbook1.png" />
+            <img th:src="@{/img/flowbook1.png}" />
         </span>
-        <ul id="top_ul">
-            <li><a href="./login.html" onclick="selectNav(this)">登录</a> | <a href="./register.html" onclick="selectNav(this)">注册</a></li>
-            <li><a href="#" onclick="selectNav(this)">活动</a></li>
-            <li><a href="./notice.html" onclick="selectNav(this)">公告</a></li>
-            <li><a href="./index.html" onclick="selectNav(this)" style="color: gray;">首页</a></li>
-        </ul>
-    </div>
+    <ul id="top_ul">
+        <li>
+            <th:block th:if="${session.user eq null}">
+                <a th:href="@{/login}" onclick="selectNav(this)">登录</a> |
+                <a th:href="@{/register}" onclick="selectNav(this)">注册</a>
+            </th:block>
+            <th:block th:unless="${session.user eq null}">
+                <a th:href="@{/user/userHome}" onclick="selectNav(this)" th:text="${session.user.getUserName()}"></a> |
+                <a th:href="@{/user/logout}" onclick="selectNav(this)">注销</a>
+            </th:block>
+
+        </li>
+        <li><a href="#" onclick="selectNav(this)">活动</a></li>
+        <li><a th:href="@{/notice}" onclick="selectNav(this)">公告</a></li>
+        <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;">首页</a></li>
+    </ul>
+</div>
 
     <!--页面中部-->
     <div class="center_bg">
@@ -29,13 +39,13 @@
         <!--左边内容-->
         <div class="center_left">
             <div class="user_message_div">
-                <img src="../static/img/21.png" class="img-thumbnail" />
+                <img th:src="@{${session.user.getUserImg()}}" class="img-thumbnail" />
 
                 <div class="center_user">
                     <div class="user_name" onmouseover="showBtn(this)" onmouseout="hideBtn(this)">
-                        <span>用户名</span>
+                        <span th:text="${session.user.getUserName()}"></span>
                         <a class="update_btn" index="name" onclick="showUpdateDiv(this)">
-                            <img title="修改用户名" hidden="hidden" src="../static/img/update.png" />
+                            <img title="修改用户名" hidden="hidden" th:src="@{/img/update.png}" />
                         </a>
                     </div>
                     <div class="message_div">
@@ -52,16 +62,16 @@
                     </div>
                     <div class="message_div" onmouseover="showBtn(this)" onmouseout="hideBtn(this)">
                         <label>手机号码：</label>
-                        <span>12345678978</span>
+                        <span th:text="${session.user.getUserPhone()}"></span>
                         <a class="update_btn" index="phone" onclick="showUpdateDiv(this)">
-                            <img title="修改手机号" hidden="hidden" src="../static/img/update.png" />
+                            <img title="修改手机号" hidden="hidden" th:src="@{/img/update.png}" />
                         </a>
                     </div>
                     <div class="message_div" onmouseover="showBtn(this)" onmouseout="hideBtn(this)">
                         <label>电子邮箱：</label>
-                        <span>1234567879@email.com</span>
+                        <span th:text="${session.user.getUserEmail()}"></span>
                         <a class="update_btn" index="email" onclick="showUpdateDiv(this)">
-                            <img title="修改邮箱" hidden="hidden" src="../static/img/update.png" />
+                            <img title="修改邮箱" hidden="hidden" th:src="@{/img/update.png}" />
                         </a>
                     </div>
                 </div>
@@ -77,47 +87,12 @@
                 </ul>
 
                 <table id="book_contribution" class="table table-responsive">
-                    <tr>
-                        <td>编号</td>
-                        <td>书名</td>
-                        <td>作者</td>
-                        <td>出版社</td>
-                        <td>日期</td>
-                    </tr>
-                    <tr>
-                        <td>A12345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
+                    <tr th:each="book : ${session.user.getContribution()}">
+                        <td th:text="${book.getBookId()}"></td>
+                        <td th:text="${book.getBookName()}"></td>
+                        <td th:text="${book.getAuthor()}"></td>
+                        <td th:text="${book.getPublish()}"></td>
+                        <td th:text="${book.getBookDate()}"></td>
                     </tr>
                 </table>
 
@@ -299,9 +274,9 @@
         <!--右边内容-->
         <div class="center_right">
             <div class="right_img">
-                <img src="../static/img/21.png" class="img-thumbnail" />
+                <img th:src="@{${session.user.getUserImg()}}" class="img-thumbnail" />
                 <div class="img_user">
-                    <span class="user_name">用户名</span><br/>
+                    <span class="user_name" th:text="${session.user.getUserName()}"></span><br/>
                     <div class="img_user_credit">
                         <label>信用：</label>
                         <span>星级现实</span>

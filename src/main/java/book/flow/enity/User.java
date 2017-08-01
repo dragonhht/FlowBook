@@ -60,7 +60,7 @@ public class User implements Serializable {
     @JoinColumn(name = "userId")
     private Set<Notice> notices;
     /** 贡献的图书. */
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private Set<Book> contribution;
     /** 贡献度. */

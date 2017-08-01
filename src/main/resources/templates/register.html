@@ -13,14 +13,24 @@
 
 <!--顶部-->
 <div class="top_logo">
-    <span class="logo_img">
-        <img th:src="@{/img/flowbook1.png}" />
-    </span>
+        <span class="logo_img">
+            <img th:src="@{/img/flowbook1.png}" />
+        </span>
     <ul id="top_ul">
-        <li><a th:href="@{/login}" onclick="selectNav(this)">登录</a> | <a  style="color: gray;" th:href="@{/register}" onclick="selectNav(this)">注册</a></li>
+        <li>
+            <th:block th:if="${session.user eq null}">
+                <a th:href="@{/login}" onclick="selectNav(this)">登录</a> |
+                <a th:href="@{/register}" onclick="selectNav(this)">注册</a>
+            </th:block>
+            <th:block th:unless="${session.user eq null}">
+                <a th:href="@{/user/userHome}" onclick="selectNav(this)" th:text="${session.user.getUserName()}"></a> |
+                <a th:href="@{/user/logout}" onclick="selectNav(this)">注销</a>
+            </th:block>
+
+        </li>
         <li><a href="#" onclick="selectNav(this)">活动</a></li>
         <li><a th:href="@{/notice}" onclick="selectNav(this)">公告</a></li>
-        <li><a th:href="@{/index}" onclick="selectNav(this)" >首页</a></li>
+        <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;">首页</a></li>
     </ul>
 </div>
 
