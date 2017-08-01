@@ -56,7 +56,7 @@ public class User implements Serializable {
     @JoinColumn(name = "userId")
     private Set<BookRoute> bookRoute;
     /** 发布的公告. */
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private Set<Notice> notices;
     /** 贡献的图书. */

@@ -72,4 +72,15 @@ public class LoanRecord implements Serializable {
     public void setBook(Book book) {
         this.book = book;
     }
+
+    @Override
+    public String toString() {
+        return "LoanRecord{" +
+                "recordId=" + recordId +
+                ", recordDate=" + recordDate +
+                ", isOut=" + isOut +
+                ", user=" + user +
+                ", book=" + book +
+                '}';
+    }
 }

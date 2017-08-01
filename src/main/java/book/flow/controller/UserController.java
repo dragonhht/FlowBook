@@ -1,5 +1,6 @@
 package book.flow.controller;
 
+import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
 import book.flow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 用户操作控制器.
@@ -51,11 +53,20 @@ public class UserController {
 
     /**
      * 跳转到用户主页.
+     * @param model 用于返回数据
+     * @param session session
      * @return 用户主页
      */
     @RequestMapping("/userHome")
-    public String userHome() {
-
+    public String userHome(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        int userId = user.getUserId();
+        List<LoanRecord> nowHaveRecode = null;
+        List<LoanRecord> allRecodes = null;
+        nowHaveRecode = userService.getHaveRecode(userId);
+        allRecodes = userService.getAllRecode(userId);
+        model.addAttribute("allRecodes", allRecodes);
+        model.addAttribute("nowRecodes", nowHaveRecode);
         return "user_home";
     }
 

@@ -87,6 +87,15 @@
                 </ul>
 
                 <table id="book_contribution" class="table table-responsive">
+
+                    <tr>
+                        <td>编号</td>
+                        <td>书名</td>
+                        <td>作者</td>
+                        <td>出版社</td>
+                        <td>日期</td>
+                    </tr>
+
                     <tr th:each="book : ${session.user.getContribution()}">
                         <td th:text="${book.getBookId()}"></td>
                         <td th:text="${book.getBookName()}"></td>
@@ -104,114 +113,17 @@
                         <td>出版社</td>
                         <td>日期</td>
                     </tr>
-                    <tr>
-                        <td>A22345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A12345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A12345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A12345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A12345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A12345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A12345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A12345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A12345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A12345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A12345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
+                    <tr th:each="record : ${nowRecodes}">
+                        <td th:text="${record.book.bookId}"></td>
+                        <td th:text="${record.book.bookName}"></td>
+                        <td th:text="${record.book.author}"></td>
+                        <td th:text="${record.book.publish}"></td>
+                        <td th:text="${record.recordDate}"></td>
                     </tr>
                 </table>
 
                 <table id="book_borrow" class="table table-responsive" hidden="hidden">
+
                     <tr>
                         <td>编号</td>
                         <td>书名</td>
@@ -219,52 +131,27 @@
                         <td>出版社</td>
                         <td>日期</td>
                     </tr>
-                    <tr>
-                        <td>A32345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
-                    </tr>
-                    <tr>
-                        <td>A2345</td>
-                        <td>书名</td>
-                        <td>这本书的作者</td>
-                        <td>这就是出版社</td>
-                        <td>2017-07-12 12:03:30</td>
+
+                    <tr th:each="record : ${allRecodes}">
+                        <td th:text="${record.book.bookId}"></td>
+                        <td th:text="${record.book.bookName}"></td>
+                        <td th:text="${record.book.author}"></td>
+                        <td th:text="${record.book.publish}"></td>
+                        <td th:text="${record.recordDate}"></td>
                     </tr>
                 </table>
 
                 <!--发布公告-->
                 <table id="notice" class="table table-striped" hidden="hidden">
+
                     <tr>
-                        <td>公告信息</td>
+                        <td>内容</td>
                         <td>日期</td>
                     </tr>
-                    <tr>
-                        <td>公告信息</td>
-                        <td>日期</td>
+
+                    <tr th:each="notice : ${session.user.getNotices()}">
+                        <td th:text="${notice.getNoticeText()}"></td>
+                        <td th:text="${notice.getNoticeDate()}"></td>
                     </tr>
                 </table>
 

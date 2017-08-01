@@ -236,5 +236,4 @@ public class Book implements Serializable {
     public void setContributor(User contributor) {
         this.contributor = contributor;
     }
-
 }

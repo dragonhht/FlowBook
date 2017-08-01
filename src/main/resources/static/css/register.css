@@ -27,7 +27,7 @@ a:hover {
     list-style: none;
     float: right;
     line-height: 50px;
-    width: 100px;
+    min-width: 100px;
     font-family: 黑体;
     font-size: larger;
     font-weight: bolder;
