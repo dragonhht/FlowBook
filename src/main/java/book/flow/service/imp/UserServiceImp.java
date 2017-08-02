@@ -1,14 +1,8 @@
 package book.flow.service.imp;
 
 import book.flow.BookFlowApplication;
-import book.flow.enity.Book;
-import book.flow.enity.Comment;
-import book.flow.enity.LoanRecord;
-import book.flow.enity.User;
-import book.flow.repository.BookRepository;
-import book.flow.repository.CommentRepository;
-import book.flow.repository.RecordRepository;
-import book.flow.repository.UserRepository;
+import book.flow.enity.*;
+import book.flow.repository.*;
 import book.flow.service.UserService;
 import book.flow.utils.PasswordTool;
 import org.slf4j.Logger;
@@ -37,6 +31,8 @@ public class UserServiceImp implements UserService {
     private BookRepository bookRepository;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private NoticeRepository noticeRepository;
 
     @Override
     public User login(String text, String password) {
@@ -91,6 +87,21 @@ public class UserServiceImp implements UserService {
         comment.setCommentDate(new Date());
         Comment comment1 = commentRepository.save(comment);
         if (comment1 != null) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public boolean addNotice(String text, int userId) {
+        boolean ok = false;
+        Notice notice = new Notice();
+        notice.setNoticeDate(new Date());
+        notice.setNoticeText(text);
+        User user = userRepository.getUserById(userId);
+        notice.setUser(user);
+        Notice n = noticeRepository.save(notice);
+        if (n != null) {
             ok = true;
         }
         return ok;

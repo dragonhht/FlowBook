@@ -9,3 +9,19 @@ function selectNav(n) {
     }
     $(n).css('color', 'gray');
 }
+
+$(document).ready(function () {
+    // 提交期望
+    $('#upload_btn').click(function () {
+        console.log("测试");
+        var text = $('#noticeText').val().trim();
+        $.post("saveNotice",
+            {
+                text : text
+            },
+            function (data) {
+                $('#resultMessage').html(data);
+            }
+        );
+    });
+})

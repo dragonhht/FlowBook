@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -81,6 +83,13 @@ public class UserController {
         return "index";
     }
 
+    /**
+     * 评论图书.
+     * @param text 评论内容
+     * @param bookId 图书编号
+     * @param session session
+     * @return 结果页面
+     */
     @PostMapping("/comment")
     public String comment(String text, int bookId, HttpSession session) {
         User user = (User) session.getAttribute("user");
@@ -90,6 +99,56 @@ public class UserController {
         int userId = user.getUserId();
         userService.addComment(text, userId, bookId);
         return "redirect:/tourist//bookMessage/" + bookId;
+    }
+
+    /**
+     * 跳转图书上传页面.
+     * @return 图书上传页面
+     */
+    @RequestMapping("/uploadBook")
+    public String uploadBook() {
+        return "upload_book";
+    }
+
+    /**
+     * 跳转上传期望页面.
+     * @return 上传页面
+     */
+    @RequestMapping("/uploadNotice")
+    public String uploadNotice() {
+        return "upload_notice";
+    }
+
+    /**
+     * 跳转申请.
+     * @return 申请页面
+     */
+    @RequestMapping("/apply")
+    public String apply() {
+        return "book_apply";
+    }
+
+    /**
+     * 上传期望.
+     * @param text 期望内容
+     * @param session session
+     * @return 结果
+     */
+    @PostMapping("/saveNotice")
+    @ResponseBody
+    public String saveNotice(String text, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        int userId = 0;
+        if (user != null) {
+            userId = user.getUserId();
+        }
+        boolean ok = false;
+        ok = userService.addNotice(text, userId);
+        if (ok) {
+            return "上传成功";
+        } else {
+            return "上传失败";
+        }
     }
 
 }

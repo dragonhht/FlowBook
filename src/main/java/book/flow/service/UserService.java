@@ -50,4 +50,12 @@ public interface UserService {
      * @return 是否成功， true为成功
      */
     boolean addComment(String text, int userId, int bookId);
+
+    /**
+     * 上传期望.
+     * @param text 内容
+     * @param userId 用户编号
+     * @return 是否成功， true为成功
+     */
+    boolean addNotice(String text, int userId);
 }
