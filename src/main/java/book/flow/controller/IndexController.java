@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -36,10 +37,15 @@ public class IndexController {
 
     /**
      * 返回公告页面.
+     * @param pageNum 页数
+     * @param model 用于返回数据
      * @return 公告页面
      */
-    @RequestMapping("/notice")
-    public String notice() {
+    @RequestMapping("/notice/{pageNum}")
+    public String notice(@PathVariable int pageNum, Model model) {
+        Page<Notice> notices;
+        notices = touristService.getNotice(pageNum);
+        model.addAttribute("notices", notices);
         return "notice";
     }
 
