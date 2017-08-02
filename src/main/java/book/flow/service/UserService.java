@@ -41,4 +41,13 @@ public interface UserService {
      * @return 当前拥有记录
      */
     List<LoanRecord> getHaveRecode(int userId);
+
+    /**
+     * 评论图书.
+     * @param text 评论内容
+     * @param userId 评论用户编号
+     * @param bookId 评论的图书
+     * @return 是否成功， true为成功
+     */
+    boolean addComment(String text, int userId, int bookId);
 }

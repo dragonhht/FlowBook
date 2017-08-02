@@ -1,8 +1,12 @@
 package book.flow.service.imp;
 
 import book.flow.BookFlowApplication;
+import book.flow.enity.Book;
+import book.flow.enity.Comment;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
+import book.flow.repository.BookRepository;
+import book.flow.repository.CommentRepository;
 import book.flow.repository.RecordRepository;
 import book.flow.repository.UserRepository;
 import book.flow.service.UserService;
@@ -12,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +33,10 @@ public class UserServiceImp implements UserService {
     private UserRepository userRepository;
     @Autowired
     private RecordRepository recordRepository;
+    @Autowired
+    private BookRepository bookRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Override
     public User login(String text, String password) {
@@ -68,5 +77,22 @@ public class UserServiceImp implements UserService {
         List<LoanRecord> records = null;
         records = recordRepository.getHaveRecodeByUserId(userId);
         return records;
+    }
+
+    @Override
+    public boolean addComment(String text, int userId, int bookId) {
+        boolean ok = false;
+        User user = userRepository.getUserById(userId);
+        Book book = bookRepository.getBookById(bookId);
+        Comment comment = new Comment();
+        comment.setUser(user);
+        comment.setBook(book);
+        comment.setCommentText(text);
+        comment.setCommentDate(new Date());
+        Comment comment1 = commentRepository.save(comment);
+        if (comment1 != null) {
+            ok = true;
+        }
+        return ok;
     }
 }

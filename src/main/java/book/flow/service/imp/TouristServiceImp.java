@@ -1,10 +1,12 @@
 package book.flow.service.imp;
 
 import book.flow.enity.Book;
+import book.flow.enity.LoanRecord;
 import book.flow.enity.Notice;
 import book.flow.enity.User;
 import book.flow.repository.BookRepository;
 import book.flow.repository.NoticeRepository;
+import book.flow.repository.RecordRepository;
 import book.flow.repository.UserRepository;
 import book.flow.utils.PasswordTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import book.flow.service.TouristService;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 游客操作服务层实现.
@@ -32,6 +35,8 @@ public class TouristServiceImp implements TouristService {
     private UserRepository userRepository;
     @Autowired
     private NoticeRepository noticeRepository;
+    @Autowired
+    private RecordRepository recordRepository;
 
     /** 分页， 每页显示的最大数量. */
     private static final int PAGE_SIZE = 20;
@@ -51,7 +56,7 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
-    @Cacheable(value = "search_book_author")
+    // @Cacheable(value = "search_book_author")
     public Page<Book> searchBookByBookAuthor(String author, int pageNum) {
         author = "%" + author + "%";
         Page<Book> books = null;
@@ -63,7 +68,7 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
-    @Cacheable(value = "search_book_publish")
+    // @Cacheable(value = "search_book_publish")
     public Page<Book> searchBookByBookPublish(String publish, int pageNum) {
         publish = "%" + publish + "%";
         Page<Book> books = null;
@@ -75,7 +80,7 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
-    @Cacheable(value = "search_user_name")
+    // @Cacheable(value = "search_user_name")
     public Page<User> searchUserByName(String name, int pageNum) {
         name = "%" + name + "%";
         Page<User> users = null;
@@ -135,7 +140,7 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
-    @Cacheable(value = "get_book_id")
+    // @Cacheable(value = "get_book_id")
     public Book getBookById(int id) {
         System.out.println("运行");
         Book book = null;
@@ -158,5 +163,19 @@ public class TouristServiceImp implements TouristService {
             ok = true;
         }
         return ok;
+    }
+
+    @Override
+    public User getNowOwner(int bookId) {
+        User user = null;
+        user = recordRepository.getNowOwnerByBookId(bookId);
+        return user;
+    }
+
+    @Override
+    public List<LoanRecord> getRecordByBookId(int bookId) {
+        List<LoanRecord> records;
+        records = recordRepository.getRecordByBookId(bookId);
+        return records;
     }
 }

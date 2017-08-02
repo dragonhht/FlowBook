@@ -1,10 +1,13 @@
 package book.flow.service;
 
 import book.flow.enity.Book;
+import book.flow.enity.LoanRecord;
 import book.flow.enity.Notice;
 import book.flow.enity.User;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 /**
  * 游客操作服务层接口.
@@ -91,4 +94,18 @@ public interface TouristService {
      * @return 用户是否存在，true为存在
      */
     boolean isUserExist(String userName);
+
+    /**
+     * 通过图书编号获取图书当前的拥有者.
+     * @param bookId 图书编号
+     * @return 用户信息
+     */
+    User getNowOwner(int bookId);
+
+    /**
+     * 通过图书查询图书记录.
+     * @param bookId 图书编号
+     * @return 图书记录
+     */
+    List<LoanRecord> getRecordByBookId(int bookId);
 }

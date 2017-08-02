@@ -32,6 +32,8 @@ public class LoanRecord implements Serializable {
     @ManyToOne
     @JoinColumn(name = "bookId")
     private Book book;
+    /** 评价. */
+    private String recordText;
 
     public Integer getRecordId() {
         return recordId;
@@ -71,6 +73,14 @@ public class LoanRecord implements Serializable {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public String getRecordText() {
+        return recordText;
+    }
+
+    public void setRecordText(String recordText) {
+        this.recordText = recordText;
     }
 
     @Override

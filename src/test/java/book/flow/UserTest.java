@@ -1,13 +1,7 @@
 package book.flow;
 
-import book.flow.enity.Book;
-import book.flow.enity.LoanRecord;
-import book.flow.enity.Notice;
-import book.flow.enity.User;
-import book.flow.repository.BookRepository;
-import book.flow.repository.NoticeRepository;
-import book.flow.repository.RecordRepository;
-import book.flow.repository.UserRepository;
+import book.flow.enity.*;
+import book.flow.repository.*;
 import book.flow.utils.PasswordTool;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +30,8 @@ public class UserTest {
     private BookRepository bookRepository;
     @Autowired
     private RecordRepository recordRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
     @Test
     public void testAddUser() {
@@ -58,12 +54,6 @@ public class UserTest {
     public void testLogin() {
         User user = userRepository.loginById(1000009, PasswordTool.encryptionMD5("用户9"));
         Book book = bookRepository.getBookById(1000000);
-        LoanRecord record = new LoanRecord();
-        record.setBook(book);
-        record.setOut(true);
-        record.setRecordDate(new Date());
-        record.setUser(user);
-        recordRepository.save(record);
         userRepository.save(user);
     }
 
@@ -81,9 +71,29 @@ public class UserTest {
     }
     @Test
     public void testRecode() {
-        List<LoanRecord> records = recordRepository.getRecodeByUserId(1000009);
-        for (LoanRecord record : records) {
-            System.out.println(record);
+        User user = userRepository.getUserById(1000002);
+        Book book = bookRepository.getBookById(1000002);
+        LoanRecord record = new LoanRecord();
+        record.setUser(user);
+        record.setRecordDate(new Date());
+        record.setOut(false);
+        record.setBook(book);
+        recordRepository.save(record);
+    }
+
+    @Test
+    public void addComment() throws InterruptedException {
+        User user = userRepository.getUserById(1000002);
+        Book book = bookRepository.getBookById(1000002);
+        for (int i = 0; i < 100; i++) {
+            Comment comment = new Comment();
+            comment.setBook(book);
+            comment.setUser(user);
+            comment.setCommentDate(new Date());
+            comment.setCommentText("评论内容：：： " + i);
+            commentRepository.save(comment);
+            Thread.sleep(1000);
         }
     }
+
 }

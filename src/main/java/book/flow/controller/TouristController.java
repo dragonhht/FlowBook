@@ -1,20 +1,16 @@
 package book.flow.controller;
 
 import book.flow.enity.Book;
+import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
 import book.flow.service.TouristService;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.*;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +20,7 @@ import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 /**
  * 游客操作控制器.
@@ -123,8 +118,8 @@ public class TouristController {
 
     /**
      * 验证码.
-     * @param request
-     * @param response
+     * @param request HttpServletRequest
+     * @param response HttpServletResponse
      * @throws Exception
      */
     @RequestMapping(value = "/captcha_image")
@@ -155,6 +150,43 @@ public class TouristController {
         responseOutputStream.write(captchaChallengeAsJpeg);
         responseOutputStream.flush();
         responseOutputStream.close();
+    }
+
+    /**
+     * 获取图书详细信息.
+     * @param bookId 图书编号
+     * @param model 用于返回数据
+     * @return 详细信息页面
+     */
+    @RequestMapping("/bookMessage/{bookId}")
+    public String bookInformation(@PathVariable("bookId") int bookId, Model model) {
+        Book book = null;
+        User user = null;
+        List<LoanRecord> records;
+        int commentSize = 0;
+        book = touristService.getBookById(bookId);
+        user = touristService.getNowOwner(bookId);
+        commentSize = book.getComments().size();
+        records = touristService.getRecordByBookId(bookId);
+        model.addAttribute("book", book);
+        model.addAttribute("nowOwner", user);
+        model.addAttribute("commentSize", commentSize);
+        model.addAttribute("records", records);
+        return "book_information";
+    }
+
+    /**
+     * 用户信息界面.
+     * @param userId 用户编号
+     * @param model 用于返回信息
+     * @return 用户信息界面
+     */
+    @RequestMapping("/user/{userId}")
+    public String userMessage(@PathVariable int userId, Model model) {
+        User user = null;
+        user= touristService.getUserById(userId);
+        model.addAttribute("user", user);
+        return "user";
     }
 
 }

@@ -308,6 +308,7 @@ public class User implements Serializable {
         this.credit = credit;
     }
 
+
     @Override
     public String toString() {
         return "User{" +

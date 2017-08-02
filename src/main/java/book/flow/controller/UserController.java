@@ -81,4 +81,15 @@ public class UserController {
         return "index";
     }
 
+    @PostMapping("/comment")
+    public String comment(String text, int bookId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "index";
+        }
+        int userId = user.getUserId();
+        userService.addComment(text, userId, bookId);
+        return "redirect:/tourist//bookMessage/" + bookId;
+    }
+
 }

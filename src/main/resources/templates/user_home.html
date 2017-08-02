@@ -159,53 +159,7 @@
         </div>
 
         <!--右边内容-->
-        <div class="center_right">
-            <div class="right_img">
-                <img th:src="@{${session.user.getUserImg()}}" class="img-thumbnail" />
-                <div class="img_user">
-                    <span class="user_name" th:text="${session.user.getUserName()}"></span><br/>
-                    <div class="img_user_credit">
-                        <label>信用：</label>
-                        <span>星级现实</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="right_select">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="./user_home.html">
-                            个人信息
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="./upload_book.html">
-                            新书漂流
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">
-                            我的好友
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="./upload_notice.html">
-                            我的书籍期望
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="./book_apply.html">
-                            申请
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">
-                            图书传阅
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <div class="center_right" th:include="assembly::user_right"></div>
     </div>
 
     <!--修改用户名-->

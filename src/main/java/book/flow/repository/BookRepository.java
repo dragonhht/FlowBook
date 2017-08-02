@@ -56,4 +56,5 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      */
     @Query("select b from Book b where b.bookId = ?1")
     Book getBookById(int id);
+
 }

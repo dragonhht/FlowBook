@@ -47,6 +47,7 @@ public class Book implements Serializable {
     /** 评论. */
     @OneToMany
     @JoinColumn(name = "bookId")
+    @OrderBy("commentDate desc")
     private Set<Comment> comments;
     /** 图书类型. */
     @ManyToMany(cascade = {}, fetch = FetchType.EAGER)
@@ -236,4 +237,5 @@ public class Book implements Serializable {
     public void setContributor(User contributor) {
         this.contributor = contributor;
     }
+
 }
