@@ -87,13 +87,11 @@ public class TouristController {
 
         // 校验图片验证码
         String captchaId = (String) session.getAttribute("vrifyCode");
-        System.out.println("正确验证码" + captchaId);
-        System.out.println("输入的验证码：" + verificationCode);
 
-        /*User u = touristService.register(user);
+        User u = touristService.register(user);
         model.addAttribute("userId", u.getUserId());
         model.addAttribute("userName", u.getUserName());
-        model.addAttribute("flag", "registerSeccuss");*/
+        model.addAttribute("flag", "registerSeccuss");
         return "msg";
     }
 

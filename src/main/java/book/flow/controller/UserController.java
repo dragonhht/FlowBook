@@ -1,5 +1,6 @@
 package book.flow.controller;
 
+import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
 import book.flow.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
@@ -149,6 +151,34 @@ public class UserController {
         } else {
             return "上传失败";
         }
+    }
+
+    /**
+     * 上传图书.
+     * @param book 图书信息
+     * @param bindingResult 校验信息
+     * @param model model
+     * @param session session
+     * @param uploadImg 上传的图书封面
+     * @return 相应的结果页面
+     */
+    @PostMapping("/saveBook")
+    public String saveBook(@Valid Book book, BindingResult bindingResult, Model model, HttpSession session,
+                           MultipartFile uploadImg) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", bindingResult.getFieldError().getDefaultMessage());
+            return "upload_book";
+        }
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId = user.getUserId();
+            Book b = userService.uploadBook(book, userId);
+            session.setAttribute("user", b);
+            model.addAttribute("bookId", b.getBookId());
+            model.addAttribute("flag", "uploadBookSuccess");
+            return "msg";
+        }
+        return "redirect:/500";
     }
 
 }

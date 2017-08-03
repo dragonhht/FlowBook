@@ -251,7 +251,7 @@
                     <li th:each="hotBook : ${hotBook}">
                         <div class="book_div" align="right">
                             <a th:href="@{/tourist/bookMessage/{bookId}(bookId = ${hotBook.bookId})}" target="_blank" >
-                                <img th:src="${hotBook.bookImg}" /><br/>
+                                <img th:src="@{${hotBook.bookImg}}" /><br/>
                                 <span th:text="${hotBook.bookName}"></span>
                             </a>
                         </div>

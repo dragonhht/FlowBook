@@ -47,6 +47,13 @@
                 <span th:text="${'您的用户名为：' + userName + ' , 编号为：' + userId}"></span><br/><br/>
                 <a class="btn btn-danger" th:href="@{/login}">前去登录</a>
             </th:block>
+
+            <!--图书上传成功成功-->
+            <th:block th:if="${ flag eq 'uploadBookSuccess'}">
+                <span style="font-size: large;font-weight: bold">上传成功</span><br/><br/>
+                <span th:text="${'图书漂流编号为：' + bookId}"></span><br/><br/>
+                <a class="btn btn-danger" th:href="@{/user/userHome}">查看我的贡献</a>
+            </th:block>
         </div>
 
     </div>

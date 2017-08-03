@@ -1,5 +1,6 @@
 package book.flow.service;
 
+import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
 import sun.rmi.server.LoaderHandler;
@@ -58,4 +59,12 @@ public interface UserService {
      * @return 是否成功， true为成功
      */
     boolean addNotice(String text, int userId);
+
+    /**
+     * 上传图书.
+     * @param book 图书信息
+     * @param userId 用户编号
+     * @return 保存后的图书信息
+     */
+    Book uploadBook(Book book, int userId);
 }

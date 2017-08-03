@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -105,5 +106,21 @@ public class UserServiceImp implements UserService {
             ok = true;
         }
         return ok;
+    }
+
+    @Override
+    @Transactional
+    public Book uploadBook(Book book, int userId) {
+        User user = userRepository.getUserById(userId);
+        book.setBookDate(new Date());
+        book.setContributor(user);
+        Book b = bookRepository.save(book);
+        LoanRecord record = new LoanRecord();
+        record.setBook(book);
+        record.setOut(false);
+        record.setRecordDate(new Date());
+        record.setUser(user);
+        recordRepository.save(record);
+        return b;
     }
 }
