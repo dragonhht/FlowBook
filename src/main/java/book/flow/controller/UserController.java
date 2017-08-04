@@ -178,6 +178,7 @@ public class UserController {
             Book b = userService.uploadBook(book, userId);
             String imgPath = "bookCover/" + userId + "/" + b.getBookId() + ".png";
             imgPath = fileService.store(uploadImg, imgPath);
+            imgPath = "http://localhost:8080/FlowBook/files/" + imgPath;
             System.out.println("封面路径" + imgPath);
             userService.updateBookImg(imgPath, b.getBookId());
             session.setAttribute("user", b);

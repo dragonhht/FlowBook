@@ -182,8 +182,11 @@ public class TouristController {
     @RequestMapping("/user/{userId}")
     public String userMessage(@PathVariable int userId, Model model) {
         User user = null;
+        List<LoanRecord> records = null;
         user= touristService.getUserById(userId);
+        records = touristService.getRecordsByUserId(userId);
         model.addAttribute("user", user);
+        model.addAttribute("records", records);
         return "user";
     }
 

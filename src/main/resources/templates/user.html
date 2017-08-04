@@ -53,10 +53,10 @@
 
         <div class="center_user">
             <div class="user_img">
-                <img class="img-thumbnail" th:src="@{/img/21.png}" />
+                <img class="img-thumbnail" th:src="@{${user.userImg}}" />
             </div>
             <div class="user_message">
-                <div class="user_message_name">用户名</div>
+                <div class="user_message_name" th:text="${user.userName}"></div>
                 <div class="user_credit user_message_message">
                     <label>用户信用：</label>
                     <div>星级显示</div>
@@ -95,40 +95,12 @@
                     <td>出版社</td>
                     <td>日期</td>
                 </tr>
-                <tr>
-                    <td>A2345</td>
-                    <td>书名</td>
-                    <td>这本书的作者</td>
-                    <td>这就是出版社</td>
-                    <td>2017-07-12 12:03:30</td>
-                </tr>
-                <tr>
-                    <td>A2345</td>
-                    <td>书名</td>
-                    <td>这本书的作者</td>
-                    <td>这就是出版社</td>
-                    <td>2017-07-12 12:03:30</td>
-                </tr>
-                <tr>
-                    <td>A2345</td>
-                    <td>书名</td>
-                    <td>这本书的作者</td>
-                    <td>这就是出版社</td>
-                    <td>2017-07-12 12:03:30</td>
-                </tr>
-                <tr>
-                    <td>A2345</td>
-                    <td>书名</td>
-                    <td>这本书的作者</td>
-                    <td>这就是出版社</td>
-                    <td>2017-07-12 12:03:30</td>
-                </tr>
-                <tr>
-                    <td>A2345</td>
-                    <td>书名</td>
-                    <td>这本书的作者</td>
-                    <td>这就是出版社</td>
-                    <td>2017-07-12 12:03:30</td>
+                <tr th:each="book : ${user.contribution}">
+                    <td th:text="${book.bookId}"></td>
+                    <td th:text="${book.bookName}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.publish}"></td>
+                    <td th:text="${book.bookDate}"></td>
                 </tr>
             </table>
 
@@ -141,40 +113,12 @@
                     <td>出版社</td>
                     <td>日期</td>
                 </tr>
-                <tr>
-                    <td>A122345</td>
-                    <td>书名</td>
-                    <td>这本书的作者</td>
-                    <td>这就是出版社</td>
-                    <td>2017-07-12 12:03:30</td>
-                </tr>
-                <tr>
-                    <td>A2345</td>
-                    <td>书名</td>
-                    <td>这本书的作者</td>
-                    <td>这就是出版社</td>
-                    <td>2017-07-12 12:03:30</td>
-                </tr>
-                <tr>
-                    <td>A2345</td>
-                    <td>书名</td>
-                    <td>这本书的作者</td>
-                    <td>这就是出版社</td>
-                    <td>2017-07-12 12:03:30</td>
-                </tr>
-                <tr>
-                    <td>A2345</td>
-                    <td>书名</td>
-                    <td>这本书的作者</td>
-                    <td>这就是出版社</td>
-                    <td>2017-07-12 12:03:30</td>
-                </tr>
-                <tr>
-                    <td>A2345</td>
-                    <td>书名</td>
-                    <td>这本书的作者</td>
-                    <td>这就是出版社</td>
-                    <td>2017-07-12 12:03:30</td>
+                <tr th:each="record : ${records}">
+                    <td th:text="${record.book.bookId}"></td>
+                    <td th:text="${record.book.bookName}"></td>
+                    <td th:text="${record.book.author}"></td>
+                    <td th:text="${record.book.publish}"></td>
+                    <td th:text="${record.recordDate}"></td>
                 </tr>
             </table>
 
@@ -184,9 +128,9 @@
                     <td>公告信息</td>
                     <td>日期</td>
                 </tr>
-                <tr>
-                    <td>公告信息</td>
-                    <td>日期</td>
+                <tr th:each="notice : ${user.notices}">
+                    <td th:text="${notice.noticeText}"></td>
+                    <td th:text="${notice.noticeDate}"></td>
                 </tr>
             </table>
         </div>

@@ -190,4 +190,11 @@ public class TouristServiceImp implements TouristService {
         num = num / PAGE_SIZE + add;
         return num;
     }
+
+    @Override
+    public List<LoanRecord> getRecordsByUserId(int userId) {
+        List<LoanRecord> records = null;
+        records = recordRepository.getRecodeByUserId(userId);
+        return records;
+    }
 }

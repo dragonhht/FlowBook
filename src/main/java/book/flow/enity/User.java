@@ -58,6 +58,7 @@ public class User implements Serializable {
     /** 发布的公告. */
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
+    @OrderBy("noticeDate desc")
     private Set<Notice> notices;
     /** 贡献的图书. */
     @OneToMany(fetch = FetchType.EAGER)

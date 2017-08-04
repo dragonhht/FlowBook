@@ -114,4 +114,11 @@ public interface TouristService {
      * @return 公告数量
      */
     long getNoticesPageCount();
+
+    /**
+     * 通过用户编号查询所有记录.
+     * @param userId 用户编号
+     * @return 用户的借阅记录
+     */
+    List<LoanRecord> getRecordsByUserId(int userId);
 }
