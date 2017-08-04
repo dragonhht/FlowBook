@@ -22,16 +22,25 @@ public class FileServiceImp implements FileService {
     private final static Logger logger = LoggerFactory.getLogger(BookFlowApplication.class);
 
     @Override
-    public void store(MultipartFile file, String path, int bookId) {
+    public String store(MultipartFile file, String path) {
 
-        path =  "file-dir/" + path;
+        path = rootLacation + path;
         Path location = Paths.get(path);
+        if (Files.notExists(location)) {
+            try {
+                Files.createDirectories(location);
+            } catch (IOException e) {
+                logger.debug("文件目录创建失败");
+            }
+        }
         // 保存文件
         try {
-            Files.copy(file.getInputStream(), location.resolve(bookId + ".png"));
-            System.out.println(location.relativize(location));
+            Files.deleteIfExists(location);
+            Files.copy(file.getInputStream(), location);
+            return location.toString();
         } catch (IOException e) {
-            logger.info("图片保存失败");
+            logger.debug("文件保存失败", e);
+            return null;
         }
     }
 }

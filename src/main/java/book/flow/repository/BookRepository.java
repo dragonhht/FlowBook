@@ -57,4 +57,12 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("select b from Book b where b.bookId = ?1")
     Book getBookById(int id);
 
+    /**
+     * 更新图书封面图片.
+     * @param imgPath 图片路径
+     * @param bookId 图书编号
+     */
+    @Query("update Book b set b.bookImg = ?1 where b.bookId = ?2")
+    void updateBookImg(String imgPath, int bookId);
+
 }

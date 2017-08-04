@@ -44,8 +44,12 @@ public class IndexController {
     @RequestMapping("/notice/{pageNum}")
     public String notice(@PathVariable int pageNum, Model model) {
         Page<Notice> notices;
+        model.addAttribute("nowPage", pageNum);
+        pageNum = pageNum - 1;
         notices = touristService.getNotice(pageNum);
+        long pageCount = touristService.getNoticesPageCount();
         model.addAttribute("notices", notices);
+        model.addAttribute("lastPage", pageCount);
         return "notice";
     }
 

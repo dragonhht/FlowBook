@@ -41,7 +41,7 @@
         <div class="center_left_title" align="center">
             <span>上传我的无用书籍</span>
         </div>
-        <form class="form-horizontal" th:action="@{/user/saveBook}" method="post">
+        <form class="form-horizontal" enctype="multipart/form-data" th:action="@{/user/saveBook}" method="post">
             <div class="form-group" style="margin-left: auto;margin-right: auto;">
                 <label class="col-sm-2 control-label">图书名：</label>
                 <div class="col-sm-7">

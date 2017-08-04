@@ -10,10 +10,15 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FileService {
 
     /**
+     * 文件根目录.
+     */
+    String rootLacation = "file-dir/";
+
+    /**
      * 保存.
      * @param file 文件
      * @param path 文件保存路径
-     * @param bookId 图书编号
+     * @return 文件路径
      */
-    void store(MultipartFile file, String path, int bookId);
+    String store(MultipartFile file, String path);
 }

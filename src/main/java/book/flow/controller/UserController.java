@@ -3,6 +3,7 @@ package book.flow.controller;
 import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
+import book.flow.service.FileService;
 import book.flow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private FileService fileService;
 
     /**
      * 用户登录.
@@ -48,7 +51,7 @@ public class UserController {
         User u = userService.login(text.trim(), password.trim());
         if (u != null) {
             session.setAttribute("user", u);
-            return "index";
+            return "redirect: /index";
         } else {
             model.addAttribute("error", "用户不存在或密码错误");
             return "login";
@@ -173,6 +176,10 @@ public class UserController {
         if (user != null) {
             int userId = user.getUserId();
             Book b = userService.uploadBook(book, userId);
+            String imgPath = "bookCover/" + userId + "/" + b.getBookId() + ".png";
+            imgPath = fileService.store(uploadImg, imgPath);
+            System.out.println("封面路径" + imgPath);
+            userService.updateBookImg(imgPath, b.getBookId());
             session.setAttribute("user", b);
             model.addAttribute("bookId", b.getBookId());
             model.addAttribute("flag", "uploadBookSuccess");

@@ -178,4 +178,16 @@ public class TouristServiceImp implements TouristService {
         records = recordRepository.getRecordByBookId(bookId);
         return records;
     }
+
+    @Override
+    public long getNoticesPageCount() {
+        long num = 0;
+        int add = 0;
+        num = noticeRepository.count();
+        if (num % PAGE_SIZE != 0) {
+            add = 1;
+        }
+        num = num / PAGE_SIZE + add;
+        return num;
+    }
 }

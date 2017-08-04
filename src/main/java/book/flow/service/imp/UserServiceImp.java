@@ -123,4 +123,9 @@ public class UserServiceImp implements UserService {
         recordRepository.save(record);
         return b;
     }
+
+    @Override
+    public void updateBookImg(String imgPath, int bookId) {
+        bookRepository.updateBookImg(imgPath, bookId);
+    }
 }

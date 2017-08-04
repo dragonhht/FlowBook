@@ -108,4 +108,10 @@ public interface TouristService {
      * @return 图书记录
      */
     List<LoanRecord> getRecordByBookId(int bookId);
+
+    /**
+     * 获取公告总数.
+     * @return 公告数量
+     */
+    long getNoticesPageCount();
 }

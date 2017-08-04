@@ -67,4 +67,11 @@ public interface UserService {
      * @return 保存后的图书信息
      */
     Book uploadBook(Book book, int userId);
+
+    /**
+     * 更新图书封面.
+     * @param imgPath 封面路径
+     * @param bookId 图书编号
+     */
+    void updateBookImg(String imgPath, int bookId);
 }
