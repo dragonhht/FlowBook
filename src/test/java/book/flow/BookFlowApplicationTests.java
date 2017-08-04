@@ -132,4 +132,10 @@ public class BookFlowApplicationTests {
         }
     }
 
+    @Test
+    public void testCount() {
+        long n = bookRepository.getBookCountByBookName("%图%");
+        System.out.println(n);
+    }
+
 }

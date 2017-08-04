@@ -22,6 +22,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select u from User u where u.userName like ?1")
     Page<User> searchUserByName(String name, Pageable pageable);
 
+    @Query("select count(u) from User u where u.userName like ?1")
+    long getSearchUserCount(String name);
+
     /**
      * 用户登录查询(通过编号).
      * @param userId 用户编号

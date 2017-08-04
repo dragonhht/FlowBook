@@ -44,27 +44,43 @@ public class TouristController {
      * @param pageNum 页数
      * @return 查询到的结果
      */
-    @PostMapping("/search")
+    @GetMapping("/search")
     public String search(Model model, String searchText, String target, int pageNum) {
+        model.addAttribute("nowPage", pageNum);
+        pageNum = pageNum - 1;
         if ("user".equals(target)) {            // 搜索用户
             Page<User> users = null;
             users = touristService.searchUserByName(searchText, pageNum);
+            long size = touristService.getSearchUserPageSize(searchText);
+            model.addAttribute("lastPage", size);
             model.addAttribute("users", users);
+            model.addAttribute("searchText", searchText);
+            model.addAttribute("target", "user");
             return "user_list";
         } else {                                // 搜索图书
             Page<Book> books = null;
             if ("bookName".equals(target)) {    // 按书名查找
                 books = touristService.searchBookByBookName(searchText, pageNum);
+                long size = touristService.getBookCountByBookName(searchText);
+                model.addAttribute("lastPage", size);
                 model.addAttribute("books", books);
+                model.addAttribute("target", "bookName");
             }
             if ("author".equals(target)) {    // 按作者查找
                 books = touristService.searchBookByBookAuthor(searchText, pageNum);
+                long size = touristService.getBookCountByBookAuthor(searchText);
+                model.addAttribute("lastPage", size);
                 model.addAttribute("books", books);
+                model.addAttribute("target", "author");
             }
             if ("publish".equals(target)) {    // 按出版社查找
                 books = touristService.searchBookByBookPublish(searchText, pageNum);
+                long size = touristService.getBookCountByBookPublish(searchText);
+                model.addAttribute("lastPage", size);
                 model.addAttribute("books", books);
+                model.addAttribute("target", "publish");
             }
+            model.addAttribute("searchText", searchText);
             return "book_list";
         }
     }

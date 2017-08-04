@@ -4,9 +4,7 @@ import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.Notice;
 import book.flow.enity.User;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
-
 import java.util.List;
 
 /**
@@ -39,6 +37,28 @@ public interface TouristService {
      * @return 查找到的结果
      */
     Page<Book> searchBookByBookPublish(String publish, int pageNum);
+
+
+    /**
+     * 通过书名搜索图书获得的数量.
+     * @param name 图书名
+     * @return 搜索结果数量
+     */
+    long getBookCountByBookName(String name);
+
+    /**
+     * 通过图书作者搜索图书获得的数量.
+     * @param author 作者名
+     * @return 搜索结果的数量
+     */
+    long getBookCountByBookAuthor(String author);
+
+    /**
+     * 通过图书出版社搜索图书获得的数量.
+     * @param publish 出版社
+     * @return 搜索结果的数量
+     */
+    long getBookCountByBookPublish(String publish);
 
     /**
      * 通过用户名查找用户.
@@ -121,4 +141,11 @@ public interface TouristService {
      * @return 用户的借阅记录
      */
     List<LoanRecord> getRecordsByUserId(int userId);
+
+    /**
+     * 获取通过用户名查询到的分页页数.
+     * @param name 用户名
+     * @return 页数
+     */
+    long getSearchUserPageSize(String name);
 }

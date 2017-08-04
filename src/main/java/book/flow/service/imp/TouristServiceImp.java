@@ -80,6 +80,42 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
+    public long getBookCountByBookName(String name) {
+        name = "%" + name + "%";
+        long count = bookRepository.getBookCountByBookName(name);
+        int add = 0;
+        if (count % PAGE_SIZE != 0) {
+            add = 1;
+        }
+        count = count/PAGE_SIZE + add;
+        return count;
+    }
+
+    @Override
+    public long getBookCountByBookAuthor(String author) {
+        author = "%" + author + "%";
+        long count = bookRepository.getBookCountByBookAuthor(author);
+        int add = 0;
+        if (count % PAGE_SIZE != 0) {
+            add = 1;
+        }
+        count = count/PAGE_SIZE + add;
+        return count;
+    }
+
+    @Override
+    public long getBookCountByBookPublish(String publish) {
+        publish = "%" + publish + "%";
+        long count = bookRepository.getBookCountByBookPublish(publish);
+        int add = 0;
+        if (count % PAGE_SIZE != 0) {
+            add = 1;
+        }
+        count = count/PAGE_SIZE + add;
+        return count;
+    }
+
+    @Override
     // @Cacheable(value = "search_user_name")
     public Page<User> searchUserByName(String name, int pageNum) {
         name = "%" + name + "%";
@@ -196,5 +232,17 @@ public class TouristServiceImp implements TouristService {
         List<LoanRecord> records = null;
         records = recordRepository.getRecodeByUserId(userId);
         return records;
+    }
+
+    @Override
+    public long getSearchUserPageSize(String name) {
+        name = "%" + name + "%";
+        long count = userRepository.getSearchUserCount(name);
+        int add = 0;
+        if (count % PAGE_SIZE != 0) {
+            add = 1;
+        }
+        count = count + add;
+        return count;
     }
 }
