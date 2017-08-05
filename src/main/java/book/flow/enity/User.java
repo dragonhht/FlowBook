@@ -52,7 +52,7 @@ public class User implements Serializable {
     @JoinColumn(name = "userId")
     private Set<Comment> comments;
     /** 图书路线. */
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private Set<BookRoute> bookRoute;
     /** 发布的公告. */
@@ -68,6 +68,10 @@ public class User implements Serializable {
     private Integer contributeNum = 0;
     /** 信用度. */
     private Integer credit = 0;
+    /** 申请. */
+    @OneToMany
+    @JoinColumn(name = "userId")
+    private Set<Apply> applies;
 
 
     /**
@@ -309,6 +313,13 @@ public class User implements Serializable {
         this.credit = credit;
     }
 
+    public Set<Apply> getApplies() {
+        return applies;
+    }
+
+    public void setApplies(Set<Apply> applies) {
+        this.applies = applies;
+    }
 
     @Override
     public String toString() {

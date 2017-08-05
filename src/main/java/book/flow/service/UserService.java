@@ -1,8 +1,10 @@
 package book.flow.service;
 
+import book.flow.enity.Apply;
 import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
+import org.springframework.data.jpa.repository.Query;
 import sun.rmi.server.LoaderHandler;
 
 import java.util.List;
@@ -74,4 +76,32 @@ public interface UserService {
      * @param bookId 图书编号
      */
     void updateBookImg(String imgPath, int bookId);
+
+    /**
+     * 通过用户编号获取所有申请.
+     * @param userId 用户编号
+     * @return 用户的所有申请
+     */
+    List<Apply> getAllAppliesByUserId(int userId);
+
+    /**
+     * 通过用户编号获取待审批的申请.
+     * @param userId 用户编号
+     * @return 待审批的申请
+     */
+    List<Apply> getWaitAppliesByUserId(int userId);
+
+    /**
+     * 通过用户编号获取已审核的申请.
+     * @param userId 用户编号
+     * @return 已审核的申请
+     */
+    List<Apply> getPassAppliesByUserId(int userId);
+
+    /**
+     * 保存申请.
+     * @param apply 申请信息
+     * @return 是否保存成功， true为保存成功
+     */
+    boolean addApply(Apply apply);
 }

@@ -34,6 +34,8 @@ public class UserServiceImp implements UserService {
     private CommentRepository commentRepository;
     @Autowired
     private NoticeRepository noticeRepository;
+    @Autowired
+    private ApplyRepository applyRepository;
 
     @Override
     public User login(String text, String password) {
@@ -127,5 +129,30 @@ public class UserServiceImp implements UserService {
     @Override
     public void updateBookImg(String imgPath, int bookId) {
         bookRepository.updateBookImg(imgPath, bookId);
+    }
+
+    @Override
+    public List<Apply> getAllAppliesByUserId(int userId) {
+        List<Apply> applies = applyRepository.getAllAppliesByUserId(userId);
+        return applies;
+    }
+
+    @Override
+    public List<Apply> getWaitAppliesByUserId(int userId) {
+        List<Apply> applies = applyRepository.getWaitAppliesByUserId(userId);
+        return applies;
+    }
+
+    @Override
+    public List<Apply> getPassAppliesByUserId(int userId) {
+        List<Apply> applies = applyRepository.getPassAppliesByUserId(userId);
+        return applies;
+    }
+
+    @Override
+    public boolean addApply(Apply apply) {
+        boolean ok = false;
+        Apply a = applyRepository.save(apply);
+        return ok;
     }
 }

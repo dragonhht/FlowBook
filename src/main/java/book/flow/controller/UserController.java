@@ -1,5 +1,6 @@
 package book.flow.controller;
 
+import book.flow.enity.Apply;
 import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
@@ -51,7 +52,7 @@ public class UserController {
         User u = userService.login(text.trim(), password.trim());
         if (u != null) {
             session.setAttribute("user", u);
-            return "redirect: /index";
+            return "redirect:/index";
         } else {
             model.addAttribute("error", "用户不存在或密码错误");
             return "login";
@@ -126,10 +127,22 @@ public class UserController {
 
     /**
      * 跳转申请.
+     * @param session session
+     * @param model 用于返回数据
      * @return 申请页面
      */
     @RequestMapping("/apply")
-    public String apply() {
+    public String apply(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId = user.getUserId();
+            List<Apply> allApplies = userService.getAllAppliesByUserId(userId);
+            List<Apply> waitApplies = userService.getWaitAppliesByUserId(userId);
+            List<Apply> passApplies = userService.getPassAppliesByUserId(userId);
+            model.addAttribute("allApplies", allApplies);
+            model.addAttribute("waitApplies", waitApplies);
+            model.addAttribute("passApplies", passApplies);
+        }
         return "book_apply";
     }
 

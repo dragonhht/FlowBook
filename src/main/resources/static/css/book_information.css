@@ -73,6 +73,11 @@ a:hover {
     background: #F7F7F7;
 }
 
+.book_img img {
+    width: 398px;
+    height: 498px;
+}
+
 .book_message {
     //border: 1px solid gray;
     float: left;

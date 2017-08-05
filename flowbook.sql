@@ -83,3 +83,20 @@ CREATE TABLE loan_record (
   FOREIGN KEY (user_id) REFERENCES user(user_id),
   FOREIGN KEY (book_id) REFERENCES book(book_id)
 ) CHARSET = utf8;
+
+-- 用户申请表
+CREATE TABLE user_apply (
+  apply_id INT AUTO_INCREMENT PRIMARY KEY ,
+  apply_date DATE NOT NULL ,
+  apply_text TEXT NOT NULL ,
+  user_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(user_id)
+) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;
+
+-- 图片表
+CREATE TABLE img (
+  img_id INT AUTO_INCREMENT PRIMARY KEY ,
+  img_path TEXT NOT NULL ,
+  apply_id INT NOT NULL ,
+  FOREIGN KEY (apply_id) REFERENCES user_apply(apply_id)
+) CHARSET=utf8;

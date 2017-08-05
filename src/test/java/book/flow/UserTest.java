@@ -32,6 +32,8 @@ public class UserTest {
     private RecordRepository recordRepository;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private ApplyRepository applyRepository;
 
     @Test
     public void testAddUser() {
@@ -96,4 +98,22 @@ public class UserTest {
         }
     }
 
+    @Test
+    public void addApply() throws InterruptedException {
+        User user = userRepository.getUserById(1000000);
+        for (int i = 0; i < 50; i++) {
+            Apply apply = new Apply();
+            if (i % 3 == 0) {
+                apply.setStatus("待审批");
+            }
+            if (i % 5 == 0) {
+                apply.setStatus("已通过");
+            }
+            apply.setApplyDate(new Date());
+            apply.setApplyText("请求: " + i);
+            apply.setUser(user);
+            applyRepository.save(apply);
+            Thread.sleep(1000);
+        }
+    }
 }

@@ -52,45 +52,13 @@
                 <td>日期</td>
                 <td>状态</td>
             </tr>
-            <tr>
-                <td>B12345</td>
+            <tr th:each="allApply : ${allApplies}">
+                <td th:text="${allApply.applyId}"></td>
                 <td>
-                    <a >申请图书退出</a>
+                    <a th:text="${allApply.applyText}"></a>
                 </td>
-                <td>2017.07.17</td>
-                <td>已通过</td>
-            </tr>
-            <tr>
-                <td>B12345</td>
-                <td>
-                    <a >申请图书退出</a>
-                </td>
-                <td>2017.07.17</td>
-                <td>未通过</td>
-            </tr>
-            <tr>
-                <td>B12345</td>
-                <td>
-                    <a >申请图书退出</a>
-                </td>
-                <td>2017.07.17</td>
-                <td>待审核</td>
-            </tr>
-            <tr>
-                <td>B12345</td>
-                <td>
-                    <a >申请图书退出</a>
-                </td>
-                <td>2017.07.17</td>
-                <td>已通过</td>
-            </tr>
-            <tr>
-                <td>B12345</td>
-                <td>
-                    <a >申请图书退出</a>
-                </td>
-                <td>2017.07.17</td>
-                <td>已通过</td>
+                <td th:text="${allApply.applyDate}"></td>
+                <td th:text="${allApply.status}"></td>
             </tr>
         </table>
 
@@ -101,29 +69,13 @@
                 <td>日期</td>
                 <td>状态</td>
             </tr>
-            <tr>
-                <td>B12345</td>
+            <tr th:each="waitApply : ${waitApplies}">
+                <td th:text="${waitApply.applyId}"></td>
                 <td>
-                    <a >申请图书退出</a>
+                    <a th:text="${waitApply.applyText}"></a>
                 </td>
-                <td>2017.07.17</td>
-                <td>待审批</td>
-            </tr>
-            <tr>
-                <td>B12345</td>
-                <td>
-                    <a >申请图书退出</a>
-                </td>
-                <td>2017.07.17</td>
-                <td>待审批</td>
-            </tr>
-            <tr>
-                <td>B12345</td>
-                <td>
-                    <a >申请图书退出</a>
-                </td>
-                <td>2017.07.17</td>
-                <td>待审核</td>
+                <td th:text="${waitApply.applyDate}"></td>
+                <td th:text="${waitApply.status}"></td>
             </tr>
         </table>
 
@@ -134,29 +86,13 @@
                 <td>日期</td>
                 <td>状态</td>
             </tr>
-            <tr>
-                <td>B12345</td>
+            <tr th:each="passApply : ${passApplies}">
+                <td th:text="${passApply.applyId}"></td>
                 <td>
-                    <a >申请图书退出</a>
+                    <a th:text="${passApply.applyText}"></a>
                 </td>
-                <td>2017.07.17</td>
-                <td>已通过</td>
-            </tr>
-            <tr>
-                <td>B12345</td>
-                <td>
-                    <a >申请图书退出</a>
-                </td>
-                <td>2017.07.17</td>
-                <td>未通过</td>
-            </tr>
-            <tr>
-                <td>B12345</td>
-                <td>
-                    <a >申请图书退出</a>
-                </td>
-                <td>2017.07.17</td>
-                <td>已通过</td>
+                <td th:text="${passApply.applyDate}"></td>
+                <td th:text="${passApply.status}"></td>
             </tr>
         </table>
 
