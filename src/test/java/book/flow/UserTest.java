@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 用户相关操作测试.
@@ -73,8 +74,8 @@ public class UserTest {
     }
     @Test
     public void testRecode() {
-        User user = userRepository.getUserById(1000002);
-        Book book = bookRepository.getBookById(1000002);
+        User user = userRepository.getUserById(1000000);
+        Book book = bookRepository.getBookById(1000000);
         LoanRecord record = new LoanRecord();
         record.setUser(user);
         record.setRecordDate(new Date());
@@ -114,6 +115,18 @@ public class UserTest {
             apply.setUser(user);
             applyRepository.save(apply);
             Thread.sleep(1000);
+        }
+    }
+
+    @Test
+    public void setApplyBook() {
+        /*Book book = bookRepository.getBookById(1000000);
+        List<Apply> applies = applyRepository.findAll();
+        applies.get(0).setBook(book);
+        applyRepository.save(applies.get(0));*/
+        List<Book> books = recordRepository.getBookToApplyByUser(1000000);
+        for (Book book : books) {
+            System.out.println(book.getBookId());
         }
     }
 }

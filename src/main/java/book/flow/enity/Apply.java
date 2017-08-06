@@ -1,6 +1,5 @@
 package book.flow.enity;
 
-import org.hibernate.annotations.Check;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,7 +18,7 @@ public class Apply implements Serializable {
     /** 申请编号. */
     @Id
     @GeneratedValue
-    private Integer applyId;
+    private int applyId;
     /** 申请内容. */
     private String applyText;
     /** 申请日期. */
@@ -35,6 +34,10 @@ public class Apply implements Serializable {
     @OneToMany
     @JoinColumn(name = "applyId")
     private Set<Img> imgs;
+    /** 申请的图书. */
+    @ManyToOne
+    @JoinColumn(name = "bookId")
+    private Book book;
 
     public Integer getApplyId() {
         return applyId;
@@ -82,5 +85,13 @@ public class Apply implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }

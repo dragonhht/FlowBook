@@ -1,9 +1,6 @@
 package book.flow.enity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -18,9 +15,12 @@ public class Img implements Serializable {
     /** 编号. */
     @Id
     @GeneratedValue
-    private Integer imgId;
+    private int imgId;
     /** 路径. */
     private String imgPath;
+    @ManyToOne
+    @JoinColumn(name = "applyId")
+    private Apply apply;
 
     public Integer getImgId() {
         return imgId;
@@ -36,5 +36,17 @@ public class Img implements Serializable {
 
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
+    }
+
+    public void setImgId(int imgId) {
+        this.imgId = imgId;
+    }
+
+    public Apply getApply() {
+        return apply;
+    }
+
+    public void setApply(Apply apply) {
+        this.apply = apply;
     }
 }

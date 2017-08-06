@@ -103,11 +103,11 @@
             </ul>
 
             <div class="apply_out">
-                <form class="form-horizontal">
+                <form class="form-horizontal" enctype="multipart/form-data" method="post" th:action="@{/user/applyOut}">
                     <div class="form-group" style="margin-left: auto;margin-right: auto;">
                         <label class="col-sm-2 control-label">图书漂流编号：</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" disabled="disabled" />
+                            <input type="text" name="bookId" id="bookId" class="form-control"  />
                         </div>
                         <div class="col-sm-3" id="select_book">
                             <a index="name" onclick="showUpdateDiv(this)">选择图书</a>
@@ -117,13 +117,16 @@
                     <div class="form-group" style="margin-left: auto;margin-right: auto;">
                         <label class="col-sm-2 control-label">图书损坏图片：</label>
                         <div class="book_img_div">
-                            <img src="#" />
+                            <!--<img src="#" />-->
+                            <input name="imgs" type="file" />
                         </div>
                         <div class="book_img_div_1">
-                            <img src="#" />
+                            <!--<img src="#" />-->
+                            <input name="imgs" type="file" />
                         </div>
                         <div class="book_img_div_2">
-                            <img src="#" />
+                            <!--<img src="#" />-->
+                            <input name="imgs" type="file" />
                         </div>
                     </div>
                     <div class="form-group upload_btn">
@@ -153,76 +156,13 @@
             <td>作者</td>
             <td>选择</td>
         </tr>
-        <tr>
-            <td>A2345</td>
-            <td>图书名</td>
-            <td>出版社</td>
-            <td>作者</td>
+        <tr th:each="book : ${canApplyBook}">
+            <td th:text="${book.bookId}"></td>
+            <td th:text="${book.bookName}"></td>
+            <td th:text="${book.publish}"></td>
+            <td th:text="${book.author}"></td>
             <td>
-                <button class="btn btn-info">选择</button>
-            </td>
-        </tr>
-        <tr>
-            <td>A2345</td>
-            <td>图书名</td>
-            <td>出版社</td>
-            <td>作者</td>
-            <td>
-                <button class="btn btn-info">选择</button>
-            </td>
-        </tr>
-        <tr>
-            <td>A2345</td>
-            <td>图书名</td>
-            <td>出版社</td>
-            <td>作者</td>
-            <td>
-                <button class="btn btn-info">选择</button>
-            </td>
-        </tr>
-        <tr>
-            <td>A2345</td>
-            <td>图书名</td>
-            <td>出版社</td>
-            <td>作者</td>
-            <td>
-                <button class="btn btn-info">选择</button>
-            </td>
-        </tr>
-        <tr>
-            <td>A2345</td>
-            <td>图书名</td>
-            <td>出版社</td>
-            <td>作者</td>
-            <td>
-                <button class="btn btn-info">选择</button>
-            </td>
-        </tr>
-        <tr>
-            <td>A2345</td>
-            <td>图书名</td>
-            <td>出版社</td>
-            <td>作者</td>
-            <td>
-                <button class="btn btn-info">选择</button>
-            </td>
-        </tr>
-        <tr>
-            <td>A2345</td>
-            <td>图书名</td>
-            <td>出版社</td>
-            <td>作者</td>
-            <td>
-                <button class="btn btn-info">选择</button>
-            </td>
-        </tr>
-        <tr>
-            <td>A2345</td>
-            <td>图书名</td>
-            <td>出版社</td>
-            <td>作者</td>
-            <td>
-                <button class="btn btn-info">选择</button>
+                <button th:onclick="'javascript:selectBook(\''+${book.bookId}+'\')'" class="btn btn-info">选择</button>
             </td>
         </tr>
     </table>

@@ -60,3 +60,9 @@ function hideUpdateDiv(n) {
     var parent = $(n).parent();
     $(parent).hide();
 }
+
+/** 选择申请的书籍. */
+function selectBook(id) {
+    $('#bookId').val(id);
+    $('#update_name').hide();
+}

@@ -1,9 +1,6 @@
 package book.flow.controller;
 
-import book.flow.enity.Apply;
-import book.flow.enity.Book;
-import book.flow.enity.LoanRecord;
-import book.flow.enity.User;
+import book.flow.enity.*;
 import book.flow.service.FileService;
 import book.flow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 用户操作控制器.
@@ -139,9 +138,11 @@ public class UserController {
             List<Apply> allApplies = userService.getAllAppliesByUserId(userId);
             List<Apply> waitApplies = userService.getWaitAppliesByUserId(userId);
             List<Apply> passApplies = userService.getPassAppliesByUserId(userId);
+            List<Book> canApplyBook = userService.getBookToApply(userId);
             model.addAttribute("allApplies", allApplies);
             model.addAttribute("waitApplies", waitApplies);
             model.addAttribute("passApplies", passApplies);
+            model.addAttribute("canApplyBook", canApplyBook);
         }
         return "book_apply";
     }
@@ -200,6 +201,21 @@ public class UserController {
             return "msg";
         }
         return "redirect:/500";
+    }
+
+    @PostMapping("/applyOut")
+    public String applyBookOut(Integer bookId, MultipartFile[] imgs, HttpSession session, Model model) {
+        System.out.println(bookId);
+        User user = (User) session.getAttribute("user");
+        StringBuilder imgPath = new StringBuilder("bookCover/apply/");
+        if (user != null) {
+            int userId = user.getUserId();
+            boolean ok = userService.applyBookOut(bookId, userId, imgs);
+            if (ok) {
+                model.addAttribute("flag", "applySeccuss");
+            }
+        }
+        return "msg";
     }
 
 }

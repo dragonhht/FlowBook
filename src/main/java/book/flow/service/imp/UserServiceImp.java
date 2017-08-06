@@ -3,6 +3,7 @@ package book.flow.service.imp;
 import book.flow.BookFlowApplication;
 import book.flow.enity.*;
 import book.flow.repository.*;
+import book.flow.service.FileService;
 import book.flow.service.UserService;
 import book.flow.utils.PasswordTool;
 import org.slf4j.Logger;
@@ -10,9 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 用户服务层实现类.
@@ -36,6 +40,10 @@ public class UserServiceImp implements UserService {
     private NoticeRepository noticeRepository;
     @Autowired
     private ApplyRepository applyRepository;
+    @Autowired
+    private ImgRepository imgRepository;
+    @Autowired
+    private FileService fileService;
 
     @Override
     public User login(String text, String password) {
@@ -154,5 +162,52 @@ public class UserServiceImp implements UserService {
         boolean ok = false;
         Apply a = applyRepository.save(apply);
         return ok;
+    }
+
+    @Override
+    public List<Book> getBookToApply(int userId) {
+        List<Book> books = recordRepository.getBookToApplyByUser(userId);
+        return books;
+    }
+
+    @Override
+    public boolean applyBookOut(int bookId, int userId, MultipartFile[] imgs) {
+        boolean ok = false;
+        int i = 0;
+        String path;
+        Book book = bookRepository.getBookById(bookId);
+        User user = userRepository.getUserById(userId);
+        Apply apply = new Apply();
+        apply.setBook(book);
+        apply.setUser(user);
+        apply.setApplyDate(new Date());
+        apply.setStatus("待审批");
+        String text = user.getUserName() + " 申请 " + book.getBookName() + " 退出系统";
+        apply.setApplyText(text);
+        apply.setApplyId(1000000);
+        Apply apply1 = applyRepository.save(apply);
+        for (MultipartFile img : imgs) {
+            StringBuilder imgPath = new StringBuilder("bookCover/apply/");
+            imgPath = imgPath.append(userId + "/");
+            path = "";
+            imgPath = imgPath.append(bookId + "_" + i + ".png");
+            i++;
+            path = fileService.store(img, String.valueOf(imgPath));
+            path  = "http://localhost:8080/FlowBook/files/" + path;
+            Img img1 = new Img();
+            img1.setImgPath(path);
+            img1.setApply(apply1);
+            Img g = saveImg(img1);
+        }
+        if (apply1 != null) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public Img saveImg(Img img) {
+        Img img1 = imgRepository.save(img);
+        return img1;
     }
 }

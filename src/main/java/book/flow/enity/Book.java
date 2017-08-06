@@ -59,6 +59,10 @@ public class Book implements Serializable {
     @JoinColumn(name = "userId")
     @JsonBackReference
     private User contributor;
+    /** 已申请的书籍. */
+    @OneToMany
+    @JoinColumn(name = "bookId")
+    private Set<Apply> applies;
 
     /**
      * 获取 图书编号.
@@ -238,4 +242,11 @@ public class Book implements Serializable {
         this.contributor = contributor;
     }
 
+    public Set<Apply> getApplies() {
+        return applies;
+    }
+
+    public void setApplies(Set<Apply> applies) {
+        this.applies = applies;
+    }
 }

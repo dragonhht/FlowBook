@@ -54,6 +54,12 @@
                 <span th:text="${'图书漂流编号为：' + bookId}"></span><br/><br/>
                 <a class="btn btn-danger" th:href="@{/user/userHome}">查看我的贡献</a>
             </th:block>
+            <!--申请成功成功-->
+            <th:block th:if="${ flag eq 'applySeccuss'}">
+                <span style="font-size: large;font-weight: bold">上传成功</span><br/><br/>
+                <span>您的申请上传成功， 请耐心等待审批结果</span><br/><br/>
+                <a class="btn btn-danger" th:href="@{/user/apply}">查看我申请</a>
+            </th:block>
         </div>
 
     </div>

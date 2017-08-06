@@ -1,10 +1,8 @@
 package book.flow.service;
 
-import book.flow.enity.Apply;
-import book.flow.enity.Book;
-import book.flow.enity.LoanRecord;
-import book.flow.enity.User;
+import book.flow.enity.*;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.web.multipart.MultipartFile;
 import sun.rmi.server.LoaderHandler;
 
 import java.util.List;
@@ -104,4 +102,27 @@ public interface UserService {
      * @return 是否保存成功， true为保存成功
      */
     boolean addApply(Apply apply);
+
+    /**
+     * 通过用户查询可申请的书籍.
+     * @param userId 用户编号
+     * @return 可申请的书籍
+     */
+    List<Book> getBookToApply(int userId);
+
+    /**
+     * 保存图书退出申请.
+     * @param bookId 图书编号
+     * @param userId 用户编号
+     * @param imgs 图片
+     * @return 是否保存成功， true为成功
+     */
+    boolean applyBookOut(int bookId, int userId, MultipartFile[] imgs);
+
+    /**
+     * 保存图片路径.
+     * @param img 图片路径信息
+     * @return 图片路径信息
+     */
+    Img saveImg(Img img);
 }

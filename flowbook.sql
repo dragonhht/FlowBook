@@ -90,7 +90,9 @@ CREATE TABLE user_apply (
   apply_date DATE NOT NULL ,
   apply_text TEXT NOT NULL ,
   user_id INT NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES user(user_id)
+  book_id INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(user_id),
+  FOREIGN KEY (book_id) REFERENCES book(book_id)
 ) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;
 
 -- 图片表

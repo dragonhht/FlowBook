@@ -1,9 +1,9 @@
 package book.flow.repository;
 
 import book.flow.enity.Apply;
+import book.flow.enity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
 import java.util.List;
 
 /**
@@ -36,4 +36,12 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
      */
     @Query("select a from Apply a where a.user.userId = ?1 and a.status <> '待审批' order by a.applyDate desc")
     List<Apply> getPassAppliesByUserId(int userId);
+
+    /**
+     * 通过用户编号获取用户已申请的图书.
+     * @param userId 用户编号
+     * @return 已申请的图书
+     */
+    @Query("select a.book from Apply a where a.user.userId = ?1 order by a.book.bookDate asc")
+    List<Book> getBookHasApplyByUser(int userId);
 }

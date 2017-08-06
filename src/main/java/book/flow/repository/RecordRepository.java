@@ -1,5 +1,6 @@
 package book.flow.repository;
 
+import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -53,5 +54,14 @@ public interface RecordRepository extends JpaRepository<LoanRecord, Integer> {
      */
     @Query("select r.user from LoanRecord r where r.book.bookId = ?1 and r.isOut = false ")
     User getNowOwnerByBookId(int bookId);
+
+    /**
+     * 通过用户编号获取用户可申请的图书.
+     * @param userId 用户编号
+     * @return 可申请的图书
+     */
+    @Query("select r.book from LoanRecord r where r.user.userId = ?1 and " +
+            "r.book not in(select a.book from Apply a where r.user.userId = a.user.userId and a.status <> '待审批' and r.isOut = false)")
+    List<Book> getBookToApplyByUser(int userId);
 
 }
