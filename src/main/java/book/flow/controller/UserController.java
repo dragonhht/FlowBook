@@ -218,4 +218,14 @@ public class UserController {
         return "msg";
     }
 
+    /**
+     * 跳转到我的好友页面.
+     * @return 我的好友页面
+     */
+    @RequestMapping("/userFriend")
+    public String userFriend(Model model) {
+        model.addAttribute("searchText", "test");
+        return "user_friend";
+    }
+
 }

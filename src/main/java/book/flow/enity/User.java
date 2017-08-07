@@ -40,7 +40,7 @@ public class User implements Serializable {
     //@Pattern(regexp = "/^1[3|4|5|8][0-9]\\d{4,8}$/", message = "{user.phone.format.error}")
     private String userPhone;
     /** 用户头像. */
-    private String userImg = "/img/21.png";
+    private String userImg = "/chat/21.png";
     /** 注册时间. */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date userDate;

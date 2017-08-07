@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Date: 17-8-4
  */
 @Entity
-@Table(name = "img")
+@Table(name = "chat")
 public class Img implements Serializable {
 
     /** 编号. */

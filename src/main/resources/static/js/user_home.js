@@ -50,14 +50,14 @@ function selectTab(n) {
 /** 显示修改按钮. */
 function showBtn(n) {
     var btn = $(n).children('.update_btn');
-    var img = $(btn).children('img');
+    var img = $(btn).children('chat');
     $(img[0]).show();
 }
 
 /** 隐藏修改按钮. */
 function hideBtn(n) {
     var btn = $(n).children('.update_btn');
-    var img = $(btn).children('img');
+    var img = $(btn).children('chat');
     $(img[0]).hide();
 }
 

@@ -36,7 +36,7 @@ public class Book implements Serializable {
     /** 评价星级. */
     private int bookStart;
     /** 图书图片. */
-    private String bookImg = "/img/21.png";
+    private String bookImg = "/chat/21.png";
     /** 上传时间. */
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date bookDate;
