@@ -1,5 +1,7 @@
 package book.flow.configuration;
 
+import book.flow.websocket.HttpSessionIdHandshakeInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
@@ -17,11 +19,18 @@ public class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfig
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/queue", "/topic");
+        config.enableSimpleBroker("/topic");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
-        stompEndpointRegistry.addEndpoint("/FlowBook").withSockJS();
+        // 设置websocket服务器
+        stompEndpointRegistry.addEndpoint("/FlowBook").withSockJS()
+        .setInterceptors(httpSessionIdHandshakeInterceptor());
+    }
+
+    @Bean
+    public HttpSessionIdHandshakeInterceptor httpSessionIdHandshakeInterceptor() {
+        return new HttpSessionIdHandshakeInterceptor();
     }
 }

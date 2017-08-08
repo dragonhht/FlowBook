@@ -252,14 +252,12 @@
 
 
     var stompClient = null;
-
     function connect() {
         var socket = new SockJS('http://localhost:8080/FlowBook/FlowBook');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/user/topic/greetings', function (greeting) {
-                // showGreeting(JSON.parse(greeting.body).content);
+            stompClient.subscribe('/topic/greetings', function (greeting) {
                 showMessage(JSON.parse(greeting.body).message);
             });
         });
