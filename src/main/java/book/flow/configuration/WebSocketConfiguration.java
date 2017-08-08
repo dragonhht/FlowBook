@@ -33,4 +33,6 @@ public class WebSocketConfiguration extends AbstractWebSocketMessageBrokerConfig
     public HttpSessionIdHandshakeInterceptor httpSessionIdHandshakeInterceptor() {
         return new HttpSessionIdHandshakeInterceptor();
     }
+
+
 }

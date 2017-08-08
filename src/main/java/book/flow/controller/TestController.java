@@ -4,6 +4,7 @@ import book.flow.service.TouristService;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,6 +37,12 @@ public class TestController {
     @RequestMapping("/msg")
     public String msg() {
         return "msg";
+    }
+
+    @RequestMapping("/userFriend1")
+    public String userFriend(Model model) {
+        model.addAttribute("searchText", "test");
+        return "user_friend_1";
     }
 
 }

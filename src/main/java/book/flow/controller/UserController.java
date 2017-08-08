@@ -228,4 +228,5 @@ public class UserController {
         return "user_friend";
     }
 
+
 }

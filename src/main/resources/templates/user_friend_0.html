@@ -251,29 +251,25 @@
     autoWidth();
 
 
-    var ws = new WebSocket("ws://localhost:8080/FlowBook/webSocketHandler");
-    ws.onopen = function () {
-        console.log("onpen");
-        ws.send("{}");
-    };
-    ws.onclose = function () {
-        console.log("onclose");
-    };
-    ws.onmessage = function (msg) {
-        console.log(msg.data);
-        showMessage(msg.data);
+    var stompClient = null;
+    function connect() {
+        var socket = new SockJS('http://localhost:8080/FlowBook/FlowBook');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/greetings', function (greeting) {
+                showMessage(JSON.parse(greeting.body).message);
+            });
+        });
     }
-    
+
+    connect();
+
     function sendMessage() {
         var text = $('.input_div textarea').val();
-        $.post('../message',
-            {
-                message : text
-            },
-        function (data) {
-            console.log("data:" + data);
-        })
+        stompClient.send("/chat", {}, JSON.stringify({'message': text}));
     }
+
 </script>
 
 </html>
