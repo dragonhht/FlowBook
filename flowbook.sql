@@ -109,7 +109,7 @@ CREATE TABLE chat_record (
   sender INT NOT NULL ,
   receiver INT NOT NULL ,
   message TEXT NOT NULL ,
-  send_date DATE NOT NULL ,
+  send_date TIMESTAMP NOT NULL ,
   looked BOOLEAN NOT NULL ,
   FOREIGN KEY (sender) REFERENCES user(user_id),
   FOREIGN KEY (receiver) REFERENCES user(user_id)

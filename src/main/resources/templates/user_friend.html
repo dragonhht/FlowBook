@@ -52,12 +52,16 @@
             <ul class="list-group" id="friend_list">
                 <li class="friend_group">
                     <div onclick="selectGroup(this)" class="list-group-item-info group_name">我的好友</div>
-                    <ul class="list-group" hidden="hidden">
+                    <ul class="list-group">
                         <th:block th:each="friend : ${friends}">
                             <li onclick="chatWith(this)"  class="list-group-item friend" style="cursor: pointer">
                                 <input type="text" th:value="${friend.userId}" hidden="hidden" />
-                                <img class="img-circle" th:src="@{${friend.userImg}}" />
+                                <img name="headImg" class="img-circle" th:src="@{${friend.userImg}}" />
                                 <span th:text="${friend.userName}"></span>
+                                <th:block th:each="sender : ${senderIds}">
+                                    <img class="msgTip" th:if="${sender eq friend.userId}" style="width: 7px;height: 7px;margin-bottom: 20px;"
+                                         th:src="@{/img/havemsg.png}" />
+                                </th:block>
                             </li>
                         </th:block>
                     </ul>
@@ -167,8 +171,13 @@
         console.log("onclose");
     };
     ws.onmessage = function (msg) {
-        console.log(msg.data);
-        showMessage(msg.data);
+        var message = msg.data;
+        message = message.split("/[-=^*]");
+        var chatWithId = $('#chatWithId').val().trim();
+        if (chatWithId == message[0].trim()) {
+            showMessage(message[1]);
+        }
+
     }
     
     function sendMessage() {
@@ -185,12 +194,28 @@
     }
 
     function chatWith(n) {
+        $('.speak_box').html("");
         var friendId = $(n).children('input').val().trim();
         var friendName = $(n).children('span').html().trim();
         $('#chatWithId').val(friendId);
         $('#chatWithName').html(friendName);
-        console.log(friendId + ' : ' +friendName);
+        $(n).children('.msgTip').hide();
+        getFriendMsg(friendId);
     }
+
+    /*<![CDATA[*/
+    function getFriendMsg(friendId) {
+        $.post('../chatWith',
+            {
+                friendId : friendId
+            },
+        function (data) {
+            for (var i = 0; i < data.length; i++) { /*]]>*/
+                showMessage(data[i]);
+            }
+        })
+    }
+
 
 </script>
 

@@ -30,10 +30,10 @@ public class ChatRecord implements Serializable {
     /** 信息内容. */
     private String message;
     /** 发送时间. */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date sendDate;
     /** 查看标志. */
-    private boolean looked;
+    private boolean looked = false;
 
     public Long getChatId() {
         return chatId;

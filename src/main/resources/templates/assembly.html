@@ -41,32 +41,34 @@
             <ul class="list-group">
                 <li class="list-group-item">
                     <a th:href="@{/user/userHome}">
-                        个人信息
+                        <span>个人信息</span>
                     </a>
                 </li>
                 <li class="list-group-item">
                     <a th:href="@{/user/uploadBook}">
-                        新书漂流
+                        <span>新书漂流</span>
                     </a>
                 </li>
                 <li class="list-group-item">
                     <a th:href="@{/user/userFriend}">
-                        我的好友
+                        <span>我的好友</span>
+                        <img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;"
+                             th:src="@{/img/havemsg.png}" />
                     </a>
                 </li>
                 <li class="list-group-item">
                     <a th:href="@{/user/uploadNotice}">
-                        我的书籍期望
+                        <span>我的书籍期望</span>
                     </a>
                 </li>
                 <li class="list-group-item">
                     <a th:href="@{/user/apply}">
-                        申请
+                        <span>申请</span>
                     </a>
                 </li>
                 <li class="list-group-item">
                     <a href="#">
-                        图书传阅
+                        <span>图书传阅</span>
                     </a>
                 </li>
             </ul>

@@ -135,7 +135,23 @@ public class UserTest {
 
     @Test
     public void testAddFriend() {
-        boolean ok = service.addFriend(1000000, 1000002);
+        boolean ok = service.addFriend(1000000, 1000000);
         System.out.println(ok);
+    }
+
+    @Test
+    public void testAddChatRecord() {
+        User sender = service.getUserById(1000002);
+        User receiver = service.getUserById(1000000);
+
+        ChatRecord record = new ChatRecord();
+        record.setMessage("你好呀， 这只是测试");
+        record.setReceiver(receiver);
+        record.setSender(sender);
+        record.setSendDate(new Date());
+        service.addChatRecord(record);
+
+        long count = service.msgCount(1000000);
+        System.out.println("数量： " + count);
     }
 }

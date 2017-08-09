@@ -46,6 +46,8 @@ public class UserServiceImp implements UserService {
     private FileService fileService;
     @Autowired
     private FriendsRepository friendsRepository;
+    @Autowired
+    private ChatRecordRepository chatRecordRepository;
 
     @Override
     public User login(String text, String password) {
@@ -243,5 +245,43 @@ public class UserServiceImp implements UserService {
         List<User> friends = null;
         friends = friendsRepository.getUserFriends(selfId);
         return friends;
+    }
+
+    @Override
+    public User getUserById(int userId) {
+        User user = null;
+        user = userRepository.getUserById(userId);
+        return user;
+    }
+
+    @Override
+    public boolean addChatRecord(ChatRecord record) {
+        boolean ok = false;
+        ChatRecord r = chatRecordRepository.save(record);
+        if (r != null) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public long msgCount(int userId) {
+        long count = 0;
+        count = chatRecordRepository.haveMsg(userId);
+        return count;
+    }
+
+    @Override
+    public List<Integer> getSenderId(int userId) {
+        List<Integer> idList = null;
+        idList = chatRecordRepository.getSenderId(userId);
+        return idList;
+    }
+
+    @Override
+    public List<String> getFriendMsg(int selfId, int friendId) {
+        List<String> messages = null;
+        messages = chatRecordRepository.getFriendMsg(selfId, friendId);
+        return messages;
     }
 }

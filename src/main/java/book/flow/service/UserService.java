@@ -148,4 +148,40 @@ public interface UserService {
      * @return 好友信息
      */
     List<User> getFriends(int selfId);
+
+    /**
+     * 通过编号查询用户.
+     * @param userId 用户编号
+     * @return 用户信息
+     */
+    User getUserById(int userId);
+
+    /**
+     * 保存聊天信息.
+     * @param record 聊天信息
+     * @return 是否保存成功， true为保存成功
+     */
+    boolean addChatRecord(ChatRecord record);
+
+    /**
+     * 查询用户唯独信息数量.
+     * @param userId 用户编号
+     * @return 信息数量
+     */
+    long msgCount(int userId);
+
+    /**
+     * 获取发送消息的用户的编号.
+     * @param userId 用户编号
+     * @return 发送消息的用户编号
+     */
+    List<Integer> getSenderId(int userId);
+
+    /**
+     * 获取指定好友的信息.
+     * @param selfId 用户编号
+     * @param friendId 好友编号
+     * @return 信息
+     */
+    List<String> getFriendMsg(int selfId, int friendId);
 }

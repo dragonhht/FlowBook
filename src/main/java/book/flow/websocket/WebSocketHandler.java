@@ -1,5 +1,11 @@
 package book.flow.websocket;
 
+import book.flow.enity.ChatRecord;
+import book.flow.enity.User;
+import book.flow.repository.UserRepository;
+import book.flow.service.UserService;
+import org.omg.CORBA.INTERNAL;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
@@ -7,6 +13,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +24,9 @@ import java.util.Map;
  */
 @Service
 public class WebSocketHandler extends TextWebSocketHandler{
+
+    @Autowired
+    private UserService userService;
 
     //在线用户列表
     private static Map<Integer, WebSocketSession> users = new HashMap<>();
@@ -36,6 +46,18 @@ public class WebSocketHandler extends TextWebSocketHandler{
         }
     }
 
+    public void addChatRecord(Integer selfId, Integer clientId, TextMessage message) {
+        User sender = userService.getUserById(selfId);
+        User receiver = userService.getUserById(clientId);
+
+        ChatRecord record = new ChatRecord();
+        record.setMessage(message.getPayload());
+        record.setReceiver(receiver);
+        record.setSender(sender);
+        record.setSendDate(new Date());
+        userService.addChatRecord(record);
+    }
+
     /**
      * 发送信息给指定用户
      * @param clientId
@@ -43,11 +65,18 @@ public class WebSocketHandler extends TextWebSocketHandler{
      * @return
      */
     public boolean sendMessageToUser(Integer selfId, Integer clientId, TextMessage message) {
-        if (users.get(clientId) == null) return false;
+        if (users.get(clientId) == null) {
+
+            addChatRecord(selfId, clientId, message);
+
+            return false;
+        }
+        addChatRecord(selfId, clientId, message);
         WebSocketSession session = users.get(clientId);
         System.out.println("sendMessage:" + session);
         if (!session.isOpen()) return false;
         try {
+            message = new TextMessage(clientId + "/[-=^*]" + message.getPayload());
             session.sendMessage(message);
         } catch (IOException e) {
             e.printStackTrace();

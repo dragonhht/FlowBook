@@ -2,6 +2,7 @@ package book.flow.controller;
 
 import book.flow.enity.User;
 import book.flow.model.Message;
+import book.flow.service.UserService;
 import book.flow.websocket.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 聊天控制器.
@@ -26,6 +28,8 @@ public class WsController {
 
     @Autowired
     private WebSocketHandler webSocketHandler;
+    @Autowired
+    private UserService userService;
 
     /**
      * 聊天.
@@ -43,6 +47,18 @@ public class WsController {
             boolean hasSend = webSocketHandler.sendMessageToUser(userId, toUser, new TextMessage(message.getMessage()));
         }
         return "message";
+    }
+
+    @PostMapping("/chatWith")
+    @ResponseBody
+    public List<String> getFriendMsg(int friendId, HttpSession session) {
+        List<String> messages = null;
+        User user = (User)  session.getAttribute("user");
+        if (user != null) {
+            int selfId = user.getUserId();
+            messages = userService.getFriendMsg(selfId, friendId);
+        }
+        return messages;
     }
 
 }

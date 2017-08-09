@@ -50,6 +50,13 @@ public class UserController {
         }
         User u = userService.login(text.trim(), password.trim());
         if (u != null) {
+            // 是否有未读信息
+            boolean ok = false;
+            long count = userService.msgCount(u.getUserId());
+            if (count != 0) {
+                ok = true;
+            }
+            session.setAttribute("haveMsg", ok);
             session.setAttribute("user", u);
             return "redirect:/index";
         } else {
@@ -228,11 +235,14 @@ public class UserController {
     public String userFriend(Model model, HttpSession session) {
 
         List<User> friends = null;
+        List<Integer> idList = null;
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int selfId = user.getUserId();
             friends = userService.getFriends(selfId);
+            idList = userService.getSenderId(selfId);
         }
+        model.addAttribute("senderIds", idList);
         model.addAttribute("friends", friends);
         return "user_friend";
     }
