@@ -44,6 +44,8 @@ public class UserServiceImp implements UserService {
     private ImgRepository imgRepository;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private FriendsRepository friendsRepository;
 
     @Override
     public User login(String text, String password) {
@@ -209,5 +211,37 @@ public class UserServiceImp implements UserService {
     public Img saveImg(Img img) {
         Img img1 = imgRepository.save(img);
         return img1;
+    }
+
+    @Override
+    public boolean addFriend(int selfId, int friendId) {
+        boolean ok = false;
+        User self = userRepository.getUserById(selfId);
+        User friend = userRepository.getUserById(friendId);
+        Friends friends = new Friends();
+        friends.setFriend(friend);
+        friends.setSelf(self);
+        Friends f = friendsRepository.save(friends);
+        if (f != null) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public boolean isFriendExist(int selfId, int friendId) {
+        boolean ok = false;
+        Friends friend = friendsRepository.isFriendExist(selfId, friendId);
+        if (friend != null) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public List<User> getFriends(int selfId) {
+        List<User> friends = null;
+        friends = friendsRepository.getUserFriends(selfId);
+        return friends;
     }
 }

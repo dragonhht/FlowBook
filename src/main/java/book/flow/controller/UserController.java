@@ -220,12 +220,39 @@ public class UserController {
 
     /**
      * 跳转到我的好友页面.
+     * @param model model
+     * @param session session
      * @return 我的好友页面
      */
     @RequestMapping("/userFriend")
-    public String userFriend(Model model) {
-        model.addAttribute("searchText", "test");
+    public String userFriend(Model model, HttpSession session) {
+
+        List<User> friends = null;
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int selfId = user.getUserId();
+            friends = userService.getFriends(selfId);
+        }
+        model.addAttribute("friends", friends);
         return "user_friend";
+    }
+
+    /**
+     * 添加好友.
+     * @param friend 要添加的好友编号
+     * @param session session
+     * @return 添加结果信息
+     */
+    @PostMapping("/addFriend")
+    @ResponseBody
+    public boolean addFriend(int friend, HttpSession session) {
+        boolean ok = false;
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId = user.getUserId();
+            ok = userService.addFriend(userId, friend);
+        }
+        return ok;
     }
 
 

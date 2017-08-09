@@ -60,7 +60,7 @@ public class Book implements Serializable {
     @JsonBackReference
     private User contributor;
     /** 已申请的书籍. */
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "bookId")
     private Set<Apply> applies;
 

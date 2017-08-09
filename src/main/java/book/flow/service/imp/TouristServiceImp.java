@@ -1,13 +1,7 @@
 package book.flow.service.imp;
 
-import book.flow.enity.Book;
-import book.flow.enity.LoanRecord;
-import book.flow.enity.Notice;
-import book.flow.enity.User;
-import book.flow.repository.BookRepository;
-import book.flow.repository.NoticeRepository;
-import book.flow.repository.RecordRepository;
-import book.flow.repository.UserRepository;
+import book.flow.enity.*;
+import book.flow.repository.*;
 import book.flow.utils.PasswordTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -37,6 +31,8 @@ public class TouristServiceImp implements TouristService {
     private NoticeRepository noticeRepository;
     @Autowired
     private RecordRepository recordRepository;
+    @Autowired
+    private FriendsRepository friendsRepository;
 
     /** 分页， 每页显示的最大数量. */
     private static final int PAGE_SIZE = 20;
@@ -203,8 +199,12 @@ public class TouristServiceImp implements TouristService {
 
     @Override
     public User getNowOwner(int bookId) {
+        List<User> users = null;
         User user = null;
-        user = recordRepository.getNowOwnerByBookId(bookId);
+        users = recordRepository.getNowOwnerByBookId(bookId);
+        if (users != null) {
+            user = users.get(0);
+        }
         return user;
     }
 
@@ -244,5 +244,15 @@ public class TouristServiceImp implements TouristService {
         }
         count = count + add;
         return count;
+    }
+
+    @Override
+    public boolean isFriendExist(int selfId, int friendId) {
+        boolean ok = false;
+        Friends friend = friendsRepository.isFriendExist(selfId, friendId);
+        if (friend != null) {
+            ok = true;
+        }
+        return ok;
     }
 }

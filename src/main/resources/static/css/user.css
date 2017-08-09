@@ -116,6 +116,7 @@ a:hover {
 
 .add_user a {
     margin-right: 30px;
+    cursor: pointer;
 }
 
 .add_user img {
@@ -149,4 +150,24 @@ a:hover {
 .copyright {
     color: gray;
     line-height: 50px;
+}
+
+.result {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    width: 200px;
+    height: 50px;
+    padding-right: 5px;
+    border: 1px solid gray;
+    background-color: white;
+    z-index: 3;
+    overflow: auto;
+}
+
+.result .text {
+    line-height: 48px;
+    text-align: center;
+    width: 100px;
+    display: block;
 }

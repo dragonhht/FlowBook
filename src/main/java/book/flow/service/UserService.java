@@ -125,4 +125,27 @@ public interface UserService {
      * @return 图片路径信息
      */
     Img saveImg(Img img);
+
+    /**
+     * 添加好友.
+     * @param selfId 用户编号
+     * @param friendId 对方编号
+     * @return 是否添加成功
+     */
+    boolean addFriend(int selfId, int friendId);
+
+    /**
+     * 判断好友是否已经添加.
+     * @param selfId 用户编号
+     * @param friendId 好友编号
+     * @return 是否已经添加， true为已添加
+     */
+    boolean isFriendExist(int selfId, int friendId);
+
+    /**
+     * 获取好友.
+     * @param selfId 用户编号
+     * @return 好友信息
+     */
+    List<User> getFriends(int selfId);
 }

@@ -2,6 +2,7 @@ package book.flow;
 
 import book.flow.enity.*;
 import book.flow.repository.*;
+import book.flow.service.UserService;
 import book.flow.utils.PasswordTool;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +36,8 @@ public class UserTest {
     private CommentRepository commentRepository;
     @Autowired
     private ApplyRepository applyRepository;
+    @Autowired
+    private UserService service;
 
     @Test
     public void testAddUser() {
@@ -128,5 +131,11 @@ public class UserTest {
         for (Book book : books) {
             System.out.println(book.getBookId());
         }
+    }
+
+    @Test
+    public void testAddFriend() {
+        boolean ok = service.addFriend(1000000, 1000002);
+        System.out.println(ok);
     }
 }

@@ -148,4 +148,12 @@ public interface TouristService {
      * @return 页数
      */
     long getSearchUserPageSize(String name);
+
+    /**
+     * 判断好友是否已经添加.
+     * @param selfId 用户编号
+     * @param friendId 好友编号
+     * @return 是否已经添加， true为已添加
+     */
+    boolean isFriendExist(int selfId, int friendId);
 }

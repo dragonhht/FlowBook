@@ -53,113 +53,21 @@
                 <li class="friend_group">
                     <div onclick="selectGroup(this)" class="list-group-item-info group_name">我的好友</div>
                     <ul class="list-group" hidden="hidden">
-                        <li class="list-group-item">1好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
-                        <li class="list-group-item">好有名</li>
+                        <th:block th:each="friend : ${friends}">
+                            <li onclick="chatWith(this)"  class="list-group-item friend" style="cursor: pointer">
+                                <input type="text" th:value="${friend.userId}" hidden="hidden" />
+                                <img class="img-circle" th:src="@{${friend.userImg}}" />
+                                <span th:text="${friend.userName}"></span>
+                            </li>
+                        </th:block>
                     </ul>
                 </li>
-                <li class="friend_group">
-                    <div onclick="selectGroup(this)" class="list-group-item-info group_name">我的好友</div>
-                <ul class="list-group" hidden="hidden">
-                    <li class="list-group-item">2好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-
-                </ul>
-                </li>
-                <li class="friend_group">
-                    <div onclick="selectGroup(this)" class="list-group-item-info group_name">我的好友</div>
-                <ul class="list-group" hidden="hidden">
-                    <li class="list-group-item">3好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-
-                </ul>
-                </li>
-                <li  class="friend_group">
-                    <div onclick="selectGroup(this)" class="list-group-item-info group_name">我的好友</div>
-                <ul class="list-group" hidden="hidden">
-                    <li class="list-group-item">4好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-                    <li class="list-group-item">好有名</li>
-
-                </ul>
-                </li>
-
             </ul>
         </div>
 
         <div id="chat_div" class="chat_div">
-            <div class="friend_name" align="center">好有名</div>
-
+            <div class="friend_name" id="chatWithName" align="center" th:text="${session.user.userName}"></div>
+            <input hidden="hidden" type="text" id="chatWithId" th:value="${session.user.userId}" />
             <div class="speak_box">
                 <!--<div class="answer">
                     <div class="heard_img left"><img src="images/dglvyou.jpg" /></div>
@@ -198,7 +106,7 @@
         $('.write_list').remove();
         var text = $('.input_div textarea').val(),
             str  = '<div class="question">';
-        str += '<div class="heard_img right"><img src="#"/></div>';
+        str += '<div class="heard_img right"><img th:src="@{${session.user.userImg}}"/></div>';
         str += '<div class="question_text clear"><p>'+text+'</p><i></i>';
         str += '</div></div>';
 
@@ -215,7 +123,6 @@
             autoWidth();
             for_bottom();
 
-            //setTimeout(showMessage(),1000);
         }
     }
 
@@ -266,14 +173,25 @@
     
     function sendMessage() {
         var text = $('.input_div textarea').val();
+        var to = $('#chatWithId').val();
         $.post('../message',
             {
-                message : text
+                message : text,
+                userId : to
             },
         function (data) {
             console.log("data:" + data);
         })
     }
+
+    function chatWith(n) {
+        var friendId = $(n).children('input').val().trim();
+        var friendName = $(n).children('span').html().trim();
+        $('#chatWithId').val(friendId);
+        $('#chatWithName').html(friendName);
+        console.log(friendId + ' : ' +friendName);
+    }
+
 </script>
 
 </html>

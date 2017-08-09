@@ -196,11 +196,18 @@ public class TouristController {
      * @return 用户信息界面
      */
     @RequestMapping("/user/{userId}")
-    public String userMessage(@PathVariable int userId, Model model) {
+    public String userMessage(@PathVariable int userId, Model model, HttpSession session) {
         User user = null;
         List<LoanRecord> records = null;
         user= touristService.getUserById(userId);
         records = touristService.getRecordsByUserId(userId);
+        User u = (User) session.getAttribute("user");
+        boolean ok = false;
+        if (u != null) {
+            int selfId = u.getUserId();
+             ok = touristService.isFriendExist(selfId, userId);
+        }
+        model.addAttribute("isAdd", ok);
         model.addAttribute("user", user);
         model.addAttribute("records", records);
         return "user";

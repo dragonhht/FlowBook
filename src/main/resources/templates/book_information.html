@@ -176,9 +176,9 @@
     </div>
 
 <script th:inline="javascript">
-    //点赞判断是否登录
+    //评论判断是否登录
     function loginTip() {
-        var user = [[${session.user}]];
+        var user = [[${session.user.userId}]];
         if (user == null) {
             if (window.confirm("请先登录!")) {
                 window.location.replace("../../login");

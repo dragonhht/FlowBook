@@ -68,7 +68,8 @@
                 </div>
 
                 <div class="add_user">
-                    <a href="#">
+                    <a onclick="return loginTip();" th:if="${isAdd}">
+                        <input id="friendId" hidden="hidden" th:value="${user.userId}" />
                         <img th:src="@{/img/adduser.png}" />
                         加为好友
                     </a>
@@ -145,4 +146,59 @@
         </p>
     </div>
 </body>
+
+<div  class="result" id="result" hidden="hidden" >
+    <span class="close" onclick="hideUpdateDiv(this)">x</span>
+    <span id="message" class="text"></span>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+    /** 添加好友. */
+    function addFriend() {
+        var friendId = $('#friendId').val();
+        var toUrl = [[@{/user/addFriend}]];
+        $.post(toUrl,
+            {
+                friend : friendId
+            },
+        function (data) {
+            if (data) {
+                $('#message').html('添加好友成功');
+            } else {
+                $('#message').html('添加好友失败');
+            }
+            $('#result').show();
+        })
+    }
+    
+    function hideUpdateDiv() {
+        $('#result').hide();
+    }
+
+    $(document).click(function () {
+        $('#result').hide();
+    });
+
+    $("#result").click(function(event){
+        event.stopPropagation();
+    });
+
+    //添加判断是否登录
+    function loginTip() {
+        var user = [[${session.user.userId}]];
+        if (user == null) {
+            if (window.confirm("请先登录!")) {
+                window.location.replace("../../login");
+                return false;
+            } else {
+                return false;
+            }
+        } else {
+            addFriend();
+            return true;
+        }
+    }
+
+</script>
+
 </html>

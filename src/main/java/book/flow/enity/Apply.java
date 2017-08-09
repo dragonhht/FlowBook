@@ -27,7 +27,7 @@ public class Apply implements Serializable {
     /** 状态. */
     private String status = "待审批";
     /** 申请人. */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
     /** 申请中的图片. */
@@ -35,7 +35,7 @@ public class Apply implements Serializable {
     @JoinColumn(name = "applyId")
     private Set<Img> imgs;
     /** 申请的图书. */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bookId")
     private Book book;
 

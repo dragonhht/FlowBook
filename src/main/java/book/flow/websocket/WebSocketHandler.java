@@ -28,10 +28,9 @@ public class WebSocketHandler extends TextWebSocketHandler{
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         System.out.println("成功建立连接");
         Integer userId = getClientId(session);
-        System.out.println(userId);
         if (userId != null) {
             users.put(userId, session);
-            session.sendMessage(new TextMessage("成功建立socket连接"));
+            // session.sendMessage(new TextMessage("成功建立socket连接"));
             System.out.println(userId);
             System.out.println(session);
         }
@@ -43,7 +42,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
      * @param message
      * @return
      */
-    public boolean sendMessageToUser(Integer clientId, TextMessage message) {
+    public boolean sendMessageToUser(Integer selfId, Integer clientId, TextMessage message) {
         if (users.get(clientId) == null) return false;
         WebSocketSession session = users.get(clientId);
         System.out.println("sendMessage:" + session);
@@ -63,11 +62,11 @@ public class WebSocketHandler extends TextWebSocketHandler{
         System.out.println(message.getPayload());
 
         WebSocketMessage message1 = new TextMessage("server:"+message);
-        try {
+        /*try {
             session.sendMessage(message1);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     private Integer getClientId(WebSocketSession session) {

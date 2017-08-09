@@ -44,5 +44,4 @@ function selectTab(n) {
             $('#notice').show();
         }
     }
-
 }

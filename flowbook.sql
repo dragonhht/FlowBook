@@ -102,3 +102,15 @@ CREATE TABLE img (
   apply_id INT NOT NULL ,
   FOREIGN KEY (apply_id) REFERENCES user_apply(apply_id)
 ) CHARSET=utf8;
+
+-- 聊天记录表
+CREATE TABLE chat_record (
+  chat_id BIGINT AUTO_INCREMENT PRIMARY KEY ,
+  sender INT NOT NULL ,
+  receiver INT NOT NULL ,
+  message TEXT NOT NULL ,
+  send_date DATE NOT NULL ,
+  looked BOOLEAN NOT NULL ,
+  FOREIGN KEY (sender) REFERENCES user(user_id),
+  FOREIGN KEY (receiver) REFERENCES user(user_id)
+) CHARSET=utf8;

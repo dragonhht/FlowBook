@@ -82,6 +82,10 @@ li {
     text-align: center;
 }
 
+.friend img {
+    width: 2p;
+}
+
 .chat_div {
     border: 1px solid #DDDDDD;
     position: absolute;

@@ -69,7 +69,7 @@ public class User implements Serializable {
     /** 信用度. */
     private Integer credit = 0;
     /** 申请. */
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private Set<Apply> applies;
 
@@ -320,6 +320,7 @@ public class User implements Serializable {
     public void setApplies(Set<Apply> applies) {
         this.applies = applies;
     }
+
 
     @Override
     public String toString() {
