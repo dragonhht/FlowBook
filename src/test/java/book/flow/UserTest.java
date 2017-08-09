@@ -141,7 +141,7 @@ public class UserTest {
 
     @Test
     public void testAddChatRecord() {
-        User sender = service.getUserById(1000002);
+        User sender = service.getUserById(1000008);
         User receiver = service.getUserById(1000000);
 
         ChatRecord record = new ChatRecord();
@@ -153,5 +153,13 @@ public class UserTest {
 
         long count = service.msgCount(1000000);
         System.out.println("数量： " + count);
+    }
+
+    @Test
+    public void testGetNotFriend() {
+        List<User> users = service.getNotFriend(1000000);
+        for (User u : users) {
+            System.out.println(u.getUserId());
+        }
     }
 }

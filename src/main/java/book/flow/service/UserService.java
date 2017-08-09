@@ -184,4 +184,11 @@ public interface UserService {
      * @return 信息
      */
     List<String> getFriendMsg(int selfId, int friendId);
+
+    /**
+     * 获取聊天信息中非好友用户
+     * @param selfId 用户编号
+     * @return 非好友信息
+     */
+    List<User> getNotFriend(int selfId);
 }

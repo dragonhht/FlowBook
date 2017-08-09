@@ -236,12 +236,15 @@ public class UserController {
 
         List<User> friends = null;
         List<Integer> idList = null;
+        List<User> notFriend = null;
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int selfId = user.getUserId();
             friends = userService.getFriends(selfId);
             idList = userService.getSenderId(selfId);
+            notFriend = userService.getNotFriend(selfId);
         }
+        model.addAttribute("notFriend", notFriend);
         model.addAttribute("senderIds", idList);
         model.addAttribute("friends", friends);
         return "user_friend";

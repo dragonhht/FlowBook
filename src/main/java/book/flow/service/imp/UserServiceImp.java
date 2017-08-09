@@ -284,4 +284,11 @@ public class UserServiceImp implements UserService {
         messages = chatRecordRepository.getFriendMsg(selfId, friendId);
         return messages;
     }
+
+    @Override
+    public List<User> getNotFriend(int selfId) {
+        List<User> users = null;
+        users = chatRecordRepository.getNotFriend(selfId);
+        return users;
+    }
 }
