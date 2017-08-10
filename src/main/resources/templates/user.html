@@ -157,9 +157,10 @@
 
 <!--联系聊天框-->
 <div class="chat" id="chat" hidden="hidden">
+    <div class="friend_name" id="chatWithName" align="center" th:text="${user.userName}"></div>
     <span class="close" onclick="closeChat()">x</span>
+
     <div id="chat_div" class="chat_div">
-        <div class="friend_name" id="chatWithName" align="center" th:text="${user.userName}"></div>
         <input hidden="hidden" type="text" id="chatWithId" th:value="${user.userId}" />
         <div class="speak_box">
 
@@ -220,13 +221,19 @@
     }
 
 
-    function up_say(){
-        $('.write_list').remove();
-        var text = $('.input_div textarea').val(),
-            str  = '<div class="question">';
+    var str;
+
+    function showMyMssage(text) {
+        str = '<div class="question">';
         str += '<div class="heard_img right"><img th:src="@{${session.user.userImg}}"/></div>';
         str += '<div class="question_text clear"><p>'+text+'</p><i></i>';
         str += '</div></div>';
+        $('.speak_box').append(str);
+    }
+
+    function up_say(){
+        $('.write_list').remove();
+        var text = $('.input_div textarea').val();
 
         if(text == ''){
             alert('请输入内容！');
@@ -235,7 +242,7 @@
 
             sendMessage();
 
-            $('.speak_box').append(str);
+            showMyMssage(text);
             $('.input_div textarea').val('');
             $('.input_div textarea').focus();
             autoWidth();
@@ -267,7 +274,8 @@
 
     function for_bottom(){
         var speak_height = $('.speak_box').height();
-        $('.speak_box,.speak_window').animate({scrollTop:speak_height},500);
+        $('.speak_box').animate({scrollTop:speak_height},500);
+        scrollToBottom();
     }
 
     function autoWidth(){
@@ -296,6 +304,7 @@
                 console.log("onpen");
                 ws.send("{}");
             };
+            chatWith();
             return true;
         }
     }
@@ -343,12 +352,47 @@
                 friendId : friendId
             },
             function (data) {
-            console.log(data);
-                for (var i = 0; i < data.length; i++) { /*]]>*/
-                    showMessage(data[i]);
+                console.log(data);
+                var friendMsg = data.friendMsg;
+                var selfMsg = data.selfMsg;
+                var friendLenght = friendMsg.length;
+                var selfLenght = selfMsg.length;
+                var i = 0, j = 0;
+                while (i < friendLenght && j < selfLenght) {
+                    if (friendMsg[i].date < selfMsg[j].date) {
+                        showMessage(friendMsg[i].message);
+                        console.log("friend : " + friendMsg[i].date);
+                        i++;
+                    } else {
+                        showMyMssage(selfMsg[j].message);
+                        console.log("self : " + selfMsg[j].date);
+                        j++;
+                    }
                 }
-            })
+                console.log(i + ' : ' + j);
+
+                for ( ; i < friendLenght; i++) {
+                    showMessage(friendMsg[i].message);
+                }
+                for ( ; j < selfLenght; j++) {
+                    showMyMssage(selfMsg[j].message);
+                }
+
+                console.log(i + ' : ' + j);
+            });
     }
+    /*]]>*/
+    
+    function scrollToBottom() {
+        var h = $('.speak_box').height();
+        console.log("高度： " + h);
+        // $('.speak_box').scrollTop(h);
+        $('#chat_div').animate({
+                scrollTop: h
+            },
+            500);
+    }
+
 
 </script>
 

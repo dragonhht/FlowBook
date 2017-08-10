@@ -197,7 +197,7 @@ a:hover {
 }
 
 .friend_name {
-/ / border: 1 px solid red;
+    /*border: 1px solid red;*/
     height: 20px;
     line-height: 20px;
     font-weight: bolder;

@@ -179,6 +179,7 @@
     function for_bottom(){
         var speak_height = $('.speak_box').height();
         $('.speak_box,.speak_window').animate({scrollTop:speak_height},500);
+        scrollToBottom();
     }
 
     function autoWidth(){
@@ -265,6 +266,16 @@
         });
     }
     /*]]>*/
+
+    function scrollToBottom() {
+        var h = $('.speak_box').height();
+        console.log("高度： " + h);
+        // $('.speak_box').scrollTop(h);
+        $('#chat_div').animate({
+                scrollTop: h
+            },
+            500);
+    }
 
 </script>
 
