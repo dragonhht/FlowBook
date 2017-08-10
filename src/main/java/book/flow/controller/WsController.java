@@ -3,6 +3,8 @@ package book.flow.controller;
 import book.flow.enity.ChatRecord;
 import book.flow.enity.User;
 import book.flow.model.Message;
+import book.flow.model.Msg;
+import book.flow.model.MsgModel;
 import book.flow.service.UserService;
 import book.flow.websocket.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,15 +55,19 @@ public class WsController {
 
     @PostMapping("/chatWith")
     @ResponseBody
-    public List<String> getFriendMsg(int friendId, HttpSession session) {
-        List<String> messages = null;
-        List<ChatRecord> myMsg = null;
+    public Msg getFriendMsg(int friendId, HttpSession session) {
+        Msg msg = new Msg();
+        List<MsgModel> messages = null;
+        List<MsgModel> myMsg = null;
         User user = (User)  session.getAttribute("user");
         if (user != null) {
             int selfId = user.getUserId();
             messages = userService.getFriendMsg(selfId, friendId);
+            myMsg = userService.getToFriendMsg(selfId, friendId);
+            msg.setSelfMsg(myMsg);
+            msg.setFriendMsg(messages);
         }
-        return messages;
+        return msg;
     }
 
 }

@@ -13,22 +13,22 @@ import java.util.List;
  */
 public class Msg implements Serializable {
 
-    private List<ChatRecord> selfMsg;
-    private List<ChatRecord> friendMsg;
+    private List<MsgModel> selfMsg;
+    private List<MsgModel> friendMsg;
 
-    public List<ChatRecord> getSelfMsg() {
+    public List<MsgModel> getSelfMsg() {
         return selfMsg;
     }
 
-    public void setSelfMsg(List<ChatRecord> selfMsg) {
+    public void setSelfMsg(List<MsgModel> selfMsg) {
         this.selfMsg = selfMsg;
     }
 
-    public List<ChatRecord> getFriendMsg() {
+    public List<MsgModel> getFriendMsg() {
         return friendMsg;
     }
 
-    public void setFriendMsg(List<ChatRecord> friendMsg) {
+    public void setFriendMsg(List<MsgModel> friendMsg) {
         this.friendMsg = friendMsg;
     }
 

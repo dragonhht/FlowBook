@@ -40,6 +40,8 @@ public class UserTest {
     private ApplyRepository applyRepository;
     @Autowired
     private UserService service;
+    @Autowired
+    private ChatRecordRepository chatRecordRepository;
 
     @Test
     public void testAddUser() {
@@ -162,6 +164,14 @@ public class UserTest {
         List<User> users = service.getNotFriend(1000000);
         for (User u : users) {
             System.out.println(u.getUserId());
+        }
+    }
+
+    @Test
+    public void testgetToFriendMsg() {
+        List<MsgModel> msgs = chatRecordRepository.getToFriendMsg(1000000, 1000002);
+        for (MsgModel msg : msgs) {
+            System.out.println(msg);
         }
     }
 

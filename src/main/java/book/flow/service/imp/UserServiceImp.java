@@ -2,6 +2,7 @@ package book.flow.service.imp;
 
 import book.flow.BookFlowApplication;
 import book.flow.enity.*;
+import book.flow.model.MsgModel;
 import book.flow.repository.*;
 import book.flow.service.FileService;
 import book.flow.service.UserService;
@@ -279,9 +280,16 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public List<String> getFriendMsg(int selfId, int friendId) {
-        List<String> messages = null;
+    public List<MsgModel> getFriendMsg(int selfId, int friendId) {
+        List<MsgModel> messages = null;
         messages = chatRecordRepository.getFriendMsg(selfId, friendId);
+        return messages;
+    }
+
+    @Override
+    public List<MsgModel> getToFriendMsg(int selfId, int friendId) {
+        List<MsgModel> messages = null;
+        messages = chatRecordRepository.getToFriendMsg(selfId, friendId);
         return messages;
     }
 

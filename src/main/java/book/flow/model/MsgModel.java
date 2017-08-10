@@ -1,5 +1,8 @@
 package book.flow.model;
 
+import javax.persistence.Entity;
+import java.util.Date;
+
 /**
  * Description.
  * User: huang
@@ -8,7 +11,15 @@ package book.flow.model;
 public class MsgModel {
 
     private String message;
-    private String date;
+    private Date date;
+
+    public MsgModel() {
+    }
+
+    public MsgModel(String message, Date date) {
+        this.message = message;
+        this.date = date;
+    }
 
     public String getMessage() {
         return message;
@@ -18,11 +29,11 @@ public class MsgModel {
         this.message = message;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

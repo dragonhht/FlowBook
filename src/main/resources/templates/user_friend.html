@@ -124,13 +124,20 @@
 </body>
 
 <script type="text/javascript" th:inline="javascript">
-    function up_say(){
-        $('.write_list').remove();
-        var text = $('.input_div textarea').val(),
-            str  = '<div class="question">';
+
+    var str;
+
+    function showMyMssage(text) {
+        str = '<div class="question">';
         str += '<div class="heard_img right"><img th:src="@{${session.user.userImg}}"/></div>';
         str += '<div class="question_text clear"><p>'+text+'</p><i></i>';
         str += '</div></div>';
+        $('.speak_box').append(str);
+    }
+    
+    function up_say(){
+        $('.write_list').remove();
+        var text = $('.input_div textarea').val();
 
         if(text == ''){
             alert('请输入内容！');
@@ -139,7 +146,7 @@
 
             sendMessage();
 
-            $('.speak_box').append(str);
+            showMyMssage(text);
             $('.input_div textarea').val('');
             $('.input_div textarea').focus();
             autoWidth();
@@ -228,12 +235,36 @@
                 friendId : friendId
             },
         function (data) {
-            for (var i = 0; i < data.length; i++) { /*]]>*/
-                showMessage(data[i]);
+            console.log(data);
+            var friendMsg = data.friendMsg;
+            var selfMsg = data.selfMsg;
+            var friendLenght = friendMsg.length;
+            var selfLenght = selfMsg.length;
+            var i = 0, j = 0;
+            while (i < friendLenght && j < selfLenght) {
+                if (friendMsg[i].date < selfMsg[j].date) {
+                    showMessage(friendMsg[i].message);
+                    console.log("friend : " + friendMsg[i].date);
+                    i++;
+                } else {
+                    showMyMssage(selfMsg[j].message);
+                    console.log("self : " + selfMsg[j].date);
+                    j++;
+                }
             }
-        })
-    }
+            console.log(i + ' : ' + j);
 
+            for ( ; i < friendLenght; i++) {
+                showMessage(friendMsg[i].message);
+            }
+            for ( ; j < selfLenght; j++) {
+                showMyMssage(selfMsg[j].message);
+            }
+
+            console.log(i + ' : ' + j);
+        });
+    }
+    /*]]>*/
 
 </script>
 

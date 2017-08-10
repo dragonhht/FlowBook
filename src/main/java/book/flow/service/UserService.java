@@ -1,6 +1,7 @@
 package book.flow.service;
 
 import book.flow.enity.*;
+import book.flow.model.MsgModel;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.multipart.MultipartFile;
 import sun.rmi.server.LoaderHandler;
@@ -183,7 +184,15 @@ public interface UserService {
      * @param friendId 好友编号
      * @return 信息
      */
-    List<String> getFriendMsg(int selfId, int friendId);
+    List<MsgModel> getFriendMsg(int selfId, int friendId);
+
+    /**
+     * 获取发送给制定好友的信息.
+     * @param selfId 用户编号
+     * @param friendId 好友编号
+     * @return 信息
+     */
+    List<MsgModel> getToFriendMsg(int selfId, int friendId);
 
     /**
      * 获取聊天信息中非好友用户
