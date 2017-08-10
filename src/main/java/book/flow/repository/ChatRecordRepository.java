@@ -5,7 +5,9 @@ import book.flow.enity.User;
 import book.flow.model.Message;
 import book.flow.model.MsgModel;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -58,9 +60,19 @@ public interface ChatRecordRepository extends JpaRepository<ChatRecord, Long> {
      * @param selfId 用户编号
      * @return 非好友信息
      */
-    @Query("select distinct c.sender from ChatRecord c where c.receiver.userId = ?1 and c.looked = false " +
-            "and c.sender.userId not in(select f.friend.userId from Friends f where f.self.userId = c.receiver.userId)")
-    List<User> getNotFriend(int selfId);
+    @Query("select distinct c.sender from ChatRecord c where c.receiver.userId = ?1 or c.sender.userId = ?1 and c.looked = false " +
+            "and c.sender.userId not in(?2) ")
+    List<User> getNotFriend(int selfId, List<Integer> ids);
 
+    /**
+     * 将信息标为已读.
+     * @param selfId 用户编号
+     * @param friendId 好友编号
+     * @return 修改记录数
+     */
+    @Transactional
+    @Modifying
+    @Query("update ChatRecord c set c.looked = true where c.receiver.userId = ?1 and c.sender.userId = ?2")
+    int setChatReaded(int selfId, int friendId);
 
 }

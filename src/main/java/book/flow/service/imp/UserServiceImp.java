@@ -7,17 +7,16 @@ import book.flow.repository.*;
 import book.flow.service.FileService;
 import book.flow.service.UserService;
 import book.flow.utils.PasswordTool;
+import org.omg.CORBA.INTERNAL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import redis.clients.jedis.BinaryClient;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 用户服务层实现类.
@@ -249,6 +248,15 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public List<Integer> getFriendsId(int selfId) {
+        List<Integer> ids = chatRecordRepository.getSenderId(selfId);
+        if (ids == null) {
+            ids = new ArrayList<>();
+        }
+        return ids;
+    }
+
+    @Override
     public User getUserById(int userId) {
         User user = null;
         user = userRepository.getUserById(userId);
@@ -296,7 +304,30 @@ public class UserServiceImp implements UserService {
     @Override
     public List<User> getNotFriend(int selfId) {
         List<User> users = null;
-        users = chatRecordRepository.getNotFriend(selfId);
+        List<Integer> ids = friendsRepository.getUserFriendsId(selfId);
+        users = chatRecordRepository.getNotFriend(selfId, ids);
         return users;
+    }
+
+    @Override
+    public boolean setChatReaded(int selfId, int friendId) {
+        boolean ok = false;
+        int c = 0;
+        c = chatRecordRepository.setChatReaded(selfId, friendId);
+        if (c != 0) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public boolean delFriend(int selfId, int friendId) {
+        boolean ok = false;
+        int l = 0;
+        l = friendsRepository.delFriend(selfId, friendId);
+        if (l != 0) {
+            ok = true;
+        }
+        return ok;
     }
 }

@@ -268,5 +268,34 @@ public class UserController {
         return ok;
     }
 
+    /**
+     * 删除好友.
+     * @param friendId 好友编号
+     * @param session session
+     */
+    @PostMapping("/delFriend")
+    @ResponseBody
+    public void delFriend(int friendId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int selfId = user.getUserId();
+            userService.delFriend(selfId, friendId);
+            userService.setChatReaded(selfId, friendId);
+        }
+    }
 
+    /**
+     * 将信息标为已读.
+     * @param friendId 对发编号
+     * @param session session
+     */
+    @PostMapping("/readedChat")
+    @ResponseBody
+    public void readedChat(int friendId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int selfId = user.getUserId();
+            userService.setChatReaded(selfId, friendId);
+        }
+    }
 }

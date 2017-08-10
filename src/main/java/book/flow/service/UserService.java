@@ -151,6 +151,13 @@ public interface UserService {
     List<User> getFriends(int selfId);
 
     /**
+     * 获取好友编号.
+     * @param selfId 用户编号
+     * @return 好友信息
+     */
+    List<Integer> getFriendsId(int selfId);
+
+    /**
      * 通过编号查询用户.
      * @param userId 用户编号
      * @return 用户信息
@@ -200,4 +207,20 @@ public interface UserService {
      * @return 非好友信息
      */
     List<User> getNotFriend(int selfId);
+
+    /**
+     * 将信息标为已读.
+     * @param selfId 用户编号
+     * @param friendId 好友编号
+     * @return 是否成功， true为成功
+     */
+    boolean setChatReaded(int selfId, int friendId);
+
+    /**
+     * 删除好友.
+     * @param selfId 用户编号
+     * @param friendId 好友编号
+     * @return 是否成功， true为成功
+     */
+    boolean delFriend(int selfId, int friendId);
 }

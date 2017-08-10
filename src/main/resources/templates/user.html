@@ -68,13 +68,11 @@
                 </div>
 
                 <div class="add_user">
-                    <th:block th:unless="${isAdd}">
-                        <a onclick="return loginTip();" th:if="${isAdd}">
-                            <input id="friendId" hidden="hidden" th:value="${user.userId}" />
-                            <img th:src="@{/img/adduser.png}" />
+                    <a onclick="return loginTip();" th:unless="${isAdd}">
+                        <input id="friendId" hidden="hidden" th:value="${user.userId}" />
+                        <img th:src="@{/img/adduser.png}" />
                             加为好友
-                        </a>
-                    </th:block>
+                    </a>
                     <a onclick="return chatLoginTip();" >
                         <img th:src="@{/img/chat.png}" />
                         联系

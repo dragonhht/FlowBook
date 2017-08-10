@@ -202,7 +202,7 @@ public class TouristServiceImp implements TouristService {
         List<User> users = null;
         User user = null;
         users = recordRepository.getNowOwnerByBookId(bookId);
-        if (users != null) {
+        if (users != null && users.size() > 0) {
             user = users.get(0);
         }
         return user;
