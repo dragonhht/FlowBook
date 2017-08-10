@@ -1,6 +1,8 @@
 package book.flow;
 
 import book.flow.enity.*;
+import book.flow.model.Message;
+import book.flow.model.MsgModel;
 import book.flow.repository.*;
 import book.flow.service.UserService;
 import book.flow.utils.PasswordTool;
@@ -162,4 +164,5 @@ public class UserTest {
             System.out.println(u.getUserId());
         }
     }
+
 }

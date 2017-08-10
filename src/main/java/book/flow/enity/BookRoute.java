@@ -1,5 +1,6 @@
 package book.flow.enity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,10 +24,12 @@ public class BookRoute implements Serializable {
     /** 借阅图书. */
     @ManyToOne
     @JoinColumn(name = "bookId")
+    @JsonBackReference
     private Book book;
     /** 借阅用户. */
     @ManyToOne
     @JoinColumn(name = "userId")
+    @JsonBackReference
     private User user;
 
 

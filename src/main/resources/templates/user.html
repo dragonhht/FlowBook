@@ -68,12 +68,14 @@
                 </div>
 
                 <div class="add_user">
-                    <a onclick="return loginTip();" th:if="${isAdd}">
-                        <input id="friendId" hidden="hidden" th:value="${user.userId}" />
-                        <img th:src="@{/img/adduser.png}" />
-                        加为好友
-                    </a>
-                    <a href="#">
+                    <th:block th:unless="${isAdd}">
+                        <a onclick="return loginTip();" th:if="${isAdd}">
+                            <input id="friendId" hidden="hidden" th:value="${user.userId}" />
+                            <img th:src="@{/img/adduser.png}" />
+                            加为好友
+                        </a>
+                    </th:block>
+                    <a onclick="return chatLoginTip();" >
                         <img th:src="@{/img/chat.png}" />
                         联系
                     </a>
@@ -147,9 +149,27 @@
     </div>
 </body>
 
+<!--好友添加结果-->
 <div  class="result" id="result" hidden="hidden" >
     <span class="close" onclick="hideUpdateDiv(this)">x</span>
     <span id="message" class="text"></span>
+</div>
+
+<!--联系聊天框-->
+<div class="chat" id="chat" hidden="hidden">
+    <span class="close" onclick="closeChat()">x</span>
+    <div id="chat_div" class="chat_div">
+        <div class="friend_name" id="chatWithName" align="center" th:text="${user.userName}"></div>
+        <input hidden="hidden" type="text" id="chatWithId" th:value="${user.userId}" />
+        <div class="speak_box">
+
+        </div>
+
+    </div>
+    <div class="input_div">
+        <textarea id="msg" onKeyUp="keyup()"></textarea>
+        <button onClick="up_say()" class="btn btn-info">发送</button>
+    </div>
 </div>
 
 <script type="text/javascript" th:inline="javascript">
@@ -197,6 +217,137 @@
             addFriend();
             return true;
         }
+    }
+
+
+    function up_say(){
+        $('.write_list').remove();
+        var text = $('.input_div textarea').val(),
+            str  = '<div class="question">';
+        str += '<div class="heard_img right"><img th:src="@{${session.user.userImg}}"/></div>';
+        str += '<div class="question_text clear"><p>'+text+'</p><i></i>';
+        str += '</div></div>';
+
+        if(text == ''){
+            alert('请输入内容！');
+            $('.input_div textarea').focus();
+        }else{
+
+            sendMessage();
+
+            $('.speak_box').append(str);
+            $('.input_div textarea').val('');
+            $('.input_div textarea').focus();
+            autoWidth();
+            for_bottom();
+
+        }
+    }
+
+    function keyup(){
+        var footer_height = $('.wenwen-footer').outerHeight(),
+            text = $('.write_box input').val(),
+            str = '<div class="write_list">'+text+'</div>';
+        if (text == '' || text == undefined){
+            $('.write_list').remove();
+        }else{
+            $('.wenwen-footer').append(str);
+            $('.write_list').css('bottom',footer_height);
+        }
+    }
+
+    // 显示他人信息
+    function showMessage(text){
+        var ans  = '<div class="answer"><div class="heard_img left"><img src="images/dglvyou.jpg" /></div>';
+        ans += '<div class="answer_text"><p>'+ text + '</p><i></i>';
+        ans += '</div></div>';
+        $('.speak_box').append(ans);
+        for_bottom();
+    }
+
+    function for_bottom(){
+        var speak_height = $('.speak_box').height();
+        $('.speak_box,.speak_window').animate({scrollTop:speak_height},500);
+    }
+
+    function autoWidth(){
+        $('.question_text').css('max-width',$('.question').width()-60);
+    }
+    autoWidth();
+
+    var ws = null;
+
+    /** 联系判断用户是否登录. */
+    function chatLoginTip() {
+        var user = [[${session.user.userId}]];
+        if (user == null) {
+            if (window.confirm("请先登录!")) {
+                window.location.replace("../../login");
+                return false;
+            } else {
+                return false;
+            }
+        } else {
+            console.log('联系');
+            $('#chat').show();
+            $('#chat').focus();
+            ws = new WebSocket("ws://localhost:8080/FlowBook/webSocketHandler");
+            ws.onopen = function () {
+                console.log("onpen");
+                ws.send("{}");
+            };
+            return true;
+        }
+    }
+
+    function closeChat() {
+            console.log('消失');
+            ws.onclose = function () {
+                console.log("onclose");
+            };
+            $('#chat').hide();
+    };
+
+    ws.onmessage = function (msg) {
+        var message = msg.data;
+        message = message.split("/[-=^*]");
+        var chatWithId = $('#chatWithId').val().trim();
+        if (chatWithId == message[0].trim()) {
+            showMessage(message[1]);
+        }
+    };
+
+    function sendMessage() {
+        var text = $('.input_div textarea').val();
+        var to = $('#chatWithId').val();
+        $.post('../../message',
+            {
+                message : text,
+                userId : to
+            },
+            function (data) {
+                console.log("data:" + data);
+            })
+    }
+
+    function chatWith(n) {
+        $('.speak_box').html("");
+        var friendId = $('#chatWithId').val();
+        getFriendMsg(friendId);
+    }
+
+    /*<![CDATA[*/
+    function getFriendMsg(friendId) {
+        $.post('../../chatWith',
+            {
+                friendId : friendId
+            },
+            function (data) {
+            console.log(data);
+                for (var i = 0; i < data.length; i++) { /*]]>*/
+                    showMessage(data[i]);
+                }
+            })
     }
 
 </script>

@@ -1,5 +1,6 @@
 package book.flow.controller;
 
+import book.flow.enity.ChatRecord;
 import book.flow.enity.User;
 import book.flow.model.Message;
 import book.flow.service.UserService;
@@ -40,6 +41,7 @@ public class WsController {
     @PostMapping("/message")
     @ResponseBody
     public String sendMessage(Message message, HttpSession session) {
+        System.out.println(message);
         User user = (User)session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
@@ -53,6 +55,7 @@ public class WsController {
     @ResponseBody
     public List<String> getFriendMsg(int friendId, HttpSession session) {
         List<String> messages = null;
+        List<ChatRecord> myMsg = null;
         User user = (User)  session.getAttribute("user");
         if (user != null) {
             int selfId = user.getUserId();

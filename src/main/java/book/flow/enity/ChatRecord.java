@@ -20,11 +20,11 @@ public class ChatRecord implements Serializable {
     @GeneratedValue
     private Long chatId;
     /** 发送者. */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sender")
     private User sender;
     /** 接收者. */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "receiver")
     private User receiver;
     /** 信息内容. */
@@ -87,8 +87,6 @@ public class ChatRecord implements Serializable {
     public String toString() {
         return "ChatRecord{" +
                 "chatId=" + chatId +
-                ", sender=" + sender +
-                ", receiver=" + receiver +
                 ", message='" + message + '\'' +
                 ", sendDate=" + sendDate +
                 ", looked=" + looked +

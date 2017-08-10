@@ -1,5 +1,6 @@
 package book.flow.enity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -54,6 +55,7 @@ public class User implements Serializable {
     /** 图书路线. */
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
+    @JsonBackReference
     private Set<BookRoute> bookRoute;
     /** 发布的公告. */
     @OneToMany(fetch = FetchType.EAGER)
@@ -71,6 +73,7 @@ public class User implements Serializable {
     /** 申请. */
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
+    @JsonBackReference
     private Set<Apply> applies;
 
 

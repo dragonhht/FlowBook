@@ -171,3 +171,212 @@ a:hover {
     width: 100px;
     display: block;
 }
+
+.chat {
+    position: absolute;
+    top: 2%;
+    left: 25%;
+    width: 595px;
+    height: 670px;
+    //padding-right: 5px;
+    border: 3px solid gray;
+    background-color: white;
+    z-index: 2;
+    overflow: auto;
+}
+
+.chat_div {
+    border: 1px solid #DDDDDD;
+    position: absolute;
+    right: 10px;
+    height: 500px;
+    width: 560px;
+    margin-bottom: 10px;
+    overflow-x: auto;
+    margin-right: 5px;
+}
+
+.friend_name {
+/ / border: 1 px solid red;
+    height: 20px;
+    line-height: 20px;
+    font-weight: bolder;
+    margin-top: 10px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.input_div {
+/ / border: 1 px solid green;
+    position: absolute;
+    right: 10px;
+    width: 560px;
+    height: 160px;
+    bottom: 0px;
+}
+
+.input_div textarea {
+    resize: none;
+    width: 560px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.input_div button {
+    float: right;
+    margin-right: 20px;
+}
+
+.wenwen_btn img, .wenwen_help img {
+    height: 40px;
+}
+
+.wenwen_text .circle-button {
+    font-size: 14px;
+    color: #666;
+    line-height: 38px;
+}
+
+.write_box input {
+    height: 40px;
+    padding: 0 5px;
+    line-height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+}
+
+.wenwen_help button {
+    width: 95%;
+    background: #42929d;
+    color: #fff;
+    border-radius: 5px;
+    border: 0;
+    height: 40px;
+    display: none;
+}
+
+#wenwen {
+    height: 100%;
+}
+
+.speak_box {
+    margin-bottom: 70px;
+    padding: 10px;
+}
+
+.question, .answer {
+    margin-bottom: 1rem;
+}
+
+.question {
+    text-align: right;
+}
+
+.question > div {
+    display: inline-block;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.heard_img {
+    height: 60px;
+    width: 60px;
+    border-radius: 5px;
+    overflow: hidden;
+    background: #ddd;
+}
+
+.heard_img img {
+    width: 100%;
+    height: 100%
+}
+
+.question_text, .answer_text {
+    box-sizing: border-box;
+    position: relative;
+    display: table-cell;
+    min-height: 60px;
+}
+
+.question_text {
+    padding-right: 20px;
+}
+
+.answer_text {
+    padding-left: 20px;
+}
+
+.question_text p, .answer_text p {
+    border-radius: 10px;
+    padding: .5rem;
+    margin: 0;
+    font-size: 14px;
+    line-height: 28px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    display: table-cell;
+    height: 60px;
+    word-wrap: break-word;
+}
+
+.answer_text p {
+    background: #fff;
+}
+
+.question_text p {
+    background: #42929d;
+    color: #fff;
+    text-align: left;
+}
+
+.question_text i, .answer_text i {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    position: absolute;
+    top: 25px;
+}
+
+.answer_text i {
+    border-right: 10px solid #fff;
+    left: 10px;
+}
+
+.question_text i {
+    border-left: 10px solid #42929d;
+    right: 10px;
+}
+
+.answer_text p a {
+    color: #42929d;
+    display: inline-block;
+}
+
+audio {
+    display: none;
+}
+
+.saying img {
+    width: 100%;
+}
+
+.write_list {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-top: solid 1px #ddd;
+    padding: 5px;
+    line-height: 30px;
+}
