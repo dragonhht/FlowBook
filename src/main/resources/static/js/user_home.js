@@ -49,16 +49,18 @@ function selectTab(n) {
 
 /** 显示修改按钮. */
 function showBtn(n) {
+    // console.log("显示");
     var btn = $(n).children('.update_btn');
-    var img = $(btn).children('chat');
-    $(img[0]).show();
+    var img = $(btn).children('img');
+    $(img).show();
 }
 
 /** 隐藏修改按钮. */
 function hideBtn(n) {
+    // console.log("隐藏");
     var btn = $(n).children('.update_btn');
-    var img = $(btn).children('chat');
-    $(img[0]).hide();
+    var img = $(btn).children('img');
+    $(img).hide();
 }
 
 /** 显示修改框. */
@@ -81,4 +83,34 @@ function showUpdateDiv(n) {
 function hideUpdateDiv(n) {
     var parent = $(n).parent();
     $(parent).hide();
+}
+
+
+/** 更新邮箱. */
+function updateEmail() {
+    var oldEmail = $('#oldEmail').val().trim();
+    var newEmail = $('#newEmail').val().trim();
+    var updateEmailCode = $('#updateEmailCode').val().trim();
+    $.post('updateEmail',
+        {
+            oldEmail : oldEmail,
+            newEmail : newEmail,
+            code : updateEmailCode
+        },
+    function (data) {
+        if (data == 'ok') {
+            location.reload(true);
+        } else {
+            $('#emailResult').html(data);
+        }
+    })
+}
+
+/** 校验邮箱. */
+function checkEmail() {
+    var email = $('#newEmail').val().trim();
+    $.post('checkEmail',
+        {
+            email : email
+        });
 }

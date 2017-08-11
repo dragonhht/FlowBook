@@ -69,7 +69,7 @@
                     </div>
                     <div class="message_div" onmouseover="showBtn(this)" onmouseout="hideBtn(this)">
                         <label>电子邮箱：</label>
-                        <span th:text="${session.user.getUserEmail()}"></span>
+                        <span id="userEmail" th:text="${session.user.getUserEmail()}"></span>
                         <a class="update_btn" index="email" onclick="showUpdateDiv(this)">
                             <img title="修改邮箱" hidden="hidden" th:src="@{/img/update.png}" />
                         </a>
@@ -204,23 +204,34 @@
 
     <!--修改电子邮箱-->
     <div class="update_div" id="update_email" hidden="hidden">
-        <span class="update_top"></span>
+        <span class="update_top" id="emailResult"></span>
         <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
         <div class="form-group form_group">
             <label class="col-sm-2 control-label"><span style="color: red">*</span>原电子邮箱</label>
-            <div class="col-sm-9 input-group">
-                <input type="text" class="form-control" placeholder="请输入原电子邮箱" />
+            <div id="oldEmailInput" class="col-sm-9 input-group ">
+                <input id="oldEmail" type="text" class="form-control" placeholder="请输入原电子邮箱" />
             </div>
         </div>
         <div class="form-group form_group">
             <label class="col-sm-2 control-label"><span style="color: red">*</span>新电子邮箱</label>
             <div class="col-sm-9 input-group">
-                <input type="text" class="form-control" placeholder="请输入新电子邮箱" />
+                <input id="newEmail" type="text" class="form-control" placeholder="请输入新电子邮箱" />
             </div>
         </div>
         <div class="form-group form_group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-info">确认修改</button>
+                <button onclick="checkEmail()" type="button" style="margin-bottom: 20px;" class="btn btn-info">校验新邮箱</button>
+            </div>
+        </div>
+        <div class="form-group form_group">
+            <label class="col-sm-2 control-label"><span style="color: red">*</span>校验码</label>
+            <div class="col-sm-9 input-group">
+                <input id="updateEmailCode" type="text" class="form-control" placeholder="请输入新邮箱接收到的校验码" />
+            </div>
+        </div>
+        <div class="form-group form_group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button onclick="updateEmail()" class="btn btn-info">确认修改</button>
             </div>
         </div>
 
@@ -234,4 +245,27 @@
         </p>
     </div>
 </body>
+
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+
+        /** 校验原邮箱是否输入正确. */
+        $('#oldEmail').blur(function () {
+            var oldEmail = $('#userEmail').html().trim();
+            var input = $('#oldEmail').val().trim();
+            if (oldEmail != input) {
+                $('#oldEmailInput').addClass('has-error');
+                $('#errorAddEmail').remove();
+                $('#oldEmailInput').append('<span id="errorAddEmail"  class="input-group-addon">' +
+                    '<img style="width: 20px; height: 20px;" th:src="@{/img/error.png}" /> ' +
+                    '</span>');
+            } else {
+                $('#oldEmailInput').removeClass('has-error');
+                $('#errorAddEmail').remove();
+            }
+        });
+
+    });
+</script>
+
 </html>

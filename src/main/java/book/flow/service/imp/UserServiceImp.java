@@ -6,6 +6,7 @@ import book.flow.model.MsgModel;
 import book.flow.repository.*;
 import book.flow.service.FileService;
 import book.flow.service.UserService;
+import book.flow.utils.MailUtils;
 import book.flow.utils.PasswordTool;
 import org.omg.CORBA.INTERNAL;
 import org.slf4j.Logger;
@@ -326,6 +327,33 @@ public class UserServiceImp implements UserService {
         int l = 0;
         l = friendsRepository.delFriend(selfId, friendId);
         if (l != 0) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public String checkEmail(String email) {
+        boolean ok = false;
+        Random random = new Random();
+        int code = random.nextInt(999) + 1000;
+        MailUtils mailUtils = MailUtils.getMailUtils();
+        String context = "<p>您正在尝试校验图书漂流所要绑定的邮箱， 若是本人操作请将以下校验码填入， 若非本人操作则有可能账号已被盗<p><br/>" +
+                "<h3>校验码</h3>" +
+                "<h1>" + code + "</h1>";
+        ok = mailUtils.sendMailByQQ(email, "图书漂流邮箱校验", context);
+        if (!ok) {
+            code = 0;
+        }
+        return String.valueOf(code);
+    }
+
+    @Override
+    public boolean updateUserEmail(String email, int userId) {
+        boolean ok = false;
+        int i = 0;
+        i = userRepository.updateUserEmail(email, userId);
+        if (i != 0) {
             ok = true;
         }
         return ok;

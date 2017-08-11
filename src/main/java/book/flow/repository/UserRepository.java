@@ -4,7 +4,9 @@ import book.flow.enity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 用户表的数据库操作.
@@ -67,4 +69,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      */
     @Query("select u from User u where u.userName = ?1")
     User getUserByUserName(String userName);
+
+    @Transactional
+    @Modifying
+    @Query("update User u set u.userEmail = ?1 where u.userId = ?2")
+    int updateUserEmail(String email, int userId);
 }

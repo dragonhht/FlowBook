@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>信息</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/msg.css}" />
+    <script th:src="@{/js/msg.js}" ></script>
+</head>
+<body>
+<!--顶部-->
+<div class="top_logo">
+        <span class="logo_img">
+            <img th:src="@{/img/flowbook1.png}" />
+        </span>
+    <ul id="top_ul">
+        <li>
+            <th:block th:if="${session.user eq null}">
+                <a th:href="@{/login}" onclick="selectNav(this)">登录</a> |
+                <a th:href="@{/register}" onclick="selectNav(this)">注册</a>
+            </th:block>
+            <th:block th:unless="${session.user eq null}">
+                <a th:href="@{/user/userHome}" onclick="selectNav(this)" th:text="${session.user.getUserName()}"></a> |
+                <a th:href="@{/user/logout}" onclick="selectNav(this)">注销</a>
+            </th:block>
+
+        </li>
+        <li><a href="#" onclick="selectNav(this)">活动</a></li>
+        <li><a th:href="@{/notice}" onclick="selectNav(this)">公告</a></li>
+        <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;">首页</a></li>
+    </ul>
+</div>
+
+    <!--页面中部-->
+    <div class="center_bg">
+        <div class="img_div">
+            <img th:src="@{/img/email.png}" class="img-responsive" />
+        </div>
+
+        <div class="center_message" align="center">
+
+            <div class="form-group form_group">
+                <label class="col-sm-2 control-label"><span style="color: red">*</span>新电子邮箱</label>
+                <div class="col-sm-9 input-group">
+                    <input type="text" class="form-control" placeholder="请输入新电子邮箱" />
+                </div>
+            </div>
+            <div class="form-group form_group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button onclick="updateEmail()" class="btn btn-info">确认修改</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--底部-->
+    <div class="footer" align="center">
+        <p class="copyright">
+            Copyright © 2017. All Rights Reserved by dragonhht from
+            <a href="https://github.com/dragonhht" title="Github" target="_blank" style="color: gray;">dragonhht</a>
+        </p>
+    </div>
+</body>
+</html>

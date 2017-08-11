@@ -1,6 +1,8 @@
 package book.flow.utils;
 
 import org.apache.log4j.Logger;
+import redis.clients.jedis.Jedis;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -37,6 +39,15 @@ public final class MailUtils {
     /** session的session. */
     private Session session;
 
+    private static String email_sender;
+    private static String email_password;
+
+    static {
+        Jedis jedis = new Jedis();
+        email_sender = jedis.get("email_sender");
+        email_password = jedis.get("email_password");
+        System.out.println(email_sender +" : " + email_password);
+    }
 
     /**
      * 单例模式隐藏构造器.
@@ -54,6 +65,7 @@ public final class MailUtils {
             synchronized (MailUtils.class) {
                 if (mailUtils == null) {
                     mailUtils = new MailUtils();
+                    mailUtils.setSession(email_sender, email_password);
                 }
             }
         }

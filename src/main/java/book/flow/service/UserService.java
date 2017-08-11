@@ -223,4 +223,19 @@ public interface UserService {
      * @return 是否成功， true为成功
      */
     boolean delFriend(int selfId, int friendId);
+
+    /**
+     * 向邮箱发送校验码.
+     * @param email 邮箱
+     * @return 校验码
+     */
+    String checkEmail(String email);
+
+    /**
+     * 修改用户邮箱.
+     * @param email 邮箱
+     * @param userId 用户编号
+     * @return 是否修改成功
+     */
+    boolean updateUserEmail(String email, int userId);
 }

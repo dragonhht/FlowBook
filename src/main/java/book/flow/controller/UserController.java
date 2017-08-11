@@ -74,13 +74,15 @@ public class UserController {
     @RequestMapping("/userHome")
     public String userHome(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        int userId = user.getUserId();
-        List<LoanRecord> nowHaveRecode = null;
-        List<LoanRecord> allRecodes = null;
-        nowHaveRecode = userService.getHaveRecode(userId);
-        allRecodes = userService.getAllRecode(userId);
-        model.addAttribute("allRecodes", allRecodes);
-        model.addAttribute("nowRecodes", nowHaveRecode);
+        if (user != null) {
+            int userId = user.getUserId();
+            List<LoanRecord> nowHaveRecode = null;
+            List<LoanRecord> allRecodes = null;
+            nowHaveRecode = userService.getHaveRecode(userId);
+            allRecodes = userService.getAllRecode(userId);
+            model.addAttribute("allRecodes", allRecodes);
+            model.addAttribute("nowRecodes", nowHaveRecode);
+        }
         return "user_home";
     }
 
@@ -298,5 +300,62 @@ public class UserController {
             int selfId = user.getUserId();
             userService.setChatReaded(selfId, friendId);
         }
+    }
+
+    /**
+     * 修改用户邮箱.
+     * @param oldEmail 原邮箱
+     * @param newEmail 新邮箱
+     * @param code 检验码
+     * @param session session
+     * @param model model
+     * @return 结果信息
+     */
+    @PostMapping("/updateEmail")
+    @ResponseBody
+    public String updateEmail(String oldEmail, String newEmail, String code, HttpSession session, Model model) {
+        if (oldEmail == null) {
+            return "原邮箱不能为空";
+        }
+        if (newEmail == null) {
+            return "新邮箱不能为空";
+        }
+        if (code == null) {
+            return "校验码不正确";
+        }
+        String c = (String) session.getAttribute("checkEmailCode");
+        if (code != null && !code.equals(c)) {
+            return "校验码不正确";
+        }
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            String email = user.getUserEmail();
+            int userId= user.getUserId();
+            if (!oldEmail.equals(email)) {
+                return "原邮箱不正确";
+            }
+            if (code.equals(c)) {
+                boolean ok = userService.updateUserEmail(newEmail, userId);
+                if (ok) {
+                    user = userService.getUserById(userId);
+                    session.setAttribute("user", user);
+                    return "ok";
+                }
+            }
+        }
+        return "失败";
+    }
+
+    @RequestMapping("/checkEmail")
+    @ResponseBody
+    public boolean chackEmail(String email, HttpSession session) {
+        boolean ok = false;
+        String code = null;
+        code = userService.checkEmail(email);
+        if (code != null && code != "0") {
+            ok = true;
+        }
+        session.setAttribute("checkEmailCode", code);
+        return ok;
     }
 }

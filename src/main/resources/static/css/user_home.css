@@ -138,8 +138,11 @@ a:hover {
 }
 
 .update_top {
+    color: red;
     border: 1px solid white;
     height: 40px;
+    line-height: 40px;
+    margin-left: 250px;
 }
 
 .update_div .close {
@@ -154,7 +157,7 @@ a:hover {
 
 
 #update_email {
-    height: 200px;
+    height: 340px;
 }
 
 .center_right {
