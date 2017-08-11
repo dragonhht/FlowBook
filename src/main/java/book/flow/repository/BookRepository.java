@@ -4,7 +4,9 @@ import book.flow.enity.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -87,6 +89,8 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @param imgPath 图片路径
      * @param bookId 图书编号
      */
+    @Transactional
+    @Modifying
     @Query("update Book b set b.bookImg = ?1 where b.bookId = ?2")
     void updateBookImg(String imgPath, int bookId);
 

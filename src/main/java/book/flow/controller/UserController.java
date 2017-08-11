@@ -92,7 +92,7 @@ public class UserController {
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "index";
+        return "redirect:/index";
     }
 
     /**
@@ -110,7 +110,7 @@ public class UserController {
         }
         int userId = user.getUserId();
         userService.addComment(text, userId, bookId);
-        return "redirect:/tourist//bookMessage/" + bookId;
+        return "redirect:/tourist/bookMessage/" + bookId;
     }
 
     /**
@@ -199,10 +199,11 @@ public class UserController {
             Book b = userService.uploadBook(book, userId);
             String imgPath = "bookCover/" + userId + "/" + b.getBookId() + ".png";
             imgPath = fileService.store(uploadImg, imgPath);
-            imgPath = "http://localhost:8080/FlowBook/files/" + imgPath;
+            imgPath = "http://localhost:8080/FlowBook/" + imgPath;
             System.out.println("封面路径" + imgPath);
+            user = userService.getUserById(userId);
             userService.updateBookImg(imgPath, b.getBookId());
-            session.setAttribute("user", b);
+            session.setAttribute("user", user);
             model.addAttribute("bookId", b.getBookId());
             model.addAttribute("flag", "uploadBookSuccess");
             return "msg";

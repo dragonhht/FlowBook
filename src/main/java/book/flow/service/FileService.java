@@ -12,7 +12,9 @@ public interface FileService {
     /**
      * 文件根目录.
      */
-    String rootLacation = "file-dir/";
+    String rootLacation = "file-dir/files/";
+    /** 访问根目录. */
+    String urlRoot = "files/";
 
     /**
      * 保存.

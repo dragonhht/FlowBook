@@ -17,21 +17,22 @@ import javax.websocket.server.ServerContainer;
 @Configuration
 public class TomcatConfiguration{
 
-    /*@Bean
+    @Bean
     public EmbeddedServletContainerFactory servletContainer() {
-        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory("/FlowBook", 8080);
+        TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
         // 配置虚拟目录
         tomcat.addContextCustomizers(tomcatContextCustomizer());
         return tomcat;
     }
 
-    private TomcatContextCustomizer tomcatContextCustomizer() {
+    @Bean
+    public TomcatContextCustomizer tomcatContextCustomizer() {
         return (context -> {
             context.setDocBase("/home/huang/Work_Space/Idea_Space/FlowBook/file-dir");
-            context.setPath("/files/");
+            context.setPath("/FlowBook/");
             context.setReloadable(true);
         });
-    }*/
+    }
 
 
 }

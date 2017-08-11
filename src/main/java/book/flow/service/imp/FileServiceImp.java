@@ -24,6 +24,7 @@ public class FileServiceImp implements FileService {
     @Override
     public String store(MultipartFile file, String path) {
 
+        String imgPath = urlRoot + path;
         path = rootLacation + path;
         Path location = Paths.get(path);
         if (Files.notExists(location)) {
@@ -37,7 +38,7 @@ public class FileServiceImp implements FileService {
         try {
             Files.deleteIfExists(location);
             Files.copy(file.getInputStream(), location);
-            return location.toString();
+            return imgPath;
         } catch (IOException e) {
             logger.debug("文件保存失败", e);
             return null;
