@@ -67,6 +67,7 @@
                 </div>
             </div>
             <div class="form-group" style="margin-left: auto;margin-right: auto;">
+                <input type="text" value="0" hidden="hidden" id="bookStart" name="bookStart" />
                 <label class="col-sm-2 control-label">我的评价：</label>
                 <div class="col-sm-7">
                     <textarea class="book_evaluate" name="introduction" placeholder="我的评价"></textarea>
@@ -74,8 +75,22 @@
             </div>
             <div class="form-group" style="margin-left: auto;margin-right: auto;">
                 <label class="col-sm-2 control-label">我的评分：</label>
-                <div class="col-sm-7">
-                    星级显示
+                <div id="startComment" class="col-sm-7" style="margin-top: 5px">
+                    <a style="cursor: pointer" index="0" onclick="startLight(this)">
+                        <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;" />
+                    </a>
+                    <a style="cursor: pointer" index="1" onclick="startLight(this)">
+                        <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;" />
+                    </a>
+                    <a style="cursor: pointer" index="2" onclick="startLight(this)">
+                        <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;" />
+                    </a>
+                    <a style="cursor: pointer" index="3" onclick="startLight(this)">
+                        <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;" />
+                    </a>
+                    <a style="cursor: pointer" index="4" onclick="startLight(this)">
+                        <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;" />
+                    </a>
                 </div>
             </div>
             <div class="form-group">
