@@ -78,10 +78,14 @@ public class UserController {
             int userId = user.getUserId();
             List<LoanRecord> nowHaveRecode = null;
             List<LoanRecord> allRecodes = null;
+            user = userService.getUserById(userId);
             nowHaveRecode = userService.getHaveRecode(userId);
             allRecodes = userService.getAllRecode(userId);
+            int contributeNum = user.getContribution().size() * 5;
+            session.setAttribute("user", user);
             model.addAttribute("allRecodes", allRecodes);
             model.addAttribute("nowRecodes", nowHaveRecode);
+            model.addAttribute("contributeNum", contributeNum);
         }
         return "user_home";
     }
@@ -199,12 +203,14 @@ public class UserController {
         if (user != null) {
             int userId = user.getUserId();
             Book b = userService.uploadBook(book, userId);
-            String imgPath = "bookCover/" + userId + "/" + b.getBookId() + ".png";
-            imgPath = fileService.store(uploadImg, imgPath);
-            imgPath = "http://localhost:8080/FlowBook/" + imgPath;
-            System.out.println("封面路径" + imgPath);
+            if (uploadImg.getSize() > 0) {
+                String imgPath = "bookCover/" + userId + "/" + b.getBookId() + ".png";
+                imgPath = fileService.store(uploadImg, imgPath);
+                imgPath = "http://localhost:8080/FlowBook/" + imgPath;
+                System.out.println("封面路径" + imgPath);
+                userService.updateBookImg(imgPath, b.getBookId());
+            }
             user = userService.getUserById(userId);
-            userService.updateBookImg(imgPath, b.getBookId());
             session.setAttribute("user", user);
             model.addAttribute("bookId", b.getBookId());
             model.addAttribute("flag", "uploadBookSuccess");

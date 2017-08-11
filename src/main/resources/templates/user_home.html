@@ -39,7 +39,7 @@
         <!--左边内容-->
         <div class="center_left">
             <div class="user_message_div">
-                <img th:src="@{${session.user.getUserImg()}}" class="img-thumbnail" />
+                <img th:src="@{${session.user.getUserImg()}}" class="img-thumbnail left_user_img" />
 
                 <div class="center_user">
                     <div class="user_name">
@@ -47,11 +47,26 @@
                     </div>
                     <div class="message_div">
                         <label>贡献度：</label>
-                        <span>5.0</span>
+                        <span th:text="${contributeNum}"></span>
                     </div>
                     <div class="message_div">
                         <label>信用：</label>
-                        <span>5.0</span>
+                        <span>
+                            <th:block th:unless="${session.user.getCredit() eq 0}">
+                    <th:block th:each="num : ${#numbers.sequence(1, session.user.getCredit())}">
+                        <a style="line-height: 30px">
+                            <img th:src="@{/img/light_start.png}" style="height: 20px;width: 20px;" />
+                        </a>
+                    </th:block>
+                </th:block>
+                <th:block th:unless="${session.user.getCredit() eq 5}">
+                    <th:block th:each="num : ${#numbers.sequence(session.user.getCredit()+1, 5)}">
+                        <a >
+                            <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;" />
+                        </a>
+                    </th:block>
+                </th:block>
+                        </span>
                     </div>
                     <div class="message_div">
                         <label>地区：</label>
@@ -98,7 +113,10 @@
 
                     <tr th:each="book : ${session.user.getContribution()}">
                         <td th:text="${book.getBookId()}"></td>
-                        <td th:text="${book.getBookName()}"></td>
+                        <td>
+                            <a target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${book.bookId})}"
+                               th:text="${book.getBookName()}" style="color: #333333;"></a>
+                        </td>
                         <td th:text="${book.getAuthor()}"></td>
                         <td th:text="${book.getPublish()}"></td>
                         <td th:text="${book.getBookDate()}"></td>
@@ -115,7 +133,10 @@
                     </tr>
                     <tr th:each="record : ${nowRecodes}">
                         <td th:text="${record.book.bookId}"></td>
-                        <td th:text="${record.book.bookName}"></td>
+                        <td>
+                            <a target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${record.book.bookId})}"
+                               th:text="${record.book.getBookName()}" style="color: #333333;"></a>
+                        </td>
                         <td th:text="${record.book.author}"></td>
                         <td th:text="${record.book.publish}"></td>
                         <td th:text="${record.recordDate}"></td>
@@ -134,7 +155,10 @@
 
                     <tr th:each="record : ${allRecodes}">
                         <td th:text="${record.book.bookId}"></td>
-                        <td th:text="${record.book.bookName}"></td>
+                        <td th:text="${record.book.bookName}">
+                            <a target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${record.book.bookId})}"
+                               th:text="${record.book.getBookName()}" style="color: #333333;"></a>
+                        </td>
                         <td th:text="${record.book.author}"></td>
                         <td th:text="${record.book.publish}"></td>
                         <td th:text="${record.recordDate}"></td>

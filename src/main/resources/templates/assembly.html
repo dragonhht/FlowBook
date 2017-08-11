@@ -27,12 +27,27 @@
     <!--右边内容-->
     <div class="center_right" th:fragment="user_right">
         <div class="right_img">
-            <img th:src="@{${session.user.getUserImg()}}" class="img-thumbnail" />
+            <img th:src="@{${session.user.getUserImg()}}" class="img-thumbnail user_img" />
             <div class="img_user">
                 <span class="user_name" th:text="${session.user.getUserName()}"></span><br/>
                 <div class="img_user_credit">
                     <label>信用：</label>
-                    <span>星级现实</span>
+                    <span>
+                        <th:block th:unless="${session.user.getCredit() eq 0}">
+                    <th:block th:each="num : ${#numbers.sequence(1, session.user.getCredit())}">
+                        <a >
+                            <img th:src="@{/img/light_start.png}" style="height: 12px;width: 12px;" />
+                        </a>
+                    </th:block>
+                </th:block>
+                <th:block th:unless="${session.user.getCredit() eq 5}">
+                    <th:block th:each="num : ${#numbers.sequence(session.user.getCredit()+1, 5)}">
+                        <a >
+                            <img th:src="@{/img/dark_start.png}" style="height: 12px;width: 12px;" />
+                        </a>
+                    </th:block>
+                </th:block>
+                    </span>
                 </div>
             </div>
         </div>

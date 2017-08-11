@@ -142,7 +142,7 @@ li {
     height: 110px;
 }
 
-.right_img img {
+.right_img .user_img {
     width: 100px;
     height: 100px;
     margin-left: 10px;

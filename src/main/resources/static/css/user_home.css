@@ -58,7 +58,7 @@ a:hover {
     padding-left: 10px;
 }
 
-.user_message_div img {
+.user_message_div .left_user_img {
     margin-top: 20px;
     width: 150px;
     height: 150px;
@@ -177,7 +177,7 @@ a:hover {
     height: 110px;
 }
 
-.right_img img {
+.right_img .user_img {
     width: 100px;
     height: 100px;
     margin-left: 10px;

@@ -82,7 +82,20 @@
 
             <div class="book_start book_message_message">
                 <label>图书评分: </label>
-                五星显示
+                <th:block th:unless="${book.bookStart eq 0}">
+                    <th:block th:each="num : ${#numbers.sequence(1, book.bookStart)}">
+                        <a >
+                            <img th:src="@{/img/light_start.png}" style="height: 20px;width: 20px;" />
+                        </a>
+                    </th:block>
+                </th:block>
+                <th:block th:unless="${book.bookStart eq 5}">
+                    <th:block th:each="num : ${#numbers.sequence(book.bookStart+1, 5)}">
+                        <a >
+                            <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;" />
+                        </a>
+                    </th:block>
+                </th:block>
             </div>
 
             <div class="book_id book_message_message">
