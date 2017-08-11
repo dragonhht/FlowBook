@@ -42,11 +42,8 @@
                 <img th:src="@{${session.user.getUserImg()}}" class="img-thumbnail" />
 
                 <div class="center_user">
-                    <div class="user_name" onmouseover="showBtn(this)" onmouseout="hideBtn(this)">
+                    <div class="user_name">
                         <span th:text="${session.user.getUserName()}"></span>
-                        <a class="update_btn" index="name" onclick="showUpdateDiv(this)">
-                            <img title="修改用户名" hidden="hidden" th:src="@{/img/update.png}" />
-                        </a>
                     </div>
                     <div class="message_div">
                         <label>贡献度：</label>
@@ -69,9 +66,12 @@
                     </div>
                     <div class="message_div" onmouseover="showBtn(this)" onmouseout="hideBtn(this)">
                         <label>电子邮箱：</label>
-                        <span id="userEmail" th:text="${session.user.getUserEmail()}"></span>
-                        <a class="update_btn" index="email" onclick="showUpdateDiv(this)">
+                        <span id="userEmail" th:unless="${session.user.getUserEmail() eq null}" th:text="${session.user.getUserEmail()}"></span>
+                        <a th:unless="${session.user.getUserEmail() eq null}" class="update_btn" index="email" onclick="showUpdateDiv(this)">
                             <img title="修改邮箱" hidden="hidden" th:src="@{/img/update.png}" />
+                        </a>
+                        <a th:if="${session.user.getUserEmail() eq null}" class="update_btn" index="name" onclick="showUpdateDiv(this)">
+                            <img title="添加邮箱" hidden="hidden" th:src="@{/img/update.png}" />
                         </a>
                     </div>
                 </div>
@@ -164,8 +164,30 @@
 
     <!--修改用户名-->
     <div class="update_div" id="update_name" hidden="hidden">
+        <span class="update_top" id="addEmailResult"></span>
         <span class="close" onclick="hideUpdateDiv(this)">x</span>
-
+        <div class="form-group form_group">
+            <label class="col-sm-2 control-label"><span style="color: red">*</span>新电子邮箱</label>
+            <div class="col-sm-9 input-group">
+                <input id="addEmail" type="text" class="form-control" placeholder="请输入新电子邮箱" />
+            </div>
+        </div>
+        <div class="form-group form_group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button onclick="checkAddEmail()" type="button" style="margin-bottom: 20px;" class="btn btn-info">校验新邮箱</button>
+            </div>
+        </div>
+        <div class="form-group form_group">
+            <label class="col-sm-2 control-label"><span style="color: red">*</span>校验码</label>
+            <div class="col-sm-9 input-group">
+                <input id="addEmailCode" type="text" class="form-control" placeholder="请输入新邮箱接收到的校验码" />
+            </div>
+        </div>
+        <div class="form-group form_group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button onclick="addEmail()" class="btn btn-info">确定</button>
+            </div>
+        </div>
     </div>
 
     <!--修改手机号码-->

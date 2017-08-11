@@ -114,3 +114,29 @@ function checkEmail() {
             email : email
         });
 }
+
+function checkAddEmail() {
+    var email = $('#addEmail').val().trim();
+    $.post('checkEmail',
+        {
+            email : email
+        });
+}
+
+/** 添加邮箱. */
+function addEmail() {
+    var email = $('#addEmail').val().trim();
+    var code = $('#addEmailCode').val().trim();
+    $.post('addEmail',
+        {
+            email : email,
+            code : code
+        },
+    function (data) {
+        if (data == 'ok') {
+            location.reload(true);
+        } else {
+            $('#addEmailResult').html(data);
+        }
+    });
+}

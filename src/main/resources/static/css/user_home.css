@@ -155,6 +155,9 @@ a:hover {
     height: 30px;
 }
 
+#update_name {
+    height: 300px;
+}
 
 #update_email {
     height: 340px;

@@ -346,6 +346,12 @@ public class UserController {
         return "失败";
     }
 
+    /**
+     * 检验邮箱.
+     * @param email 邮箱
+     * @param session session
+     * @return 发送检验码是否成功
+     */
     @RequestMapping("/checkEmail")
     @ResponseBody
     public boolean chackEmail(String email, HttpSession session) {
@@ -358,4 +364,38 @@ public class UserController {
         session.setAttribute("checkEmailCode", code);
         return ok;
     }
+
+    /**
+     * 添加邮箱.
+     * @param email 邮箱
+     * @param code 检验码
+     * @param session session
+     * @return 结果
+     */
+    @PostMapping("/addEmail")
+    @ResponseBody
+    public String addEmail(String email, String code, HttpSession session) {
+        if (email == null) {
+            return "邮箱不能为空";
+        }
+        if (code == null) {
+            return "检验码不能为空";
+        }
+        String c = (String) session.getAttribute("checkEmailCode");
+        if (!code.equals(c)) {
+            return "校验码不正确";
+        }
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId= user.getUserId();
+            boolean ok = userService.updateUserEmail(email, userId);
+            if (ok) {
+                user = userService.getUserById(userId);
+                session.setAttribute("user", user);
+                return "ok";
+            }
+        }
+        return "失败";
+    }
+
 }
