@@ -113,7 +113,7 @@
 
                     <tr th:each="book : ${session.user.getContribution()}">
                         <td th:text="${book.getBookId()}"></td>
-                        <td>
+                        <td style="cursor: pointer">
                             <a target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${book.bookId})}"
                                th:text="${book.getBookName()}" style="color: #333333;"></a>
                         </td>
@@ -133,7 +133,7 @@
                     </tr>
                     <tr th:each="record : ${nowRecodes}">
                         <td th:text="${record.book.bookId}"></td>
-                        <td>
+                        <td style="cursor: pointer">
                             <a target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${record.book.bookId})}"
                                th:text="${record.book.getBookName()}" style="color: #333333;"></a>
                         </td>
@@ -155,7 +155,7 @@
 
                     <tr th:each="record : ${allRecodes}">
                         <td th:text="${record.book.bookId}"></td>
-                        <td th:text="${record.book.bookName}">
+                        <td style="cursor: pointer">
                             <a target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${record.book.bookId})}"
                                th:text="${record.book.getBookName()}" style="color: #333333;"></a>
                         </td>

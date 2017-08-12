@@ -145,3 +145,55 @@ a:hover {
     color: gray;
     line-height: 50px;
 }
+
+.update_div {
+// display: none;
+    position: absolute;
+    bottom: 20%;
+    left: 35%;
+    width: 340px;
+    height: 110px;
+    padding: 10px;
+    border: 3px solid gray;
+    background-color: white;
+    z-index: 3;
+    overflow: auto;
+}
+
+.update_top {
+    color: red;
+    border: 1px solid white;
+    line-height: 40px;
+    cursor: pointer;
+}
+
+.update_div .close {
+    color: #0e0e0e;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 20px;
+    display: block;
+    height: 30px;
+}
+
+.type_select {
+    border: 1px solid #DDDDDD;
+    width: 50px;
+    height: 30px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.type_select:hover {
+    border: 1px solid gray;
+}
+
+.type_select .del_type {
+    line-height: 30px;
+    font-size: 10px;
+    color: gray;
+    margin-left: 8px;
+}

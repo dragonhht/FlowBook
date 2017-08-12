@@ -114,3 +114,12 @@ CREATE TABLE chat_record (
   FOREIGN KEY (sender) REFERENCES user(user_id),
   FOREIGN KEY (receiver) REFERENCES user(user_id)
 ) CHARSET=utf8;
+
+-- 图书类型
+insert INTO type VALUE (1, '文学类');
+insert INTO type VALUE (2, '教科书');
+insert INTO type VALUE (3, '自然科学');
+insert INTO type VALUE (4, '社会科学');
+insert INTO type VALUE (5, '刊物');
+insert INTO type VALUE (6, '艺术');
+insert INTO type VALUE (7, '综合性图书');

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -193,7 +194,7 @@ public class UserController {
      * @return 相应的结果页面
      */
     @PostMapping("/saveBook")
-    public String saveBook(@Valid Book book, BindingResult bindingResult, Model model, HttpSession session,
+    public String saveBook(@RequestParam(value = "type") List<Integer> types, @Valid Book book, BindingResult bindingResult, Model model, HttpSession session,
                            MultipartFile uploadImg) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", bindingResult.getFieldError().getDefaultMessage());
@@ -202,6 +203,13 @@ public class UserController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
+            Set<Type> typeSet = new HashSet<>();
+            for (int type : types) {
+                Type t = new Type();
+                t.setTypeId(type);
+                typeSet.add(t);
+            }
+            book.setTypes(typeSet);
             Book b = userService.uploadBook(book, userId);
             if (uploadImg.getSize() > 0) {
                 String imgPath = "bookCover/" + userId + "/" + b.getBookId() + ".png";
