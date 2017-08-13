@@ -242,7 +242,7 @@ public class TouristServiceImp implements TouristService {
         if (count % PAGE_SIZE != 0) {
             add = 1;
         }
-        count = count + add;
+        count = count / PAGE_SIZE + add;
         return count;
     }
 
@@ -254,5 +254,24 @@ public class TouristServiceImp implements TouristService {
             ok = true;
         }
         return ok;
+    }
+
+    @Override
+    public List<Book> getBookByTypeId(int typeId, int pageNum) {
+        List<Book> books = null;
+        int start = pageNum * PAGE_SIZE;
+        books = bookRepository.getBookByTypeId1(typeId, start, PAGE_SIZE);
+        return books;
+    }
+
+    @Override
+    public long getBookByTypeIdCount(int typeId) {
+        long count = bookRepository.getBookByTypeCount(typeId);
+        int add = 0;
+        if (count % PAGE_SIZE != 0) {
+            add = 1;
+        }
+        count = count / PAGE_SIZE + add;
+        return count;
     }
 }

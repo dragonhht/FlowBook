@@ -20,6 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -136,6 +137,15 @@ public class BookFlowApplicationTests {
     public void testCount() {
         long n = bookRepository.getBookCountByBookName("%图%");
         System.out.println(n);
+    }
+
+    @Test
+    public void getBooksByType() {
+        List<Book> books = null;
+        books =  bookRepository.getBookByTypeId1(1, 0, 20);
+        for (Book book : books) {
+            System.out.println(book.getBookId());
+        }
     }
 
 }

@@ -85,6 +85,20 @@ public class TouristController {
         }
     }
 
+    @RequestMapping("/bookType/{typeId}/{pageNum}")
+    public String getBookByType(@PathVariable("typeId") int typeId,@PathVariable("pageNum") int pageNum, Model model) {
+        List<Book> books = null;
+        model.addAttribute("nowPage", pageNum);
+        // System.out.println("pageNum" + pageNum);
+        pageNum = pageNum - 1;
+        books = touristService.getBookByTypeId(typeId, pageNum);
+        long size = touristService.getBookByTypeIdCount(typeId);
+        model.addAttribute("lastPage", size);
+        model.addAttribute("books", books);
+        model.addAttribute("byType", "type");
+        return "book_list";
+    }
+
     /**
      * 用户注册.
      * @param user 填写的用户信息

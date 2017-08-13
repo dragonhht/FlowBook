@@ -156,4 +156,19 @@ public interface TouristService {
      * @return 是否已经添加， true为已添加
      */
     boolean isFriendExist(int selfId, int friendId);
+
+    /**
+     * 通过类型查找图书.
+     * @param typeId 类型编号
+     * @param pageNum 分页所看页数
+     * @return 图书信息
+     */
+    List<Book> getBookByTypeId(int typeId, int pageNum);
+
+    /**
+     * 通过类型查找图书总数量.
+     * @param typeId 类型编号
+     * @return 图书信息总数量
+     */
+    long getBookByTypeIdCount(int typeId);
 }

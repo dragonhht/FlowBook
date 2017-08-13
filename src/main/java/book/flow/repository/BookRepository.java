@@ -94,4 +94,23 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("update Book b set b.bookImg = ?1 where b.bookId = ?2")
     void updateBookImg(String imgPath, int bookId);
 
+    /**
+     * 通过类型查询图书.
+     * @param typeId 图书类型
+     * @param start 结果开始
+     * @param size 结果个数
+     * @return 图书
+     */
+    @Query(nativeQuery = true, value = "SELECT b.* FROM book b, book_type bt" +
+            " where b.book_id = bt.book_id and bt.type_id = ?1 limit ?2, ?3")
+    List<Book> getBookByTypeId1(int typeId, int start, int size);
+
+    /**
+     * 计算通过类型获取道德图书总数.
+     * @param typeId 图书类型
+     * @return 总数
+     */
+    @Query(nativeQuery = true, value = "SELECT COUNT(b.book_id) FROM book b, book_type bt" +
+            " where b.book_id = bt.book_id and bt.type_id = ?1")
+    long getBookByTypeCount(int typeId);
 }
