@@ -30,13 +30,16 @@
                 <a th:href="@{/register}" onclick="selectNav(this)">注册</a>
             </th:block>
             <th:block th:unless="${session.user eq null}">
-                <a th:href="@{/user/userHome}" onclick="selectNav(this)" th:text="${session.user.getUserName()}"></a> |
+                <a th:href="@{/user/userHome}" onclick="selectNav(this)">
+                    <span th:text="${session.user.getUserName()}"></span>
+                    <img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;" th:src="@{/img/havemsg.png}" />
+                </a>|
                 <a th:href="@{/user/logout}" onclick="selectNav(this)">注销</a>
             </th:block>
 
         </li>
         <li><a href="#" onclick="selectNav(this)">活动</a></li>
-        <li><a th:href="@{/notice}" onclick="selectNav(this)">公告</a></li>
+        <li><a th:href="@{/notice/{pageNum} (pageNum = 1)}" onclick="selectNav(this)">公告</a></li>
         <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;">首页</a></li>
     </ul>
 </div>

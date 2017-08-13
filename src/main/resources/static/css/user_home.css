@@ -163,6 +163,10 @@ a:hover {
     height: 340px;
 }
 
+#update_img {
+    height: 200px;
+}
+
 .center_right {
     border: 1px solid #DDDDDD;
     float: right;

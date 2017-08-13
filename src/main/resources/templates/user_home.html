@@ -22,13 +22,16 @@
                 <a th:href="@{/register}" onclick="selectNav(this)">注册</a>
             </th:block>
             <th:block th:unless="${session.user eq null}">
-                <a th:href="@{/user/userHome}" onclick="selectNav(this)" th:text="${session.user.getUserName()}"></a> |
+                <a th:href="@{/user/userHome}" onclick="selectNav(this)">
+                    <span th:text="${session.user.getUserName()}"></span>
+                    <img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;" th:src="@{/img/havemsg.png}" />
+                </a>|
                 <a th:href="@{/user/logout}" onclick="selectNav(this)">注销</a>
             </th:block>
 
         </li>
         <li><a href="#" onclick="selectNav(this)">活动</a></li>
-        <li><a th:href="@{/notice}" onclick="selectNav(this)">公告</a></li>
+        <li><a th:href="@{/notice/{pageNum} (pageNum = 1)}" onclick="selectNav(this)">公告</a></li>
         <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;">首页</a></li>
     </ul>
 </div>
@@ -39,7 +42,7 @@
         <!--左边内容-->
         <div class="center_left">
             <div class="user_message_div">
-                <img th:src="@{${session.user.getUserImg()}}" class="img-thumbnail left_user_img" />
+                <img id="userImg" th:src="@{${session.user.getUserImg()}}" class="img-thumbnail left_user_img" />
 
                 <div class="center_user">
                     <div class="user_name">
@@ -280,7 +283,24 @@
                 <button onclick="updateEmail()" class="btn btn-info">确认修改</button>
             </div>
         </div>
+    </div>
 
+    <div class="update_div" id="update_img" hidden="hidden">
+        <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
+        <span class="update_top" id="imgResult"></span>
+        <form id="imgForm">
+            <div class="form-group form_group" style="margin-left: auto;margin-right: auto;">
+                <label class="col-sm-2 control-label">新图书：&nbsp;&nbsp;&nbsp;</label>
+                <div class="col-sm-7">
+                    <input type="file" id="uploadImg" name="uploadImg" placeholder="请选择图书封面图片" />
+                </div>
+            </div>
+            <div class="form-group form_group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" id="updateImgBtn" class="btn btn-primary">确定修改</button>
+                </div>
+            </div>
+        </form>
     </div>
 
     <!--底部-->

@@ -90,4 +90,15 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query("update User u set u.contributeNum = u.contributeNum + 5 where u.userId = ?1")
     int updataContributeNum(int userId);
+
+    /**
+     * 修改用户头像.
+     * @param path 头像地址
+     * @param userId 用户编号
+     * @return 修改数
+     */
+    @Transactional
+    @Modifying
+    @Query("update User u set u.userImg = ?1 where u.userId = ?2")
+    int updateUserImg(String path, int userId);
 }

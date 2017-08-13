@@ -412,4 +412,32 @@ public class UserController {
         return "失败";
     }
 
+    /**
+     * 修改用户头像.
+     * @param uploadImg 头像文件
+     * @param session session
+     * @return 结果
+     */
+    @PostMapping("/updateUserImg")
+    @ResponseBody
+    public String updateUserImg(MultipartFile uploadImg, HttpSession session) {
+        if (uploadImg.getSize() == 0) {
+            return "文件不能为空";
+        }
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId = user.getUserId();
+            boolean ok = false;
+            String imgPath = "head_img/" + userId + "/" + userId + ".png";
+            imgPath = fileService.store(uploadImg, imgPath);
+            imgPath = "http://localhost:8080/FlowBook/" + imgPath;
+            System.out.println("头像路径" + imgPath);
+            ok = userService.updateUserImg(imgPath, userId);
+            if (ok) {
+                return "ok";
+            }
+        }
+        return "失败";
+    }
+
 }

@@ -238,4 +238,12 @@ public interface UserService {
      * @return 是否修改成功
      */
     boolean updateUserEmail(String email, int userId);
+
+    /**
+     * 修改用户头像.
+     * @param path 头像地址
+     * @param userId 用户编号
+     * @return 是否修改成功, true为成功
+     */
+    boolean updateUserImg(String path, int userId);
 }

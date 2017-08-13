@@ -111,7 +111,7 @@
             <div class="list" id="list_div" onmouseover="stopList()" onmouseout="startList()">
             <ul class="list-group" id="run_list">
                 <li class="list-group-item" th:each="notice : ${indexNotice}">
-                    <a href="#" target="_blank" th:text="${notice.noticeText}"></a>
+                    <a th:href="@{/tourist/user/{userId} (userId = ${notice.user.userId})}" target="_blank" th:text="${notice.noticeText}"></a>
                 </li>
             </ul>
             </div>

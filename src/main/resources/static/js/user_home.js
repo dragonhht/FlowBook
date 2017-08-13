@@ -140,3 +140,37 @@ function addEmail() {
         }
     });
 }
+
+$(document).ready(function () {
+
+    // 显示头像修改框
+    $('#userImg').click(function () {
+        console.log('点击');
+        $('#update_img').show();
+    });
+
+    // 上传图书
+    $('#updateImgBtn').click(function () {
+        var file = new FormData($('#imgForm')[0]);
+        $.ajax({
+            url : 'updateUserImg',
+            type : 'post',
+            data : file,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data == 'ok') {
+                    location.reload(true);
+                } else {
+                    $('#imgResult').html(data);
+                }
+            },
+            error: function (data) {
+                $('#imgResult').html(data);
+            }
+        });
+    });
+
+});

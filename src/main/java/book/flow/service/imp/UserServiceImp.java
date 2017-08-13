@@ -359,4 +359,15 @@ public class UserServiceImp implements UserService {
         }
         return ok;
     }
+
+    @Override
+    public boolean updateUserImg(String path, int userId) {
+        boolean ok = false;
+        int i = 0;
+        i = userRepository.updateUserImg(path, userId);
+        if (i > 0) {
+            ok = true;
+        }
+        return ok;
+    }
 }
