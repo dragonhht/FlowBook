@@ -19,7 +19,7 @@ public class BookRoute implements Serializable {
     @GeneratedValue
     private int routeId;
     /** 路线创建时间. */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date routeDate;
     /** 借阅图书. */
     @ManyToOne

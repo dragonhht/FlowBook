@@ -20,7 +20,7 @@ public class LoanRecord implements Serializable {
     @GeneratedValue
     private Integer recordId;
     /** 时间. */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date recordDate;
     /** 借阅标志， 是否已借出. */
     private boolean isOut;

@@ -22,7 +22,7 @@ public class Apply implements Serializable {
     /** 申请内容. */
     private String applyText;
     /** 申请日期. */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date applyDate;
     /** 状态. */
     private String status = "待审批";

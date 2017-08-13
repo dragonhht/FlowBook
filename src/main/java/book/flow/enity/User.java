@@ -43,7 +43,7 @@ public class User implements Serializable {
     /** 用户头像. */
     private String userImg = "/img/user.png";
     /** 注册时间. */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date userDate;
     /** 密码. */
     @Size(min = 1, message = "{user.password.length.error}")

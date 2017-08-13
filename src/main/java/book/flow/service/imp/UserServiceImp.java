@@ -130,6 +130,7 @@ public class UserServiceImp implements UserService {
         book.setBookDate(new Date());
         book.setContributor(user);
         Book b = bookRepository.save(book);
+        userRepository.updataContributeNum(userId);
         LoanRecord record = new LoanRecord();
         record.setBook(book);
         record.setOut(false);

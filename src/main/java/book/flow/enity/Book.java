@@ -38,7 +38,7 @@ public class Book implements Serializable {
     /** 图书图片. */
     private String bookImg = "/img/unknow_book.png";
     /** 上传时间. */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date bookDate;
     /** 借阅路线. */
     @OneToMany(fetch = FetchType.EAGER)

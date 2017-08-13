@@ -47,7 +47,7 @@
                     </div>
                     <div class="message_div">
                         <label>贡献度：</label>
-                        <span th:text="${contributeNum}"></span>
+                        <span th:text="${session.user.getContributeNum()}"></span>
                     </div>
                     <div class="message_div">
                         <label>信用：</label>

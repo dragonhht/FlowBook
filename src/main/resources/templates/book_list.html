@@ -44,12 +44,12 @@
             <!--一条图书信息-->
             <div class="book_message_div" th:each="book : ${books}">
                 <div class="img_div">
-                    <a href="#">
+                    <a th:href="@{/tourist/bookMessage/{bookId}(bookId = ${book.bookId})}" target="_blank">
                         <img th:src="@{${book.bookImg}}" />
                     </a>
                 </div>
                 <div class="book_message_message_div">
-                    <a href="#">
+                    <a th:href="@{/tourist/bookMessage/{bookId}(bookId = ${book.bookId})}" target="_blank">
                         <span class="book_name" th:text="${book.bookName}"></span>
                     </a>
                     <div class="book_message">
@@ -63,7 +63,22 @@
                         </span>
                         <span>
                             评分：
-                            <span th:text="${book.bookStart}"></span>
+                            <span>
+                                <th:block th:unless="${book.bookStart eq 0}">
+                            <th:block th:each="num : ${#numbers.sequence(1, book.bookStart)}">
+                                <a style="line-height: 30px">
+                                    <img th:src="@{/img/light_start.png}" style="height: 20px;width: 20px;margin-bottom: 5px;" />
+                                </a>
+                            </th:block>
+                        </th:block>
+                        <th:block th:unless="${book.bookStart eq 5}">
+                            <th:block th:each="num : ${#numbers.sequence(book.bookStart+1, 5)}">
+                                <a >
+                                    <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;margin-bottom: 5px;" />
+                                </a>
+                            </th:block>
+                        </th:block>
+                            </span>
                         </span>
                     </div>
                     <div class="book_introduction" th:text="${book.introduction}"></div>

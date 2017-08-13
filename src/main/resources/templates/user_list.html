@@ -44,12 +44,12 @@
         <!--一条用户信息-->
         <div class="book_message_div" th:each="user : ${users}">
             <div class="img_div">
-                <a href="#">
+                <a th:href="@{/tourist/user/{userId} (userId = ${user.userId})}" target="_blank">
                     <img th:src="@{${user.userImg}}" />
                 </a>
             </div>
             <div class="book_message_message_div">
-                <a href="#">
+                <a th:href="@{/tourist/user/{userId} (userId = ${user.userId})}" target="_blank">
                     <span class="book_name" th:text="${user.userName}"></span>
                 </a>
                 <div class="book_message">
@@ -58,7 +58,22 @@
                 </div>
                 <div class="book_message">
                     <label>信用度：</label>
-                    <span th:text="${user.credit}"></span>
+                    <span>
+                        <th:block th:unless="${user.getCredit() eq 0}">
+                    <th:block th:each="num : ${#numbers.sequence(1, user.getCredit())}">
+                        <a style="line-height: 30px">
+                            <img th:src="@{/img/light_start.png}" style="height: 20px;width: 20px;" />
+                        </a>
+                    </th:block>
+                </th:block>
+                <th:block th:unless="${user.getCredit() eq 5}">
+                    <th:block th:each="num : ${#numbers.sequence(user.getCredit()+1, 5)}">
+                        <a >
+                            <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;" />
+                        </a>
+                    </th:block>
+                </th:block>
+                    </span>
                 </div>
                 <div class="book_message">
                     <label>地区：</label>

@@ -21,7 +21,7 @@ public class Comment implements Serializable {
     /** 评论内容. */
     private String commentText;
     /** 评论时间. */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date commentDate;
     /** 评论用户. */
     @ManyToOne

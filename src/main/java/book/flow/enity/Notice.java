@@ -22,7 +22,7 @@ public class Notice implements Serializable {
     @GeneratedValue
     private Integer noticeId;
     /** 发布日期. */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date noticeDate;
     /** 公告内容. */
     @Size(min = 1, message = "{notice.text.null.error}")

@@ -70,8 +70,24 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select u from User u where u.userName = ?1")
     User getUserByUserName(String userName);
 
+    /**
+     * 修改电子邮箱.
+     * @param email 电子邮箱
+     * @param userId 用户编号
+     * @return 修改记录数
+     */
     @Transactional
     @Modifying
     @Query("update User u set u.userEmail = ?1 where u.userId = ?2")
     int updateUserEmail(String email, int userId);
+
+    /**
+     * 更新贡献度.
+     * @param userId 用户编号
+     * @return 修改记录数
+     */
+    @Transactional
+    @Modifying
+    @Query("update User u set u.contributeNum = u.contributeNum + 5 where u.userId = ?1")
+    int updataContributeNum(int userId);
 }

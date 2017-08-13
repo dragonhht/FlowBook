@@ -59,7 +59,22 @@
                 <div class="user_message_name" th:text="${user.userName}"></div>
                 <div class="user_credit user_message_message">
                     <label>用户信用：</label>
-                    <div>星级显示</div>
+                    <div>
+                        <th:block th:unless="${user.getCredit() eq 0}">
+                            <th:block th:each="num : ${#numbers.sequence(1, user.getCredit())}">
+                                <a style="line-height: 30px">
+                                    <img th:src="@{/img/light_start.png}" style="height: 20px;width: 20px;" />
+                                </a>
+                            </th:block>
+                        </th:block>
+                        <th:block th:unless="${user.getCredit() eq 5}">
+                            <th:block th:each="num : ${#numbers.sequence(user.getCredit()+1, 5)}">
+                                <a >
+                                    <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;" />
+                                </a>
+                            </th:block>
+                        </th:block>
+                    </div>
                 </div>
 
                 <div class="user_region user_message_message">
