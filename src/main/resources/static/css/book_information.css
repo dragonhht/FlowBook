@@ -170,10 +170,11 @@ a:hover {
     float: left;
 }
 
-.book_introduction textarea {
+.book_introduction div {
+    border: 1px dashed gray;
     width: 475px;
     height: 167px;
-    resize: none;
+    overflow-y: auto;
 }
 
 .book_img_small {

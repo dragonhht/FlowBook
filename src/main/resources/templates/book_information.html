@@ -114,7 +114,7 @@
 
             <div class="book_introduction book_message_message">
                 <label>图书简介：</label>
-                <textarea th:text="${book.introduction}"></textarea>
+                <div th:text="${book.introduction}"></div>
             </div>
 
         </div>
@@ -158,10 +158,10 @@
             </div>
 
             <div id="route" hidden="hidden">
-                <ul class="pagination">
+                <!--<ul class="pagination">
                     <li class="active"><a>表格</a></li>
                     <li ><a>流线图</a></li>
-                </ul>
+                </ul>-->
 
                 <table id="route_table" class="table table-striped">
                     <tr>

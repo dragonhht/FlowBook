@@ -39,7 +39,7 @@ a:hover {
 
 .center_bg {
     width: 960px;
-    height: 1700px;
+    min-height: 698px;
     margin: 50px auto;
 }
 

@@ -440,4 +440,26 @@ public class UserController {
         return "失败";
     }
 
+    /**
+     * 申请图片缓存.
+     * @param uploadImg 图片
+     * @param index 索引
+     * @param session session
+     * @return 结果
+     */
+    @PostMapping("/uploadApplyImg")
+    @ResponseBody
+    public String uploadApplyImg(MultipartFile uploadImg,int index, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId = user.getUserId();
+            String imgPath = "apply_temp_img/" + userId + "/" + userId + "_" + index + ".png";
+            imgPath = fileService.store(uploadImg, imgPath);
+            imgPath = "http://localhost:8080/FlowBook/" + imgPath;
+            System.out.println("缓存路径" + imgPath);
+            return "ok";
+        }
+        return "error";
+    }
+
 }

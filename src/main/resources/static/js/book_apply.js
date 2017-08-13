@@ -66,3 +66,50 @@ function selectBook(id) {
     $('#bookId').val(id);
     $('#update_name').hide();
 }
+
+$(document).ready(function () {
+
+    // 显示图片选择
+    $('#addImg').click(function () {
+        $('#update_img').show();
+    });
+
+    // 上传图片
+    var index = 0;
+    $('#updateImgBtn').click(function () {
+        var file = new FormData($('#imgForm')[0]);
+        var userId = $('#userId').val();
+        if (index <= 2) {
+            $.ajax({
+                url : 'uploadApplyImg',
+                type : 'post',
+                data : file,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data == 'ok') {
+                        $('#update_img').hide();
+                        $('#addImg').before('<span class="book_img_div">' +
+                            '<img style="width: 150px;height: 200px;"' +
+                            'src="http://localhost:8080/FlowBook/files/apply_temp_img/' + userId + '/' + userId + '_' + index + '.png"/>' +
+                            '</span>');
+                        index++;
+                        $('#imgIndex').val(index);
+                        if (index >= 3) {
+                            $('#addImg').remove();
+                        }
+                    } else {
+                        $('#imgResult').html(data);
+                    }
+                },
+                error: function (data) {
+                    $('#imgResult').html(data);
+                }
+            });
+        }
+
+    });
+
+});

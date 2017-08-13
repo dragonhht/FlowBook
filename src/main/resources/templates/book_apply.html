@@ -39,6 +39,8 @@
 <!--页面中部-->
 <div class="center_bg">
 
+    <input hidden="hidden" id="userId" th:value="${session.user.userId}" />
+
     <!--左边内容-->
     <div class="center_left">
         <ul class="nav nav-tabs" id="nav_tabs">
@@ -107,6 +109,7 @@
 
             <div class="apply_out">
                 <form class="form-horizontal" enctype="multipart/form-data" method="post" th:action="@{/user/applyOut}">
+
                     <div class="form-group" style="margin-left: auto;margin-right: auto;">
                         <label class="col-sm-2 control-label">图书漂流编号：</label>
                         <div class="col-sm-7">
@@ -115,21 +118,14 @@
                         <div class="col-sm-3" id="select_book">
                             <a index="name" onclick="showUpdateDiv(this)">选择图书</a>
                         </div>
-
                     </div>
                     <div class="form-group" style="margin-left: auto;margin-right: auto;">
                         <label class="col-sm-2 control-label">图书损坏图片：</label>
-                        <div class="book_img_div">
-                            <!--<img src="#" />-->
-                            <input name="imgs" type="file" />
-                        </div>
-                        <div class="book_img_div_1">
-                            <!--<img src="#" />-->
-                            <input name="imgs" type="file" />
-                        </div>
-                        <div class="book_img_div_2">
-                            <!--<img src="#" />-->
-                            <input name="imgs" type="file" />
+                        <div>
+                        <span id="addImg" class="book_img_div">
+                            <img style="width: 150px;height: 200px;" th:src="@{/img/add_img.png}" />
+                            <input name="imgs" type="file" hidden="hidden" style="display: none" />
+                        </span>
                         </div>
                     </div>
                     <div class="form-group upload_btn">
@@ -178,5 +174,25 @@
         <a href="https://github.com/dragonhht" title="Github" target="_blank" style="color: gray;">dragonhht</a>
     </p>
 </div>
+
+<div class="update_div" id="update_img" hidden="hidden">
+    <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
+    <span class="update_top" id="imgResult"></span>
+    <form id="imgForm">
+        <div class="form-group form_group" style="margin-left: auto;margin-right: auto;">
+            <label class="col-sm-2 control-label">损坏图片：&nbsp;&nbsp;&nbsp;</label>
+            <div class="col-sm-7">
+                <input type="file" id="uploadImg" name="uploadImg" placeholder="请选择图书封面图片" />
+                <input id="imgIndex" hidden="hidden" name="index" value="0" />
+            </div>
+        </div>
+        <div class="form-group form_group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="updateImgBtn" class="btn btn-primary">确定修改</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 </body>
 </html>
