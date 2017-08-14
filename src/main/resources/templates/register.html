@@ -8,6 +8,7 @@
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <link rel="stylesheet" th:href="@{/css/register.css}" />
     <script th:src="@{/js/register.js}" ></script>
+    <script th:src="@{/json/province_city.json}" ></script>
 </head>
 <body>
 
@@ -83,6 +84,37 @@
 
                     <div class="form-group"  align="center">
                         <span id="repasswordMessage" style="color: red;">&nbsp;</span>
+                    </div>
+
+                    <div class="form-group form_group">
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>地区:</label>
+                        <div class="col-sm-9 input-group">
+                            <span>&nbsp;</span>
+                            <!-- 这里是选择省份 -->
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">请选择省份
+                                <span class="caret"></span>
+                            </button>
+                            <ul id="Province" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="#">Java</a>
+                                </li>
+                            </ul>
+                            &nbsp;
+                            <!-- 这里是选择市 -->
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">请选择城市
+                                <span class="caret"></span>
+                            </button>
+                            <ul id="city" class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="#">Java</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-group"  align="center">
+                        <span style="color: red;">&nbsp;</span>
                     </div>
 
                     <div class="form-group form_group">

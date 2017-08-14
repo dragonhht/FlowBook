@@ -131,6 +131,10 @@ public class TouristServiceImp implements TouristService {
         password = PasswordTool.encryptionMD5(password);
         user.setPassword(password);
         u = userRepository.save(user);
+        Friends friends = new Friends();
+        friends.setSelf(u);
+        friends.setFriend(u);
+        friendsRepository.save(friends);
         return u;
     }
 

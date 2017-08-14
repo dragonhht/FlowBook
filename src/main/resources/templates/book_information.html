@@ -38,20 +38,7 @@
 
     <!--页面中部-->
     <div class="center_bg">
-        <div class="center_search" id="center_search">
-            <form class="form-inline" action="#" method="post">
-                <ul class="nav nav-tabs" id="search_ul" style="width: 500px">
-                    <li class="active" onclick="selectSearchType(this)"><a>书名</a></li>
-                    <li onclick="selectSearchType(this)"><a>作者</a></li>
-                    <li onclick="selectSearchType(this)"><a>出版社</a></li>
-                    <li onclick="selectSearchType(this)"><a>用户</a></li>
-                </ul>
-                <div class="search_input_div">
-                    <input type="text" hidden="hidden" value="书名" id="search_flag" />
-                    <input type="text" class="search_input" placeholder="请输入您要搜索的内容" />
-                    <button type="submit" class="btn btn-lg btn-warning">搜索</button>
-                </div>
-            </form>
+        <div class="center_search" id="center_search" th:include="assembly::center_search">
         </div>
 
         <div class="book_img">

@@ -67,7 +67,7 @@
                                          th:src="@{/img/havemsg.png}" />
                                 </th:block>
                                 </span>
-                                <span th:onclick="'javascript:return delFriend(this, \''+${friend.userId}+'\')'" class="close" >x</span>
+                                <span th:unless="${session.user.userId eq friend.userId}" th:onclick="'javascript:return delFriend(this, \''+${friend.userId}+'\')'" class="close" >x</span>
                             </li>
                         </th:block>
                     </ul>
