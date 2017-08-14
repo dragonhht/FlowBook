@@ -228,10 +228,9 @@ public class UserController {
     }
 
     @PostMapping("/applyOut")
-    public String applyBookOut(Integer bookId, MultipartFile[] imgs, HttpSession session, Model model) {
+    public String applyBookOut(Integer bookId,@RequestParam("imgs") List<Integer> imgs, HttpSession session, Model model) {
         System.out.println(bookId);
         User user = (User) session.getAttribute("user");
-        StringBuilder imgPath = new StringBuilder("bookCover/apply/");
         if (user != null) {
             int userId = user.getUserId();
             boolean ok = userService.applyBookOut(bookId, userId, imgs);
@@ -444,22 +443,33 @@ public class UserController {
      * 申请图片缓存.
      * @param uploadImg 图片
      * @param index 索引
+     * @param bookId 图书编号
      * @param session session
      * @return 结果
      */
     @PostMapping("/uploadApplyImg")
     @ResponseBody
-    public String uploadApplyImg(MultipartFile uploadImg,int index, HttpSession session) {
+    public String uploadApplyImg(MultipartFile uploadImg, int index, int bookId, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
-            String imgPath = "apply_temp_img/" + userId + "/" + userId + "_" + index + ".png";
-            imgPath = fileService.store(uploadImg, imgPath);
-            imgPath = "http://localhost:8080/FlowBook/" + imgPath;
-            System.out.println("缓存路径" + imgPath);
-            return "ok";
+            int imgId = userService.saveApplyImg(uploadImg, index, bookId, userId);
+            return "" + imgId;
         }
         return "error";
+    }
+
+    /**
+     * 通过编号获取申请.
+     * @param applyId 申请编号
+     * @return 申请内容
+     */
+    @PostMapping("/getApplyById")
+    @ResponseBody
+    public Apply getApplyById(int applyId) {
+        Apply apply = null;
+        apply = userService.getApplyById(applyId);
+        return apply;
     }
 
 }

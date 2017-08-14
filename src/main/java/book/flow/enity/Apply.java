@@ -1,5 +1,6 @@
 package book.flow.enity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,7 +32,7 @@ public class Apply implements Serializable {
     @JoinColumn(name = "userId")
     private User user;
     /** 申请中的图片. */
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "applyId")
     private Set<Img> imgs;
     /** 申请的图书. */

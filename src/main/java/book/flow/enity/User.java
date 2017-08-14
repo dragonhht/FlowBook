@@ -51,6 +51,7 @@ public class User implements Serializable {
     /** 评论. */
     @OneToMany
     @JoinColumn(name = "userId")
+    @JsonBackReference
     private Set<Comment> comments;
     /** 图书路线. */
     @OneToMany(fetch = FetchType.EAGER)
@@ -61,10 +62,12 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     @OrderBy("noticeDate desc")
+    @JsonBackReference
     private Set<Notice> notices;
     /** 贡献的图书. */
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
+    @JsonBackReference
     private Set<Book> contribution;
     /** 贡献度. */
     private Integer contributeNum = 0;

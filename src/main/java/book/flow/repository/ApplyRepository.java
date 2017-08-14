@@ -44,4 +44,12 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
      */
     @Query("select a.book from Apply a where a.user.userId = ?1 order by a.book.bookDate asc")
     List<Book> getBookHasApplyByUser(int userId);
+
+    /**
+     * 通过申请编号获取申请内容.
+     * @param applyId 申请编号
+     * @return 申请信息
+     */
+    @Query("select a from Apply a where a.applyId = ?1")
+    Apply getApplyById(int applyId);
 }

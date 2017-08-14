@@ -65,13 +65,41 @@ function hideUpdateDiv(n) {
 function selectBook(id) {
     $('#bookId').val(id);
     $('#update_name').hide();
+    $('#applyBookId').val(id);
+}
+
+/** 显示申请内容. */
+function showApply(applyId) {
+    console.log('显示申请');
+    $.post('getApplyById',
+        {
+            applyId : applyId
+        },
+    function (data) {
+        console.log(data);
+        $('#applyText').html(data.applyText);
+        $($('#applyForBook').children('a')).html(data.book.bookId);
+        $($('#applyForBook').children('a')).attr('href', '../tourist/bookMessage/' + data.book.bookId);
+        $('#applyForImg').html(" ");
+        $('#applyForImg').append('<span id="imgLast" hidden="hidden"></span>');
+        for (var i= 0; i < data.imgs.length; i++) {
+            $('#imgLast').before('<img style="width: 150px;height: 200px;" src="' +data.imgs[i].imgPath + '" />');
+        }
+        $('#applyForStatus').html(data.status);
+        $('#show_apply').show();
+    })
 }
 
 $(document).ready(function () {
 
     // 显示图片选择
     $('#addImg').click(function () {
-        $('#update_img').show();
+        var bookId = $('#applyBookId').val();
+        if (bookId == 0) {
+            alert("请先选择图书");
+        } else {
+            $('#update_img').show();
+        }
     });
 
     // 上传图片
@@ -79,6 +107,7 @@ $(document).ready(function () {
     $('#updateImgBtn').click(function () {
         var file = new FormData($('#imgForm')[0]);
         var userId = $('#userId').val();
+        var bookId = $('#applyBookId').val();
         if (index <= 2) {
             $.ajax({
                 url : 'uploadApplyImg',
@@ -89,11 +118,12 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    if (data == 'ok') {
+                    if (data != 'error') {
                         $('#update_img').hide();
                         $('#addImg').before('<span class="book_img_div">' +
                             '<img style="width: 150px;height: 200px;"' +
-                            'src="http://localhost:8080/FlowBook/files/apply_temp_img/' + userId + '/' + userId + '_' + index + '.png"/>' +
+                            'src="http://localhost:8080/FlowBook/files/apply_img/' + userId + '/' + bookId + '_' + index + '.png"/>' +
+                            '<input hidden="hidden" type="text" name="imgs" value="' + data + '" />' +
                             '</span>');
                         index++;
                         $('#imgIndex').val(index);

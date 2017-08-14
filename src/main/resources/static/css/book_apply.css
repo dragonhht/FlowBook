@@ -102,6 +102,10 @@ a:hover {
     overflow: auto;
 }
 
+#show_apply {
+    height: 440px;
+}
+
 .update_top {
     border: 1px solid white;
     height: 40px;

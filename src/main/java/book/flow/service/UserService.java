@@ -118,7 +118,7 @@ public interface UserService {
      * @param imgs 图片
      * @return 是否保存成功， true为成功
      */
-    boolean applyBookOut(int bookId, int userId, MultipartFile[] imgs);
+    boolean applyBookOut(int bookId, int userId, List<Integer> imgs);
 
     /**
      * 保存图片路径.
@@ -246,4 +246,21 @@ public interface UserService {
      * @return 是否修改成功, true为成功
      */
     boolean updateUserImg(String path, int userId);
+
+    /**
+     * 保存申请图片.
+     * @param uploadImg 图片
+     * @param index 序号
+     * @param bookId 图书编号
+     * @param userId 用户编号
+     * @return 图片编号
+     */
+    int saveApplyImg(MultipartFile uploadImg, int index, int bookId, int userId);
+
+    /**
+     * 通过申请编号获取申请.
+     * @param applyId 申请编号
+     * @return 申请内容
+     */
+    Apply getApplyById(int applyId);
 }

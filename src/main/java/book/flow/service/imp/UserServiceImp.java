@@ -177,7 +177,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public boolean applyBookOut(int bookId, int userId, MultipartFile[] imgs) {
+    public boolean applyBookOut(int bookId, int userId, List<Integer> imgs) {
         boolean ok = false;
         int i = 0;
         String path;
@@ -190,21 +190,15 @@ public class UserServiceImp implements UserService {
         apply.setStatus("待审批");
         String text = user.getUserName() + " 申请 " + book.getBookName() + " 退出系统";
         apply.setApplyText(text);
-        apply.setApplyId(1000000);
-        Apply apply1 = applyRepository.save(apply);
-        for (MultipartFile img : imgs) {
-            StringBuilder imgPath = new StringBuilder("bookCover/apply/");
-            imgPath = imgPath.append(userId + "/");
-            path = "";
-            imgPath = imgPath.append(bookId + "_" + i + ".png");
-            i++;
-            path = fileService.store(img, String.valueOf(imgPath));
-            path  = "http://localhost:8080/FlowBook/files/" + path;
-            Img img1 = new Img();
-            img1.setImgPath(path);
-            img1.setApply(apply1);
-            Img g = saveImg(img1);
+        // apply.setApplyId(1000000);
+        Set<Img> imgSet = new HashSet<>();
+        for (int img : imgs) {
+            Img im = new Img();
+            im.setImgId(img);
+            imgSet.add(im);
         }
+        apply.setImgs(imgSet);
+        Apply apply1 = applyRepository.save(apply);
         if (apply1 != null) {
             ok = true;
         }
@@ -369,5 +363,28 @@ public class UserServiceImp implements UserService {
             ok = true;
         }
         return ok;
+    }
+
+    @Override
+    public int saveApplyImg(MultipartFile uploadImg, int index, int bookId, int userId) {
+        int id = 0;
+        String imgPath = "apply_img/" + userId + "/" + bookId + "_" + index + ".png";
+        imgPath = fileService.store(uploadImg, imgPath);
+        imgPath = "http://localhost:8080/FlowBook/" + imgPath;
+        System.out.println("图片路径" + imgPath);
+        Img img = new Img();
+        img.setImgPath(imgPath);
+        img = imgRepository.save(img);
+        if (img != null) {
+            id = img.getImgId();
+        }
+        return id;
+    }
+
+    @Override
+    public Apply getApplyById(int applyId) {
+        Apply apply = null;
+        apply = applyRepository.getApplyById(applyId);
+        return apply;
     }
 }

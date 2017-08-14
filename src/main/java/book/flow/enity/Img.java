@@ -1,5 +1,7 @@
 package book.flow.enity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -20,6 +22,7 @@ public class Img implements Serializable {
     private String imgPath;
     @ManyToOne
     @JoinColumn(name = "applyId")
+    @JsonBackReference
     private Apply apply;
 
     public Integer getImgId() {

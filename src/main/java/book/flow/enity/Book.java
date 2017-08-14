@@ -43,16 +43,19 @@ public class Book implements Serializable {
     /** 借阅路线. */
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "bookId")
+    @JsonBackReference
     private Set<BookRoute> bookRoute;
     /** 评论. */
     @OneToMany
     @JoinColumn(name = "bookId")
     @OrderBy("commentDate desc")
+    @JsonBackReference
     private Set<Comment> comments;
     /** 图书类型. */
     @ManyToMany(cascade = {}, fetch = FetchType.EAGER)
     @JoinTable(name = "book_type", joinColumns = {@JoinColumn(name = "bookId")},
             inverseJoinColumns = {@JoinColumn(name = "typeId")})
+    @JsonBackReference
     private Set<Type> types;
     /** 图书贡献者. */
     @ManyToOne(fetch = FetchType.EAGER)
@@ -62,6 +65,7 @@ public class Book implements Serializable {
     /** 已申请的书籍. */
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "bookId")
+    @JsonBackReference
     private Set<Apply> applies;
 
     /**
