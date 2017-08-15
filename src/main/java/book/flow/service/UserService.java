@@ -280,4 +280,32 @@ public interface UserService {
      * @return 是否保存成功, true为成功
      */
     boolean saveFlowApply(int bookId, int toUserId, String wantSay, int userId);
+
+    /**
+     * 获取接收方的所有申请.
+     * @param toUserId 接收方编号
+     * @return 申请
+     */
+    List<FlowApply> getFlowApplyByToUser(int toUserId);
+
+    /**
+     * 获取接收方的未回复申请.
+     * @param toUserId 接收方编号
+     * @return 申请
+     */
+    List<FlowApply> getNotLookApplyByToUser(int toUserId);
+
+    /**
+     * 获取接收方的已回复申请.
+     * @param toUserId 接收方编号
+     * @return 申请
+     */
+    List<FlowApply> getLookedApplyByToUser(int toUserId);
+
+    /**
+     * 通过传阅申请编号查找申请.
+     * @param flowBookId 申请编号
+     * @return 申请
+     */
+    FlowApply getFlowApplyById(int flowBookId);
 }

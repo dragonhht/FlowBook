@@ -494,4 +494,42 @@ public class UserController {
         }
         return "失败";
     }
+
+    /**
+     * 跳转传阅申请页面.
+     * @param session session
+     * @param model model
+     * @return 页面
+     */
+    @RequestMapping("/flowApply")
+    public String flowApply(HttpSession session, Model model) {
+        List<FlowApply> allApplies= null;
+        List<FlowApply> notApplies = null;
+        List<FlowApply> lookedApplies = null;
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId = user.getUserId();
+            allApplies = userService.getFlowApplyByToUser(userId);
+            notApplies = userService.getNotLookApplyByToUser(userId);
+            lookedApplies = userService.getLookedApplyByToUser(userId);
+        }
+        model.addAttribute("allApplies", allApplies);
+        model.addAttribute("notApplies", notApplies);
+        model.addAttribute("lookedApplies", lookedApplies);
+        return "flow_apply";
+    }
+
+    /**
+     * 通过传阅申请编号查询申请.
+     * @param flowApplyId 申请编号
+     * @return 传阅申请
+     */
+    @PostMapping("/getFlowApplyById")
+    @ResponseBody
+    public FlowApply getFlowApplyById(int flowApplyId) {
+        FlowApply apply = null;
+        apply = userService.getFlowApplyById(flowApplyId);
+        return apply;
+    }
+
 }

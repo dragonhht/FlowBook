@@ -186,7 +186,7 @@ public class TouristController {
      * @param model 用于返回数据
      * @return 详细信息页面
      */
-    @RequestMapping("/bookMessage/{bookId}")
+    @RequestMapping(value = "/bookMessage/{bookId}")
     public String bookInformation(@PathVariable("bookId") int bookId, Model model) {
         Book book = null;
         User user = null;

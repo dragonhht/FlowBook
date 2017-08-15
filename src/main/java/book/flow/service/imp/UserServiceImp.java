@@ -426,4 +426,34 @@ public class UserServiceImp implements UserService {
         }
         return ok;
     }
+
+    @Override
+    public List<FlowApply> getFlowApplyByToUser(int toUserId) {
+        List<FlowApply> applies = null;
+        applies = flowApplyRepository.getApplyByToUser(toUserId);
+        return applies;
+    }
+
+    @Override
+    public List<FlowApply> getNotLookApplyByToUser(int toUserId) {
+        List<FlowApply> applies = null;
+        applies = flowApplyRepository.getNotLookApplyByToUser(toUserId);
+        return applies;
+    }
+
+    @Override
+    public List<FlowApply> getLookedApplyByToUser(int toUserId) {
+        List<FlowApply> applies = null;
+        applies = flowApplyRepository.getLookedApplyByToUser(toUserId);
+        return applies;
+    }
+
+    @Override
+    public FlowApply getFlowApplyById(int flowBookId) {
+        FlowApply apply = null;
+        apply = flowApplyRepository.getFlowApplyById(flowBookId);
+        return apply;
+    }
+
+
 }

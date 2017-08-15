@@ -194,7 +194,7 @@
     </div>
 
     <div class="form-group form_group">
-        <label class="col-sm-2 control-label"><span style="color: red">*</span>说点什么：</label>
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>说明：</label>
         <div class="col-sm-9 input-group ">
             <textarea id="wantSay" name="wantSay" style="width: 400px;height: 100px;resize: none;" placeholder="说点什么..."></textarea>
         </div>
@@ -210,7 +210,7 @@
 <script th:inline="javascript">
     //评论判断是否登录
     function loginTip() {
-        var user = [[${session.user}]];
+        var user = [[${session.user.userId}]];
         if (user == null) {
             if (window.confirm("请先登录!")) {
                 window.location.replace("../../login");
