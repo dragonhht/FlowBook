@@ -176,4 +176,9 @@ public class UserTest {
         }
     }
 
+    @Test
+    public void testDate() {
+        System.out.println(service.isOkToFlow(1000001));
+    }
+
 }

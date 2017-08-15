@@ -64,4 +64,12 @@ public interface RecordRepository extends JpaRepository<LoanRecord, Integer> {
             "r.book not in(select a.book from Apply a where r.user.userId = a.user.userId and a.status <> '待审批' and r.isOut = false)")
     List<Book> getBookToApplyByUser(int userId);
 
+    /**
+     * 通过图书获取当前拥有者的借阅记录.
+     * @param bookId 图书编号
+     * @return 记录信息
+     */
+    @Query("select r from LoanRecord r where r.book.bookId = ?1 and r.isOut = false ")
+    LoanRecord getNowRecordByBook(int bookId);
+
 }

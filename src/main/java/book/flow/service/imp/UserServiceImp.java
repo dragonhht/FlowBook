@@ -49,6 +49,8 @@ public class UserServiceImp implements UserService {
     private FriendsRepository friendsRepository;
     @Autowired
     private ChatRecordRepository chatRecordRepository;
+    @Autowired
+    private FlowApplyRepository flowApplyRepository;
 
     @Override
     public User login(String text, String password) {
@@ -386,5 +388,42 @@ public class UserServiceImp implements UserService {
         Apply apply = null;
         apply = applyRepository.getApplyById(applyId);
         return apply;
+    }
+
+    @Override
+    public boolean isOkToFlow(int bookId) {
+        boolean ok = false;
+        LoanRecord record = recordRepository.getNowRecordByBook(bookId);
+        Date date = record.getRecordDate();
+        Calendar calendar_0 = Calendar.getInstance();
+        calendar_0.setTime(date);
+        long time_0 = calendar_0.getTimeInMillis();
+        calendar_0.setTime(new Date());
+        long time_1 = calendar_0.getTimeInMillis();
+        long day = (time_1-time_0)/(1000*3600*24);
+        if (day > 30) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public boolean saveFlowApply(int bookId, int toUserId, String wantSay, int userId) {
+        boolean ok = false;
+        Book book = bookRepository.getBookById(bookId);
+        User toUser = userRepository.getUserById(toUserId);
+        User user = userRepository.getUserById(userId);
+        FlowApply apply = new FlowApply();
+        apply.setApplyUser(user);
+        apply.setBook(book);
+        apply.setOkUser(toUser);
+        apply.setStatus(0);
+        apply.setWantSay(wantSay);
+        apply.setApplyDate(new Date());
+        FlowApply a = flowApplyRepository.save(apply);
+        if (a != null) {
+            ok = true;
+        }
+        return ok;
     }
 }

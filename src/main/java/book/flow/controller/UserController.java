@@ -472,4 +472,26 @@ public class UserController {
         return apply;
     }
 
+    /**
+     * 图书传阅申请.
+     * @param bookId 申请的图书编号
+     * @param toUserId 申请接收方
+     * @param wantSay 想说的
+     * @param session session
+     * @return 提交结果
+     */
+    @PostMapping("/wantBook")
+    @ResponseBody
+    public String wantBook(int bookId, int toUserId, String wantSay, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId = user.getUserId();
+            boolean ok = false;
+            ok = userService.saveFlowApply(bookId, toUserId, wantSay, userId);
+            if (ok) {
+                return "ok";
+            }
+        }
+        return "失败";
+    }
 }

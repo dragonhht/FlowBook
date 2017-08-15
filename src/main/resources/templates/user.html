@@ -217,7 +217,7 @@
 
     //添加判断是否登录
     function loginTip() {
-        var user = [[${session.user.userId}]];
+        var user = [[${session.user}]];
         if (user == null) {
             if (window.confirm("请先登录!")) {
                 window.location.replace("../../login");
@@ -236,7 +236,8 @@
 
     function showMyMssage(text) {
         str = '<div class="question">';
-        str += '<div class="heard_img right"><img th:src="@{${session.user.userImg}}"/></div>';
+        str += '<div class="heard_img right">' +
+            '<th:block th:unless="${session.user eq null}"><img th:src="@{${session.user.userImg}}"/></th:block></div>';
         str += '<div class="question_text clear"><p>'+text+'</p><i></i>';
         str += '</div></div>';
         $('.speak_box').append(str);
@@ -298,7 +299,7 @@
 
     /** 联系判断用户是否登录. */
     function chatLoginTip() {
-        var user = [[${session.user.userId}]];
+        var user = [[${session.user}]];
         if (user == null) {
             if (window.confirm("请先登录!")) {
                 window.location.replace("../../login");

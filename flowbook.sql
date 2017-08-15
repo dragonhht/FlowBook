@@ -114,6 +114,20 @@ CREATE TABLE chat_record (
   FOREIGN KEY (receiver) REFERENCES user(user_id)
 ) CHARSET=utf8;
 
+-- 图书传阅表
+CREATE TABLE flow_apply (
+  id INT AUTO_INCREMENT PRIMARY KEY ,
+  apply_user INT NOT NULL ,
+  ok_user INT NOT NULL ,
+  book_id INT NOT NULL ,
+  want_say TEXT ,
+  status INT DEFAULT 0,
+  apply_date TIMESTAMP NOT NULL ,
+  FOREIGN KEY (apply_user) REFERENCES user(user_id),
+  FOREIGN KEY (ok_user) REFERENCES user(user_id),
+  FOREIGN KEY (book_id) REFERENCES book(book_id)
+) CHARSET=utf8;
+
 -- 图书类型
 insert INTO type VALUE (1, '文学类');
 insert INTO type VALUE (2, '教科书');

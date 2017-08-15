@@ -263,4 +263,21 @@ public interface UserService {
      * @return 申请内容
      */
     Apply getApplyById(int applyId);
+
+    /**
+     * 图书借阅是否满30天.
+     * @param bookId 图书编号
+     * @return 结果， true为满30天， 可借阅
+     */
+    boolean isOkToFlow(int bookId);
+
+    /**
+     * 保存传阅申请.
+     * @param bookId 传阅申请编号
+     * @param toUserId 接受者编号
+     * @param wantSay 想说什么
+     * @param userId 申请人
+     * @return 是否保存成功, true为成功
+     */
+    boolean saveFlowApply(int bookId, int toUserId, String wantSay, int userId);
 }

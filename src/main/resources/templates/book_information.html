@@ -66,7 +66,6 @@
                     </a>
                     <span><a th:href="@{/tourist/user/{userId} (userId = ${nowOwner.userId})}"
                              th:text="${nowOwner.userName}"></a> </span>
-                    <!--<span class="date">2017年07月07日 16:00</span>-->
                 </div>
             </div>
 
@@ -95,7 +94,7 @@
 
             <div class="book_route book_message_message">
                 <span>
-                    <a th:href="@{/tourist/user/{userId} (userId = ${nowOwner.userId})}">想看这本书</a>
+                    <a id="wantLookLink" style="cursor: pointer;">想看这本书</a>
                 </span>
             </div>
 
@@ -145,10 +144,6 @@
             </div>
 
             <div id="route" hidden="hidden">
-                <!--<ul class="pagination">
-                    <li class="active"><a>表格</a></li>
-                    <li ><a>流线图</a></li>
-                </ul>-->
 
                 <table id="route_table" class="table table-striped">
                     <tr>
@@ -178,10 +173,44 @@
         </p>
     </div>
 
+<div class="update_div" id="wantLook" hidden="hidden">
+    <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
+    <span class="update_top" style="font-weight: bold;font-size: large;color: black;">申请图书传阅</span>
+    <span class="update_top" id="result"></span>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>图书名：</label>
+        <div id="oldEmailInput" class="col-sm-9 input-group ">
+            <span th:text="${book.bookName}"></span>
+            <input id="bookId" hidden="hidden" th:value="${book.bookId}" name="bookId" type="text"/>
+        </div>
+    </div>
+
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>拥有者：</label>
+        <div class="col-sm-9 input-group ">
+            <span th:text="${nowOwner.userName}"></span>
+            <input id="toUserId" name="toUserId" th:value="${nowOwner.userId}" type="text" hidden="hidden" />
+        </div>
+    </div>
+
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>说点什么：</label>
+        <div class="col-sm-9 input-group ">
+            <textarea id="wantSay" name="wantSay" style="width: 400px;height: 100px;resize: none;" placeholder="说点什么..."></textarea>
+        </div>
+    </div>
+
+        <div class="form-group form_group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="updateImgBtn" class="btn btn-primary">申请传阅</button>
+            </div>
+        </div>
+</div>
+
 <script th:inline="javascript">
     //评论判断是否登录
     function loginTip() {
-        var user = [[${session.user.userId}]];
+        var user = [[${session.user}]];
         if (user == null) {
             if (window.confirm("请先登录!")) {
                 window.location.replace("../../login");

@@ -44,6 +44,31 @@ $(document).ready(function() {
             return false;
         });
     });
+
+    // 显示图书传阅申请
+    $('#wantLookLink').click(function () {
+        $('#wantLook').show();
+    });
+
+    // 提交图书传阅申请
+    $('#updateImgBtn').click(function () {
+        var bookId = $('#bookId').val().trim();
+        var toUserId = $('#toUserId').val().trim();
+        var wantSay = $('#wantSay').val().trim();
+        $.post('../../user/wantBook',
+            {
+                bookId : bookId,
+                toUserId : toUserId,
+                wantSay : wantSay
+            },
+        function (data) {
+            if (data == 'ok') {
+                $('#wantLook').hide();
+            } else {
+                $('#result').html(data);
+            }
+        })
+    });
 });
 
 /** 选择信息标签页. */
@@ -62,4 +87,10 @@ function selectTab(n) {
         $('#route').show();
     }
 
+}
+
+/** 隐藏修改框. */
+function hideUpdateDiv(n) {
+    var parent = $(n).parent();
+    $(parent).hide();
 }
