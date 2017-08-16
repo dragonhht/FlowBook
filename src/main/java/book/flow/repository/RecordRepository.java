@@ -56,6 +56,14 @@ public interface RecordRepository extends JpaRepository<LoanRecord, Integer> {
     List<User> getNowOwnerByBookId(int bookId);
 
     /**
+     * 查询图书的当前借阅记录
+     * @param bookId 图书编号
+     * @return 借阅记录
+     */
+    @Query("select r from LoanRecord r where r.book.bookId = ?1 and r.isOut = false ")
+    List<LoanRecord> getBookNowLoanRecord(int bookId);
+
+    /**
      * 通过用户编号获取用户可申请的图书.
      * @param userId 用户编号
      * @return 可申请的图书

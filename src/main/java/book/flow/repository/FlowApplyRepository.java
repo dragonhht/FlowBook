@@ -36,6 +36,16 @@ public interface FlowApplyRepository extends JpaRepository<FlowApply, Integer> {
     int notAgreedApply(int flowApplyId);
 
     /**
+     * 将申请设为处理中.
+     * @param flowApplyId 传阅申请编号
+     * @return 修改数
+     */
+    @Transactional
+    @Modifying
+    @Query("update FlowApply f set f.status = 3 where f.id = ?1")
+    int dealFlowApply(int flowApplyId);
+
+    /**
      * 通过编号获取传阅请求.
      * @param flowApplyId 传阅申请编号
      * @return 传阅申请
@@ -66,4 +76,20 @@ public interface FlowApplyRepository extends JpaRepository<FlowApply, Integer> {
      */
     @Query("select f from FlowApply f where f.okUser.userId = ?1 and f.status <> 0 order by f.applyDate desc ")
     List<FlowApply> getLookedApplyByToUser(int toUserId);
+
+    /**
+     * 获取正在处理的申请.
+     * @param toUserId 接收方编号
+     * @return 申请
+     */
+    @Query("select f from FlowApply f where f.okUser.userId = ?1 and f.status = 3 order by f.applyDate desc")
+    List<FlowApply> getDealingApplyByToUser(int toUserId);
+
+    /**
+     * 获取我的传阅申请.
+     * @param userId 用户编号
+     * @return 申请
+     */
+    @Query("select f from FlowApply f where f.applyUser.userId = ?1 order by f.applyDate desc ")
+    List<FlowApply> getMyFlowApplies(int userId);
 }

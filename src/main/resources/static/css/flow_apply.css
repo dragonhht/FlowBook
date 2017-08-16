@@ -106,6 +106,10 @@ a:hover {
     height: 440px;
 }
 
+#apply_ok {
+    height: 400px;
+}
+
 .update_top {
     border: 1px solid white;
     height: 40px;

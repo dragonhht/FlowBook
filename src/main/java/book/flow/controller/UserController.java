@@ -505,17 +505,22 @@ public class UserController {
     public String flowApply(HttpSession session, Model model) {
         List<FlowApply> allApplies= null;
         List<FlowApply> notApplies = null;
-        List<FlowApply> lookedApplies = null;
+//        List<FlowApply> lookedApplies = null;
+        List<FlowApply> dealingApplies = null;
+        List<FlowApply> myApplies = null;
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
             allApplies = userService.getFlowApplyByToUser(userId);
             notApplies = userService.getNotLookApplyByToUser(userId);
-            lookedApplies = userService.getLookedApplyByToUser(userId);
+//            lookedApplies = userService.getLookedApplyByToUser(userId);
+            dealingApplies = userService.getDealingApplyByToUser(userId);
+            myApplies = userService.getMyFlowApplies(userId);
         }
         model.addAttribute("allApplies", allApplies);
         model.addAttribute("notApplies", notApplies);
-        model.addAttribute("lookedApplies", lookedApplies);
+        model.addAttribute("dealingApplies", dealingApplies);
+        model.addAttribute("myApplies", myApplies);
         return "flow_apply";
     }
 
@@ -530,6 +535,32 @@ public class UserController {
         FlowApply apply = null;
         apply = userService.getFlowApplyById(flowApplyId);
         return apply;
+    }
+
+    /**
+     * 同意传阅申请.
+     * @param applyId 申请编号
+     * @return 结果
+     */
+    @PostMapping("/applyOk")
+    @ResponseBody
+    public boolean applyOk(int applyId) {
+        boolean ok = false;
+        ok = userService.dealFlowApply(applyId);
+        return ok;
+    }
+
+    /**
+     * 图书传阅到下一人.
+     * @param applyId 传阅申请编号
+     * @return 结果
+     */
+    @PostMapping("/flowToNext")
+    @ResponseBody
+    public boolean flowToNext(int applyId) {
+        boolean ok = false;
+        ok = userService.flowBookToNext(applyId);
+        return ok;
     }
 
 }

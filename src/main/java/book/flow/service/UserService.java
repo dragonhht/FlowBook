@@ -303,9 +303,37 @@ public interface UserService {
     List<FlowApply> getLookedApplyByToUser(int toUserId);
 
     /**
+     * 获取正在处理的申请.
+     * @param toUserId 接收方编号
+     * @return 申请
+     */
+    List<FlowApply> getDealingApplyByToUser(int toUserId);
+
+    /**
+     * 获取我的传阅申请.
+     * @param userId 用户编号
+     * @return 申请
+     */
+    List<FlowApply> getMyFlowApplies(int userId);
+
+    /**
      * 通过传阅申请编号查找申请.
      * @param flowBookId 申请编号
      * @return 申请
      */
     FlowApply getFlowApplyById(int flowBookId);
+
+    /**
+     * 将申请设为处理中.
+     * @param flowApplyId 传阅申请编号
+     * @return 结果
+     */
+    boolean dealFlowApply(int flowApplyId);
+
+    /**
+     * 图书传阅完成.
+     * @param flowApplyId 图书传阅申请编号
+     * @return 是否成功
+     */
+    boolean flowBookToNext(int flowApplyId);
 }

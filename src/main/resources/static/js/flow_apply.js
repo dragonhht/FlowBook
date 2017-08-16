@@ -71,12 +71,14 @@ function selectBook(id) {
 /** 显示申请内容. */
 function showApply(applyId) {
     console.log('显示申请');
+    $('#applyResult').html(' ');
     $.post('getFlowApplyById',
         {
             flowApplyId : applyId
         },
     function (data) {
         console.log(data);
+        $('#applyId').val(data.id);
         $('#applyText').html(data.applyUser.userName);
         $('#applyText').attr('href', '../tourist/user/' + data.applyUser.userId);
         $('#applyForBook').html(data.book.bookName);
@@ -88,66 +90,103 @@ function showApply(applyId) {
         if (data.status == 2) {
             status = '拒绝';
         }
+        if (data.status == 3) {
+            status = '处理中';
+        }
         $('#applyStatus').html(status);
         $('#applySay').html(data.wantSay);
+        $('#applyBtn').html(" ");
         if (data.status == 0) {
-            $('#applyBtn').append('<button class="btn btn-info">同意</button>&nbsp;&nbsp;&nbsp;' +
-                '<button class="btn btn-info">拒绝</button>');
+            $('#applyBtn').append('<button onclick="applyOk()" class="btn btn-info">同意</button>&nbsp;&nbsp;&nbsp;' +
+                '<button onclick="refuse()" id="refuse" class="btn btn-info">拒绝</button>');
+        }
+        if (data.status == 3) {
+            $('#applyBtn').append('<span>双方传递图书， 等待对方确认，完成传阅</span>&nbsp;<a target="_blank" href="../tourist/user/' + data.applyUser.userId + '">联系对方</a>');
         }
         $('#show_apply').show();
     })
 }
 
+function showApplyOk(applyId) {
+    $.post('getFlowApplyById',
+        {
+            flowApplyId : applyId
+        },
+        function (data) {
+            console.log(data);
+            $('#applyOkId').val(data.id);
+            $('#applyOkText').html(data.applyUser.userName);
+            $('#applyOkText').attr('href', '../tourist/user/' + data.applyUser.userId);
+            $('#applyOkForBook').html(data.book.bookName);
+            $('#applyOkForBook').attr('href', '../tourist/bookMessage/' + data.book.bookId);
+            var status = '未决定';
+            if (data.status == 1) {
+                status = '同意';
+            }
+            if (data.status == 2) {
+                status = '拒绝';
+            }
+            if (data.status == 3) {
+                status = '处理中';
+            }
+            $('#applyOkStatus').html(status);
+            $('#applyOkSay').html(data.wantSay);
+            $('#apply_ok').show();
+        })
+}
+
+/** 确认图书传阅完成. */
+function okApply() {
+    if (window.confirm("请确认图书已到达您的手中!")) {
+
+        var applyId = $('#applyOkId').val();
+        console.log(applyId);
+
+        $.post('flowToNext',
+            {
+                applyId : applyId
+            },
+        function (data) {
+            if (data) {
+                location.reload(true);
+            } else {
+                $('#applyOkResult').html("失败");
+            }
+        });
+
+        return true;
+    } else {
+        return false;
+    }
+}
+
 $(document).ready(function () {
 
-    // 显示图片选择
-    $('#addImg').click(function () {
-        var bookId = $('#applyBookId').val();
-        if (bookId == 0) {
-            alert("请先选择图书");
-        } else {
-            $('#update_img').show();
-        }
-    });
-
-    // 上传图片
-    var index = 0;
-    $('#updateImgBtn').click(function () {
-        var file = new FormData($('#imgForm')[0]);
-        var userId = $('#userId').val();
-        var bookId = $('#applyBookId').val();
-        if (index <= 2) {
-            $.ajax({
-                url : 'uploadApplyImg',
-                type : 'post',
-                data : file,
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    if (data != 'error') {
-                        $('#update_img').hide();
-                        $('#addImg').before('<span class="book_img_div">' +
-                            '<img style="width: 150px;height: 200px;"' +
-                            'src="http://localhost:8080/FlowBook/files/apply_img/' + userId + '/' + bookId + '_' + index + '.png"/>' +
-                            '<input hidden="hidden" type="text" name="imgs" value="' + data + '" />' +
-                            '</span>');
-                        index++;
-                        $('#imgIndex').val(index);
-                        if (index >= 3) {
-                            $('#addImg').remove();
-                        }
-                    } else {
-                        $('#imgResult').html(data);
-                    }
-                },
-                error: function (data) {
-                    $('#imgResult').html(data);
-                }
-            });
-        }
-
-    });
+    
 
 });
+
+// 拒绝申请
+function refuse() {
+    $('#applyBtn').html(' ');
+    $('#applyBtn').append('<label for="refuseReason">理由：</label>' +
+        '<textarea style="width: 455px; height: 90px; resize: none;" id="refuseReason" ></textarea> ');
+    $('#reason').html(' ');
+    $('#reason').append('<button type="submit" class="btn btn-info">确定</button>');
+}
+
+/** 提交申请处理. */
+function applyOk() {
+    var applyId = $('#applyId').val();
+    $.post('applyOk',
+        {
+            applyId : applyId
+        },
+    function (data) {
+        if (data) {
+            location.reload(true);
+        } else {
+            $('#applyResult').html('失败');
+        }
+    });
+}

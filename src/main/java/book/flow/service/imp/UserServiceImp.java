@@ -449,10 +449,59 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public List<FlowApply> getDealingApplyByToUser(int toUserId) {
+        List<FlowApply> applies = null;
+        applies = flowApplyRepository.getDealingApplyByToUser(toUserId);
+        return applies;
+    }
+
+    @Override
+    public List<FlowApply> getMyFlowApplies(int userId) {
+        List<FlowApply> applies = null;
+        applies = flowApplyRepository.getMyFlowApplies(userId);
+        return applies;
+    }
+
+    @Override
     public FlowApply getFlowApplyById(int flowBookId) {
         FlowApply apply = null;
         apply = flowApplyRepository.getFlowApplyById(flowBookId);
         return apply;
+    }
+
+    @Override
+    public boolean dealFlowApply(int flowApplyId) {
+        boolean ok = false;
+        int i = 0;
+        i = flowApplyRepository.dealFlowApply(flowApplyId);
+        if (i > 0) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public boolean flowBookToNext(int flowApplyId) {
+        boolean ok  =false;
+        FlowApply apply = flowApplyRepository.getFlowApplyById(flowApplyId);
+        User user = apply.getApplyUser();
+        Book book = apply.getBook();
+        flowApplyRepository.agreedApply(flowApplyId);
+        int bookId = apply.getBook().getBookId();
+        List<LoanRecord> records = recordRepository.getBookNowLoanRecord(bookId);
+        if (records != null && records.size() > 0) {
+            LoanRecord record = records.get(0);
+            record.setOut(true);
+            recordRepository.save(record);
+            LoanRecord r = new LoanRecord();
+            r.setOut(false);
+            r.setUser(user);
+            r.setRecordDate(new Date());
+            r.setBook(book);
+            recordRepository.save(r);
+            ok = true;
+        }
+        return ok;
     }
 
 
