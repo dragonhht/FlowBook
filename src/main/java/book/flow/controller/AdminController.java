@@ -51,4 +51,17 @@ public class AdminController {
         ok = true;
         return ok;
     }
+
+    /**
+     * 拒绝申请.
+     * @param applyId
+     * @return
+     */
+    @PostMapping("/refuseApply")
+    @ResponseBody
+    public boolean refuseApply(int applyId) {
+        boolean ok = false;
+        ok = adminService.refuseApply(applyId);
+        return ok;
+    }
 }

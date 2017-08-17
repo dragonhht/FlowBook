@@ -67,6 +67,7 @@
                 <td th:text="${allApply.status}"></td>
                 <td>
                     <button th:if="${allApply.status == '待审批'}" th:onclick="'javascript:showApply(\''+${allApply.applyId}+'\')'" class="btn btn-warning">处理</button>
+                    <button th:unless="${allApply.status == '待审批'}" th:onclick="'javascript:showApply(\''+${allApply.applyId}+'\')'" class="btn btn-info">查看</button>
                 </td>
             </tr>
         </table>

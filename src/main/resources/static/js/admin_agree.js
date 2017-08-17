@@ -83,7 +83,7 @@ function showApply(applyId) {
             $('#dealBookOut').html(" ");
             if (data.status == '待审批') {
                 $('#dealBookOut').append('<button onclick="delBook()" class="btn btn-info">通过</button>&nbsp;&nbsp;' +
-                    '<button class="btn btn-info">否决</button>');
+                    '<button onclick="refuseApply()" class="btn btn-info">否决</button>');
             }
             $('#show_apply').show();
         })
@@ -101,4 +101,18 @@ function delBook() {
             location.reload(true);
         }
     })
+}
+
+/** 拒绝申请. */
+function refuseApply() {
+    var applyId = $('#applyId').val();
+    $.post('refuseApply',
+        {
+            applyId : applyId
+        },
+        function (data) {
+            if (data) {
+                location.reload(true);
+            }
+        })
 }

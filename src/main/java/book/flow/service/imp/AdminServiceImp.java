@@ -54,4 +54,15 @@ public class AdminServiceImp implements AdminService {
         int i = bookRepository.delBookById(book.getBookId());
         System.out.println(i);
     }
+
+    @Override
+    public boolean refuseApply(int applyId) {
+        boolean ok = false;
+        int i = 0;
+        i = applyRepository.refuseApply(applyId);
+        if (i > 0) {
+            ok = true;
+        }
+        return ok;
+    }
 }

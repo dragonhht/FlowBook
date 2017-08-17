@@ -22,4 +22,11 @@ public interface AdminService {
      * @param applyId 图书申请编号
      */
     void delBook(int applyId);
+
+    /**
+     * 拒绝申请.
+     * @param applyId 申请编号
+     * @return
+     */
+    boolean refuseApply(int applyId);
 }

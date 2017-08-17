@@ -72,4 +72,14 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
     @Modifying
     @Query("delete from Apply a where a.book.bookId = ?1")
     int delApplyByBook(int bookId);
+
+    /**
+     * 拒绝申请.
+     * @param applyId 申请编号
+     * @return
+     */
+    @Transactional
+    @Modifying
+    @Query("update Apply a set a.status = '拒绝' where a.applyId = ?1")
+    int refuseApply(int applyId);
 }
