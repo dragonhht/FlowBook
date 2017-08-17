@@ -92,4 +92,14 @@ public interface FlowApplyRepository extends JpaRepository<FlowApply, Integer> {
      */
     @Query("select f from FlowApply f where f.applyUser.userId = ?1 order by f.applyDate desc ")
     List<FlowApply> getMyFlowApplies(int userId);
+
+    /**
+     * 删除图书漂流申请
+     * @param bookId 图书编号
+     * @return
+     */
+    @Transactional
+    @Modifying
+    @Query("delete from FlowApply f where f.book.bookId = ?1")
+    int delFlowApplyByBook(int bookId);
 }

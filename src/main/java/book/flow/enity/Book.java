@@ -1,13 +1,16 @@
 package book.flow.enity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -67,6 +70,12 @@ public class Book implements Serializable {
     @JoinColumn(name = "bookId")
     @JsonBackReference
     private Set<Apply> applies;
+    /** 记录. */
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "bookId")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @JsonBackReference
+    private Set<LoanRecord> records;
 
     /**
      * 获取 图书编号.
@@ -252,5 +261,13 @@ public class Book implements Serializable {
 
     public void setApplies(Set<Apply> applies) {
         this.applies = applies;
+    }
+
+    public Set<LoanRecord> getRecords() {
+        return records;
+    }
+
+    public void setRecords(Set<LoanRecord> records) {
+        this.records = records;
     }
 }

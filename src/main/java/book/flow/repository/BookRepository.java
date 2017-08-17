@@ -113,4 +113,14 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query(nativeQuery = true, value = "SELECT COUNT(b.book_id) FROM book b, book_type bt" +
             " where b.book_id = bt.book_id and bt.type_id = ?1")
     long getBookByTypeCount(int typeId);
+
+    /**
+     * 删除图书.
+     * @param bookId 图书编号
+     * @return 结果数
+     */
+    @Transactional
+    @Modifying
+    @Query("delete from Book b where b.bookId = ?1")
+    int delBookById(int bookId);
 }

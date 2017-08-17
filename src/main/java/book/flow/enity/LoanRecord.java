@@ -1,5 +1,6 @@
 package book.flow.enity;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -29,7 +30,8 @@ public class LoanRecord implements Serializable {
     @JoinColumn(name = "userId")
     private User user;
     /** 借阅的书籍. */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     @JoinColumn(name = "bookId")
     private Book book;
     /** 评价. */

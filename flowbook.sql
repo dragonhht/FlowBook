@@ -35,8 +35,8 @@ CREATE TABLE comment (
   comment_date TIMESTAMP COMMENT '评论时间',
   user_id INT NOT NULL ,
   book_id INT NOT NULL ,
-  FOREIGN KEY (book_id) REFERENCES book(book_id),
-  FOREIGN KEY (user_id) REFERENCES user(user_id)
+  FOREIGN KEY (user_id) REFERENCES user(user_id) ,
+  FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE
 ) CHARSET=utf8;
 
 -- 图书路线表
@@ -45,8 +45,8 @@ CREATE TABLE book_route (
   book_id INT NOT NULL COMMENT '图书编号',
   user_id INT NOT NULL COMMENT '用户编号',
   route_date TIMESTAMP NOT NULL COMMENT '路线创建时间',
-  FOREIGN KEY (book_id) REFERENCES book(book_id),
-  FOREIGN KEY (user_id) REFERENCES user(user_id)
+  FOREIGN KEY (user_id) REFERENCES user(user_id) ,
+  FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE
 ) CHARSET = utf8;
 
 -- 公告表
@@ -69,7 +69,7 @@ CREATE TABLE book_type (
   type_id INT COMMENT '类型编号',
   book_id INT COMMENT '图书编号',
   FOREIGN KEY (type_id) REFERENCES type(type_id),
-  FOREIGN KEY (book_id) REFERENCES book(book_id)
+  FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE
 ) CHARSET = utf8;
 
 -- 借阅记录表
@@ -80,7 +80,7 @@ CREATE TABLE loan_record (
   book_id INT NOT NULL COMMENT '借阅书籍',
   user_id INT NOT NULL COMMENT '借阅人',
   FOREIGN KEY (user_id) REFERENCES user(user_id),
-  FOREIGN KEY (book_id) REFERENCES book(book_id)
+  FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE
 ) CHARSET = utf8;
 
 -- 用户申请表
@@ -91,7 +91,7 @@ CREATE TABLE user_apply (
   user_id INT NOT NULL,
   book_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES user(user_id),
-  FOREIGN KEY (book_id) REFERENCES book(book_id)
+  FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE
 ) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;
 
 -- 图片表
@@ -125,7 +125,7 @@ CREATE TABLE flow_apply (
   apply_date TIMESTAMP NOT NULL ,
   FOREIGN KEY (apply_user) REFERENCES user(user_id),
   FOREIGN KEY (ok_user) REFERENCES user(user_id),
-  FOREIGN KEY (book_id) REFERENCES book(book_id)
+  FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE
 ) CHARSET=utf8;
 
 -- 图书类型

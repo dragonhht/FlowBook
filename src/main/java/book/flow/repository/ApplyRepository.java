@@ -3,7 +3,10 @@ package book.flow.repository;
 import book.flow.enity.Apply;
 import book.flow.enity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 /**
@@ -52,4 +55,21 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
      */
     @Query("select a from Apply a where a.applyId = ?1")
     Apply getApplyById(int applyId);
+
+    /**
+     * 获得所有申请.
+     * @return 所有申请
+     */
+    @Query("select a from Apply a order by a.applyDate desc ")
+    List<Apply> getAllApplies();
+
+    /**
+     * 删除图书申请.
+     * @param bookId 图书编号
+     * @return
+     */
+    @Transactional
+    @Modifying
+    @Query("delete from Apply a where a.book.bookId = ?1")
+    int delApplyByBook(int bookId);
 }

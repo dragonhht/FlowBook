@@ -4,7 +4,9 @@ import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -79,5 +81,9 @@ public interface RecordRepository extends JpaRepository<LoanRecord, Integer> {
      */
     @Query("select r from LoanRecord r where r.book.bookId = ?1 and r.isOut = false ")
     LoanRecord getNowRecordByBook(int bookId);
+
+    @Transactional
+    @Modifying@Query("delete from LoanRecord r where r.book.bookId = ?1")
+    int delRecordByBook(int bookId);
 
 }
