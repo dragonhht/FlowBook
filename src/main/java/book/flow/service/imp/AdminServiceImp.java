@@ -3,6 +3,7 @@ package book.flow.service.imp;
 import book.flow.enity.Apply;
 import book.flow.enity.Book;
 import book.flow.enity.Img;
+import book.flow.enity.Report;
 import book.flow.repository.*;
 import book.flow.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class AdminServiceImp implements AdminService {
     private FlowApplyRepository flowApplyRepository;
     @Autowired
     private ImgRepository imgRepositoryl;
+    @Autowired
+    private ReportRepository reportRepository;
 
     @Override
     public List<Apply> getAllApplies() {
@@ -60,6 +63,49 @@ public class AdminServiceImp implements AdminService {
         boolean ok = false;
         int i = 0;
         i = applyRepository.refuseApply(applyId);
+        if (i > 0) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public List<Report> getAllReport() {
+        List<Report> reports = null;
+        reports = reportRepository.getAllReport();
+        return reports;
+    }
+
+    @Override
+    public List<Report> getAllWaitReport() {
+        List<Report> reports = null;
+        reports = reportRepository.getAllWaitReport();
+        return reports;
+    }
+
+    @Override
+    public Report getReportById(int reportId) {
+        Report report = null;
+        report = reportRepository.getReportById(reportId);
+        return report;
+    }
+
+    @Override
+    public boolean passReport(int reportId) {
+        boolean ok = false;
+        int i = 0;
+        i = reportRepository.passReport(reportId);
+        if (i > 0) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public boolean notPassReport(int reportId) {
+        boolean ok = false;
+        int i = 0;
+        i = reportRepository.notPassReport(reportId);
         if (i > 0) {
             ok = true;
         }

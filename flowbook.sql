@@ -150,6 +150,7 @@ CREATE TABLE report (
   be_report int NOT NULL ,
   report_date TIMESTAMP NOT NULL ,
   report_text TEXT,
+  status INT,
   FOREIGN KEY (report) REFERENCES user(user_id),
   FOREIGN KEY (be_report) REFERENCES user(user_id)
 ) CHARSET=utf8;

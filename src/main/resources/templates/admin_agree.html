@@ -110,36 +110,34 @@
         <table id="book_borrow" class="table table-responsive" hidden="hidden">
             <tr>
                 <!--<td>传阅申请编号</td>-->
-                <td>申请图书</td>
-                <td>说明</td>
-                <td>日期</td>
+                <td>举报人</td>
+                <td>内容</td>
+                <td>时间</td>
                 <td>状态</td>
                 <td>查看</td>
             </tr>
-            <!--<tr th:each="allApply : ${dealingApplies}">
-                &lt;!&ndash;<td th:text="${allApply.id}"></td>&ndash;&gt;
+            <tr th:each="allApply : ${reports}">
+                <!--<td th:text="${allApply.id}"></td>-->
                 <td>
-                    <a th:href="@{/tourist/bookMessage/{bookId}(bookId = ${allApply.book.bookId})}" target="_blank"
-                       th:text="${allApply.book.bookName}"></a>
+                    <a th:href="@{/tourist/user/{userId} (userId = ${allApply.report.userId})}" target="_blank"
+                       th:text="${allApply.report.userName}"></a>
                 </td>
-                <td th:text="${allApply.wantSay}"></td>
-                <td th:text="${allApply.applyDate}"></td>
+                <td th:text="${allApply.reportText}"></td>
+                <td th:text="${allApply.reportDate}"></td>
                 <th:block th:if="${allApply.status eq 0}">
                     <td>未处理</td>
                 </th:block>
                 <th:block th:if="${allApply.status eq 1}">
-                    <td>已完成</td>
+                    <td>举报成功</td>
                 </th:block>
                 <th:block th:if="${allApply.status eq 2}">
-                    <td>拒绝</td>
-                </th:block>
-                <th:block th:if="${allApply.status eq 3}">
-                    <td>处理中</td>
+                    <td>举报失败</td>
                 </th:block>
                 <th>
-                    <button th:onclick="'javascript:showApply(\''+${allApply.id}+'\')'" class="btn btn-info">查看</button>
+                    <button th:if="${allApply.status eq 0}" th:onclick="'javascript:showReport(\''+${allApply.reportId}+'\')'"  class="btn btn-warning">处理</button>
+                    <button th:unless="${allApply.status eq 0}" th:onclick="'javascript:showReport(\''+${allApply.reportId}+'\')'"  class="btn btn-info">查看</button>
                 </th>
-            </tr>-->
+            </tr>
         </table>
 
         <table id="notice" class="table table-responsive" hidden="hidden">
@@ -225,5 +223,32 @@
 
     </div>
 </div>
+
+<!--显示举报-->
+<div class="update_div" id="report" hidden="hidden">
+    <span class="update_top" id="reportResult"></span>
+    <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
+    <input hidden="hidden" type="text" id="reportId" />
+    <!--举报人-->
+    <input id="reportMan" hidden="hidden" type="text" />
+        <div class="form-group form-group-lg">
+            <label class="col-sm-3 control-label">被举报人：</label>
+            <a target="_blank" id="beReportName"></a>
+        </div>
+        <div class="form-group  form-group-lg">
+            <label class="control-label col-sm-3">举报理由：</label>
+            <textarea name="reportText" id="reportText" class="form-control" style="width: 563px; height: 148px;resize: none;" placeholder="举报理由"></textarea>
+        </div>
+        <div class="form-group" style="margin-left: auto;margin-right: auto;">
+            <label class="col-sm-2 control-label">备注图片：</label>
+            <div id="ReportImgs">
+
+            </div>
+        </div>
+    <div id="reportBtn" class="form-group  form-group-lg">
+
+    </div>
+</div>
+
 </body>
 </html>

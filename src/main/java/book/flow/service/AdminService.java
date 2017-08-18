@@ -1,6 +1,7 @@
 package book.flow.service;
 
 import book.flow.enity.Apply;
+import book.flow.enity.Report;
 
 import java.util.List;
 
@@ -29,4 +30,33 @@ public interface AdminService {
      * @return
      */
     boolean refuseApply(int applyId);
+
+    List<Report> getAllReport();
+
+    /**
+     * 获得所有待处理的举报.
+     * @return 举报信息
+     */
+    List<Report> getAllWaitReport();
+
+    /**
+     * 通过编号获取举报信息.
+     * @param reportId 举报编号
+     * @return 举报信息
+     */
+    Report getReportById(int reportId);
+
+    /**
+     * 举报通过.
+     * @param reportId 举报编号
+     * @return
+     */
+    boolean passReport(int reportId);
+
+    /**
+     * 举报未通过.
+     * @param reportId 举报编号
+     * @return
+     */
+    boolean notPassReport(int reportId);
 }

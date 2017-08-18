@@ -110,6 +110,10 @@ a:hover {
     height: 400px;
 }
 
+#report {
+    height: 600px;
+}
+
 .update_top {
     border: 1px solid white;
     height: 40px;

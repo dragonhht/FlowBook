@@ -1,6 +1,7 @@
 package book.flow.controller;
 
 import book.flow.enity.Apply;
+import book.flow.enity.Report;
 import book.flow.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,10 +32,12 @@ public class AdminController {
     @RequestMapping("/adminAgree")
     public String adminAgree(Model model) {
         List<Apply> allBookApplies = null;
-
+        List<Report> reports = null;
         allBookApplies = adminService.getAllApplies();
+        reports = adminService.getAllReport();
 
         model.addAttribute("allBookApplies", allBookApplies);
+        model.addAttribute("reports", reports);
         return "admin_agree";
     }
 
@@ -62,6 +65,37 @@ public class AdminController {
     public boolean refuseApply(int applyId) {
         boolean ok = false;
         ok = adminService.refuseApply(applyId);
+        return ok;
+    }
+
+    /**
+     * 通过编号获取举报.
+     * @param reportId 编号
+     * @return 举报信息
+     */
+    @PostMapping("/getReportById")
+    @ResponseBody
+    public Report getReportById(int reportId) {
+        Report report = null;
+        report = adminService.getReportById(reportId);
+        return report;
+    }
+
+    @PostMapping("/punishReport")
+    @ResponseBody
+    public boolean punishReport(int reportId) {
+        boolean ok = false;
+        // TODO 惩罚用户
+        ok = adminService.passReport(reportId);
+        System.out.println("惩罚用户");
+        return ok;
+    }
+
+    @PostMapping("/notPunishReport")
+    @ResponseBody
+    public boolean notPunishReport(int reportId) {
+        boolean ok = false;
+        ok = adminService.notPassReport(reportId);
         return ok;
     }
 }

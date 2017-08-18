@@ -34,6 +34,8 @@ public class Report implements Serializable {
     @OneToMany
     @JoinColumn(name = "imgs")
     private Set<ReportImg> img;
+    /** 状态. 0 为未处理， 1 为举报成功， 2 为举报失败*/
+    private int status = 0;
 
     public Integer getReportId() {
         return reportId;
@@ -81,5 +83,13 @@ public class Report implements Serializable {
 
     public void setImg(Set<ReportImg> img) {
         this.img = img;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
