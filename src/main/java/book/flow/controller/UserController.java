@@ -7,13 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -560,6 +556,38 @@ public class UserController {
     public boolean flowToNext(int applyId) {
         boolean ok = false;
         ok = userService.flowBookToNext(applyId);
+        return ok;
+    }
+
+    /**
+     * 上传举报图片.
+     * @param index 图片序号
+     * @param reportedId 被举报人编号
+     * @param img 图片
+     * @param session session
+     * @return 结果信息
+     */
+    @PostMapping("/uploadReportImg")
+    @ResponseBody
+    public String uploadReportImg(int index, int reportedId, MultipartFile img , HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId = user.getUserId();
+            int imgId = userService.saveReportImg(index, reportedId, userId, img);
+            return String.valueOf(imgId);
+        }
+        return "error";
+    }
+
+    @PostMapping("/saveReport")
+    @ResponseBody
+    public boolean saveReport(int informants, String reportText, String[] imgs, HttpSession session) {
+        boolean ok = false;
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            int userId = user.getUserId();
+            ok = userService.saveReport(userId, informants, reportText, imgs);
+        }
         return ok;
     }
 

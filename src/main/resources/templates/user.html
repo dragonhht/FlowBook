@@ -82,7 +82,7 @@
                         <img th:src="@{/img/chat.png}" />
                         联系
                     </a>
-                    <a >
+                    <a onclick="showReportDiv()">
                         <img style="width: 15px;height: 15px" th:src="@{/img/report.png}" />
                         举报
                     </a>
@@ -161,7 +161,7 @@
 </body>
 
 <!--好友添加结果-->
-<div  class="result" id="result" hidden="hidden" >
+<div class="result" id="result" hidden="hidden" >
     <span class="close" onclick="hideUpdateDiv(this)">x</span>
     <span id="message" class="text"></span>
 </div>
@@ -182,6 +182,59 @@
         <textarea id="msg" onKeyUp="keyup()"></textarea>
         <button onClick="up_say()" class="btn btn-info">发送</button>
     </div>
+</div>
+
+<!--举报-->
+<div class="update_div" id="report" hidden="hidden">
+    <span class="update_top" id="reportResult"></span>
+    <div class="close" onclick="hideReportDiv(this)" align="right">x</div>
+    <!--举报人-->
+    <input id="reportMan" hidden="hidden" type="text" />
+<form id="reportForm">
+    <div class="form-group form-group-lg">
+        <label class="col-sm-3 control-label">被举报人：</label>
+        <input name="informants" th:value="${user.userId}" hidden="hidden" type="text" id="informants" />
+        <span th:text="${user.userName}"></span>
+    </div>
+    <div class="form-group  form-group-lg">
+        <label class="control-label col-sm-3">举报理由：</label>
+        <textarea name="reportText" id="reportText" class="form-control" style="width: 563px; height: 148px;resize: none;" placeholder="举报理由"></textarea>
+    </div>
+    <div class="form-group" style="margin-left: auto;margin-right: auto;">
+        <label class="col-sm-2 control-label">备注图片：</label>
+        <div>
+            <span id="addImg" class="book_img_div">
+                <img style="width: 150px;height: 200px;" th:src="@{/img/add_img.png}" />
+                <!--<input name="img" type="file" hidden="hidden" style="display: none" />-->
+            </span>
+        </div>
+    </div>
+    <button id="reportBtn" class="btn btn-info">提交</button>
+</form>
+</div>
+
+<!--选择图片-->
+<div class="update_div" id="update_img" hidden="hidden">
+    <div class="close" onclick="hideReportDiv(this)" align="right">x</div>
+    <span class="update_top" id="imgResult"></span>
+    <th:block th:unless="${session.user eq null}">
+        <input  th:value="${session.user.userId}" hidden="hidden" id="reportId" />
+    </th:block>
+    <form id="imgForm">
+        <div class="form-group form_group" style="margin-left: auto;margin-right: auto;">
+            <label class="col-sm-2 control-label">说明图片：&nbsp;&nbsp;&nbsp;</label>
+            <div class="col-sm-7">
+                <input type="file" id="uploadImg" name="img" placeholder="请选择图书封面图片" />
+                <input id="imgIndex" hidden="hidden" name="index" value="0" />
+                <input id="reportedId" hidden="hidden" name="reportedId" th:value="${user.userId}"/>
+            </div>
+        </div>
+        <div class="form-group form_group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" id="updateImgBtn" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <script type="text/javascript" th:inline="javascript">

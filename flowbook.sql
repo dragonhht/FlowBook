@@ -136,3 +136,20 @@ insert INTO type VALUE (4, '社会科学');
 insert INTO type VALUE (5, '刊物');
 insert INTO type VALUE (6, '艺术');
 insert INTO type VALUE (7, '综合性图书');
+
+-- 举报图片表
+CREATE TABLE report_img (
+  id INT AUTO_INCREMENT PRIMARY KEY ,
+  path TEXT NOT NULL
+) CHARSET=utf8;
+
+-- 举报表
+CREATE TABLE report (
+  report_id INT AUTO_INCREMENT PRIMARY KEY ,
+  report int NOT NULL ,
+  be_report int NOT NULL ,
+  report_date TIMESTAMP NOT NULL ,
+  report_text TEXT,
+  FOREIGN KEY (report) REFERENCES user(user_id),
+  FOREIGN KEY (be_report) REFERENCES user(user_id)
+) CHARSET=utf8;

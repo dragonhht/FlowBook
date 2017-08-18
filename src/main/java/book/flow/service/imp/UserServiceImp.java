@@ -51,6 +51,10 @@ public class UserServiceImp implements UserService {
     private ChatRecordRepository chatRecordRepository;
     @Autowired
     private FlowApplyRepository flowApplyRepository;
+    @Autowired
+    private ReportImgRepository reportImgRepository;
+    @Autowired
+    private ReportRepository reportRepository;
 
     @Override
     public User login(String text, String password) {
@@ -499,6 +503,52 @@ public class UserServiceImp implements UserService {
             r.setRecordDate(new Date());
             r.setBook(book);
             recordRepository.save(r);
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public int saveReportImg(int index, int reportedId, int userId, MultipartFile img) {
+        int imgId = 0;
+        String imgPath = "report_img/" + userId + "/" + reportedId + "_" + index + ".png";
+        imgPath = fileService.store(img, imgPath);
+        imgPath = "http://localhost:8080/FlowBook/" + imgPath;
+        System.out.println("图片路径" + imgPath);
+        ReportImg i = new ReportImg();
+        i.setPath(imgPath);
+        ReportImg img1 = reportImgRepository.save(i);
+        if (img1 != null) {
+            imgId = img1.getId();
+        }
+        return imgId;
+    }
+
+    @Override
+    public boolean saveReport(int reportId, int beReportId, String text, String[] img) {
+        boolean ok = false;
+        User report = userRepository.getUserById(reportId);
+        User beReport = userRepository.getUserById(beReportId);
+        Set<ReportImg> imgSet = new HashSet<>();
+        if (img != null) {
+            try {
+                for (String i : img) {
+                    int a = Integer.parseInt(i);
+                    ReportImg img1 = reportImgRepository.getReportImgById(a);
+                    imgSet.add(img1);
+                }
+            } catch (Exception e) {
+                logger.debug("无法转换为整数");
+            }
+        }
+        Report r = new Report();
+        r.setBeReport(beReport);
+        r.setImg(imgSet);
+        r.setReport(report);
+        r.setReportDate(new Date());
+        r.setReportText(text);
+        Report re = reportRepository.save(r);
+        if (re != null) {
             ok = true;
         }
         return ok;
