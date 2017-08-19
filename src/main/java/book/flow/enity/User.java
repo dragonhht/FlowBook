@@ -46,6 +46,8 @@ public class User implements Serializable {
     private String provice;
     /** 城市. */
     private String city;
+    /** 身份. */
+    private int identity = 0;
     /** 注册时间. */
     @Temporal(TemporalType.DATE)
     private Date userDate;
@@ -345,6 +347,14 @@ public class User implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public int getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(int identity) {
+        this.identity = identity;
     }
 
     @Override

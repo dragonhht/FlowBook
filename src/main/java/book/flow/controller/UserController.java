@@ -31,38 +31,6 @@ public class UserController {
     private FileService fileService;
 
     /**
-     * 用户登录.
-     * @param text 用户名/手机号/编号.
-     * @param password 用户密码
-     * @param session 用户保存用户信息
-     * @return 先关结果页面
-     */
-    @PostMapping("/login")
-    public String login(String text, String password, HttpSession session, Model model) {
-        System.out.println(text + ":" + password);
-        if (text.trim() == null || text.trim().equals("")
-                || password.trim() == null || password.trim().equals("")) {
-            model.addAttribute("error", "用户名或密码不能为空");
-            return "login";
-        }
-        User u = userService.login(text.trim(), password.trim());
-        if (u != null) {
-            // 是否有未读信息
-            boolean ok = false;
-            long count = userService.msgCount(u.getUserId());
-            if (count != 0) {
-                ok = true;
-            }
-            session.setAttribute("haveMsg", ok);
-            session.setAttribute("user", u);
-            return "redirect:/index";
-        } else {
-            model.addAttribute("error", "用户不存在或密码错误");
-            return "login";
-        }
-    }
-
-    /**
      * 跳转到用户主页.
      * @param model 用于返回数据
      * @param session session

@@ -12,6 +12,7 @@ CREATE TABLE user (
   user_date TIMESTAMP NOT NULL COMMENT '用户注册时间',
   contribute_num INT COMMENT '贡献度',
   credit INT COMMENT '信用度',
+  identity INT COMMENT '身份， 1 为管理员， 0 为普通用户',
   password TEXT NOT NULL COMMENT '密码'
   CHECK (user_sex IN ('男', '女'))
 ) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;

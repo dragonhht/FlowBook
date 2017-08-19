@@ -57,21 +57,21 @@ public class UserServiceImp implements UserService {
     private ReportRepository reportRepository;
 
     @Override
-    public User login(String text, String password) {
+    public User login(String text, String password, int role) {
         User u = null;
         password = PasswordTool.encryptionMD5(password);
 
         try {
             int id = Integer.parseInt(text);
-            u = userRepository.loginById(id, password);
+            u = userRepository.loginById(id, password, role);
         } catch (Exception e) {
             logger.info("未使用编号登录");
         }
         if (u == null) {
-            u = userRepository.loginByName(text, password);
+            u = userRepository.loginByName(text, password, role);
         }
         if (u == null) {
-            u = userRepository.loginByPhone(text, password);
+            u = userRepository.loginByPhone(text, password, role);
         }
         return u;
     }

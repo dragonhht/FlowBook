@@ -46,7 +46,7 @@
             </span>
             <span class="login_tip" th:if="${error eq null}">&nbsp;</span>
             <span class="login_tip" th:unless="${error eq null}" th:text="${error}">&nbsp;</span>
-            <form th:action="@{/user/login}" method="post">
+            <form th:action="@{/tourist/login}" method="post">
                 <div class="input-group login_input_div">
                     <span class="input-group-addon">
                         <img th:src="@{/img/username_ico.gif}" />
@@ -62,10 +62,10 @@
 
                 <div class="login_input_div radio" align="right">
                     <label>
-                        <input type="radio" name="role" /> 管理员
+                        <input type="radio" name="role" value="1" /> 管理员
                     </label>
                     <label>
-                        <input type="radio" name="role" /> 普通用户
+                        <input checked="checked" type="radio" name="role" value="0" /> 普通用户
                     </label>
                 </div>
 

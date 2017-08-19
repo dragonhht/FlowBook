@@ -4,6 +4,7 @@ import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
 import book.flow.service.TouristService;
+import book.flow.service.UserService;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,6 +36,46 @@ public class TouristController {
     private TouristService touristService;
     @Autowired
     DefaultKaptcha defaultKaptcha;
+    @Autowired
+    private UserService userService;
+
+
+    /**
+     * 用户登录.
+     * @param text 用户名/手机号/编号.
+     * @param password 用户密码
+     * @param session 用户保存用户信息
+     * @return 先关结果页面
+     */
+    @PostMapping("/login")
+    public String login(String text, String password, int role, HttpSession session, Model model) {
+        System.out.println("角色" + role);
+        if (text.trim() == null || text.trim().equals("")
+                || password.trim() == null || password.trim().equals("")) {
+            model.addAttribute("error", "用户名或密码不能为空");
+            return "login";
+        }
+        User u = userService.login(text.trim(), password.trim(), role);
+        if (u != null) {
+            // 是否有未读信息
+            boolean ok = false;
+            long count = userService.msgCount(u.getUserId());
+            if (count != 0) {
+                ok = true;
+            }
+            session.setAttribute("haveMsg", ok);
+            session.setAttribute("user", u);
+            if (role == 1) {
+                session.setAttribute("role", "admin");
+            } else {
+                session.setAttribute("role", "user");
+            }
+            return "redirect:/index";
+        } else {
+            model.addAttribute("error", "用户不存在或密码错误");
+            return "login";
+        }
+    }
 
     /**
      * 搜索.

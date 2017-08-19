@@ -63,7 +63,7 @@ public class UserTest {
 
     @Test
     public void testLogin() {
-        User user = userRepository.loginById(1000009, PasswordTool.encryptionMD5("用户9"));
+        User user = userRepository.loginById(1000009, PasswordTool.encryptionMD5("用户9"), 0);
         Book book = bookRepository.getBookById(1000000);
         userRepository.save(user);
     }

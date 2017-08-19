@@ -21,7 +21,7 @@ public interface UserService {
      * @param password 用户密码
      * @return 数据库中的用户信息
      */
-    User login(String text, String password);
+    User login(String text, String password, int role);
 
     /**
      * 获取用户的所有借阅记录.
