@@ -15,6 +15,7 @@ public class Msg implements Serializable {
 
     private List<MsgModel> selfMsg;
     private List<MsgModel> friendMsg;
+    private String friendImg = "";
 
     public List<MsgModel> getSelfMsg() {
         return selfMsg;
@@ -30,6 +31,14 @@ public class Msg implements Serializable {
 
     public void setFriendMsg(List<MsgModel> friendMsg) {
         this.friendMsg = friendMsg;
+    }
+
+    public String getFriendImg() {
+        return friendImg;
+    }
+
+    public void setFriendImg(String friendImg) {
+        this.friendImg = friendImg;
     }
 
     @Override

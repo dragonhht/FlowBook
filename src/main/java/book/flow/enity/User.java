@@ -41,7 +41,11 @@ public class User implements Serializable {
     //@Pattern(regexp = "/^1[3|4|5|8][0-9]\\d{4,8}$/", message = "{user.phone.format.error}")
     private String userPhone;
     /** 用户头像. */
-    private String userImg = "/img/user.png";
+    private String userImg = "../img/user.png";
+    /** 省份. */
+    private String provice;
+    /** 城市. */
+    private String city;
     /** 注册时间. */
     @Temporal(TemporalType.DATE)
     private Date userDate;
@@ -327,6 +331,21 @@ public class User implements Serializable {
         this.applies = applies;
     }
 
+    public String getProvice() {
+        return provice;
+    }
+
+    public void setProvice(String provice) {
+        this.provice = provice;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     @Override
     public String toString() {

@@ -19,7 +19,7 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
      * 获得所有举报内容.
      * @return 举报信息
      */
-    @Query("select r from Report r order by r.reportDate desc ")
+    @Query("select r from Report r order by r.status asc , r.reportDate desc ")
     List<Report> getAllReport();
 
     /**

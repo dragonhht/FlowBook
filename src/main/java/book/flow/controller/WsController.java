@@ -59,11 +59,14 @@ public class WsController {
         Msg msg = new Msg();
         List<MsgModel> messages = null;
         List<MsgModel> myMsg = null;
+        String img = "";
         User user = (User)  session.getAttribute("user");
         if (user != null) {
             int selfId = user.getUserId();
             messages = userService.getFriendMsg(selfId, friendId);
             myMsg = userService.getToFriendMsg(selfId, friendId);
+            img = userService.getUserImg(friendId);
+            msg.setFriendImg(img);
             msg.setSelfMsg(myMsg);
             msg.setFriendMsg(messages);
         }

@@ -101,4 +101,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query("update User u set u.userImg = ?1 where u.userId = ?2")
     int updateUserImg(String path, int userId);
+
+    /**
+     * 获得用户头像.
+     * @param userId 用户编号
+     * @return 头像地址
+     */
+    @Query("select u.userImg from User u where u.userId = ?1")
+    String getUserImg(int userId);
 }

@@ -99,6 +99,7 @@
         <div id="chat_div" class="chat_div">
             <div class="friend_name" id="chatWithName" align="center" th:text="${session.user.userName}"></div>
             <input hidden="hidden" type="text" id="chatWithId" th:value="${session.user.userId}" />
+            <input hidden="hidden" type="text" id="friendImg" />
             <div class="speak_box">
                 <!--<div class="answer">
                     <div class="heard_img left"><img src="images/dglvyou.jpg" /></div>
@@ -178,7 +179,9 @@
 
     // 显示他人信息
     function showMessage(text){
-        var ans  = '<div class="answer"><div class="heard_img left"><img src="images/dglvyou.jpg" /></div>';
+        var img = $('#friendImg').val();
+        console.log(img);
+        var ans  = '<div class="answer"><div class="heard_img left"><img src="' + img + '" /></div>';
         ans += '<div class="answer_text"><p>'+ text + '</p><i></i>';
         ans += '</div></div>';
         $('.speak_box').append(ans);
@@ -245,6 +248,7 @@
                 friendId : friendId
             },
         function (data) {
+            $('#friendImg').val(data.friendImg);
             console.log(data);
             var friendMsg = data.friendMsg;
             var selfMsg = data.selfMsg;

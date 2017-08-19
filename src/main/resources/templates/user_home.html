@@ -73,7 +73,7 @@
                     </div>
                     <div class="message_div">
                         <label>地区：</label>
-                        <span>江西</span>
+                        <span th:text="${session.user.provice + ' ' + session.user.city}"></span>
                     </div>
                     <div class="message_div" onmouseover="showBtn(this)" onmouseout="hideBtn(this)">
                         <label>手机号码：</label>

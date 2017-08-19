@@ -194,6 +194,13 @@ public interface UserService {
     List<MsgModel> getFriendMsg(int selfId, int friendId);
 
     /**
+     * 获得用户头像.
+     * @param userId 用户编号
+     * @return 头像地址
+     */
+    String getUserImg(int userId);
+
+    /**
      * 获取发送给制定好友的信息.
      * @param selfId 用户编号
      * @param friendId 好友编号
@@ -356,4 +363,5 @@ public interface UserService {
      * @return 结果
      */
     boolean saveReport(int reportId, int beReportId, String text, String[] img);
+
 }

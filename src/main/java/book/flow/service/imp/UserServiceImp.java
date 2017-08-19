@@ -297,6 +297,13 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public String getUserImg(int userId) {
+        String s = "";
+        s= userRepository.getUserImg(userId);
+        return s;
+    }
+
+    @Override
     public List<MsgModel> getToFriendMsg(int selfId, int friendId) {
         List<MsgModel> messages = null;
         messages = chatRecordRepository.getToFriendMsg(selfId, friendId);
