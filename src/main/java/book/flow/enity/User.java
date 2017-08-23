@@ -41,7 +41,7 @@ public class User implements Serializable {
     //@Pattern(regexp = "/^1[3|4|5|8][0-9]\\d{4,8}$/", message = "{user.phone.format.error}")
     private String userPhone;
     /** 用户头像. */
-    private String userImg = "../img/user.png";
+    private String userImg = "http://localhost:8080/FlowBook/img/user.png";
     /** 省份. */
     private String provice;
     /** 城市. */

@@ -11,30 +11,38 @@
 </head>
 <body>
 <!--顶部-->
-<div class="top_logo">
-        <span class="logo_img">
-            <img th:src="@{/img/flowbook1.png}" />
-        </span>
-    <ul id="top_ul">
-        <li>
+<nav class="navbar navbar-default navber-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a th:href="@{/index}" class="navbar-brand">图书漂流</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;"><span
+                    class="glyphicon glyphicon-home"></span> 首页</a></li>
+            <li><a th:href="@{/notice/{pageNum} (pageNum = 1)}" onclick="selectNav(this)"><span
+                    class="glyphicon glyphicon-tasks"></span> 公告</a></li>
+            <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
             <th:block th:if="${session.user eq null}">
-                <a th:href="@{/login}" onclick="selectNav(this)">登录</a> |
-                <a th:href="@{/register}" onclick="selectNav(this)">注册</a>
+                <li><a th:href="@{/login}" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a>
+                </li>
+                <li><a th:href="@{/register}" onclick="selectNav(this)"><span class="glyphicon glyphicon-leaf"></span>
+                    注册</a></li>
             </th:block>
             <th:block th:unless="${session.user eq null}">
-                <a th:href="@{/user/userHome}" onclick="selectNav(this)">
+                <li><a th:href="@{/user/userHome}" onclick="selectNav(this)">
+                    <span class="glyphicon glyphicon-user"></span>
                     <span th:text="${session.user.getUserName()}"></span>
-                    <img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;" th:src="@{/img/havemsg.png}" />
-                </a>|
-                <a th:href="@{/user/logout}" onclick="selectNav(this)">注销</a>
+                    <img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;"
+                         th:src="@{/img/havemsg.png}"/>
+                </a>
+                </li>
+                <li><a th:href="@{/user/logout}" onclick="selectNav(this)"><span
+                        class="glyphicon glyphicon-log-out"></span>
+                    注销</a></li>
             </th:block>
-
-        </li>
-        <li><a href="#" onclick="selectNav(this)">活动</a></li>
-        <li><a th:href="@{/notice/{pageNum} (pageNum = 1)}" onclick="selectNav(this)">公告</a></li>
-        <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;">首页</a></li>
-    </ul>
-</div>
+        </ul>
+    </div>
+</nav>
 
     <!--页面中部-->
     <div class="center_bg">
