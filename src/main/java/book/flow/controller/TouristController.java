@@ -1,11 +1,14 @@
 package book.flow.controller;
 
+import book.flow.aliapi.HttpUtils;
 import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
 import book.flow.service.TouristService;
 import book.flow.service.UserService;
+import book.flow.utils.SmsUtils;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -21,7 +24,10 @@ import javax.validation.Valid;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * 游客操作控制器.
@@ -266,6 +272,25 @@ public class TouristController {
         model.addAttribute("user", user);
         model.addAttribute("records", records);
         return "user";
+    }
+
+    /**
+     * 发送短信
+     * @return
+     */
+    @PostMapping("/sendSMS")
+    @ResponseBody
+    public boolean sendSMS(String recipient, HttpSession session) {
+        System.out.println(recipient);
+        boolean ok = false;
+
+        SmsUtils smsUtils = SmsUtils.getIntence();
+        String code = smsUtils.getCode();
+        System.out.println("CODE: " + code);
+        session.setAttribute("smsCode", code);
+        ok = smsUtils.sendSmsCode(code, recipient);
+
+        return ok;
     }
 
 }

@@ -87,6 +87,18 @@ $(document).ready(function(){
         }
     });
 
+    $('#sendSMS').click(function () {
+        var phone = $('#userPhone').val().trim();
+        $.post('tourist/sendSMS',
+            {
+                recipient : phone
+            },
+            function (data) {
+                console.log(data);
+            }
+        )
+    });
+
 });
 
 // 判断是否可点击注册

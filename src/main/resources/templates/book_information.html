@@ -114,8 +114,12 @@
         </div>
 
         <div class="book_img_small">
-            <div class="small_img_div">
-
+            <div class="" style="margin-top: 30px;">
+                <h4>类型：
+                    <th:block th:each="type : ${book.types}">
+                        <span class="label label-primary" th:text="${type.typeName}"></span>
+                    </th:block>
+                </h4>
             </div>
         </div>
 
