@@ -33,8 +33,8 @@ public class Apply implements Serializable {
     private User user;
     /** 申请中的图片. */
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "applyId")
-    private Set<Img> imgs;
+    @JoinColumn(name = "img")
+    private Set<ReportImg> imgs;
     /** 申请的图书. */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bookId")
@@ -72,11 +72,15 @@ public class Apply implements Serializable {
         this.user = user;
     }
 
-    public Set<Img> getImgs() {
+    public void setApplyId(int applyId) {
+        this.applyId = applyId;
+    }
+
+    public Set<ReportImg> getImgs() {
         return imgs;
     }
 
-    public void setImgs(Set<Img> imgs) {
+    public void setImgs(Set<ReportImg> imgs) {
         this.imgs = imgs;
     }
 

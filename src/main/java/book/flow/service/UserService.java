@@ -125,7 +125,7 @@ public interface UserService {
      * @param img 图片路径信息
      * @return 图片路径信息
      */
-    Img saveImg(Img img);
+    ReportImg saveImg(ReportImg img);
 
     /**
      * 添加好友.

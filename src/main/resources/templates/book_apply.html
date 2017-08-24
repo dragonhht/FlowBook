@@ -29,7 +29,7 @@
                     注册</a></li>
             </th:block>
             <th:block th:unless="${session.user eq null}">
-                <li class="active"><a th:href="@{/user/userHome}" onclick="selectNav(this)">
+                <li class="active "><a th:href="@{/user/userHome}" onclick="selectNav(this)">
                     <span class="glyphicon glyphicon-user"></span>
                     <span th:text="${session.user.getUserName()}"></span>
                     <img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;"

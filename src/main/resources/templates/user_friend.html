@@ -217,9 +217,12 @@
         console.log("onclose");
     };
     ws.onmessage = function (msg) {
+        console.log(msg);
         var message = msg.data;
         message = message.split("/[-=^*]");
+        console.log(message);
         var chatWithId = $('#chatWithId').val().trim();
+        console.log(chatWithId);
         if (chatWithId == message[0].trim()) {
             showMessage(message[1]);
         }

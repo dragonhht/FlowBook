@@ -65,7 +65,7 @@ a:hover {
 }
 
 .book_img {
-    border: 1px solid green;
+    // border: 1px solid green;
     float: left;
     width: 400px;
     height: 500px;

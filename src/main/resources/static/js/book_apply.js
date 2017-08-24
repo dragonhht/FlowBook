@@ -83,7 +83,7 @@ function showApply(applyId) {
         $('#applyForImg').html(" ");
         $('#applyForImg').append('<span id="imgLast" hidden="hidden"></span>');
         for (var i= 0; i < data.imgs.length; i++) {
-            $('#imgLast').before('<img style="width: 150px;height: 200px;" src="' +data.imgs[i].imgPath + '" />');
+            $('#imgLast').before('<img style="width: 150px;height: 200px;" src="' +data.imgs[i].path + '" />');
         }
         $('#applyForStatus').html(data.status);
         $('#show_apply').show();

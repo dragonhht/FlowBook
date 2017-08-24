@@ -2,13 +2,15 @@ package book.flow.service.imp;
 
 import book.flow.enity.Apply;
 import book.flow.enity.Book;
-import book.flow.enity.Img;
 import book.flow.enity.Report;
+import book.flow.enity.ReportImg;
 import book.flow.repository.*;
 import book.flow.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,9 +33,9 @@ public class AdminServiceImp implements AdminService {
     @Autowired
     private FlowApplyRepository flowApplyRepository;
     @Autowired
-    private ImgRepository imgRepositoryl;
-    @Autowired
     private ReportRepository reportRepository;
+    @Autowired
+    private ReportImgRepository reportImgRepository;
 
     @Override
     public List<Apply> getAllApplies() {
@@ -42,15 +44,18 @@ public class AdminServiceImp implements AdminService {
         return applies;
     }
 
+    @Transactional
     @Override
     public void delBook(int applyId) {
         Apply apply = applyRepository.getApplyById(applyId);
         Book book = apply.getBook();
         recordRepository.delRecordByBook(book.getBookId());
         commentRepository.delCommentByBook(book.getBookId());
-        Set<Img> imgSet = imgRepositoryl.getImgByBook(book.getBookId());
-        for (Img img : imgSet) {
-            imgRepositoryl.delete(img.getImgId());
+        Set<ReportImg> imgSet = apply.getImgs();
+        System.out.println("Size : " + imgSet.size());
+        for (ReportImg img : imgSet) {
+            System.out.println(img.getId());
+            reportImgRepository.delImg(img.getId());
         }
         applyRepository.delApplyByBook(book.getBookId());
         flowApplyRepository.delFlowApplyByBook(book.getBookId());

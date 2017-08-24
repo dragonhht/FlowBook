@@ -76,7 +76,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
         System.out.println("sendMessage:" + session);
         if (!session.isOpen()) return false;
         try {
-            message = new TextMessage(clientId + "/[-=^*]" + message.getPayload());
+            message = new TextMessage(selfId + "/[-=^*]" + message.getPayload());
             session.sendMessage(message);
         } catch (IOException e) {
             e.printStackTrace();

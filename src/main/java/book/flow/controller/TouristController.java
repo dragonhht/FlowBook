@@ -156,7 +156,7 @@ public class TouristController {
      */
     @PostMapping("/register")
     public String register(@Valid User user, BindingResult bindingResult,
-                           String verificationCode, Model model, HttpSession session){
+                           String verificationCode, String smsCode, Model model, HttpSession session){
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", bindingResult.getFieldError().getDefaultMessage());
             return "register";
@@ -164,6 +164,18 @@ public class TouristController {
 
         // 校验图片验证码
         String captchaId = (String) session.getAttribute("vrifyCode");
+        String sCode = (String) session.getAttribute("smsCode");
+
+        if (!captchaId.equals(verificationCode)) {
+            model.addAttribute("error", "图片验证码不正确");
+            return "register";
+        }
+
+        // TODO 为了省钱
+        /*if (!sCode.equals(smsCode)) {
+            model.addAttribute("error", "短信验证码不正确");
+            return "register";
+        }*/
 
         User u = touristService.register(user);
         model.addAttribute("userId", u.getUserId());
@@ -276,14 +288,17 @@ public class TouristController {
 
     /**
      * 发送短信
+     * @param recipient 接收方手机号
+     * @param session session
      * @return
      */
     @PostMapping("/sendSMS")
     @ResponseBody
     public boolean sendSMS(String recipient, HttpSession session) {
-        System.out.println(recipient);
+        if (recipient == null && "".equals(recipient)) {
+            return false;
+        }
         boolean ok = false;
-
         SmsUtils smsUtils = SmsUtils.getIntence();
         String code = smsUtils.getCode();
         System.out.println("CODE: " + code);

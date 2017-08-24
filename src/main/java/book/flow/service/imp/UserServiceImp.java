@@ -42,8 +42,6 @@ public class UserServiceImp implements UserService {
     @Autowired
     private ApplyRepository applyRepository;
     @Autowired
-    private ImgRepository imgRepository;
-    @Autowired
     private FileService fileService;
     @Autowired
     private FriendsRepository friendsRepository;
@@ -197,10 +195,10 @@ public class UserServiceImp implements UserService {
         String text = user.getUserName() + " 申请 " + book.getBookName() + " 退出系统";
         apply.setApplyText(text);
         // apply.setApplyId(1000000);
-        Set<Img> imgSet = new HashSet<>();
+        Set<ReportImg> imgSet = new HashSet<>();
         for (int img : imgs) {
-            Img im = new Img();
-            im.setImgId(img);
+            ReportImg im = new ReportImg();
+            im.setId(img);
             imgSet.add(im);
         }
         apply.setImgs(imgSet);
@@ -212,8 +210,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Img saveImg(Img img) {
-        Img img1 = imgRepository.save(img);
+    public ReportImg saveImg(ReportImg img) {
+        ReportImg img1 = reportImgRepository.save(img);
         return img1;
     }
 
@@ -385,11 +383,11 @@ public class UserServiceImp implements UserService {
         imgPath = fileService.store(uploadImg, imgPath);
         imgPath = "http://localhost:8080/FlowBook/" + imgPath;
         System.out.println("图片路径" + imgPath);
-        Img img = new Img();
-        img.setImgPath(imgPath);
-        img = imgRepository.save(img);
+        ReportImg img = new ReportImg();
+        img.setPath(imgPath);
+        img = reportImgRepository.save(img);
         if (img != null) {
-            id = img.getImgId();
+            id = img.getId();
         }
         return id;
     }
