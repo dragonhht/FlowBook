@@ -35,6 +35,8 @@ public class FlowApply implements Serializable {
     /** 日期. */
     @Temporal(TemporalType.TIMESTAMP)
     private Date applyDate;
+    /** 拒绝理由. */
+    private String refuse;
 
     public Integer getId() {
         return id;
@@ -94,5 +96,13 @@ public class FlowApply implements Serializable {
 
     public void setApplyDate(Date applyDate) {
         this.applyDate = applyDate;
+    }
+
+    public String getRefuse() {
+        return refuse;
+    }
+
+    public void setRefuse(String refuse) {
+        this.refuse = refuse;
     }
 }

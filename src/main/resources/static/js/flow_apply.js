@@ -100,6 +100,11 @@ function showApply(applyId) {
             $('#applyBtn').append('<button onclick="applyOk()" class="btn btn-info">同意</button>&nbsp;&nbsp;&nbsp;' +
                 '<button onclick="refuse()" id="refuse" class="btn btn-info">拒绝</button>');
         }
+        if (data.status == 2) {
+            $('#applyBtn').html(' ');
+            $('#applyBtn').append('<label for="applyRefuse">拒绝理由：</label>' +
+                '<div id="applyRefuse" style="border: 1px solid #DDDDDD; width: 500px;height: 100px;">' + data.refuse + '</div>')
+        }
         if (data.status == 3) {
             $('#applyBtn').append('<span>双方传递图书， 等待对方确认，完成传阅</span>&nbsp;<a target="_blank" href="../tourist/user/' + data.applyUser.userId + '">联系对方</a>');
         }
@@ -172,7 +177,28 @@ function refuse() {
     $('#applyBtn').append('<label for="refuseReason">理由：</label>' +
         '<textarea style="width: 455px; height: 90px; resize: none;" id="refuseReason" ></textarea> ');
     $('#reason').html(' ');
-    $('#reason').append('<button type="submit" class="btn btn-info">确定</button>');
+    $('#reason').append('<button onclick="refuseFlowApply()" class="btn btn-info">确定</button>');
+}
+
+function refuseFlowApply() {
+    var refuse = $('#refuseReason').val().trim();
+    var applyId = $('#applyId').val();
+    if (refuse != '') {
+        $.post('refuseFlowApply',
+            {
+                refuse : refuse,
+                applyId : applyId
+            },
+        function (data) {
+            if (data) {
+                location.reload(true);
+            } else {
+                $('#applyResult').html('失败');
+            }
+        })
+    } else {
+        alert('理由不能为空');
+    }
 }
 
 /** 提交申请处理. */

@@ -364,4 +364,12 @@ public interface UserService {
      */
     boolean saveReport(int reportId, int beReportId, String text, String[] img);
 
+    /**
+     * 拒绝图书传阅申请.
+     * @param refuse 拒绝理由
+     * @param applyId 申请编号
+     * @return 是否成功
+     */
+    boolean refuseFlowApply(String refuse, int applyId);
+
 }

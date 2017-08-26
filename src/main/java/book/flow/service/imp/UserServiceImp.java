@@ -560,4 +560,16 @@ public class UserServiceImp implements UserService {
     }
 
 
+    @Override
+    public boolean refuseFlowApply(String refuse, int applyId) {
+        boolean ok = false;
+        int i = 0;
+        i = flowApplyRepository.refuseFlowApply(refuse, applyId);
+        if (i > 0) {
+            ok = true;
+        }
+        return ok;
+    }
+
+
 }

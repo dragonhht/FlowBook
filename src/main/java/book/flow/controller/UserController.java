@@ -559,4 +559,12 @@ public class UserController {
         return ok;
     }
 
+    @PostMapping("/refuseFlowApply")
+    @ResponseBody
+    public boolean refuseFlowApply(String refuse, int applyId) {
+        boolean ok = false;
+        ok = userService.refuseFlowApply(refuse, applyId);
+        return ok;
+    }
+
 }

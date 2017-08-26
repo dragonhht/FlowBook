@@ -102,4 +102,15 @@ public interface FlowApplyRepository extends JpaRepository<FlowApply, Integer> {
     @Modifying
     @Query("delete from FlowApply f where f.book.bookId = ?1")
     int delFlowApplyByBook(int bookId);
+
+    /**
+     * 拒绝图书传阅申请.
+     * @param refuse 拒绝理由
+     * @param applyId 申请编号
+     * @return 修改条数
+     */
+    @Transactional
+    @Modifying
+    @Query("update FlowApply f set f.refuse = ?1, f.status = 2 where f.id = ?2")
+    int refuseFlowApply(String refuse, int applyId);
 }
