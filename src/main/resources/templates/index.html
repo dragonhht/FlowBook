@@ -20,7 +20,7 @@
             <li class="active"><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;"><span
                     class="glyphicon glyphicon-home"></span> 首页</a></li>
             <li><a th:href="@{/notice/{pageNum} (pageNum = 1)}" onclick="selectNav(this)"><span
-                    class="glyphicon glyphicon-tasks"></span> 公告</a></li>
+                    class="glyphicon glyphicon-tasks"></span> 用户寻书</a></li>
             <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
             <th:block th:if="${session.user eq null}">
                 <li><a th:href="@{/login}" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a>

@@ -20,7 +20,7 @@
             <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;"><span
                     class="glyphicon glyphicon-home"></span> 首页</a></li>
             <li><a th:href="@{/notice/{pageNum} (pageNum = 1)}" onclick="selectNav(this)"><span
-                    class="glyphicon glyphicon-tasks"></span> 公告</a></li>
+                    class="glyphicon glyphicon-tasks"></span> 用户寻书</a></li>
             <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
             <th:block th:if="${session.user eq null}">
                 <li><a th:href="@{/login}" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a>
@@ -102,7 +102,7 @@
             <ul class="nav nav-tabs" id="nav_tabs">
                 <li class="active" index="0" onclick="selectTab(this)"><a>贡献书籍</a></li>
                 <li index="1" onclick="selectTab(this)"><a>借阅记录</a></li>
-                <li index="2" onclick="selectTab(this)"><a>发布的公告</a></li>
+                <li index="2" onclick="selectTab(this)"><a>寻书记录</a></li>
             </ul>
             <!--贡献书籍表-->
             <table id="contribution" class="table table-striped">
