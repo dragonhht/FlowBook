@@ -1,7 +1,7 @@
 package book.flow.controller;
 
 import book.flow.enity.User;
-import book.flow.service.UserService;
+import book.flow.service.UserFriendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +21,7 @@ import java.util.List;
 public class UserFriendController {
 
     @Autowired
-    private UserService userService;
+    private UserFriendService userFriendService;
 
     /**
      * 跳转到我的好友页面.
@@ -38,9 +38,9 @@ public class UserFriendController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int selfId = user.getUserId();
-            friends = userService.getFriends(selfId);
-            idList = userService.getSenderId(selfId);
-            notFriend = userService.getNotFriend(selfId);
+            friends = userFriendService.getFriends(selfId);
+            idList = userFriendService.getSenderId(selfId);
+            notFriend = userFriendService.getNotFriend(selfId);
         }
         model.addAttribute("notFriend", notFriend);
         model.addAttribute("senderIds", idList);
@@ -61,7 +61,7 @@ public class UserFriendController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
-            ok = userService.addFriend(userId, friend);
+            ok = userFriendService.addFriend(userId, friend);
         }
         return ok;
     }
@@ -77,8 +77,8 @@ public class UserFriendController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int selfId = user.getUserId();
-            userService.delFriend(selfId, friendId);
-            userService.setChatReaded(selfId, friendId);
+            userFriendService.delFriend(selfId, friendId);
+            userFriendService.setChatReaded(selfId, friendId);
         }
     }
 
@@ -93,7 +93,7 @@ public class UserFriendController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int selfId = user.getUserId();
-            userService.setChatReaded(selfId, friendId);
+            userFriendService.setChatReaded(selfId, friendId);
         }
     }
 }

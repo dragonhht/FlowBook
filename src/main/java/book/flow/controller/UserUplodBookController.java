@@ -5,6 +5,7 @@ import book.flow.enity.Type;
 import book.flow.enity.User;
 import book.flow.service.FileService;
 import book.flow.service.UserService;
+import book.flow.service.UserUplodBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -30,9 +30,11 @@ import java.util.Set;
 public class UserUplodBookController {
 
     @Autowired
-    private UserService userService;
+    private UserUplodBookService userUplodBookService;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 跳转图书上传页面.
@@ -69,13 +71,13 @@ public class UserUplodBookController {
                 typeSet.add(t);
             }
             book.setTypes(typeSet);
-            Book b = userService.uploadBook(book, userId);
+            Book b = userUplodBookService.uploadBook(book, userId);
             if (uploadImg.getSize() > 0) {
                 String imgPath = "bookCover/" + userId + "/" + b.getBookId() + ".png";
                 imgPath = fileService.store(uploadImg, imgPath);
                 imgPath = "http://localhost:8080/FlowBook/" + imgPath;
                 System.out.println("封面路径" + imgPath);
-                userService.updateBookImg(imgPath, b.getBookId());
+                userUplodBookService.updateBookImg(imgPath, b.getBookId());
             }
             user = userService.getUserById(userId);
             session.setAttribute("user", user);

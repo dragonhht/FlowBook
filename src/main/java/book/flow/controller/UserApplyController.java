@@ -3,7 +3,7 @@ package book.flow.controller;
 import book.flow.enity.Apply;
 import book.flow.enity.Book;
 import book.flow.enity.User;
-import book.flow.service.UserService;
+import book.flow.service.UserApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -26,7 +25,7 @@ import java.util.List;
 public class UserApplyController {
 
     @Autowired
-    private UserService userService;
+    private UserApplyService userApplyService;
 
 
     /**
@@ -40,10 +39,10 @@ public class UserApplyController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
-            List<Apply> allApplies = userService.getAllAppliesByUserId(userId);
-            List<Apply> waitApplies = userService.getWaitAppliesByUserId(userId);
-            List<Apply> passApplies = userService.getPassAppliesByUserId(userId);
-            List<Book> canApplyBook = userService.getBookToApply(userId);
+            List<Apply> allApplies = userApplyService.getAllAppliesByUserId(userId);
+            List<Apply> waitApplies = userApplyService.getWaitAppliesByUserId(userId);
+            List<Apply> passApplies = userApplyService.getPassAppliesByUserId(userId);
+            List<Book> canApplyBook = userApplyService.getBookToApply(userId);
             model.addAttribute("allApplies", allApplies);
             model.addAttribute("waitApplies", waitApplies);
             model.addAttribute("passApplies", passApplies);
@@ -66,7 +65,7 @@ public class UserApplyController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
-            boolean ok = userService.applyBookOut(bookId, userId, imgs);
+            boolean ok = userApplyService.applyBookOut(bookId, userId, imgs);
             if (ok) {
                 model.addAttribute("flag", "applySeccuss");
             }
@@ -89,7 +88,7 @@ public class UserApplyController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
-            int imgId = userService.saveApplyImg(uploadImg, index, bookId, userId);
+            int imgId = userApplyService.saveApplyImg(uploadImg, index, bookId, userId);
             return "" + imgId;
         }
         return "error";
@@ -104,7 +103,7 @@ public class UserApplyController {
     @ResponseBody
     public Apply getApplyById(int applyId) {
         Apply apply = null;
-        apply = userService.getApplyById(applyId);
+        apply = userApplyService.getApplyById(applyId);
         return apply;
     }
 }

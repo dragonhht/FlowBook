@@ -3,6 +3,7 @@ package book.flow.controller;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
 import book.flow.service.FileService;
+import book.flow.service.UserHomeService;
 import book.flow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ import java.util.List;
 public class UserHomeController {
 
     @Autowired
+    private UserHomeService userHomeService;
+    @Autowired
     private UserService userService;
     @Autowired
     private FileService fileService;
@@ -42,8 +45,8 @@ public class UserHomeController {
             List<LoanRecord> nowHaveRecode = null;
             List<LoanRecord> allRecodes = null;
             user = userService.getUserById(userId);
-            nowHaveRecode = userService.getHaveRecode(userId);
-            allRecodes = userService.getAllRecode(userId);
+            nowHaveRecode = userHomeService.getHaveRecode(userId);
+            allRecodes = userHomeService.getAllRecode(userId);
             int contributeNum = user.getContribution().size() * 5;
             session.setAttribute("user", user);
             model.addAttribute("allRecodes", allRecodes);
@@ -86,7 +89,7 @@ public class UserHomeController {
                 return "原邮箱不正确";
             }
             if (code.equals(c)) {
-                boolean ok = userService.updateUserEmail(newEmail, userId);
+                boolean ok = userHomeService.updateUserEmail(newEmail, userId);
                 if (ok) {
                     user = userService.getUserById(userId);
                     session.setAttribute("user", user);
@@ -108,7 +111,7 @@ public class UserHomeController {
     public boolean chackEmail(String email, HttpSession session) {
         boolean ok = false;
         String code = null;
-        code = userService.checkEmail(email);
+        code = userHomeService.checkEmail(email);
         if (code != null && code != "0") {
             ok = true;
         }
@@ -139,7 +142,7 @@ public class UserHomeController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId= user.getUserId();
-            boolean ok = userService.updateUserEmail(email, userId);
+            boolean ok = userHomeService.updateUserEmail(email, userId);
             if (ok) {
                 user = userService.getUserById(userId);
                 session.setAttribute("user", user);
@@ -169,7 +172,7 @@ public class UserHomeController {
             imgPath = fileService.store(uploadImg, imgPath);
             imgPath = "http://localhost:8080/FlowBook/" + imgPath;
             System.out.println("头像路径" + imgPath);
-            ok = userService.updateUserImg(imgPath, userId);
+            ok = userHomeService.updateUserImg(imgPath, userId);
             if (ok) {
                 return "ok";
             }

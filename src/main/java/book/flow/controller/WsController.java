@@ -5,6 +5,7 @@ import book.flow.enity.User;
 import book.flow.model.Message;
 import book.flow.model.Msg;
 import book.flow.model.MsgModel;
+import book.flow.service.UserFriendService;
 import book.flow.service.UserService;
 import book.flow.websocket.WebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class WsController {
     @Autowired
     private WebSocketHandler webSocketHandler;
     @Autowired
-    private UserService userService;
+    private UserFriendService userFriendService;
 
     /**
      * 聊天.
@@ -63,9 +64,9 @@ public class WsController {
         User user = (User)  session.getAttribute("user");
         if (user != null) {
             int selfId = user.getUserId();
-            messages = userService.getFriendMsg(selfId, friendId);
-            myMsg = userService.getToFriendMsg(selfId, friendId);
-            img = userService.getUserImg(friendId);
+            messages = userFriendService.getFriendMsg(selfId, friendId);
+            myMsg = userFriendService.getToFriendMsg(selfId, friendId);
+            img = userFriendService.getUserImg(friendId);
             msg.setFriendImg(img);
             msg.setSelfMsg(myMsg);
             msg.setFriendMsg(messages);

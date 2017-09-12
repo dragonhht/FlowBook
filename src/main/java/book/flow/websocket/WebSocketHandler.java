@@ -3,6 +3,7 @@ package book.flow.websocket;
 import book.flow.enity.ChatRecord;
 import book.flow.enity.User;
 import book.flow.repository.UserRepository;
+import book.flow.service.UserFriendService;
 import book.flow.service.UserService;
 import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class WebSocketHandler extends TextWebSocketHandler{
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserFriendService userFriendService;
 
     //在线用户列表
     private static Map<Integer, WebSocketSession> users = new HashMap<>();
@@ -55,7 +58,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
         record.setReceiver(receiver);
         record.setSender(sender);
         record.setSendDate(new Date());
-        userService.addChatRecord(record);
+        userFriendService.addChatRecord(record);
     }
 
     /**

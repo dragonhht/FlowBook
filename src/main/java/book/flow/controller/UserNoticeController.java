@@ -1,6 +1,7 @@
 package book.flow.controller;
 
 import book.flow.enity.*;
+import book.flow.service.UserNoticeService;
 import book.flow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,7 @@ import java.util.List;
 public class UserNoticeController {
 
     @Autowired
-    private UserService userService;
+    private UserNoticeService userNoticeService;
 
 
     /**
@@ -49,7 +50,7 @@ public class UserNoticeController {
             userId = user.getUserId();
         }
         boolean ok = false;
-        ok = userService.addNotice(text, userId);
+        ok = userNoticeService.addNotice(text, userId);
         if (ok) {
             return "上传成功";
         } else {

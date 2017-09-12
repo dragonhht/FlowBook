@@ -2,6 +2,7 @@ package book.flow.controller;
 
 import book.flow.enity.FlowApply;
 import book.flow.enity.User;
+import book.flow.service.UserFlowApplyService;
 import book.flow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,7 @@ import java.util.List;
 public class UserFlowApplyController {
 
     @Autowired
-    private UserService userService;
+    private UserFlowApplyService userFlowApplyService;
 
     /**
      * 跳转传阅申请页面.
@@ -40,11 +41,11 @@ public class UserFlowApplyController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
-            allApplies = userService.getFlowApplyByToUser(userId);
-            notApplies = userService.getNotLookApplyByToUser(userId);
+            allApplies = userFlowApplyService.getFlowApplyByToUser(userId);
+            notApplies = userFlowApplyService.getNotLookApplyByToUser(userId);
 //            lookedApplies = userService.getLookedApplyByToUser(userId);
-            dealingApplies = userService.getDealingApplyByToUser(userId);
-            myApplies = userService.getMyFlowApplies(userId);
+            dealingApplies = userFlowApplyService.getDealingApplyByToUser(userId);
+            myApplies = userFlowApplyService.getMyFlowApplies(userId);
         }
         model.addAttribute("allApplies", allApplies);
         model.addAttribute("notApplies", notApplies);
@@ -68,7 +69,7 @@ public class UserFlowApplyController {
         if (user != null) {
             int userId = user.getUserId();
             boolean ok = false;
-            ok = userService.saveFlowApply(bookId, toUserId, wantSay, userId);
+            ok = userFlowApplyService.saveFlowApply(bookId, toUserId, wantSay, userId);
             if (ok) {
                 return "ok";
             }
@@ -85,7 +86,7 @@ public class UserFlowApplyController {
     @ResponseBody
     public FlowApply getFlowApplyById(int flowApplyId) {
         FlowApply apply = null;
-        apply = userService.getFlowApplyById(flowApplyId);
+        apply = userFlowApplyService.getFlowApplyById(flowApplyId);
         return apply;
     }
 
@@ -98,7 +99,7 @@ public class UserFlowApplyController {
     @ResponseBody
     public boolean applyOk(int applyId) {
         boolean ok = false;
-        ok = userService.dealFlowApply(applyId);
+        ok = userFlowApplyService.dealFlowApply(applyId);
         return ok;
     }
 
@@ -111,7 +112,7 @@ public class UserFlowApplyController {
     @ResponseBody
     public boolean flowToNext(int applyId) {
         boolean ok = false;
-        ok = userService.flowBookToNext(applyId);
+        ok = userFlowApplyService.flowBookToNext(applyId);
         return ok;
     }
 
@@ -125,7 +126,7 @@ public class UserFlowApplyController {
     @ResponseBody
     public boolean refuseFlowApply(String refuse, int applyId) {
         boolean ok = false;
-        ok = userService.refuseFlowApply(refuse, applyId);
+        ok = userFlowApplyService.refuseFlowApply(refuse, applyId);
         return ok;
     }
 }

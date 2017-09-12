@@ -1,7 +1,7 @@
 package book.flow.controller;
 
 import book.flow.enity.User;
-import book.flow.service.UserService;
+import book.flow.service.UserReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 public class UserReportController {
 
     @Autowired
-    private UserService userService;
+    private UserReportService userReportService;
 
     /**
      * 上传举报图片.
@@ -36,7 +36,7 @@ public class UserReportController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
-            int imgId = userService.saveReportImg(index, reportedId, userId, img);
+            int imgId = userReportService.saveReportImg(index, reportedId, userId, img);
             return String.valueOf(imgId);
         }
         return "error";
@@ -57,7 +57,7 @@ public class UserReportController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
-            ok = userService.saveReport(userId, informants, reportText, imgs);
+            ok = userReportService.saveReport(userId, informants, reportText, imgs);
         }
         return ok;
     }
