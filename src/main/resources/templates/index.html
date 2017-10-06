@@ -35,9 +35,18 @@
             </form>
 
             <ul class="nav navbar-nav navbar-right">
-
-                <li><a href="login.html" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
-                <li><a href="register.html" onclick="selectNav(this)"><span class="glyphicon glyphicon-leaf"></span>注册</a></li>
+                <th:block th:if="${session.user eq null}">
+                    <li><a th:href="@{/login}" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                    <li><a th:href="@{/register}" onclick="selectNav(this)"><span class="glyphicon glyphicon-leaf"></span>注册</a></li>
+                </th:block>
+                <th:block th:unless="${session.user eq null}">
+                    <li>
+                        <a th:href="@{/user/userHome}" onclick="selectNav(this)">
+                        <img th:src="@{${session.user.userImg}}" style="width: 30px;height: 30px;margin-top: -10px" />
+                        <span th:text="${session.user.userName}"></span></a>
+                    </li>
+                    <li><a th:href="@{/user/logout}" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 注销</a></li>
+                </th:block>
             </ul>
         </div>
     </nav>
@@ -47,7 +56,7 @@
     <div class="container">
         <h1>欢迎加入图书漂流！</h1>
         <p>九江学院图书漂流平台</p>
-        <p><a class="btn btn-primary btn-lg" role="button">
+        <p><a th:href="@{/login}" class="btn btn-primary btn-lg" role="button">
             立即加入</a>
         </p>
     </div>
@@ -60,13 +69,27 @@
     <nav class="navbar navbar-static-top">
         <div class="book_type" align="center">图书分类</div>
         <ol class="breadcrumb book_type_list">
-            <li><a href="#">文学类</a></li>
-            <li><a href="#">教科书</a></li>
-            <li><a href="#">自然科学</a></li>
-            <li><a href="#">社会科学</a></li>
-            <li><a href="#">刊物</a></li>
-            <li><a href="#">艺术</a></li>
-            <li><a href="#">综合性图书</a></li>
+            <li>
+                <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 1, pageNum = 1)}" target="_blank">文学类</a>
+            </li>
+            <li>
+                <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 2, pageNum = 1)}" target="_blank">教科书</a>
+            </li>
+            <li>
+                <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 3, pageNum = 1)}" target="_blank">自然科学</a>
+            </li>
+            <li>
+                <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 4, pageNum = 1)}" target="_blank">社会科学</a>
+            </li>
+            <li>
+                <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 5, pageNum = 1)}" target="_blank">刊物</a>
+            </li>
+            <li>
+                <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 6, pageNum = 1)}" target="_blank">艺术</a>
+            </li>
+            <li>
+                <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 7, pageNum = 1)}" target="_blank">综合性图书</a>
+            </li>
         </ol>
     </nav>
 
@@ -80,10 +103,11 @@
 
             <div class="carousel-inner">
                 <div class="item active">
-                    <img style="width: 800px; height: 290px;" src="../img/active_0.png" title="2"/>
+                    <img style="width: 800px; height: 290px;" th:src="@{/img/active_0.png}" title="2"/>
                 </div>
                 <div class="item">
-                    <img style="width: 800px; height: 290px;" src="../img/active_1.jpg" title="1"/>
+                    <img style="width: 800px; height: 290px;" th:src="@{/img/active_1.jpg}
+" title="1"/>
                 </div>
             </div>
 
@@ -168,39 +192,6 @@
                     <li class="list-group-item" th:each="notice : ${indexNotice}">
                         <a href="#" th:text="${notice.user.userName + ' 寻《'+ notice.noticeText + '》'}"></a>
                     </li>
-                    <!--<li class="list-group-item">
-                        <a href="#">huang 寻 《图书名》</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">huang 寻 《图书名2》</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">huang 寻 《图书名》</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">huang 寻 《图书名》</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">huang 寻 《图书名》</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">huang 寻 《图书名》</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">huang 寻 《图书名》</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">huang 寻 《图书名》</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">huang 寻 《图书名》</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">huang 寻 《图书名》</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#">huang 寻 《图书名》</a>
-                    </li>-->
                 </ul>
             </div>
         </div>

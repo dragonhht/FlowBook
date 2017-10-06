@@ -44,7 +44,7 @@ public class TouristController {
             model.addAttribute("users", users);
             model.addAttribute("searchText", searchText);
             model.addAttribute("target", "user");
-            return "user_list";
+            return "search_user";
         } else {                                // 搜索图书
             Page<Book> books = null;
             if ("bookName".equals(target)) {    // 按书名查找
@@ -69,7 +69,7 @@ public class TouristController {
                 model.addAttribute("target", "publish");
             }
             model.addAttribute("searchText", searchText);
-            return "book_list";
+            return "search_book";
         }
     }
 
@@ -84,7 +84,7 @@ public class TouristController {
         model.addAttribute("lastPage", size);
         model.addAttribute("books", books);
         model.addAttribute("byType", "type");
-        return "book_list";
+        return "search_book";
     }
 
     /**
