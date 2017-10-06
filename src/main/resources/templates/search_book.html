@@ -41,12 +41,12 @@
 
     <!--搜索框-->
     <div class="center_search" id="center_search">
-        <form class="form-inline" method="get">
+        <form class="form-inline" method="get" th:action="@{/tourist/search}">
             <select name="target" class="form-control">
-                <option value="0">书名</option>
-                <option value="1">作者</option>
-                <option value="2">出版社</option>
-                <option value="3">用户</option>
+                <option value="bookName">书名</option>
+                <option value="author">作者</option>
+                <option value="publish">出版社</option>
+                <option value="user">用户</option>
             </select>
             <div class="form-group">
                 <input type="number" hidden="hidden" name="pageNum" value="1"/>
