@@ -1,15 +1,3 @@
-/**
- * Created by huang on 17-7-15.
- */
-/** 导航选择. */
-function selectNav(n) {
-    var links = $('#top_ul').children('li');
-    for (var i = 0; i < links.length; i++) {
-        $(links[i]).children('a').css('color', 'black');
-    }
-    $(n).css('color', 'gray');
-}
-
 /** 选择信息标签页. */
 function selectTab(n) {
     var index = $(n).attr('index');
@@ -51,7 +39,7 @@ function selectTab(n) {
 function showBtn(n) {
     // console.log("显示");
     var btn = $(n).children('.update_btn');
-    var img = $(btn).children('img');
+    var img = $(btn).children('span');
     $(img).show();
 }
 
@@ -59,12 +47,17 @@ function showBtn(n) {
 function hideBtn(n) {
     // console.log("隐藏");
     var btn = $(n).children('.update_btn');
-    var img = $(btn).children('img');
+    var img = $(btn).children('span');
     $(img).hide();
 }
 
 /** 显示修改框. */
 function showUpdateDiv(n) {
+
+    var height = $(document).height();
+    $('#out_bg').css('height', height);
+    $('#out_bg').show();
+
     var index = $(n).attr('index');
     if (index == 'name') {
         $('#update_name').show();
@@ -83,94 +76,35 @@ function showUpdateDiv(n) {
 function hideUpdateDiv(n) {
     var parent = $(n).parent();
     $(parent).hide();
-}
-
-
-/** 更新邮箱. */
-function updateEmail() {
-    var oldEmail = $('#oldEmail').val().trim();
-    var newEmail = $('#newEmail').val().trim();
-    var updateEmailCode = $('#updateEmailCode').val().trim();
-    $.post('updateEmail',
-        {
-            oldEmail : oldEmail,
-            newEmail : newEmail,
-            code : updateEmailCode
-        },
-    function (data) {
-        if (data == 'ok') {
-            location.reload(true);
-        } else {
-            $('#emailResult').html(data);
-        }
-    })
-}
-
-/** 校验邮箱. */
-function checkEmail() {
-    var email = $('#newEmail').val().trim();
-    $.post('checkEmail',
-        {
-            email : email
-        });
-}
-
-function checkAddEmail() {
-    var email = $('#addEmail').val().trim();
-    $.post('checkEmail',
-        {
-            email : email
-        });
-}
-
-/** 添加邮箱. */
-function addEmail() {
-    var email = $('#addEmail').val().trim();
-    var code = $('#addEmailCode').val().trim();
-    $.post('addEmail',
-        {
-            email : email,
-            code : code
-        },
-    function (data) {
-        if (data == 'ok') {
-            location.reload(true);
-        } else {
-            $('#addEmailResult').html(data);
-        }
-    });
+    $('#out_bg').hide();
+    $('#update_img').hide();
 }
 
 $(document).ready(function () {
 
-    // 显示头像修改框
-    $('#userImg').click(function () {
-        console.log('点击');
-        $('#update_img').show();
+    /** 点击弹出框外部，隐藏弹出框. */
+    $('#out_bg').click(function () {
+        $('.update_div').hide();
+        $('#out_bg').hide();
     });
 
-    // 上传图书
-    $('#updateImgBtn').click(function () {
-        var file = new FormData($('#imgForm')[0]);
-        $.ajax({
-            url : 'updateUserImg',
-            type : 'post',
-            data : file,
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                if (data == 'ok') {
-                    location.reload(true);
-                } else {
-                    $('#imgResult').html(data);
-                }
-            },
-            error: function (data) {
-                $('#imgResult').html(data);
-            }
-        });
+    /** 显示修改头像. */
+    $('.img_div').mouseover(function () {
+        $('#chengeImg').show();
     });
+
+    /** 隐藏修改图片. */
+    $('.img_div').mouseout(function () {
+        $('#chengeImg').hide();
+    });
+
+    $('#selectImg').change(function () {
+        var files = $('#selectImg')[0].files[0];
+        var url = window.URL.createObjectURL(files);
+        $('#userImg').attr('src', url);
+        $('.change_btn').removeClass('change_btn');
+        $('.ok_btn').css('display', 'block');
+    });
+
 
 });

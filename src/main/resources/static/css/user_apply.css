@@ -50,87 +50,58 @@ a:hover {
     min-height: 550px;
     padding-top: 20px;
     padding-left: 10px;
+    padding-right: 10px;
 }
 
-.user_message_div .left_user_img {
-    margin-top: 20px;
-    width: 150px;
-    height: 150px;
+.center_left #nav_tabs {
+    width: 380px;
 }
 
-.user_message_div .center_user {
-//border: 1px solid green;
-    float: right;
-    margin-right: 10px;
-    width: 660px;
-    height: 200px;
-}
-
-.center_user .user_name {
-// border: 1px solid green;
-    font-size: large;
-    font-weight: bold;
-    height: 47px;
-    line-height: 47px;
-}
-
-.update_btn {
-    float: right;
-    margin-right: 30px;
+.center_left #nav_tabs li {
     cursor: pointer;
-    display: block;
-    width: 20px;
-    height: 20px;
-    /*margin-top: 10px;*/
 }
 
-.center_left .user_message_div {
-    height: 200px;
-}
-
-.message_div {
-// border: 1px solid red;
-    line-height: 30px;
-    height: 30px;
-}
-
-.update_btn_img {
-    width: 20px;
-    height: 20px;
-}
-
-.center_left .book_message {
-    border-top: 1px solid #DDDDDD;
-// border: 1px solid red;
-    margin: 0 auto;
-    width: 800px;
-    padding-top: 20px;
-}
-
-#nav_tabs a {
+.center_left table a {
     color: black;
     cursor: pointer;
 }
 
+#select_book a {
+    color: black;
+    cursor: pointer;
+}
+
+#notice {
+// border: 1px solid red;
+    height: 300px;
+}
+
+.apply_out {
+// border: 1px solid green;
+    padding-left: 100px;
+}
+
 .update_div {
-    position: fixed;
+// display: none;
+    position: absolute;
     top: 20%;
     left: 25%;
     width: 50%;
-    // height: 50%;
+    height: 200px;
     padding: 16px;
-    /*border: 3px solid gray;*/
+    border: 3px solid gray;
     background-color: white;
     z-index: 3;
-    // overflow: auto;
+    overflow: auto;
+}
+
+#show_apply {
+    height: 440px;
 }
 
 .update_top {
-    color: red;
     border: 1px solid white;
     height: 40px;
-    line-height: 40px;
-    margin-left: 250px;
 }
 
 .update_div .close {
@@ -143,16 +114,36 @@ a:hover {
     height: 30px;
 }
 
-#update_name {
-    height: 300px;
+.book_img_div {
+// border: 1px solid #DDDDDD;
+    width: 150px;
+    height: 200px;
+//position: absolute;
+//left: 250px;
+//float: left;
+    margin-left: 20px;
 }
 
-#update_email {
-    height: 340px;
+.book_img_div_1 {
+    border: 1px solid #DDDDDD;
+    width: 150px;
+    height: 200px;
+    position: absolute;
+    left: 410px;
 }
 
-#update_img {
-    min-height: 200px;
+.book_img_div_2 {
+    border: 1px solid #DDDDDD;
+    width: 150px;
+    height: 200px;
+    position: absolute;
+    left: 570px;
+}
+
+.upload_btn {
+// position: absolute;
+//top: 450px;
+//left: 400px;
 }
 
 .center_right {
@@ -227,75 +218,4 @@ a:hover {
 .copyright {
     color: gray;
     line-height: 50px;
-}
-
-.out_bg {
-    position: absolute;
-    height: 106%;
-    width: 100%;
-    z-index: 2;
-    background-color: black;
-    opacity: 0.5;
-    top: 0;
-}
-
-.img_div {
-    position: relative;
-    float: left;
-}
-
-#chengeImg {
-    position: absolute;
-    bottom: 0;
-    background-color: black;
-    width: 150px;
-    text-align: center;
-    height: 30px;
-    line-height: 30px;
-    color: white;
-    font-weight: bold;
-    opacity: 0.5;
-    cursor: pointer;
-}
-
-#chengeImg span {
-    float: left;
-}
-
-.change_btn {
-    width: 100%;
-}
-
-.ok_btn {
-    background-color: #286090;
-    line-height: 30px;
-    width: 70px;
-    display: none;
-}
-
-.file {
-    position: relative;
-    display: inline-block;
-    // background: #D0EEFF;
-    // border: 1px solid #99D3F5;
-    border-radius: 4px;
-    padding: 4px 12px;
-    overflow: hidden;
-    // color: #1E88C7;
-    text-decoration: none;
-    text-indent: 0;
-    line-height: 20px;
-}
-.file input {
-    position: absolute;
-    font-size: 100px;
-    right: 0;
-    top: 0;
-    opacity: 0;
-}
-.file:hover {
-    // background: #AADFFD;
-    // border-color: #78C3F3;
-    color: #004974;
-    text-decoration: none;
 }

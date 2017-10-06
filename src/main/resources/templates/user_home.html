@@ -1,345 +1,357 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title th:text="${session.user.getUserName() + '的主页'}"></title>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/user_home.css}" />
-    <script th:src="@{/js/user_home.js}" ></script>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
+    <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.js" type="text/javascript"></script>
+    <link href="../css/user_home.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/user_home.js" type="text/javascript"></script>
+    <link href="../css/fileinput.min.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/fileinput.js" type="text/javascript"></script>
+    <script src="../js/zh.js" type="text/javascript"></script>
 </head>
 <body>
+
 <!--顶部-->
-<nav class="navbar navbar-default navber-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a th:href="@{/index}" class="navbar-brand">图书漂流</a>
+<div>
+    <nav class="navbar navbar-default navber-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="cursor: pointer;">九江学院图书漂流</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-left">
+                <li class="active"><a onclick="selectNav(this)" style="color: gray;"><span
+                        class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a onclick="selectNav(this)"><span
+                        class="glyphicon glyphicon-tasks"></span> 用户寻书</a></li>
+                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
+                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-eur"></span> 新书漂流</a></li>
+
+            </ul>
+
+            <form class="top_form">
+                <input type="text"/>
+                <i class="glyphicon glyphicon-search" style="position: absolute; top: 5px; right: 60px;"></i>
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li><a href="login.html" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span>
+                    登录</a></li>
+                <li><a href="register.html" onclick="selectNav(this)"><span
+                        class="glyphicon glyphicon-leaf"></span>注册</a></li>
+            </ul>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;"><span
-                    class="glyphicon glyphicon-home"></span> 首页</a></li>
-            <li><a th:href="@{/notice/{pageNum} (pageNum = 1)}" onclick="selectNav(this)"><span
-                    class="glyphicon glyphicon-tasks"></span> 公告</a></li>
-            <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
-            <th:block th:if="${session.user eq null}">
-                <li><a th:href="@{/login}" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a>
-                </li>
-                <li><a th:href="@{/register}" onclick="selectNav(this)"><span class="glyphicon glyphicon-leaf"></span>
-                    注册</a></li>
-            </th:block>
-            <th:block th:unless="${session.user eq null}">
-                <li class="active"><a th:href="@{/user/userHome}" onclick="selectNav(this)">
-                    <span class="glyphicon glyphicon-user"></span>
-                    <span th:text="${session.user.getUserName()}"></span>
-                    <img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;"
-                         th:src="@{/img/havemsg.png}"/>
-                </a>
-                </li>
-                <li><a th:href="@{/user/logout}" onclick="selectNav(this)"><span
-                        class="glyphicon glyphicon-log-out"></span>
-                    注销</a></li>
-            </th:block>
-        </ul>
-    </div>
-</nav>
+    </nav>
+</div>
 
-    <!--页面中部-->
-    <div class="center_bg">
+<!--页面中部-->
+<div class="center_bg">
 
-        <!--左边内容-->
-        <div class="center_left">
-            <div class="user_message_div">
-                <img id="userImg" th:src="@{${session.user.getUserImg()}}" class="img-thumbnail left_user_img" />
+    <!--左边内容-->
+    <div class="center_left">
+        <div class="user_message_div">
+            <div class="img_div">
+                <img id="userImg" src="../img/user.png" class="img-thumbnail left_user_img"/>
+                <span id="chengeImg">
+                    <span class="file change_btn" hidden="hidden">更换头像
+                    <input type="file" name="" id="selectImg"
+                           accept="image/gif,image/jpeg,image/jpg,image/png,image/svg">
+                    </span>
+                    <span class="ok_btn">确定</span>
+                </span>
+            </div>
 
-                <div class="center_user">
-                    <div class="user_name">
-                        <span th:text="${session.user.getUserName()}"></span>
-                    </div>
-                    <div class="message_div">
-                        <label>贡献度：</label>
-                        <span th:text="${session.user.getContributeNum()}"></span>
-                    </div>
-                    <div class="message_div">
-                        <label>信用：</label>
-                        <span>
-                            <th:block th:unless="${session.user.getCredit() eq 0}">
-                    <th:block th:each="num : ${#numbers.sequence(1, session.user.getCredit())}">
+
+            <div class="center_user">
+                <div class="user_name">
+                    <span>用户名</span>
+                </div>
+                <div class="message_div">
+                    <label>贡献度：</label>
+                    <span>贡献度</span>
+                </div>
+                <div class="message_div">
+                    <label>信用：</label>
+                    <span>
                         <a style="line-height: 30px">
-                            <img th:src="@{/img/light_start.png}" style="height: 20px;width: 20px;" />
+                            <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
                         </a>
-                    </th:block>
-                </th:block>
-                <th:block th:unless="${session.user.getCredit() eq 5}">
-                    <th:block th:each="num : ${#numbers.sequence(session.user.getCredit()+1, 5)}">
-                        <a >
-                            <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;" />
+                        <a style="line-height: 30px">
+                            <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
                         </a>
-                    </th:block>
-                </th:block>
+                        <a style="line-height: 30px">
+                            <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
+                        </a>
+                        <a style="line-height: 30px">
+                            <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
+                        </a>
+                        <a style="line-height: 30px">
+                            <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
+                        </a>
                         </span>
-                    </div>
-                    <div class="message_div">
-                        <label>地区：</label>
-                        <span th:text="${session.user.provice + ' ' + session.user.city}"></span>
-                    </div>
-                    <div class="message_div" onmouseover="showBtn(this)" onmouseout="hideBtn(this)">
-                        <label>手机号码：</label>
-                        <span th:text="${session.user.getUserPhone()}"></span>
-                        <a class="update_btn" index="phone" onclick="showUpdateDiv(this)">
-                            <img title="修改手机号" hidden="hidden" th:src="@{/img/update.png}" />
-                        </a>
-                    </div>
-                    <div class="message_div" onmouseover="showBtn(this)" onmouseout="hideBtn(this)">
-                        <label>电子邮箱：</label>
-                        <span id="userEmail" th:unless="${session.user.getUserEmail() eq null}" th:text="${session.user.getUserEmail()}"></span>
-                        <a th:unless="${session.user.getUserEmail() eq null}" class="update_btn" index="email" onclick="showUpdateDiv(this)">
-                            <img title="修改邮箱" hidden="hidden" th:src="@{/img/update.png}" />
-                        </a>
-                        <a th:if="${session.user.getUserEmail() eq null}" class="update_btn" index="name" onclick="showUpdateDiv(this)">
-                            <img title="添加邮箱" hidden="hidden" th:src="@{/img/update.png}" />
-                        </a>
-                    </div>
+                </div>
+                <div class="message_div" onmouseover="showBtn(this)" onmouseout="hideBtn(this)">
+                    <label>手机号码：</label>
+                    <span>手机号</span>
+                    <a class="update_btn" index="phone" onclick="showUpdateDiv(this)">
+                        <span title="修改手机号" class="glyphicon glyphicon-edit" style="color: black;display: none;"></span>
+                    </a>
+                </div>
+                <div class="message_div" onmouseover="showBtn(this)" onmouseout="hideBtn(this)">
+                    <label>电子邮箱：</label>
+                    <span id="userEmail">邮箱</span>
+                    <a class="update_btn" index="email" onclick="showUpdateDiv(this)">
+                        <span title="修改邮箱" class="glyphicon glyphicon-edit" style="color: black;display: none;"></span>
+                    </a>
                 </div>
             </div>
-
-            <div class="book_message">
-
-                <ul class="nav nav-tabs" id="nav_tabs">
-                    <li class="active" index="0" onclick="selectTab(this)"><a>贡献书籍</a></li>
-                    <li index="1" onclick="selectTab(this)"><a>现有书籍</a></li>
-                    <li index="2" onclick="selectTab(this)"><a>借阅记录</a></li>
-                    <li index="3" onclick="selectTab(this)"><a>寻书记录</a></li>
-                </ul>
-
-                <table id="book_contribution" class="table table-responsive">
-
-                    <tr>
-                        <td>编号</td>
-                        <td>书名</td>
-                        <td>作者</td>
-                        <td>出版社</td>
-                        <td>日期</td>
-                    </tr>
-
-                    <tr th:each="book : ${session.user.getContribution()}">
-                        <td th:text="${book.getBookId()}"></td>
-                        <td style="cursor: pointer">
-                            <a target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${book.bookId})}"
-                               th:text="${book.getBookName()}" style="color: #333333;"></a>
-                        </td>
-                        <td th:text="${book.getAuthor()}"></td>
-                        <td th:text="${book.getPublish()}"></td>
-                        <td th:text="${book.getBookDate()}"></td>
-                    </tr>
-                </table>
-
-                <table id="book_now_have" class="table table-responsive" hidden="hidden">
-                    <tr>
-                        <td>编号</td>
-                        <td>书名</td>
-                        <td>作者</td>
-                        <td>出版社</td>
-                        <td>日期</td>
-                    </tr>
-                    <tr th:each="record : ${nowRecodes}">
-                        <td th:text="${record.book.bookId}"></td>
-                        <td style="cursor: pointer">
-                            <a target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${record.book.bookId})}"
-                               th:text="${record.book.getBookName()}" style="color: #333333;"></a>
-                        </td>
-                        <td th:text="${record.book.author}"></td>
-                        <td th:text="${record.book.publish}"></td>
-                        <td th:text="${record.recordDate}"></td>
-                    </tr>
-                </table>
-
-                <table id="book_borrow" class="table table-responsive" hidden="hidden">
-
-                    <tr>
-                        <td>编号</td>
-                        <td>书名</td>
-                        <td>作者</td>
-                        <td>出版社</td>
-                        <td>日期</td>
-                    </tr>
-
-                    <tr th:each="record : ${allRecodes}">
-                        <td th:text="${record.book.bookId}"></td>
-                        <td style="cursor: pointer">
-                            <a target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${record.book.bookId})}"
-                               th:text="${record.book.getBookName()}" style="color: #333333;"></a>
-                        </td>
-                        <td th:text="${record.book.author}"></td>
-                        <td th:text="${record.book.publish}"></td>
-                        <td th:text="${record.recordDate}"></td>
-                    </tr>
-                </table>
-
-                <!--发布公告-->
-                <table id="notice" class="table table-striped" hidden="hidden">
-
-                    <tr>
-                        <td>内容</td>
-                        <td>日期</td>
-                    </tr>
-
-                    <tr th:each="notice : ${session.user.getNotices()}">
-                        <td th:text="${notice.getNoticeText()}"></td>
-                        <td th:text="${notice.getNoticeDate()}"></td>
-                    </tr>
-                </table>
-
-            </div>
         </div>
 
-        <!--右边内容-->
-        <div class="center_right" th:include="assembly::user_right"></div>
-    </div>
+        <div class="book_message">
 
-    <!--修改用户名-->
-    <div class="update_div" id="update_name" hidden="hidden">
-        <span class="update_top" id="addEmailResult"></span>
-        <span class="close" onclick="hideUpdateDiv(this)">x</span>
-        <div class="form-group form_group">
-            <label class="col-sm-2 control-label"><span style="color: red">*</span>新电子邮箱</label>
-            <div class="col-sm-9 input-group">
-                <input id="addEmail" type="text" class="form-control" placeholder="请输入新电子邮箱" />
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button onclick="checkAddEmail()" type="button" style="margin-bottom: 20px;" class="btn btn-info">校验新邮箱</button>
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <label class="col-sm-2 control-label"><span style="color: red">*</span>校验码</label>
-            <div class="col-sm-9 input-group">
-                <input id="addEmailCode" type="text" class="form-control" placeholder="请输入新邮箱接收到的校验码" />
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button onclick="addEmail()" class="btn btn-info">确定</button>
-            </div>
+            <ul class="nav nav-tabs" id="nav_tabs">
+                <li class="active" index="0" onclick="selectTab(this)"><a>贡献书籍</a></li>
+                <li index="1" onclick="selectTab(this)"><a>现有书籍</a></li>
+                <li index="2" onclick="selectTab(this)"><a>借阅记录</a></li>
+                <li index="3" onclick="selectTab(this)"><a>寻书记录</a></li>
+            </ul>
+
+            <table id="book_contribution" class="table table-responsive">
+
+                <tr>
+                    <td>编号</td>
+                    <td>书名</td>
+                    <td>作者</td>
+                    <td>出版社</td>
+                    <td>日期</td>
+                </tr>
+
+                <tr>
+                    <td>编号</td>
+                    <td style="cursor: pointer">
+                        <a target="_blank" style="color: #333333;">书名</a>
+                    </td>
+                    <td>作者</td>
+                    <td>出版社</td>
+                    <td>2017-09-24</td>
+                </tr>
+            </table>
+
+            <table id="book_now_have" class="table table-responsive" hidden="hidden">
+                <tr>
+                    <td>编号</td>
+                    <td>书名</td>
+                    <td>作者</td>
+                    <td>出版社</td>
+                    <td>日期</td>
+                </tr>
+                <tr>
+                    <td>编号</td>
+                    <td style="cursor: pointer">
+                        <a target="_blank" style="color: #333333;">书名</a>
+                    </td>
+                    <td>作者</td>
+                    <td>出版社</td>
+                    <td>2017-09-24</td>
+                </tr>
+            </table>
+
+            <table id="book_borrow" class="table table-responsive" hidden="hidden">
+
+                <tr>
+                    <td>编号</td>
+                    <td>书名</td>
+                    <td>作者</td>
+                    <td>出版社</td>
+                    <td>日期</td>
+                </tr>
+
+                <tr>
+                    <td>编号</td>
+                    <td style="cursor: pointer">
+                        <a target="_blank" style="color: #333333;">书名</a>
+                    </td>
+                    <td>作者</td>
+                    <td>出版社</td>
+                    <td>2017-09-24</td>
+                </tr>
+            </table>
+
+            <!--发布公告-->
+            <table id="notice" class="table table-striped" hidden="hidden">
+
+                <tr>
+                    <td>内容</td>
+                    <td>日期</td>
+                </tr>
+
+                <tr>
+                    <td>书名</td>
+                    <td>2017-09-24</td>
+                </tr>
+            </table>
+
         </div>
     </div>
 
-    <!--修改手机号码-->
-    <div class="update_div" id="update_phone" hidden="hidden">
-        <span class="update_top"></span>
-        <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
-        <div class="form-group form_group">
-            <label class="col-sm-2 control-label"><span style="color: red">*</span>原手机号</label>
-            <div class="col-sm-9 input-group">
-                <input type="text" class="form-control" placeholder="请输入原手机号" />
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <label class="col-sm-2 control-label"><span style="color: red">*</span>新手机号</label>
-            <div class="col-sm-9 input-group">
-                <input type="text" class="form-control" placeholder="请输入新手机号" />
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="button" style="margin-bottom: 20px;" class="btn btn-info">获取短信验证码</button>
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <label class="col-sm-2 control-label"><span style="color: red">*</span>短信验证码:</label>
-            <div class="col-sm-9 input-group">
-                <input type="text" class="form-control" placeholder="请查收手机短信，并填写短信中的验证码" />
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" id="register_btn" class="btn btn-info">确认修改</button>
-            </div>
-        </div>
-    </div>
-
-    <!--修改电子邮箱-->
-    <div class="update_div" id="update_email" hidden="hidden">
-        <span class="update_top" id="emailResult"></span>
-        <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
-        <div class="form-group form_group">
-            <label class="col-sm-2 control-label"><span style="color: red">*</span>原电子邮箱</label>
-            <div id="oldEmailInput" class="col-sm-9 input-group ">
-                <input id="oldEmail" type="text" class="form-control" placeholder="请输入原电子邮箱" />
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <label class="col-sm-2 control-label"><span style="color: red">*</span>新电子邮箱</label>
-            <div class="col-sm-9 input-group">
-                <input id="newEmail" type="text" class="form-control" placeholder="请输入新电子邮箱" />
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button onclick="checkEmail()" type="button" style="margin-bottom: 20px;" class="btn btn-info">校验新邮箱</button>
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <label class="col-sm-2 control-label"><span style="color: red">*</span>校验码</label>
-            <div class="col-sm-9 input-group">
-                <input id="updateEmailCode" type="text" class="form-control" placeholder="请输入新邮箱接收到的校验码" />
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button onclick="updateEmail()" class="btn btn-info">确认修改</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="update_div" id="update_img" hidden="hidden">
-        <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
-        <span class="update_top" id="imgResult"></span>
-        <form id="imgForm">
-            <div class="form-group form_group" style="margin-left: auto;margin-right: auto;">
-                <label class="col-sm-2 control-label">新图书：&nbsp;&nbsp;&nbsp;</label>
-                <div class="col-sm-7">
-                    <input type="file" id="uploadImg" name="uploadImg" placeholder="请选择图书封面图片" />
+    <!--右边内容-->
+    <div class="center_right">
+        <div class="right_img">
+            <img src="../img/user.png" class="img-thumbnail user_img"/>
+            <div class="img_user">
+                <span class="user_name">用户名</span><br/>
+                <div class="img_user_credit">
+                    <label>信用：</label>
+                    <span>
+                        <a>
+                            <i class="glyphicon glyphicon-star" style="color: green;font-size: small"></i>
+                        </a>
+                        <a>
+                            <i class="glyphicon glyphicon-star" style="color: green;font-size: small"></i>
+                        </a>
+                        <a>
+                            <i class="glyphicon glyphicon-star" style="color: green;font-size: small"></i>
+                        </a>
+                        <a>
+                            <i class="glyphicon glyphicon-star" style="color: green;font-size: small"></i>
+                        </a>
+                        <a>
+                            <i class="glyphicon glyphicon-star" style="color: green;font-size: small"></i>
+                        </a>
+                    </span>
                 </div>
             </div>
-            <div class="form-group form_group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" id="updateImgBtn" class="btn btn-primary">确定修改</button>
-                </div>
-            </div>
-        </form>
-    </div>
+        </div>
 
-    <!--底部-->
-    <div class="footer" align="center">
-        <p class="copyright">
-            Copyright © 2017. All Rights Reserved by dragonhht from
-            <a href="https://github.com/dragonhht" title="Github" target="_blank" style="color: gray;">dragonhht</a>
-        </p>
+        <div class="right_select">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="#">
+                        <span>个人信息</span>
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">
+                        <span>新书漂流</span>
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="user_friend.html">
+                        <span>我的好友</span>
+                        <!--<img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;"
+                             th:src="@{/img/havemsg.png}" />-->
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">
+                        <span>寻书</span>
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">
+                        <span>申请</span>
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">
+                        <span>图书传阅</span>
+                    </a>
+                </li>
+                <!--<th:block th:if="${session.role eq 'admin'}">
+                    <li class="list-group-item">
+                        <a th:href="@{/admin/adminAgree}">
+                            <span>管理员审核</span>
+                        </a>
+                    </li>
+                </th:block>-->
+            </ul>
+        </div>
     </div>
+</div>
+
+<!--底部-->
+<div class="footer" align="center">
+    <p class="copyright">
+        Copyright © 2017. All Rights Reserved by dragonhht from
+        <a href="https://github.com/dragonhht" title="Github" target="_blank" style="color: gray;">dragonhht</a>
+    </p>
+</div>
+
+<!--弹出背景-->
+<div id="out_bg" class="out_bg" hidden="hidden"></div>
+
+<!--修改手机号码-->
+<div class="update_div" id="update_phone" hidden="hidden">
+    <span class="update_top"></span>
+    <div class="close glyphicon glyphicon-remove" onclick="hideUpdateDiv(this)" align="right"></div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>原手机号</label>
+        <div class="col-sm-9 input-group">
+            <input type="text" class="form-control" placeholder="请输入原手机号"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>新手机号</label>
+        <div class="col-sm-9 input-group">
+            <input type="text" class="form-control" placeholder="请输入新手机号"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="button" style="margin-bottom: 20px;" class="btn btn-info">获取短信验证码</button>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>短信验证码:</label>
+        <div class="col-sm-9 input-group">
+            <input type="text" class="form-control" placeholder="请查收手机短信，并填写短信中的验证码"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" id="register_btn" class="btn btn-info">确认修改</button>
+        </div>
+    </div>
+</div>
+
+<!--修改电子邮箱-->
+<div class="update_div" id="update_email" hidden="hidden">
+    <span class="update_top" id="emailResult"></span>
+    <div class="close glyphicon glyphicon-remove" onclick="hideUpdateDiv(this)" align="right"></div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>原电子邮箱</label>
+        <div id="oldEmailInput" class="col-sm-9 input-group ">
+            <input id="oldEmail" type="text" class="form-control" placeholder="请输入原电子邮箱"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>新电子邮箱</label>
+        <div class="col-sm-9 input-group">
+            <input id="newEmail" type="text" class="form-control" placeholder="请输入新电子邮箱"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button onclick="checkEmail()" type="button" style="margin-bottom: 20px;" class="btn btn-info">校验新邮箱
+            </button>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>校验码</label>
+        <div class="col-sm-9 input-group">
+            <input id="updateEmailCode" type="text" class="form-control" placeholder="请输入新邮箱接收到的校验码"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button onclick="updateEmail()" class="btn btn-info">确认修改</button>
+        </div>
+    </div>
+</div>
+
 </body>
-
-<script type="text/javascript" th:inline="javascript">
-    $(document).ready(function () {
-
-        /** 校验原邮箱是否输入正确. */
-        $('#oldEmail').blur(function () {
-            var oldEmail = $('#userEmail').html().trim();
-            var input = $('#oldEmail').val().trim();
-            if (oldEmail != input) {
-                $('#oldEmailInput').addClass('has-error');
-                $('#errorAddEmail').remove();
-                $('#oldEmailInput').append('<span id="errorAddEmail"  class="input-group-addon">' +
-                    '<img style="width: 20px; height: 20px;" th:src="@{/img/error.png}" /> ' +
-                    '</span>');
-            } else {
-                $('#oldEmailInput').removeClass('has-error');
-                $('#errorAddEmail').remove();
-            }
-        });
-
-    });
-</script>
-
 </html>

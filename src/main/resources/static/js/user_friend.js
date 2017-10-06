@@ -1,7 +1,3 @@
-/**
- * Created by huang on 17-8-7.
- */
-
 /** 显示好友分组的好友. */
 function selectGroup(n) {
     var groups = $('#friend_list').children('.friend_group');

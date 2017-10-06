@@ -6,67 +6,54 @@ a:hover {
     text-decoration: none;
 }
 
-.top_logo {
-    width: 100%;
-    height: 50px;
-    margin: 0 auto;
-//background-image: url("../img/topbackground.png");
-    background-color: white;
+.container {
+    position: relative;
 }
 
-.logo_img {
-    margin-left: 50px;
-}
-
-.logo_img img {
-    height: 49px;
-}
-
-.top_logo ul {
-    float: right;
-    margin-right: 50px;
-}
-
-.top_logo li {
-    list-style: none;
-    float: right;
-    line-height: 50px;
-    min-width: 100px;
-    font-family: 黑体;
-    font-size: larger;
-    font-weight: bolder;
-}
-
-.top_logo li a {
-    color: black;
+.nav li a {
+    cursor: pointer;
 }
 
 .center_bg {
-    //border: 1px solid red;
+    /*border: 1px solid red;*/
     margin: 30px auto;
     width: 1100px;
     position: relative;
-
+    min-height: 500px;
 }
 
 .center_search {
+// border: 1px solid red;
     margin-top: 80px;
-    margin-left: 270px;
     margin-bottom: 50px;
+    width: 700px;
+    margin-left: 250px;
+    /*margin-right: auto;*/
 }
 
-.center_search li a {
-    cursor: pointer;
+.center_search select {
+    border: 1px solid gray;
+    height: 40px;
 }
 
 .search_input {
     border: 1px solid gray;
     width: 500px;
-    height: 50px;
+    height: 40px;
+}
+
+.center_search button {
+    height: 40px;
+}
+
+.center_user {
+    // border: 1px solid red;
+    padding-top: 10px;
+    padding-left: 20px;
 }
 
 .center_user .user_img {
-    //border: 1px solid green;
+// border: 1px solid green;
     width: 200px;
     height: 200px;
     margin-left: 30px;
@@ -77,7 +64,7 @@ a:hover {
 }
 
 .user_message {
-    //border: 1px solid green;
+//border: 1px solid green;
     position: absolute;
     width: 800px;
     height: 200px;
@@ -88,7 +75,7 @@ a:hover {
 }
 
 .user_message_message {
-    // border: 1px solid red;
+// border: 1px solid red;
     margin-bottom: 10px;
     height: 30px;
     line-height: 30px;
@@ -108,7 +95,7 @@ a:hover {
 }
 
 .add_user {
-    //border: 1px solid red;
+//border: 1px solid red;
     margin-bottom: 10px;
     height: 30px;
     line-height: 30px;
@@ -137,7 +124,6 @@ a:hover {
     color: black;
 }
 
-
 .footer {
     clear: both;
     width: 1200px;
@@ -152,79 +138,126 @@ a:hover {
     line-height: 50px;
 }
 
-.result {
+.out_bg {
     position: absolute;
-    top: 50%;
-    left: 40%;
-    width: 200px;
-    height: 50px;
-    padding-right: 5px;
-    border: 1px solid gray;
-    background-color: white;
-    z-index: 3;
-    overflow: auto;
-}
-
-.result .text {
-    line-height: 48px;
-    text-align: center;
-    width: 100px;
-    display: block;
-}
-
-.chat {
-    position: absolute;
-    top: 2%;
-    left: 25%;
-    width: 595px;
-    height: 670px;
-    //padding-right: 5px;
-    border: 3px solid gray;
-    background-color: white;
+    height: 106%;
+    width: 100%;
     z-index: 2;
-    overflow: auto;
+    background-color: black;
+    opacity: 0.5;
+    top: 0;
 }
 
-.chat_div {
-    border: 1px solid #DDDDDD;
+.user_chat_div {
+    background-color: white;
+    position: fixed;
+    top: 60px;
+    left: 200px;
+    width: 600px;
+    height: 610px;
+    z-index: 3;
+}
+
+.chat_title {
+    background-color: #ECECEC;
+    // border: 1px solid red;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 80px;
+    line-height: 80px;
+    position: relative;
+}
+
+.chat_title .user_name {
+    font-size: larger;
+    margin-left: 10px;
+}
+
+.title_btn {
     position: absolute;
-    right: 10px;
-    height: 500px;
-    width: 560px;
-    margin-bottom: 10px;
-    overflow-x: auto;
-    margin-right: 5px;
+    right: 20px;
+    top: -13px;
 }
 
-.friend_name {
-    /*border: 1px solid red;*/
-    height: 20px;
-    line-height: 20px;
-    font-weight: bolder;
-    margin-top: 10px;
-    border-bottom: 1px solid #DDDDDD;
+.title_btn a {
+    color: gray;
+    width: 20px;
+    cursor: pointer;
 }
 
-.input_div {
-/ / border: 1 px solid green;
-    position: absolute;
-    right: 10px;
-    width: 560px;
-    height: 160px;
-    bottom: 0px;
+.chat_title .close {
+    font-size: inherit;
+    margin-top: 20px;
 }
 
-.input_div textarea {
+.chat_show_div {
+    border: 2px solid #EEEEEE;
+    height: 350px;
+}
+
+.chat_tools {
+    // border: 1px solid red;
+    height: 30px;
+    line-height: 30px;
+    padding-top: 3px;
+}
+
+.chat_tools li {
+    list-style: none;
+    height: 30px;
+}
+
+.chat_tools a {
+    height: 30px;
+    font-size: 20px;
+    color: gray;
+    cursor: pointer;
+}
+
+.chat_input {
     resize: none;
-    width: 560px;
+    width: 100%;
     height: 100px;
-    margin-bottom: 10px;
+    border: none;
+    outline: none;
 }
 
-.input_div button {
+.chat_btn button {
     float: right;
     margin-right: 20px;
 }
+
+.report_div {
+    background-color: white;
+    position: fixed;
+    top: 20px;
+    left: 200px;
+    width: 870px;
+    // height: 670px;
+    z-index: 3;
+}
+
+.report_title {
+    height: 50px;
+    background-color: #ECECEC;
+    line-height: 50px;
+    text-align: center;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.report_body {
+    // border: 1px solid red;
+    padding-left: 20px;
+}
+
+.report_body textarea {
+    width: 755px;
+    height: 120px;
+    resize: none;
+    outline: none;
+}
+
 
 .wenwen_btn img, .wenwen_help img {
     height: 40px;
@@ -260,8 +293,8 @@ a:hover {
 }
 
 .speak_box {
-    margin-bottom: 70px;
     padding: 10px;
+    overflow-x: auto;
 }
 
 .question, .answer {
@@ -379,48 +412,4 @@ audio {
     border-top: solid 1px #ddd;
     padding: 5px;
     line-height: 30px;
-}
-
-.update_div {
-// display: none;
-    position: absolute;
-    top: 10%;
-    left: 25%;
-    width: 50%;
-    height: 50%;
-    padding: 16px;
-    border: 3px solid gray;
-    background-color: white;
-    z-index: 3;
-    overflow: auto;
-}
-
-.update_top {
-    color: red;
-    border: 1px solid white;
-    height: 40px;
-    line-height: 40px;
-    margin-left: 250px;
-}
-
-.update_div .close {
-    color: #0e0e0e;
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 20px;
-    display: block;
-    height: 30px;
-}
-
-#report {
-    height: 600px;
-}
-
-#update_img {
-    top: 20%;
-    left: 30%;
-    width: 500px;
-    height: 200px;
-    z-index: 99;
 }

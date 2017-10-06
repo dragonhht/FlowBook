@@ -37,7 +37,7 @@ public class TouristServiceImp implements TouristService {
     /** 分页， 每页显示的最大数量. */
     private static final int PAGE_SIZE = 20;
     /** 热门图书数量. */
-    private static final int HOT_SIZE = 10;
+    private static final int HOT_SIZE = 4;
 
     @Override
     //@Cacheable(value = "search_book_name")

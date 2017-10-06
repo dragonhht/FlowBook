@@ -1,471 +1,317 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>用户界面</title>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/user.css}" />
-    <script th:src="@{/js/user.js}" ></script>
+    <meta charset="UTF-8">
+    <title>用户信息</title>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
+    <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.js" type="text/javascript"></script>
+    <link href="../css/user.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/user.js" type="text/javascript"></script>
+    <link href="../css/fileinput.min.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/fileinput.js" type="text/javascript"></script>
+    <script src="../js/zh.js" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" href="../css/alert.css"/>
 </head>
 <body>
+
 <!--顶部-->
-<nav class="navbar navbar-default navber-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a th:href="@{/index}" class="navbar-brand">图书漂流</a>
+<div>
+    <nav class="navbar navbar-default navber-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="cursor: pointer;">九江学院图书漂流</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-left">
+                <li class="active"><a href="index.html" onclick="selectNav(this)" style="color: gray;"><span
+                        class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a onclick="selectNav(this)"><span
+                        class="glyphicon glyphicon-tasks"></span> 用户寻书</a></li>
+                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
+                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-eur"></span> 新书漂流</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li><a onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                <li><a onclick="selectNav(this)"><span class="glyphicon glyphicon-leaf"></span>注册</a></li>
+            </ul>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;"><span
-                    class="glyphicon glyphicon-home"></span> 首页</a></li>
-            <li><a th:href="@{/notice/{pageNum} (pageNum = 1)}" onclick="selectNav(this)"><span
-                    class="glyphicon glyphicon-tasks"></span> 用户寻书</a></li>
-            <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
-            <th:block th:if="${session.user eq null}">
-                <li><a th:href="@{/login}" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a>
-                </li>
-                <li><a th:href="@{/register}" onclick="selectNav(this)"><span class="glyphicon glyphicon-leaf"></span>
-                    注册</a></li>
-            </th:block>
-            <th:block th:unless="${session.user eq null}">
-                <li><a th:href="@{/user/userHome}" onclick="selectNav(this)">
-                    <span class="glyphicon glyphicon-user"></span>
-                    <span th:text="${session.user.getUserName()}"></span>
-                    <img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;"
-                         th:src="@{/img/havemsg.png}"/>
+    </nav>
+</div>
+
+<!--页面中部-->
+<div class="center_bg">
+    <!--搜索框-->
+    <div class="center_search" id="center_search">
+        <form class="form-inline" method="get">
+            <select name="target" class="form-control">
+                <option value="0">书名</option>
+                <option value="1">作者</option>
+                <option value="2">出版社</option>
+                <option value="3">用户</option>
+            </select>
+            <div class="form-group">
+                <input type="number" hidden="hidden" name="pageNum" value="1"/>
+                <input name="searchText" type="text" class="search_input" placeholder="请输入您要搜索的内容"/>
+                <button type="submit" class="btn btn-info">搜索</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="center_user">
+        <div class="user_img">
+            <img class="img-thumbnail" src="../img/user.png"/>
+        </div>
+        <div class="user_message">
+            <div class="user_message_name">用户名</div>
+            <div class="user_credit user_message_message">
+                <label>用户信用：</label>
+                <div>
+                    <a style="line-height: 30px">
+                        <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
+                    </a>
+                    <a style="line-height: 30px">
+                        <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
+                    </a>
+                    <a style="line-height: 30px">
+                        <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
+                    </a>
+                    <a style="line-height: 30px">
+                        <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
+                    </a>
+                    <a style="line-height: 30px">
+                    <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
                 </a>
-                </li>
-                <li><a th:href="@{/user/logout}" onclick="selectNav(this)"><span
-                        class="glyphicon glyphicon-log-out"></span>
-                    注销</a></li>
-            </th:block>
+
+                </div>
+            </div>
+
+            <div class="add_user">
+                <a onclick="return loginTip();">
+                    <input id="friendId" hidden="hidden"/>
+                    <img src="../img/adduser.png"/>
+                    加入聊天列表
+                </a>
+                <a onclick="return chatLoginTip();">
+                    <img src="../img/chat.png"/>
+                    联系
+                </a>
+                <a onclick="showReportDiv()">
+                    <img style="width: 15px;height: 15px" src="../img/report.png"/>
+                    举报
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="tabs_div">
+        <ul class="nav nav-tabs" id="nav_tabs">
+            <li class="active" index="0" onclick="selectTab(this)"><a>贡献书籍</a></li>
+            <li index="1" onclick="selectTab(this)"><a>借阅记录</a></li>
+            <li index="2" onclick="selectTab(this)"><a>寻书记录</a></li>
+        </ul>
+        <!--贡献书籍表-->
+        <table id="contribution" class="table table-striped">
+            <tr>
+                <td>编号</td>
+                <td>书名</td>
+                <td>作者</td>
+                <td>出版社</td>
+                <td>日期</td>
+            </tr>
+            <tr>
+                <td>图书编号</td>
+                <td>
+                    <a style="color: #333333;" href="#" target="_blank">图书名</a>
+                </td>
+                <td>作者</td>
+                <td>出版社</td>
+                <td>2017-09-23</td>
+            </tr>
+            <tr>
+                <td>图书编号</td>
+                <td>
+                    <a style="color: #333333;" href="#" target="_blank">图书名</a>
+                </td>
+                <td>作者</td>
+                <td>出版社</td>
+                <td>2017-09-23</td>
+            </tr>
+            <tr>
+                <td>图书编号</td>
+                <td>
+                    <a style="color: #333333;" href="#" target="_blank">图书名</a>
+                </td>
+                <td>作者</td>
+                <td>出版社</td>
+                <td>2017-09-23</td>
+            </tr>
+        </table>
+
+        <!--借阅图书-->
+        <table id="borrow" class="table table-striped" hidden="hidden">
+            <tr>
+                <td>编号</td>
+                <td>书名</td>
+                <td>作者</td>
+                <td>出版社</td>
+                <td>日期</td>
+            </tr>
+            <tr>
+                <td>图书编号</td>
+                <td>
+                    <a style="color: #333333;" href="#" target="_blank">图书名</a>
+                </td>
+                <td>作者</td>
+                <td>出版社</td>
+                <td>2017-09-23</td>
+            </tr>
+        </table>
+
+        <!--发布公告-->
+        <table id="notice" class="table table-striped" hidden="hidden">
+            <tr>
+                <td>寻书记录</td>
+                <td>日期</td>
+            </tr>
+            <tr>
+                <td>图书名</td>
+                <td>2017-09-23</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--底部-->
+<div class="footer" align="center">
+    <p class="copyright">
+        Copyright © 2017. All Rights Reserved by dragonhht from
+        <a href="https://github.com/dragonhht" title="Github" target="_blank" style="color: gray;">dragonhht</a>
+    </p>
+</div>
+
+<!--弹出背景-->
+<div id="out_bg" class="out_bg" hidden="hidden"></div>
+
+<!--聊天框-->
+<div id="user_chat_div" class="user_chat_div" hidden="hidden">
+    <!--头部-->
+    <div class="chat_title">
+        <img class="img-rounded" src="../img/user.png" width="40px" height="40px"/>
+        <span class="user_name">用户名</span>
+        <span class="title_btn">
+            <!--<a class="glyphicon glyphicon-minus"></a>-->
+            <a id="close" class="glyphicon glyphicon-remove"></a>
+        </span>
+    </div>
+    <!--信息展示框-->
+    <div class="chat_show_div speak_box">
+        <!--他人信息-->
+        <div class="answer">
+            <div class="heard_img left"><img src="images/dglvyou.jpg"/></div>
+            <div class="answer_text"><p>你好！</p><i></i>
+            </div>
+        </div>
+
+        <!--我的信息-->
+        <div class="question">
+            <div class="heard_img right">
+                <img src="#"/></div>
+            <div class="question_text clear"><p>你好！</p><i></i>
+            </div>
+        </div>
+
+        <!--他人信息-->
+        <div class="answer">
+            <div class="heard_img left"><img src="images/dglvyou.jpg"/></div>
+            <div class="answer_text"><p>你好！</p><i></i>
+            </div>
+        </div>
+
+        <!--我的信息-->
+        <div class="question">
+            <div class="heard_img right">
+                <img src="#"/></div>
+            <div class="question_text clear"><p>你好！</p><i></i>
+            </div>
+        </div>
+
+        <!--他人信息-->
+        <div class="answer">
+            <div class="heard_img left"><img src="images/dglvyou.jpg"/></div>
+            <div class="answer_text"><p>你好！</p><i></i>
+            </div>
+        </div>
+
+        <!--我的信息-->
+        <div class="question">
+            <div class="heard_img right">
+                <img src="#"/></div>
+            <div class="question_text clear"><p>你好！</p><i></i>
+            </div>
+        </div>
+
+    </div>
+    <div class="chat_tools">
+        <ul>
+            <li><a class="glyphicon glyphicon-picture"></a></li>
         </ul>
     </div>
-</nav>
+    <textarea class="chat_input" autofocus="autofocus">
 
-    <!--页面中部-->
-    <div class="center_bg">
-        <div class="center_search" id="center_search" th:include="assembly::center_search">
-        </div>
+    </textarea>
+    <div class="chat_btn">
+        <button type="button" class="btn btn-info">发送</button>
+    </div>
+</div>
 
-        <div class="center_user">
-            <div class="user_img">
-                <img class="img-thumbnail" th:src="@{${user.userImg}}" />
+<!--举报框-->
+<div id="report_div" class="report_div" hidden="hidden">
+    <!--标题栏-->
+    <div class="report_title">
+        <span>举报</span>
+        <span class="title_btn">
+            <!--<a class="glyphicon glyphicon-minus"></a>-->
+            <a id="close_report" class="glyphicon glyphicon-remove"></a>
+        </span>
+    </div>
+    <!--举报内容-->
+    <div class="report_body">
+        <form class="form-horizontal" action="#" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="col-sm-1 control-label">被举报人：</label>
+                <span class="col-sm-2 control-label">被举报人</span>
             </div>
-            <div class="user_message">
-                <div class="user_message_name" th:text="${user.userName}"></div>
-                <div class="user_credit user_message_message">
-                    <label>用户信用：</label>
-                    <div>
-                        <th:block th:unless="${user.getCredit() eq 0}">
-                            <th:block th:each="num : ${#numbers.sequence(1, user.getCredit())}">
-                                <a style="line-height: 30px">
-                                    <img th:src="@{/img/light_start.png}" style="height: 20px;width: 20px;" />
-                                </a>
-                            </th:block>
-                        </th:block>
-                        <th:block th:unless="${user.getCredit() eq 5}">
-                            <th:block th:each="num : ${#numbers.sequence(user.getCredit()+1, 5)}">
-                                <a >
-                                    <img th:src="@{/img/dark_start.png}" style="height: 20px;width: 20px;" />
-                                </a>
-                            </th:block>
-                        </th:block>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">举报理由：</label>
+                <div class="col-sm-7">
+                    <textarea class="form-control"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-1 control-label">备注图片：</label>
+                <div class="row col-sm-11" style="float: right;margin-right: 10px">
+                    <div class="">
+                        <input id="file-select" name="file-select[]" type="file" multiple/>
+                        <!--<hr/>-->
+                        <!--<br/>-->
                     </div>
                 </div>
-
-                <div class="user_region user_message_message">
-                    <label>地区：</label>
-                    <span>江西</span>
-                </div>
-
-                <div class="add_user">
-                    <a onclick="return loginTip();" th:unless="${isAdd}">
-                        <input id="friendId" hidden="hidden" th:value="${user.userId}" />
-                        <img th:src="@{/img/adduser.png}" />
-                            加为好友
-                    </a>
-                    <a onclick="return chatLoginTip();" >
-                        <img th:src="@{/img/chat.png}" />
-                        联系
-                    </a>
-                    <a onclick="showReportDiv()">
-                        <img style="width: 15px;height: 15px" th:src="@{/img/report.png}" />
-                        举报
-                    </a>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <button type="submit" class="btn btn-info btn-block">提交</button>
                 </div>
             </div>
-        </div>
-
-        <div class="tabs_div">
-            <ul class="nav nav-tabs" id="nav_tabs">
-                <li class="active" index="0" onclick="selectTab(this)"><a>贡献书籍</a></li>
-                <li index="1" onclick="selectTab(this)"><a>借阅记录</a></li>
-                <li index="2" onclick="selectTab(this)"><a>寻书记录</a></li>
-            </ul>
-            <!--贡献书籍表-->
-            <table id="contribution" class="table table-striped">
-                <tr>
-                    <td>编号</td>
-                    <td>书名</td>
-                    <td>作者</td>
-                    <td>出版社</td>
-                    <td>日期</td>
-                </tr>
-                <tr th:each="book : ${user.contribution}">
-                    <td th:text="${book.bookId}"></td>
-                    <td>
-                        <a style="color: #333333;" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${book.bookId})}" th:text="${book.bookName}" target="_blank"></a>
-                    </td>
-                    <td th:text="${book.author}"></td>
-                    <td th:text="${book.publish}"></td>
-                    <td th:text="${book.bookDate}"></td>
-                </tr>
-            </table>
-
-            <!--借阅图书-->
-            <table id="borrow" class="table table-striped" hidden="hidden">
-                <tr>
-                    <td>编号</td>
-                    <td>书名</td>
-                    <td>作者</td>
-                    <td>出版社</td>
-                    <td>日期</td>
-                </tr>
-                <tr th:each="record : ${records}">
-                    <td th:text="${record.book.bookId}"></td>
-                    <td >
-                        <a style="color: #333333;" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${record.book.bookId})}" th:text="${record.book.bookName}" target="_blank"></a>
-                    </td>
-                    <td th:text="${record.book.author}"></td>
-                    <td th:text="${record.book.publish}"></td>
-                    <td th:text="${record.recordDate}"></td>
-                </tr>
-            </table>
-
-            <!--发布公告-->
-            <table id="notice" class="table table-striped" hidden="hidden">
-                <tr>
-                    <td>公告信息</td>
-                    <td>日期</td>
-                </tr>
-                <tr th:each="notice : ${user.notices}">
-                    <td th:text="${notice.noticeText}"></td>
-                    <td th:text="${notice.noticeDate}"></td>
-                </tr>
-            </table>
-        </div>
-
+        </form>
     </div>
+</div>
 
-    <!--底部-->
-    <div class="footer" align="center">
-        <p class="copyright">
-            Copyright © 2017. All Rights Reserved by dragonhht from
-            <a href="https://github.com/dragonhht" title="Github" target="_blank" style="color: gray;">dragonhht</a>
-        </p>
-    </div>
+<!--添加提示框-->
+<div class="alert"></div>
+
 </body>
-
-<!--好友添加结果-->
-<div class="result" id="result" hidden="hidden" >
-    <span class="close" onclick="hideUpdateDiv(this)">x</span>
-    <span id="message" class="text"></span>
-</div>
-
-<!--联系聊天框-->
-<div class="chat" id="chat" hidden="hidden">
-    <div class="friend_name" id="chatWithName" align="center" th:text="${user.userName}"></div>
-    <span class="close" onclick="closeChat()">x</span>
-
-    <div id="chat_div" class="chat_div">
-        <input hidden="hidden" type="text" id="chatWithId" th:value="${user.userId}" />
-        <div class="speak_box">
-
-        </div>
-
-    </div>
-    <div class="input_div">
-        <textarea id="msg" onKeyUp="keyup()"></textarea>
-        <button onClick="up_say()" class="btn btn-info">发送</button>
-    </div>
-</div>
-
-<!--举报-->
-<div class="update_div" id="report" hidden="hidden">
-    <span class="update_top" id="reportResult"></span>
-    <div class="close" onclick="hideReportDiv(this)" align="right">x</div>
-    <!--举报人-->
-    <input id="reportMan" hidden="hidden" type="text" />
-<form id="reportForm">
-    <div class="form-group form-group-lg">
-        <label class="col-sm-3 control-label">被举报人：</label>
-        <input name="informants" th:value="${user.userId}" hidden="hidden" type="text" id="informants" />
-        <span th:text="${user.userName}"></span>
-    </div>
-    <div class="form-group  form-group-lg">
-        <label class="control-label col-sm-3">举报理由：</label>
-        <textarea name="reportText" id="reportText" class="form-control" style="width: 563px; height: 148px;resize: none;" placeholder="举报理由"></textarea>
-    </div>
-    <div class="form-group" style="margin-left: auto;margin-right: auto;">
-        <label class="col-sm-2 control-label">备注图片：</label>
-        <div>
-            <span id="addImg" class="book_img_div">
-                <img style="width: 150px;height: 200px;" th:src="@{/img/add_img.png}" />
-            </span>
-        </div>
-    </div>
-    <button id="reportBtn" class="btn btn-info">提交</button>
-</form>
-</div>
-
-<!--选择图片-->
-<div class="update_div" id="update_img" hidden="hidden">
-    <div class="close" onclick="hideReportDiv(this)" align="right">x</div>
-    <span class="update_top" id="imgResult"></span>
-    <th:block th:unless="${session.user eq null}">
-        <input  th:value="${session.user.userId}" hidden="hidden" id="reportId" />
-    </th:block>
-    <form id="imgForm">
-        <div class="form-group form_group" style="margin-left: auto;margin-right: auto;">
-            <label class="col-sm-2 control-label">说明图片：&nbsp;&nbsp;&nbsp;</label>
-            <div class="col-sm-7">
-                <input type="file" id="uploadImg" name="img" placeholder="请选择图书封面图片" />
-                <input id="imgIndex" hidden="hidden" name="index" value="0" />
-                <input id="reportedId" hidden="hidden" name="reportedId" th:value="${user.userId}"/>
-            </div>
-        </div>
-        <div class="form-group form_group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="button" id="updateImgBtn" class="btn btn-primary">确定</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-<script type="text/javascript" th:inline="javascript">
-    /** 添加好友. */
-    function addFriend() {
-        var friendId = $('#friendId').val();
-        var toUrl = [[@{/user/addFriend}]];
-        $.post(toUrl,
-            {
-                friend : friendId
-            },
-        function (data) {
-            if (data) {
-                $('#message').html('添加好友成功');
-            } else {
-                $('#message').html('添加好友失败');
-            }
-            $('#result').show();
-        })
-    }
-    
-    function hideUpdateDiv() {
-        $('#result').hide();
-    }
-
-    $(document).click(function () {
-        $('#result').hide();
-    });
-
-    $("#result").click(function(event){
-        event.stopPropagation();
-    });
-
-    //添加判断是否登录
-    function loginTip() {
-        var user = [[${session.user.userId}]];
-        if (user == null) {
-            if (window.confirm("请先登录!")) {
-                window.location.replace("../../login");
-                return false;
-            } else {
-                return false;
-            }
-        } else {
-            addFriend();
-            return true;
-        }
-    }
-
-
-    var str;
-
-    function showMyMssage(text) {
-        str = '<div class="question">';
-        str += '<div class="heard_img right">' +
-            '<th:block th:unless="${session.user eq null}"><img th:src="@{${session.user.userImg}}"/></th:block></div>';
-        str += '<div class="question_text clear"><p>'+text+'</p><i></i>';
-        str += '</div></div>';
-        $('.speak_box').append(str);
-    }
-
-    function up_say(){
-        $('.write_list').remove();
-        var text = $('.input_div textarea').val();
-
-        if(text == ''){
-            alert('请输入内容！');
-            $('.input_div textarea').focus();
-        }else{
-
-            sendMessage();
-
-            showMyMssage(text);
-            $('.input_div textarea').val('');
-            $('.input_div textarea').focus();
-            autoWidth();
-            for_bottom();
-
-        }
-    }
-
-    function keyup(){
-        var footer_height = $('.wenwen-footer').outerHeight(),
-            text = $('.write_box input').val(),
-            str = '<div class="write_list">'+text+'</div>';
-        if (text == '' || text == undefined){
-            $('.write_list').remove();
-        }else{
-            $('.wenwen-footer').append(str);
-            $('.write_list').css('bottom',footer_height);
-        }
-    }
-
-    // 显示他人信息
-    function showMessage(text){
-        var ans  = '<div class="answer"><div class="heard_img left"><img src="images/dglvyou.jpg" /></div>';
-        ans += '<div class="answer_text"><p>'+ text + '</p><i></i>';
-        ans += '</div></div>';
-        $('.speak_box').append(ans);
-        for_bottom();
-    }
-
-    function for_bottom(){
-        var speak_height = $('.speak_box').height();
-        $('.speak_box').animate({scrollTop:speak_height},500);
-        scrollToBottom();
-    }
-
-    function autoWidth(){
-        $('.question_text').css('max-width',$('.question').width()-60);
-    }
-    autoWidth();
-
-    var ws = null;
-
-    /** 联系判断用户是否登录. */
-    function chatLoginTip() {
-        var user = [[${session.user.userId}]];
-        if (user == null) {
-            if (window.confirm("请先登录!")) {
-                window.location.replace("../../login");
-                return false;
-            } else {
-                return false;
-            }
-        } else {
-            console.log('联系');
-            $('#chat').show();
-            $('#chat').focus();
-            ws = new WebSocket("ws://localhost:8080/FlowBook/webSocketHandler");
-            ws.onopen = function () {
-                console.log("onpen");
-                ws.send("{}");
-            };
-            chatWith();
-            return true;
-        }
-    }
-
-    function closeChat() {
-            console.log('消失');
-            ws.onclose = function () {
-                console.log("onclose");
-            };
-            $('#chat').hide();
-    };
-
-    ws.onmessage = function (msg) {
-        var message = msg.data;
-        message = message.split("/[-=^*]");
-        var chatWithId = $('#chatWithId').val().trim();
-        if (chatWithId == message[0].trim()) {
-            showMessage(message[1]);
-        }
-    };
-
-    function sendMessage() {
-        var text = $('.input_div textarea').val();
-        var to = $('#chatWithId').val();
-        $.post('../../message',
-            {
-                message : text,
-                userId : to
-            },
-            function (data) {
-                console.log("data:" + data);
-            })
-    }
-
-    function chatWith(n) {
-        $('.speak_box').html("");
-        var friendId = $('#chatWithId').val();
-        getFriendMsg(friendId);
-    }
-
-    /*<![CDATA[*/
-    function getFriendMsg(friendId) {
-        $.post('../../chatWith',
-            {
-                friendId : friendId
-            },
-            function (data) {
-                console.log(data);
-                var friendMsg = data.friendMsg;
-                var selfMsg = data.selfMsg;
-                var friendLenght = friendMsg.length;
-                var selfLenght = selfMsg.length;
-                var i = 0, j = 0;
-                while (i < friendLenght && j < selfLenght) {
-                    if (friendMsg[i].date < selfMsg[j].date) {
-                        showMessage(friendMsg[i].message);
-                        console.log("friend : " + friendMsg[i].date);
-                        i++;
-                    } else {
-                        showMyMssage(selfMsg[j].message);
-                        console.log("self : " + selfMsg[j].date);
-                        j++;
-                    }
-                }
-                console.log(i + ' : ' + j);
-
-                for ( ; i < friendLenght; i++) {
-                    showMessage(friendMsg[i].message);
-                }
-                for ( ; j < selfLenght; j++) {
-                    showMyMssage(selfMsg[j].message);
-                }
-
-                console.log(i + ' : ' + j);
-            });
-    }
-    /*]]>*/
-    
-    function scrollToBottom() {
-        var h = $('.speak_box').height();
-        console.log("高度： " + h);
-        // $('.speak_box').scrollTop(h);
-        $('#chat_div').animate({
-                scrollTop: h
-            },
-            500);
-    }
-
-
-</script>
-
 </html>

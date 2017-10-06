@@ -3,47 +3,44 @@
 <head>
     <meta charset="UTF-8"/>
     <title>登录</title>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/login.css}" />
-    <script th:src="@{/js/login.js}" ></script>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
+    <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="../js/bootstrap.js" type="text/javascript"></script>
+    <link href="../css/login.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
 <!--顶部-->
-<nav class="navbar navbar-default navber-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a th:href="@{/index}" class="navbar-brand">图书漂流</a>
+<div>
+    <nav class="navbar navbar-default navber-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" style="cursor: pointer;">九江学院图书漂流</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-left">
+                <li class="active"><a href="index.html" onclick="selectNav(this)" style="color: gray;"><span
+                        class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li><a onclick="selectNav(this)"><span
+                        class="glyphicon glyphicon-tasks"></span> 用户寻书</a></li>
+                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
+                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-eur"></span> 新书漂流</a></li>
+
+            </ul>
+
+            <form class="top_form">
+                <input type="text"/>
+                <i class="glyphicon glyphicon-search" style="position: absolute; top: 5px; right: 60px;"></i>
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li><a onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
+                <li><a onclick="selectNav(this)"><span class="glyphicon glyphicon-leaf"></span>注册</a></li>
+            </ul>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a th:href="@{/index}" onclick="selectNav(this)" style="color: gray;"><span
-                    class="glyphicon glyphicon-home"></span> 首页</a></li>
-            <li><a th:href="@{/notice/{pageNum} (pageNum = 1)}" onclick="selectNav(this)"><span
-                    class="glyphicon glyphicon-tasks"></span> 用户寻书</a></li>
-            <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
-            <th:block th:if="${session.user eq null}">
-                <li class="active"><a th:href="@{/login}" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a>
-                </li>
-                <li><a th:href="@{/register}" onclick="selectNav(this)"><span class="glyphicon glyphicon-leaf"></span>
-                    注册</a></li>
-            </th:block>
-            <th:block th:unless="${session.user eq null}">
-                <li><a th:href="@{/user/userHome}" onclick="selectNav(this)">
-                    <span class="glyphicon glyphicon-user"></span>
-                    <span th:text="${session.user.getUserName()}"></span>
-                    <img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;"
-                         th:src="@{/img/havemsg.png}"/>
-                </a>
-                </li>
-                <li><a th:href="@{/user/logout}" onclick="selectNav(this)"><span
-                        class="glyphicon glyphicon-log-out"></span>
-                    注销</a></li>
-            </th:block>
-        </ul>
-    </div>
-</nav>
+    </nav>
+</div>
 
     <!--页面中部-->
     <div class="center_bg">
@@ -57,13 +54,13 @@
             <form th:action="@{/tourist/login}" method="post">
                 <div class="input-group login_input_div">
                     <span class="input-group-addon">
-                        <img th:src="@{/img/username_ico.gif}" />
+                        <i class="glyphicon glyphicon-user"></i>
                     </span>
                     <input type="text" name="text" class="form-control input-lg" placeholder="会员名/手机号/编号" value="1000000" />
                 </div>
                 <div class="input-group login_input_div">
                     <span class="input-group-addon">
-                        <img th:src="@{/img/password_ico.gif}" />
+                        <i class="glyphicon glyphicon-lock"></i>
                     </span>
                     <input type="password" name="password" class="form-control input-lg" placeholder="密码" value="huang" />
                 </div>

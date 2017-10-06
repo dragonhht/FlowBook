@@ -52,107 +52,17 @@ a:hover {
     padding-left: 10px;
 }
 
-.user_message_div .left_user_img {
-    margin-top: 20px;
-    width: 150px;
+.center_left_title {
+// border: 1px solid red;
+    font-weight: bolder;
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
+.book_evaluate {
+    width: 450px;
     height: 150px;
-}
-
-.user_message_div .center_user {
-//border: 1px solid green;
-    float: right;
-    margin-right: 10px;
-    width: 660px;
-    height: 200px;
-}
-
-.center_user .user_name {
-// border: 1px solid green;
-    font-size: large;
-    font-weight: bold;
-    height: 47px;
-    line-height: 47px;
-}
-
-.update_btn {
-    float: right;
-    margin-right: 30px;
-    cursor: pointer;
-    display: block;
-    width: 20px;
-    height: 20px;
-    /*margin-top: 10px;*/
-}
-
-.center_left .user_message_div {
-    height: 200px;
-}
-
-.message_div {
-// border: 1px solid red;
-    line-height: 30px;
-    height: 30px;
-}
-
-.update_btn_img {
-    width: 20px;
-    height: 20px;
-}
-
-.center_left .book_message {
-    border-top: 1px solid #DDDDDD;
-// border: 1px solid red;
-    margin: 0 auto;
-    width: 800px;
-    padding-top: 20px;
-}
-
-#nav_tabs a {
-    color: black;
-    cursor: pointer;
-}
-
-.update_div {
-    position: fixed;
-    top: 20%;
-    left: 25%;
-    width: 50%;
-    // height: 50%;
-    padding: 16px;
-    /*border: 3px solid gray;*/
-    background-color: white;
-    z-index: 3;
-    // overflow: auto;
-}
-
-.update_top {
-    color: red;
-    border: 1px solid white;
-    height: 40px;
-    line-height: 40px;
-    margin-left: 250px;
-}
-
-.update_div .close {
-    color: #0e0e0e;
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 20px;
-    display: block;
-    height: 30px;
-}
-
-#update_name {
-    height: 300px;
-}
-
-#update_email {
-    height: 340px;
-}
-
-#update_img {
-    min-height: 200px;
+    resize: none;
 }
 
 .center_right {
@@ -229,59 +139,35 @@ a:hover {
     line-height: 50px;
 }
 
-.out_bg {
-    position: absolute;
-    height: 106%;
-    width: 100%;
-    z-index: 2;
-    background-color: black;
-    opacity: 0.5;
-    top: 0;
-}
-
 .img_div {
+    border: 1px solid #EEEEEE;
+    width: 170px;
+    height: 170px;
     position: relative;
-    float: left;
 }
 
-#chengeImg {
+.img_div .change_btn {
     position: absolute;
     bottom: 0;
+    left: 0;
     background-color: black;
-    width: 150px;
-    text-align: center;
-    height: 30px;
-    line-height: 30px;
+    opacity: 0.5;
     color: white;
     font-weight: bold;
-    opacity: 0.5;
-    cursor: pointer;
-}
-
-#chengeImg span {
-    float: left;
-}
-
-.change_btn {
     width: 100%;
-}
-
-.ok_btn {
-    background-color: #286090;
-    line-height: 30px;
-    width: 70px;
-    display: none;
+    text-align: center;
+    cursor: pointer;
 }
 
 .file {
     position: relative;
     display: inline-block;
-    // background: #D0EEFF;
-    // border: 1px solid #99D3F5;
-    border-radius: 4px;
+// background: #D0EEFF;
+// border: 1px solid #99D3F5;
+    // border-radius: 4px;
     padding: 4px 12px;
     overflow: hidden;
-    // color: #1E88C7;
+// color: #1E88C7;
     text-decoration: none;
     text-indent: 0;
     line-height: 20px;
@@ -294,8 +180,61 @@ a:hover {
     opacity: 0;
 }
 .file:hover {
-    // background: #AADFFD;
-    // border-color: #78C3F3;
+// background: #AADFFD;
+// border-color: #78C3F3;
     color: #004974;
     text-decoration: none;
+}
+
+.del_type {
+    color: gray;
+    cursor: pointer;
+}
+
+#addTypeBtn {
+    font-size: larger;
+    color: gray;
+    margin-left: 10px;
+    cursor: pointer;
+    line-height: 30px;
+}
+
+.out_bg {
+    position: absolute;
+    height: 106%;
+    width: 100%;
+    z-index: 2;
+    background-color: black;
+    opacity: 0.5;
+    top: 0;
+}
+
+#types {
+    position: fixed;
+    background-color: white;
+    top: 200px;
+    z-index: 3;
+    width: 400px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+#types span {
+    border: 1px solid #EEEEEE;
+    width: 100px;
+    float: left;
+    display: block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+.type_select {
+    margin-right: 10px;
+    border: 1px solid #EEEEEE;
+    height: 30px;
+    line-height: 30px;
+    float: left;
 }
