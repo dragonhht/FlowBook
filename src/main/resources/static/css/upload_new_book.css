@@ -146,6 +146,11 @@ a:hover {
     position: relative;
 }
 
+#userImg {
+    width: 100%;
+    height: 100%;
+}
+
 .img_div .change_btn {
     position: absolute;
     bottom: 0;

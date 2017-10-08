@@ -32,7 +32,7 @@ public class UserNoticeController {
      */
     @RequestMapping("/uploadNotice")
     public String uploadNotice() {
-        return "upload_notice";
+        return "user_find_book";
     }
 
     /**

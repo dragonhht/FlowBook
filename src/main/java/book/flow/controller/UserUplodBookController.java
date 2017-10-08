@@ -42,7 +42,7 @@ public class UserUplodBookController {
      */
     @RequestMapping("/uploadBook")
     public String uploadBook() {
-        return "upload_book";
+        return "upload_new_book";
     }
 
     /**
@@ -59,7 +59,7 @@ public class UserUplodBookController {
                            MultipartFile uploadImg) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("error", bindingResult.getFieldError().getDefaultMessage());
-            return "upload_book";
+            return "upload_new_book";
         }
         User user = (User) session.getAttribute("user");
         if (user != null) {

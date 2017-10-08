@@ -17,6 +17,7 @@ $(document).ready(function () {
         var files = $('#selectImg')[0].files[0];
         var url = window.URL.createObjectURL(files);
         $('#userImg').attr('src', url);
+        $('#userImg').show();
     });
 
     /** 添加标签. */
@@ -35,6 +36,8 @@ $(document).ready(function () {
         $('#out_bg').hide();
         $('#types').hide();
     });
+
+    $('#userImg').hide();
 
 });
 

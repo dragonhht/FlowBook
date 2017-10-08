@@ -106,5 +106,6 @@ $(document).ready(function () {
         $('.ok_btn').css('display', 'block');
     });
 
+    $('#chengeImg').hide();
 
 });
