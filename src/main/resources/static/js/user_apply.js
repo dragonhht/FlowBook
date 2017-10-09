@@ -34,3 +34,41 @@ function selectTab(n) {
         $('#notice').show();
     }
 }
+
+/** 显示申请内容. */
+function showApply(id) {
+    $.post('getApplyById',
+        {
+            applyId : id
+        },
+        function(data) {
+            var height = $(document).height();
+            $('#out_bg').css('height', height);
+            $('#out_bg').show();
+            $('#applyText').html(data.applyText);
+            $('#applyBook').html(data.book.bookName + '(' + data.book.bookId + ')');
+            $($('#applyForBook').children('a')).attr('href', '../tourist/bookMessage/' + data.book.bookId);
+            $('#applyForImg').html(" ");
+            $('#applyForImg').append('<span id="imgLast" hidden="hidden"></span>');
+            for (var i= 0; i < data.imgs.length; i++) {
+                $('#imgLast').before('<img style="width: 150px;height: 200px;" src="' +data.imgs[i].path + '" />');
+            }
+            $('#applyForStatus').html(data.status);
+            $('#show_apply').show();
+        });
+}
+
+/** 关闭详细显示. */
+function hideUpdateDiv(n) {
+    $(n).parents('#show_apply').hide();
+    $('#out_bg').hide();
+}
+
+$(document).ready(function(){
+
+    $('#out_bg').click(function () {
+        $('#show_apply').hide();
+        $('#out_bg').hide();
+    });
+
+});

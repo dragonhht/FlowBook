@@ -48,7 +48,7 @@ public class UserApplyController {
             model.addAttribute("passApplies", passApplies);
             model.addAttribute("canApplyBook", canApplyBook);
         }
-        return "book_apply";
+        return "user_apply";
     }
 
     /**

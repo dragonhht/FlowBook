@@ -83,7 +83,7 @@ a:hover {
 
 .update_div {
 // display: none;
-    position: absolute;
+    position: fixed;
     top: 20%;
     left: 25%;
     width: 50%;
@@ -218,4 +218,14 @@ a:hover {
 .copyright {
     color: gray;
     line-height: 50px;
+}
+
+.out_bg {
+    position: absolute;
+    height: 106%;
+    width: 100%;
+    z-index: 2;
+    background-color: black;
+    opacity: 0.5;
+    top: 0;
 }
