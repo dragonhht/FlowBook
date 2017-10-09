@@ -120,7 +120,7 @@
                             <input type="text" name="bookId" id="bookId" class="form-control"  />
                         </div>
                         <div class="col-sm-3" id="select_book">
-                            <a index="name" class="btn btn-info" style="color: white;" onclick="showUpdateDiv(this)">选择图书</a>
+                            <a index="name" class="btn btn-info" style="color: white;" id="selectBookBtn">选择图书</a>
                         </div>
                     </div>
                     <div class="form-group" style="margin-left: auto;margin-right: auto;">
@@ -175,7 +175,7 @@
         <div class="right_select">
             <ul class="list-group">
                 <li class="list-group-item">
-                    <a href="#">
+                    <a th:href="@{/user/userHome}">
                         <span>个人信息</span>
                     </a>
                 </li>
@@ -219,9 +219,9 @@
 </div>
 
 <!--选择图书-->
-<div class="update_div" id="update_name" hidden="hidden">
+<div class="select_book" id="selectBook" hidden="hidden">
     <span class="update_top"></span>
-    <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
+    <!--<div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>-->
     <table class="table table-responsive">
         <tr>
             <td>图书编号</td>

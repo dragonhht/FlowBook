@@ -64,11 +64,28 @@ function hideUpdateDiv(n) {
     $('#out_bg').hide();
 }
 
+/** 选择申请的书籍. */
+function selectBook(id) {
+    $('#bookId').val(id);
+    $('#selectBook').hide();
+    $('#out_bg').hide();
+    $('#applyBookId').val(id);
+}
+
 $(document).ready(function(){
 
     $('#out_bg').click(function () {
         $('#show_apply').hide();
         $('#out_bg').hide();
+        $('#selectBook').hide();
+    });
+
+    /** 选择图书. */
+    $('#selectBookBtn').click(function () {
+        var height = $(document).height();
+        $('#out_bg').css('height', height);
+        $('#out_bg').show();
+        $('#selectBook').show();
     });
 
 });

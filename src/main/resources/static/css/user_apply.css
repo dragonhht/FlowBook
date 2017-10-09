@@ -229,3 +229,15 @@ a:hover {
     opacity: 0.5;
     top: 0;
 }
+
+.select_book {
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    width: 50%;
+    height: 200px;
+    padding: 16px;
+    background-color: white;
+    z-index: 3;
+    overflow: auto;
+}
