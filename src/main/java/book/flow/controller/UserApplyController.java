@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,20 +65,17 @@ public class UserApplyController {
                                MultipartFile[] fileSelect, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            for (int i = 0; i < fileSelect.length; i++) {
-                int userId = user.getUserId();
-                int imgId = userApplyService.saveApplyImg(fileSelect[i], i, bookId, userId);
-            }
-        }
-        /*System.out.println(bookId);
-        User user = (User) session.getAttribute("user");
-        if (user != null) {
             int userId = user.getUserId();
-            boolean ok = userApplyService.applyBookOut(bookId, userId, imgs);
+            List<Integer> imags = new ArrayList<>();
+            for (int i = 0; i < fileSelect.length; i++) {
+                int imgId = userApplyService.saveApplyImg(fileSelect[i], i, bookId, userId);
+                imags.add(imgId);
+            }
+            boolean ok = userApplyService.applyBookOut(bookId, userId, imags);
             if (ok) {
                 model.addAttribute("flag", "applySeccuss");
             }
-        }*/
+        }
         return "msg";
     }
 

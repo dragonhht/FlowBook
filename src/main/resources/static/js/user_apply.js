@@ -51,7 +51,7 @@ function showApply(id) {
             $('#applyForImg').html(" ");
             $('#applyForImg').append('<span id="imgLast" hidden="hidden"></span>');
             for (var i= 0; i < data.imgs.length; i++) {
-                $('#imgLast').before('<img style="width: 150px;height: 200px;" src="' +data.imgs[i].path + '" />');
+                $('#imgLast').before('<img style="width: 150px;height: 200px;margin-right: 10px;" src="' +data.imgs[i].path + '" />');
             }
             $('#applyForStatus').html(data.status);
             $('#show_apply').show();
@@ -88,22 +88,20 @@ $(document).ready(function(){
         $('#selectBook').show();
     });
 
-    $('.right_img').mouseover(function () {
-        /*var file = $('#fileSelect')[0].files[0];
-        var formData = new FormData();
-        formData.append('file[1]', file);
-        console.log($('#file-select')[0].files);*/
-        console.log($('#fileSelect')[0].files);
-    });
-
+    var index = 0;
     // 保存表单数据
     var file = new FormData();
     $('#fileSelect').change(function () {
-        var files = $('#fileSelect')[0].files[0];
-        var url = window.URL.createObjectURL(files);
-        $('#img_show').append('<img width="100px" height="130px" src=" ' + url + '" />');
-        // 将图片数据保存
-        file.append('fileSelect', files);
+        if (index < 3) {
+            var files = $('#fileSelect')[0].files[0];
+            var url = window.URL.createObjectURL(files);
+            $('#img_show').append('<img width="100px" height="130px" src=" ' + url + '" />');
+            // 将图片数据保存
+            file.append('fileSelect', files);
+            index++;
+        } else {
+            alert('最多只能选择３张图片!');
+        }
     });
 
     /** 提交申请. */

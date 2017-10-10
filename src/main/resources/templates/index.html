@@ -12,45 +12,7 @@
 </head>
 <body>
 <!--顶部-->
-<div>
-    <nav class="navbar navbar-default navber-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" style="cursor: pointer;">九江学院图书漂流</a>
-            </div>
-
-            <ul class="nav navbar-nav navbar-left">
-                <li class="active"><a onclick="selectNav(this)" style="color: gray;"><span
-                        class="glyphicon glyphicon-home"></span> 首页</a></li>
-                <li><a onclick="selectNav(this)"><span
-                        class="glyphicon glyphicon-tasks"></span> 用户寻书</a></li>
-                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
-                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-eur"></span> 新书漂流</a></li>
-
-            </ul>
-
-            <form class="top_form">
-                <input type="text"/>
-                <i class="glyphicon glyphicon-search" style="position: absolute; top: 5px; right: 60px;"></i>
-            </form>
-
-            <ul class="nav navbar-nav navbar-right">
-                <th:block th:if="${session.user eq null}">
-                    <li><a th:href="@{/login}" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
-                    <li><a th:href="@{/register}" onclick="selectNav(this)"><span class="glyphicon glyphicon-leaf"></span>注册</a></li>
-                </th:block>
-                <th:block th:unless="${session.user eq null}">
-                    <li>
-                        <a th:href="@{/user/userHome}" onclick="selectNav(this)">
-                        <img th:src="@{${session.user.userImg}}" style="width: 30px;height: 30px;margin-top: -10px" />
-                        <span th:text="${session.user.userName}"></span></a>
-                    </li>
-                    <li><a th:href="@{/user/logout}" onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 注销</a></li>
-                </th:block>
-            </ul>
-        </div>
-    </nav>
-</div>
+<div th:include="assembly::navWithSearch"></div>
 
 <div class="jumbotron">
     <div class="container">
