@@ -88,4 +88,18 @@ $(document).ready(function(){
         $('#selectBook').show();
     });
 
+    $('.right_img').mouseover(function () {
+        /*var file = $('#fileSelect')[0].files[0];
+        var formData = new FormData();
+        formData.append('file[1]', file);
+        console.log($('#file-select')[0].files);*/
+        console.log($('#fileSelect'))
+    });
+
+    $('#fileSelect').change(function () {
+        var files = $('#fileSelect')[0].files[0];
+        var url = window.URL.createObjectURL(files);
+        $('#img_show').append('<img width="100px" height="130px" src=" ' + url + '" />');
+    });
+
 });

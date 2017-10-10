@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>用户信息</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
-    <script src="../js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="../js/bootstrap.js" type="text/javascript"></script>
-    <link href="../css/user.css" rel="stylesheet" type="text/css"/>
-    <script src="../js/user.js" type="text/javascript"></script>
-    <link href="../css/fileinput.min.css" rel="stylesheet" type="text/css"/>
-    <script src="../js/fileinput.js" type="text/javascript"></script>
-    <script src="../js/zh.js" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" href="../css/alert.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"/>
+    <script src="../static/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <script src="../static/js/bootstrap.js" type="text/javascript"></script>
+    <link href="../static/css/user.css" rel="stylesheet" type="text/css"/>
+    <script src="../static/js/user.js" type="text/javascript"></script>
+    <link href="../static/css/fileinput.min.css" rel="stylesheet" type="text/css"/>
+    <script src="../static/js/fileinput.js" type="text/javascript"></script>
+    <script src="../static/js/zh.js" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" href="../static/css/alert.css"/>
 </head>
 <body>
 
@@ -62,7 +62,7 @@
 
     <div class="center_user">
         <div class="user_img">
-            <img class="img-thumbnail" src="../img/user.png"/>
+            <img class="img-thumbnail" src="../static/img/user.png"/>
         </div>
         <div class="user_message">
             <div class="user_message_name">用户名</div>
@@ -91,15 +91,15 @@
             <div class="add_user">
                 <a onclick="return loginTip();">
                     <input id="friendId" hidden="hidden"/>
-                    <img src="../img/adduser.png"/>
+                    <img src="../static/img/adduser.png"/>
                     加入聊天列表
                 </a>
                 <a onclick="return chatLoginTip();">
-                    <img src="../img/chat.png"/>
+                    <img src="../static/img/chat.png"/>
                     联系
                 </a>
                 <a onclick="showReportDiv()">
-                    <img style="width: 15px;height: 15px" src="../img/report.png"/>
+                    <img style="width: 15px;height: 15px" src="../static/img/report.png"/>
                     举报
                 </a>
             </div>
@@ -199,7 +199,7 @@
 <div id="user_chat_div" class="user_chat_div" hidden="hidden">
     <!--头部-->
     <div class="chat_title">
-        <img class="img-rounded" src="../img/user.png" width="40px" height="40px"/>
+        <img class="img-rounded" src="../static/img/user.png" width="40px" height="40px"/>
         <span class="user_name">用户名</span>
         <span class="title_btn">
             <!--<a class="glyphicon glyphicon-minus"></a>-->

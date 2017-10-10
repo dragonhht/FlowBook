@@ -120,16 +120,25 @@
                             <input type="text" name="bookId" id="bookId" class="form-control"  />
                         </div>
                         <div class="col-sm-3" id="select_book">
-                            <a index="name" class="btn btn-info" style="color: white;" id="selectBookBtn">选择图书</a>
+                            <a index="name" class="btn btn-primary" style="color: white;" id="selectBookBtn">选择图书</a>
                         </div>
                     </div>
                     <div class="form-group" style="margin-left: auto;margin-right: auto;">
                         <label class="col-sm-2 control-label">图书损坏图片：</label>
-                        <div>
+                        <!--<div>
                         <span id="addImg" class="book_img_div">
-                            <img style="width: 150px;height: 200px;" th:src="@{/img/add_img.png}" />
-                            <input name="img" type="file" hidden="hidden" style="display: none" />
+                            <img style="width: 150px;height: 200px;" th:src="@{/img/add_img.png}"/>
+                            <input name="img" type="file" hidden="hidden" style="display: none"/>
                         </span>
+                        </div>-->
+                        <div class="row col-sm-10" style="float: right;margin-right: 10px">
+                            <div class="file">
+                                添加图片
+                                <input id="fileSelect" name="file_select[]" type="file" multiple="multiple"/>
+                            </div>
+                            <div id="img_show" class="img_show">
+                                <!--<img width="100px" height="130px" th:src="@{/img/21.png}" />-->
+                            </div>
                         </div>
                     </div>
                     <div class="form-group upload_btn">

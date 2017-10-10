@@ -50,7 +50,7 @@ a:hover {
     min-height: 550px;
     padding-top: 20px;
     padding-left: 10px;
-    padding-right: 10px;
+    // padding-right: 10px;
 }
 
 .center_left #nav_tabs {
@@ -240,4 +240,41 @@ a:hover {
     background-color: white;
     z-index: 3;
     overflow: auto;
+}
+
+.file {
+    position: relative;
+    display: inline-block;
+    background: #286090;
+ // border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: white;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 25px;
+    width: 85px;
+    height: 35px;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+}
+.file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.file:hover {
+    text-decoration: none;
+}
+
+.img_show {
+    /*border: 1px solid red;*/
+}
+
+.img_show img {
+    margin-right: 10px;
 }
