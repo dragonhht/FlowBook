@@ -116,19 +116,16 @@ public class TouristRegisterAndLoginController {
     /**
      * 检测用户名是否已经注册.
      * @param userName 用户名
-     * @param response 用于返回信息
      */
     @PostMapping("/test_username")
     @ResponseBody
-    public boolean testUserName(String userName, HttpServletResponse response) throws IOException {
-        /*response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();*/
-        boolean ok;
-        ok = touristService.isUserExist(userName);
+    public boolean testUserName(String userName) throws IOException {
+        System.out.println(":" + userName + ":");
+        boolean ok = false;
+        ok = touristService.isUserNotExist(userName);
         if (userName == null || "".equals(userName.trim())) {
-            ok = true;
+            ok = false;
         }
-        //out.print(ok);
         return ok;
     }
 

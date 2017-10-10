@@ -192,10 +192,10 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
-    public boolean isUserExist(String userName) {
+    public boolean isUserNotExist(String userName) {
         boolean ok = false;
         User user = userRepository.getUserByUserName(userName);
-        if (user != null) {
+        if (user == null) {
             ok = true;
         }
         return ok;

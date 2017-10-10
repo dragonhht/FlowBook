@@ -113,7 +113,7 @@ public interface TouristService {
      * @param userName 用户名
      * @return 用户是否存在，true为存在
      */
-    boolean isUserExist(String userName);
+    boolean isUserNotExist(String userName);
 
     /**
      * 通过图书编号获取图书当前的拥有者.
