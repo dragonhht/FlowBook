@@ -60,8 +60,16 @@ public class UserApplyController {
      * @return 信息页面
      */
     @PostMapping("/applyOut")
-    public String applyBookOut(Integer bookId, @RequestParam("imgs") List<Integer> imgs, HttpSession session, Model model) {
-        System.out.println(bookId);
+    public String applyBookOut(Integer bookId, /*@RequestParam("imgs") List<Integer> imgs,*/
+                               MultipartFile[] fileSelect, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            for (int i = 0; i < fileSelect.length; i++) {
+                int userId = user.getUserId();
+                int imgId = userApplyService.saveApplyImg(fileSelect[i], i, bookId, userId);
+            }
+        }
+        /*System.out.println(bookId);
         User user = (User) session.getAttribute("user");
         if (user != null) {
             int userId = user.getUserId();
@@ -69,7 +77,7 @@ public class UserApplyController {
             if (ok) {
                 model.addAttribute("flag", "applySeccuss");
             }
-        }
+        }*/
         return "msg";
     }
 

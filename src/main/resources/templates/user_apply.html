@@ -112,7 +112,7 @@
             </ul>
 
             <div class="apply_out">
-                <form class="form-horizontal" enctype="multipart/form-data" method="post" th:action="@{/user/applyOut}">
+                <form id="applyForm" class="form-horizontal" enctype="multipart/form-data">
 
                     <div class="form-group" style="margin-left: auto;margin-right: auto;">
                         <label class="col-sm-2 control-label">图书漂流编号：</label>
@@ -134,7 +134,7 @@
                         <div class="row col-sm-10" style="float: right;margin-right: 10px">
                             <div class="file">
                                 添加图片
-                                <input id="fileSelect" name="file_select[]" type="file" multiple="multiple"/>
+                                <input id="fileSelect" name="file_select" type="file"/>
                             </div>
                             <div id="img_show" class="img_show">
                                 <!--<img width="100px" height="130px" th:src="@{/img/21.png}" />-->
@@ -143,7 +143,7 @@
                     </div>
                     <div class="form-group upload_btn">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">提交申请</button>
+                            <button id="submitApply" type="button" class="btn btn-primary">提交申请</button>
                         </div>
                     </div>
                 </form>

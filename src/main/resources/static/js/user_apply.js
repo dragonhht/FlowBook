@@ -93,13 +93,38 @@ $(document).ready(function(){
         var formData = new FormData();
         formData.append('file[1]', file);
         console.log($('#file-select')[0].files);*/
-        console.log($('#fileSelect'))
+        console.log($('#fileSelect')[0].files);
     });
 
+    // 保存表单数据
+    var file = new FormData();
     $('#fileSelect').change(function () {
         var files = $('#fileSelect')[0].files[0];
         var url = window.URL.createObjectURL(files);
         $('#img_show').append('<img width="100px" height="130px" src=" ' + url + '" />');
+        // 将图片数据保存
+        file.append('fileSelect', files);
+    });
+
+    /** 提交申请. */
+    $('#submitApply').click(function () {
+        var bookId = $('#bookId').val().trim();
+        file.append('bookId', bookId);
+        $.ajax({
+            url : 'applyOut',
+            type : 'post',
+            data : file,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+            },
+            error: function (data) {
+
+            }
+        });
     });
 
 });
