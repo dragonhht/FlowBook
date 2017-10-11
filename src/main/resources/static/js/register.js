@@ -5,6 +5,25 @@ function changImg() {
 
 $(document).ready(function () {
 
+    /** 判断学号是否已经存在. */
+    var idexit = true;
+    $('#stuId').blur(function () {
+        var numVal = $('#stuId').val().trim();
+        $.post('tourist/test_userid',
+            {
+                userId : numVal
+            },
+            function (data) {
+            idexit = data;
+                if (!data) {
+                    $('.alert').html('该学号已注册').addClass('alert-danger').show().delay(2000).fadeOut();
+                    $('#idDiv').addClass('has-error');
+                } else {
+                    $('#idDiv').removeClass('has-error');
+                }
+            })
+    });
+
     /** 学号校验下一步. */
     $('#stuIdNext').click(function () {
         // 判断学号是否为空
@@ -12,7 +31,7 @@ $(document).ready(function () {
         var numVal = $('#stuId').val().trim();
         if (numVal != null && numVal != undefined && numVal != '') {
             // 判断是否为数字或字母
-            var reg = /^[0-9a-zA-Z]+$/;
+            var reg = /^[0-9]+$/;
             if(!reg.test(numVal)){
                 $('.alert').html('学号不正确').addClass('alert-danger').show().delay(2000).fadeOut();
                 return;
@@ -42,11 +61,26 @@ $(document).ready(function () {
             return;
         }
 
-        if (name && name && code) {
-            $('#title_0').removeClass('active');
-            $('#title_1').addClass('active');
-            $('#check_stuId').hide();
-            $('#account_information').show();
+        if (name && name && code && idexit) {
+
+            $.post('tourist/putuserid',
+                {
+                    userId : numVal,
+                    stuName : nameVal,
+                    code : codeVal
+                },
+                function (data) {
+                    if (data) {
+                        $('#title_0').removeClass('active');
+                        $('#title_1').addClass('active');
+                        $('#check_stuId').hide();
+                        $('#account_information').show();
+                    } else {
+                        $('.alert').html('验证码错误').addClass('alert-danger').show().delay(2000).fadeOut();
+                    }
+                });
+
+
         }
     });
 
@@ -54,6 +88,12 @@ $(document).ready(function () {
     // 用户名是否存在
     var userName = false;
     $('#userMessageNext').click(function () {
+        var username = $('#username').val().trim();
+        if (!(username != null && username != undefined && username != '')) {
+            $('.alert').html('用户名不能为空').addClass('alert-danger').show().delay(2000).fadeOut();
+            userName = false;
+            return;
+        }
         var password = false;
         var passwordVal = $('#password').val().trim();
         if (passwordVal != null && passwordVal != undefined && passwordVal != '') {
@@ -77,11 +117,23 @@ $(document).ready(function () {
             return;
         }
 
-        if (password && repassword) {
-            $('#title_1').removeClass('active');
-            $('#title_2').addClass('active');
-            $('#account_information').hide();
-            $('#check_phone').show();
+        if (password && repassword && userName) {
+            $.post('tourist/setusername',
+                {
+                    userName : username,
+                    possword : passwordVal,
+                    repossword : repasswordVal
+                },
+                function (data) {
+                    if (data) {
+                        $('#title_1').removeClass('active');
+                        $('#title_2').addClass('active');
+                        $('#account_information').hide();
+                        $('#check_phone').show();
+                    } else {
+                        $('.alert').html('两次密码不一致').addClass('alert-danger').show().delay(2000).fadeOut();
+                    }
+                });
         }
     });
 
@@ -125,10 +177,23 @@ $(document).ready(function () {
             return;
         }
 
-        $('#title_2').removeClass('active');
-        $('#title_3').addClass('active');
-        $('#check_phone').hide();
-        $('#check_email').show();
+        $.post('tourist/setphone',
+            {
+                phone : phoneVal,
+                code : vodeVal
+            },
+            function (data) {
+                if (data) {
+                    $('#title_2').removeClass('active');
+                    $('#title_3').addClass('active');
+                    $('#check_phone').hide();
+                    $('#check_email').show();
+                } else {
+                    $('.alert').html('验证码错误').addClass('alert-danger').show().delay(2000).fadeOut();
+                }
+            });
+
+
     });
 
     /** 获取手机验证码. */
@@ -141,6 +206,15 @@ $(document).ready(function () {
             return;
         } else {
             phone = true;
+        }
+        if (phone) {
+            $.post('tourist/sendSMS',
+                {
+                    recipient : phoneVal
+                },
+                function (data) {
+                    // TODO 手机校验码发送后
+                });
         }
     });
 
@@ -166,10 +240,21 @@ $(document).ready(function () {
             return;
         }
 
-        $('#title_3').removeClass('active');
-        $('#title_4').addClass('active');
-        $('#check_email').hide();
-        $('#register_success').show();
+        $.post('tourist/setemail',
+            {
+                email : emailVal,
+                code : vodeVal
+            },
+            function (data) {
+                if (data) {
+                    $('#title_3').removeClass('active');
+                    $('#title_4').addClass('active');
+                    $('#check_email').hide();
+                    $('#register_success').show();
+                } else {
+                    $('.alert').html('验证码错误').addClass('alert-danger').show().delay(2000).fadeOut();
+                }
+            });
     });
 
     $('#emailCodeBtn').click(function () {
@@ -180,7 +265,15 @@ $(document).ready(function () {
             $('.alert').html('请输入可用的电子邮箱').addClass('alert-danger').show().delay(2000).fadeOut();
             return;
         } else {
-            email = true;
+
+            $.post('tourist/testemail',
+                {
+                    email : emailVal
+                },
+                function (data) {
+                    //　TODO 发送邮件后
+                });
+
         }
     });
 
