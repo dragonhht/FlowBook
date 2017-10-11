@@ -27,7 +27,7 @@
                 <img id="userImg" th:src="@{${session.user.userImg}}" class="img-thumbnail left_user_img"/>
                 <span id="chengeImg">
                     <span class="file change_btn" hidden="hidden">更换头像
-                        <input type="file" name="" id="selectImg"
+                        <input type="file" name="userImg" id="selectImg"
                                accept="image/gif,image/jpeg,image/jpg,image/png,image/svg"/>
                     </span>
                     <span class="ok_btn">确定</span>
@@ -56,7 +56,8 @@
                         <th:block th:unless="${session.user.getCredit() eq 5}">
                             <th:block th:each="num : ${#numbers.sequence(session.user.getCredit()+1, 5)}">
                                 <a style="line-height: 30px">
-                                    <i class="glyphicon glyphicon-star-empty" style="color: green;font-size: medium;"></i>
+                                    <i class="glyphicon glyphicon-star-empty"
+                                       style="color: green;font-size: medium;"></i>
                                 </a>
                             </th:block>
                         </th:block>
@@ -80,7 +81,6 @@
         </div>
 
         <div class="book_message">
-
             <ul class="nav nav-tabs" id="nav_tabs">
                 <li class="active" index="0" onclick="selectTab(this)"><a>贡献书籍</a></li>
                 <li index="1" onclick="selectTab(this)"><a>现有书籍</a></li>
@@ -235,7 +235,7 @@
     </div>
     <div class="form-group form_group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button onclick="checkEmail()" type="button" style="margin-bottom: 20px;" class="btn btn-info">校验新邮箱
+            <button id="checkEmailBtn" type="button" style="margin-bottom: 20px;" class="btn btn-info">校验新邮箱
             </button>
         </div>
     </div>
@@ -247,7 +247,7 @@
     </div>
     <div class="form-group form_group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button onclick="updateEmail()" class="btn btn-info">确认修改</button>
+            <button id="updateEmailBtn" class="btn btn-info">确认修改</button>
         </div>
     </div>
 </div>

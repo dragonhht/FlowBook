@@ -39,7 +39,7 @@
                 <th:block th:unless="${session.user eq null}">
                     <li>
                         <a th:href="@{/user/userHome}" onclick="selectNav(this)">
-                            <img th:src="@{${session.user.userImg}}"
+                            <img class="img-circle" th:src="@{${session.user.userImg}}"
                                  style="width: 30px;height: 30px;margin-top: -10px"/>
                             <span th:text="${session.user.userName}"></span></a>
                     </li>
@@ -78,7 +78,7 @@
                 <th:block th:unless="${session.user eq null}">
                     <li>
                         <a th:href="@{/user/userHome}" onclick="selectNav(this)">
-                            <img th:src="@{${session.user.userImg}}"
+                            <img class="img-circle" th:src="@{${session.user.userImg}}"
                                  style="width: 30px;height: 30px;margin-top: -10px"/>
                             <span th:text="${session.user.userName}"></span></a>
                     </li>
@@ -93,7 +93,7 @@
 <!--用户右侧导航-->
 <div class="center_right" th:fragment="navUserRight">
     <div class="right_img">
-        <img src="../img/user.png" class="img-thumbnail user_img"/>
+        <img th:src="@{${session.user.userImg}}" class="img-thumbnail user_img"/>
         <div class="img_user">
             <span class="user_name" th:text="${session.user.getUserName()}"></span><br/>
             <div class="img_user_credit">

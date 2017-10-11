@@ -108,4 +108,60 @@ $(document).ready(function () {
 
     $('#chengeImg').hide();
 
+    /** 上传图片. */
+    $('.ok_btn').click(function () {
+        var image = new FormData();
+        var file = $('#selectImg')[0].files[0];
+        image.append('uploadImg', file);
+        $.ajax({
+            url : 'updateUserImg',
+            type : 'post',
+            data : image,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data == 'ok') {
+                    location.reload(true);
+                }
+            },
+            error: function (data) {
+
+            }
+        });
+    });
+
+    /** 校验邮箱. */
+    $('#checkEmailBtn').click(function () {
+        var newEmail = $('#newEmail').val().trim();
+        $.post('checkEmail',
+            {
+                email : newEmail
+            },
+            function (data) {
+                if (data) {
+                    // TODO 校验处理
+                }
+            });
+    });
+
+    /** 修改邮箱. */
+    $('#updateEmailBtn').click(function () {
+        var oldEmail = $('#oldEmail').val().trim();
+        var newEmail = $('#newEmail').val().trim();
+        var code = $('#updateEmailCode').val().trim();
+        $.post('updateEmail',
+            {
+                oldEmail : oldEmail,
+                newEmail : newEmail,
+                code : code
+            },
+            function (data) {
+                if (data == 'ok') {
+                    location.reload(true);
+                }
+            });
+    });
+
 });
