@@ -25,21 +25,21 @@ public class UserHomeServiceImp implements UserHomeService {
     private RecordRepository recordRepository;
 
     @Override
-    public List<LoanRecord> getAllRecode(int userId) {
+    public List<LoanRecord> getAllRecode(String userId) {
         List<LoanRecord> records = null;
         records = recordRepository.getRecodeByUserId(userId);
         return records;
     }
 
     @Override
-    public List<LoanRecord> getOutRecode(int userId) {
+    public List<LoanRecord> getOutRecode(String userId) {
         List<LoanRecord> records = null;
         records = recordRepository.getOutRecodeByUserId(userId);
         return records;
     }
 
     @Override
-    public List<LoanRecord> getHaveRecode(int userId) {
+    public List<LoanRecord> getHaveRecode(String userId) {
         List<LoanRecord> records = null;
         records = recordRepository.getHaveRecodeByUserId(userId);
         return records;
@@ -63,7 +63,7 @@ public class UserHomeServiceImp implements UserHomeService {
     }
 
     @Override
-    public boolean updateUserEmail(String email, int userId) {
+    public boolean updateUserEmail(String email, String userId) {
         boolean ok = false;
         int i = 0;
         i = userRepository.updateUserEmail(email, userId);
@@ -74,7 +74,7 @@ public class UserHomeServiceImp implements UserHomeService {
     }
 
     @Override
-    public boolean updateUserImg(String path, int userId) {
+    public boolean updateUserImg(String path, String userId) {
         boolean ok = false;
         int i = 0;
         i = userRepository.updateUserImg(path, userId);

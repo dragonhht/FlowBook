@@ -30,7 +30,7 @@ public class UserUplodBookServiceImp implements UserUplodBookService {
 
     @Override
     @Transactional
-    public Book uploadBook(Book book, int userId) {
+    public Book uploadBook(Book book, String userId) {
         User user = userRepository.getUserById(userId);
         book.setBookDate(new Date());
         book.setContributor(user);

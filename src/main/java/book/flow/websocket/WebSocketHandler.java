@@ -49,7 +49,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
         }
     }
 
-    public void addChatRecord(Integer selfId, Integer clientId, TextMessage message) {
+    public void addChatRecord(String selfId, String clientId, TextMessage message) {
         User sender = userService.getUserById(selfId);
         User receiver = userService.getUserById(clientId);
 
@@ -67,7 +67,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
      * @param message
      * @return
      */
-    public boolean sendMessageToUser(Integer selfId, Integer clientId, TextMessage message) {
+    public boolean sendMessageToUser(String selfId, String clientId, TextMessage message) {
         if (users.get(clientId) == null) {
 
             addChatRecord(selfId, clientId, message);

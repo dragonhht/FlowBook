@@ -39,7 +39,7 @@ public class UserReportServiceImp implements UserReportService {
     private ReportImgRepository reportImgRepository;
 
     @Override
-    public int saveReportImg(int index, int reportedId, int userId, MultipartFile img) {
+    public int saveReportImg(int index, String reportedId, String userId, MultipartFile img) {
         int imgId = 0;
         String imgPath = "report_img/" + userId + "/" + reportedId + "_" + index + ".png";
         imgPath = fileService.store(img, imgPath);
@@ -55,7 +55,7 @@ public class UserReportServiceImp implements UserReportService {
     }
 
     @Override
-    public boolean saveReport(int reportId, int beReportId, String text, String[] img) {
+    public boolean saveReport(String reportId, String beReportId, String text, String[] img) {
         boolean ok = false;
         User report = userRepository.getUserById(reportId);
         User beReport = userRepository.getUserById(beReportId);

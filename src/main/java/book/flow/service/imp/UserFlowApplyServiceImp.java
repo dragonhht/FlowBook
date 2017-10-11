@@ -32,7 +32,7 @@ public class UserFlowApplyServiceImp implements UserFlowApplyService {
     private RecordRepository recordRepository;
 
     @Override
-    public boolean saveFlowApply(int bookId, int toUserId, String wantSay, int userId) {
+    public boolean saveFlowApply(int bookId, String toUserId, String wantSay, String userId) {
         boolean ok = false;
         Book book = bookRepository.getBookById(bookId);
         User toUser = userRepository.getUserById(toUserId);
@@ -52,35 +52,35 @@ public class UserFlowApplyServiceImp implements UserFlowApplyService {
     }
 
     @Override
-    public List<FlowApply> getFlowApplyByToUser(int toUserId) {
+    public List<FlowApply> getFlowApplyByToUser(String toUserId) {
         List<FlowApply> applies = null;
         applies = flowApplyRepository.getApplyByToUser(toUserId);
         return applies;
     }
 
     @Override
-    public List<FlowApply> getNotLookApplyByToUser(int toUserId) {
+    public List<FlowApply> getNotLookApplyByToUser(String toUserId) {
         List<FlowApply> applies = null;
         applies = flowApplyRepository.getNotLookApplyByToUser(toUserId);
         return applies;
     }
 
     @Override
-    public List<FlowApply> getLookedApplyByToUser(int toUserId) {
+    public List<FlowApply> getLookedApplyByToUser(String toUserId) {
         List<FlowApply> applies = null;
         applies = flowApplyRepository.getLookedApplyByToUser(toUserId);
         return applies;
     }
 
     @Override
-    public List<FlowApply> getDealingApplyByToUser(int toUserId) {
+    public List<FlowApply> getDealingApplyByToUser(String toUserId) {
         List<FlowApply> applies = null;
         applies = flowApplyRepository.getDealingApplyByToUser(toUserId);
         return applies;
     }
 
     @Override
-    public List<FlowApply> getMyFlowApplies(int userId) {
+    public List<FlowApply> getMyFlowApplies(String userId) {
         List<FlowApply> applies = null;
         applies = flowApplyRepository.getMyFlowApplies(userId);
         return applies;

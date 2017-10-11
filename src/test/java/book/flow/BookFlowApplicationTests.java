@@ -50,7 +50,7 @@ public class BookFlowApplicationTests {
     @Test
     public void addComment() {
         User user = new User();
-        user.setUserId(1000000);
+        user.setUserId("1000000");
         int id = 1000002;
         for (int i = 0; i < 50; i++) {
             Book book = new Book();
@@ -105,7 +105,7 @@ public class BookFlowApplicationTests {
         Book book = new Book();
         book.setBookId(1000000);
         User user = new User();
-        user.setUserId(1000000);
+        user.setUserId("1000000");
         for (int i = 0; i < 10; i++) {
             BookRoute route = new BookRoute();
             route.setBook(book);

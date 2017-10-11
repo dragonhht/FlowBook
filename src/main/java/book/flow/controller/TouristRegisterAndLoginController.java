@@ -113,6 +113,8 @@ public class TouristRegisterAndLoginController {
         return "msg";
     }
 
+
+
     /**
      * 检测用户名是否已经注册.
      * @param userName 用户名

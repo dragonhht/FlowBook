@@ -17,7 +17,7 @@ public interface UserReportService {
      * @param img 图片
      * @return 图片编号
      */
-    int saveReportImg(int index, int reportedId, int userId, MultipartFile img);
+    int saveReportImg(int index, String reportedId, String userId, MultipartFile img);
 
     /**
      * 保存举报.
@@ -27,6 +27,6 @@ public interface UserReportService {
      * @param img 图片
      * @return 结果
      */
-    boolean saveReport(int reportId, int beReportId, String text, String[] img);
+    boolean saveReport(String reportId, String beReportId, String text, String[] img);
 
 }

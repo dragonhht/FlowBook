@@ -37,7 +37,7 @@ public class UserFriendController {
         List<User> notFriend = null;
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int selfId = user.getUserId();
+            String selfId = user.getUserId();
             friends = userFriendService.getFriends(selfId);
             idList = userFriendService.getSenderId(selfId);
             notFriend = userFriendService.getNotFriend(selfId);
@@ -56,11 +56,11 @@ public class UserFriendController {
      */
     @PostMapping("/addFriend")
     @ResponseBody
-    public boolean addFriend(int friend, HttpSession session) {
+    public boolean addFriend(String friend, HttpSession session) {
         boolean ok = false;
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
+            String userId = user.getUserId();
             ok = userFriendService.addFriend(userId, friend);
         }
         return ok;
@@ -73,10 +73,10 @@ public class UserFriendController {
      */
     @PostMapping("/delFriend")
     @ResponseBody
-    public void delFriend(int friendId, HttpSession session) {
+    public void delFriend(String friendId, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int selfId = user.getUserId();
+            String selfId = user.getUserId();
             userFriendService.delFriend(selfId, friendId);
             userFriendService.setChatReaded(selfId, friendId);
         }
@@ -89,10 +89,10 @@ public class UserFriendController {
      */
     @PostMapping("/readedChat")
     @ResponseBody
-    public void readedChat(int friendId, HttpSession session) {
+    public void readedChat(String friendId, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int selfId = user.getUserId();
+            String selfId = user.getUserId();
             userFriendService.setChatReaded(selfId, friendId);
         }
     }

@@ -15,21 +15,21 @@ public interface UserHomeService {
      * @param userId 用户编号
      * @return 借阅记录
      */
-    List<LoanRecord> getAllRecode(int userId);
+    List<LoanRecord> getAllRecode(String userId);
 
     /**
      * 获取用户所有的借出记录.
      * @param userId 用户编号
      * @return 借出记录
      */
-    List<LoanRecord> getOutRecode(int userId);
+    List<LoanRecord> getOutRecode(String userId);
 
     /**
      * 获取用户所有的当前拥有记录.
      * @param userId 用户编号
      * @return 当前拥有记录
      */
-    List<LoanRecord> getHaveRecode(int userId);
+    List<LoanRecord> getHaveRecode(String userId);
 
     /**
      * 向邮箱发送校验码.
@@ -44,7 +44,7 @@ public interface UserHomeService {
      * @param userId 用户编号
      * @return 是否修改成功
      */
-    boolean updateUserEmail(String email, int userId);
+    boolean updateUserEmail(String email, String userId);
 
     /**
      * 修改用户头像.
@@ -52,5 +52,5 @@ public interface UserHomeService {
      * @param userId 用户编号
      * @return 是否修改成功, true为成功
      */
-    boolean updateUserImg(String path, int userId);
+    boolean updateUserImg(String path, String userId);
 }

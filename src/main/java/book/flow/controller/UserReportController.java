@@ -32,10 +32,10 @@ public class UserReportController {
      */
     @PostMapping("/uploadReportImg")
     @ResponseBody
-    public String uploadReportImg(int index, int reportedId, MultipartFile img , HttpSession session) {
+    public String uploadReportImg(int index, String reportedId, MultipartFile img , HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
+            String userId = user.getUserId();
             int imgId = userReportService.saveReportImg(index, reportedId, userId, img);
             return String.valueOf(imgId);
         }
@@ -52,11 +52,11 @@ public class UserReportController {
      */
     @PostMapping("/saveReport")
     @ResponseBody
-    public boolean saveReport(int informants, String reportText, String[] imgs, HttpSession session) {
+    public boolean saveReport(String informants, String reportText, String[] imgs, HttpSession session) {
         boolean ok = false;
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
+            String userId = user.getUserId();
             ok = userReportService.saveReport(userId, informants, reportText, imgs);
         }
         return ok;

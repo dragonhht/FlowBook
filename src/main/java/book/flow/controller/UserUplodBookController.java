@@ -63,7 +63,7 @@ public class UserUplodBookController {
         }
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
+            String userId = user.getUserId();
             Set<Type> typeSet = new HashSet<>();
             for (int type : types) {
                 Type t = new Type();

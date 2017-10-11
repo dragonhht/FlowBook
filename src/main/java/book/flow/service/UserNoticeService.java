@@ -13,6 +13,6 @@ public interface UserNoticeService {
      * @param userId 用户编号
      * @return 是否成功， true为成功
      */
-    boolean addNotice(String text, int userId);
+    boolean addNotice(String text, String userId);
 
 }

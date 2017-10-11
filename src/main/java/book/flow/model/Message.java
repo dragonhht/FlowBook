@@ -12,7 +12,7 @@ public class Message {
     /** 信息. */
     private String message;
     /** 接受的用户编号. */
-    private Integer userId;
+    private String userId;
     /** 时间. */
     private String sendDate;
 
@@ -37,11 +37,11 @@ public class Message {
         this.message = message;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

@@ -19,7 +19,7 @@ public interface UserFriendService {
      * @param friendId 对方编号
      * @return 是否添加成功
      */
-    boolean addFriend(int selfId, int friendId);
+    boolean addFriend(String selfId, String friendId);
 
     /**
      * 判断好友是否已经添加.
@@ -27,21 +27,21 @@ public interface UserFriendService {
      * @param friendId 好友编号
      * @return 是否已经添加， true为已添加
      */
-    boolean isFriendExist(int selfId, int friendId);
+    boolean isFriendExist(String selfId, String friendId);
 
     /**
      * 获取好友.
      * @param selfId 用户编号
      * @return 好友信息
      */
-    List<User> getFriends(int selfId);
+    List<User> getFriends(String selfId);
 
     /**
      * 获取好友编号.
      * @param selfId 用户编号
      * @return 好友信息
      */
-    List<Integer> getFriendsId(int selfId);
+    List<Integer> getFriendsId(String selfId);
 
     /**
      * 保存聊天信息.
@@ -57,7 +57,7 @@ public interface UserFriendService {
      * @param userId 用户编号
      * @return 发送消息的用户编号
      */
-    List<Integer> getSenderId(int userId);
+    List<Integer> getSenderId(String userId);
 
     /**
      * 获取指定好友的信息.
@@ -65,7 +65,7 @@ public interface UserFriendService {
      * @param friendId 好友编号
      * @return 信息
      */
-    List<MsgModel> getFriendMsg(int selfId, int friendId);
+    List<MsgModel> getFriendMsg(String selfId, String friendId);
 
 
     /**
@@ -74,14 +74,14 @@ public interface UserFriendService {
      * @param friendId 好友编号
      * @return 信息
      */
-    List<MsgModel> getToFriendMsg(int selfId, int friendId);
+    List<MsgModel> getToFriendMsg(String selfId, String friendId);
 
     /**
      * 获取聊天信息中非好友用户
      * @param selfId 用户编号
      * @return 非好友信息
      */
-    List<User> getNotFriend(int selfId);
+    List<User> getNotFriend(String selfId);
 
     /**
      * 将信息标为已读.
@@ -89,7 +89,7 @@ public interface UserFriendService {
      * @param friendId 好友编号
      * @return 是否成功， true为成功
      */
-    boolean setChatReaded(int selfId, int friendId);
+    boolean setChatReaded(String selfId, String friendId);
 
     /**
      * 删除好友.
@@ -97,7 +97,7 @@ public interface UserFriendService {
      * @param friendId 好友编号
      * @return 是否成功， true为成功
      */
-    boolean delFriend(int selfId, int friendId);
+    boolean delFriend(String selfId, String friendId);
 
 
     /**
@@ -105,6 +105,6 @@ public interface UserFriendService {
      * @param userId 用户编号
      * @return 头像地址
      */
-    String getUserImg(int userId);
+    String getUserImg(String userId);
 
 }

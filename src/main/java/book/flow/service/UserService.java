@@ -30,7 +30,7 @@ public interface UserService {
      * @param bookId 评论的图书
      * @return 是否成功， true为成功
      */
-    boolean addComment(String text, int userId, int bookId);
+    boolean addComment(String text, String userId, int bookId);
 
     /**
      * 保存图片路径.
@@ -44,14 +44,14 @@ public interface UserService {
      * @param userId 用户编号
      * @return 用户信息
      */
-    User getUserById(int userId);
+    User getUserById(String userId);
 
     /**
      * 查询用户唯独信息数量.
      * @param userId 用户编号
      * @return 信息数量
      */
-    long msgCount(int userId);
+    long msgCount(String userId);
 
     /**
      * 图书借阅是否满30天.

@@ -47,8 +47,8 @@ public class WsController {
         System.out.println(message);
         User user = (User)session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
-            int toUser = message.getUserId();
+            String userId = user.getUserId();
+            String toUser = message.getUserId();
             boolean hasSend = webSocketHandler.sendMessageToUser(userId, toUser, new TextMessage(message.getMessage()));
         }
         return "message";
@@ -56,14 +56,14 @@ public class WsController {
 
     @PostMapping("/chatWith")
     @ResponseBody
-    public Msg getFriendMsg(int friendId, HttpSession session) {
+    public Msg getFriendMsg(String friendId, HttpSession session) {
         Msg msg = new Msg();
         List<MsgModel> messages = null;
         List<MsgModel> myMsg = null;
         String img = "";
         User user = (User)  session.getAttribute("user");
         if (user != null) {
-            int selfId = user.getUserId();
+            String selfId = user.getUserId();
             messages = userFriendService.getFriendMsg(selfId, friendId);
             myMsg = userFriendService.getToFriendMsg(selfId, friendId);
             img = userFriendService.getUserImg(friendId);

@@ -23,8 +23,7 @@ import java.util.Set;
 public class User implements Serializable {
     /** 用户编号. */
     @Id
-    @GeneratedValue
-    private int userId;
+    private String userId;
     /** 用户名称. */
     @Size(min = 1, max = 30, message = "{user.name.length.error}")
     private String userName;
@@ -91,7 +90,7 @@ public class User implements Serializable {
      *
      * @return userId 用户编号.
      */
-    public int getUserId() {
+    public String getUserId() {
         return this.userId;
     }
 
@@ -100,7 +99,7 @@ public class User implements Serializable {
      *
      * @param userId 用户编号.
      */
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

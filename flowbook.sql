@@ -1,7 +1,7 @@
 use FlowBook;
 -- 用户表
 CREATE TABLE user (
-  user_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '用户编号',
+  user_id VARCHAR(11) PRIMARY KEY COMMENT '用户编号',
   user_name VARCHAR(30) NOT NULL COMMENT '用户名',
   user_age INT comment '用户年龄',
   user_sex VARCHAR(2) DEFAULT '男' COMMENT '性别',
@@ -15,7 +15,7 @@ CREATE TABLE user (
   identity INT COMMENT '身份， 1 为管理员， 0 为普通用户',
   password TEXT NOT NULL COMMENT '密码'
   CHECK (user_sex IN ('男', '女'))
-) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8;
 
 -- 图书表
 CREATE TABLE book (

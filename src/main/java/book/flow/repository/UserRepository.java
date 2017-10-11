@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  * User: huang
  * Date: 17-7-19
  */
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     /**
      * 通过用户名查找用户.
@@ -36,7 +36,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return 用户信息
      */
     @Query("select u from User u where u.userId = ?1 and u.password = ?2 and u.identity = ?3")
-    User loginById(int userId, String password, int role);
+    User loginById(String userId, String password, int role);
 
     /**
      * 用户登录查询(通过用户名).
@@ -62,7 +62,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return 用户信息
      */
     @Query("select u from User u where u.userId = ?1")
-    User getUserById(int id);
+    User getUserById(String id);
 
     /**
      * 通过用户名获取用户.
@@ -81,7 +81,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Modifying
     @Query("update User u set u.userEmail = ?1 where u.userId = ?2")
-    int updateUserEmail(String email, int userId);
+    int updateUserEmail(String email, String userId);
 
     /**
      * 更新贡献度.
@@ -91,7 +91,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Modifying
     @Query("update User u set u.contributeNum = u.contributeNum + 5 where u.userId = ?1")
-    int updataContributeNum(int userId);
+    int updataContributeNum(String userId);
 
     /**
      * 修改用户头像.
@@ -102,7 +102,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Modifying
     @Query("update User u set u.userImg = ?1 where u.userId = ?2")
-    int updateUserImg(String path, int userId);
+    int updateUserImg(String path, String userId);
 
     /**
      * 获得用户头像.
@@ -110,5 +110,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * @return 头像地址
      */
     @Query("select u.userImg from User u where u.userId = ?1")
-    String getUserImg(int userId);
+    String getUserImg(String userId);
 }

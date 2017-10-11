@@ -59,7 +59,7 @@ public interface FlowApplyRepository extends JpaRepository<FlowApply, Integer> {
      * @return 申请
      */
     @Query("select f from FlowApply f where f.okUser.userId = ?1 order by f.applyDate desc ")
-    List<FlowApply> getApplyByToUser(int toUserId);
+    List<FlowApply> getApplyByToUser(String toUserId);
 
     /**
      * 获取接收方的未回复申请.
@@ -67,7 +67,7 @@ public interface FlowApplyRepository extends JpaRepository<FlowApply, Integer> {
      * @return 申请
      */
     @Query("select f from FlowApply f where f.okUser.userId = ?1 and f.status = 0 order by f.applyDate desc ")
-    List<FlowApply> getNotLookApplyByToUser(int toUserId);
+    List<FlowApply> getNotLookApplyByToUser(String toUserId);
 
     /**
      * 获取接收方的已回复申请.
@@ -75,7 +75,7 @@ public interface FlowApplyRepository extends JpaRepository<FlowApply, Integer> {
      * @return 申请
      */
     @Query("select f from FlowApply f where f.okUser.userId = ?1 and f.status <> 0 order by f.applyDate desc ")
-    List<FlowApply> getLookedApplyByToUser(int toUserId);
+    List<FlowApply> getLookedApplyByToUser(String toUserId);
 
     /**
      * 获取正在处理的申请.
@@ -83,7 +83,7 @@ public interface FlowApplyRepository extends JpaRepository<FlowApply, Integer> {
      * @return 申请
      */
     @Query("select f from FlowApply f where f.okUser.userId = ?1 and f.status = 3 order by f.applyDate desc")
-    List<FlowApply> getDealingApplyByToUser(int toUserId);
+    List<FlowApply> getDealingApplyByToUser(String toUserId);
 
     /**
      * 获取我的传阅申请.
@@ -91,7 +91,7 @@ public interface FlowApplyRepository extends JpaRepository<FlowApply, Integer> {
      * @return 申请
      */
     @Query("select f from FlowApply f where f.applyUser.userId = ?1 order by f.applyDate desc ")
-    List<FlowApply> getMyFlowApplies(int userId);
+    List<FlowApply> getMyFlowApplies(String userId);
 
     /**
      * 删除图书漂流申请

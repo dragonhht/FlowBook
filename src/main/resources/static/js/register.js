@@ -96,6 +96,9 @@ $(document).ready(function () {
                 userName = data;
                 if (!data) {
                     $('.alert').html('用户名已存在').addClass('alert-danger').show().delay(2000).fadeOut();
+                    $('#userNameDiv').addClass('has-error');
+                } else {
+                    $('#userNameDiv').removeClass('has-error');
                 }
             });
     });

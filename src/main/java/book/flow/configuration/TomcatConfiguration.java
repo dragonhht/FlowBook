@@ -28,7 +28,11 @@ public class TomcatConfiguration{
     @Bean
     public TomcatContextCustomizer tomcatContextCustomizer() {
         return (context -> {
-            context.setDocBase("/home/huang/Work_Space/Idea_Space/FlowBook/file-dir");
+
+            // 获取项目路径
+            String path = System.getProperty("user.dir");
+            System.out.println(path);
+            context.setDocBase(path + "/file-dir");
             context.setPath("/FlowBook/");
             context.setReloadable(true);
         });

@@ -22,7 +22,7 @@ public interface FriendsRepository extends JpaRepository<Friends, Integer> {
      * @return 好友信息
      */
     @Query("select f.friend from Friends f where f.self.userId = ?1")
-    List<User> getUserFriends(int userId);
+    List<User> getUserFriends(String userId);
 
     /**
      * 通过用户编号获取用户好友编号.
@@ -30,7 +30,7 @@ public interface FriendsRepository extends JpaRepository<Friends, Integer> {
      * @return 好友信息
      */
     @Query("select f.friend.userId from Friends f where f.self.userId = ?1")
-    List<Integer> getUserFriendsId(int userId);
+    List<String> getUserFriendsId(String userId);
 
     /**
      * 判断好友是否已经添加.
@@ -39,7 +39,7 @@ public interface FriendsRepository extends JpaRepository<Friends, Integer> {
      * @return 记录信息
      */
     @Query("select f from Friends f where f.self.userId = ?1 and f.friend.userId = ?2")
-    Friends isFriendExist(int selfId, int friendId);
+    Friends isFriendExist(String selfId, String friendId);
 
     /**
      * 删除好友.
@@ -50,6 +50,6 @@ public interface FriendsRepository extends JpaRepository<Friends, Integer> {
     @Transactional
     @Modifying
     @Query("delete from Friends f where f.self.userId= ?1 and f.friend.userId = ?2")
-    int delFriend(int selfId, int friendId);
+    int delFriend(String selfId, String friendId);
 
 }

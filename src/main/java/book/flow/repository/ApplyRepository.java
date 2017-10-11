@@ -22,7 +22,7 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
      * @return 用户的所有申请
      */
     @Query("select a from Apply a where a.user.userId = ?1 order by a.applyDate desc")
-    List<Apply> getAllAppliesByUserId(int userId);
+    List<Apply> getAllAppliesByUserId(String userId);
 
     /**
      * 通过用户编号获取待审批的申请.
@@ -30,7 +30,7 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
      * @return 待审批的申请
      */
     @Query("select a from Apply a where a.user.userId = ?1 and a.status = '待审批' order by a.applyDate desc")
-    List<Apply> getWaitAppliesByUserId(int userId);
+    List<Apply> getWaitAppliesByUserId(String userId);
 
     /**
      * 通过用户编号获取已审核的申请.
@@ -38,7 +38,7 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
      * @return 已审核的申请
      */
     @Query("select a from Apply a where a.user.userId = ?1 and a.status <> '待审批' order by a.applyDate desc")
-    List<Apply> getPassAppliesByUserId(int userId);
+    List<Apply> getPassAppliesByUserId(String userId);
 
     /**
      * 通过用户编号获取用户已申请的图书.
@@ -46,7 +46,7 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
      * @return 已申请的图书
      */
     @Query("select a.book from Apply a where a.user.userId = ?1 order by a.book.bookDate asc")
-    List<Book> getBookHasApplyByUser(int userId);
+    List<Book> getBookHasApplyByUser(String userId);
 
     /**
      * 通过申请编号获取申请内容.

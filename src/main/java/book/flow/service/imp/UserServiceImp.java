@@ -49,8 +49,8 @@ public class UserServiceImp implements UserService {
         password = PasswordTool.encryptionMD5(password);
 
         try {
-            int id = Integer.parseInt(text);
-            u = userRepository.loginById(id, password, role);
+            // TODO 账号登录
+            u = userRepository.loginById(text, password, role);
         } catch (Exception e) {
             logger.info("未使用编号登录");
         }
@@ -65,7 +65,7 @@ public class UserServiceImp implements UserService {
 
 
     @Override
-    public boolean addComment(String text, int userId, int bookId) {
+    public boolean addComment(String text, String userId, int bookId) {
         boolean ok = false;
         User user = userRepository.getUserById(userId);
         Book book = bookRepository.getBookById(bookId);
@@ -88,14 +88,14 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User getUserById(int userId) {
+    public User getUserById(String userId) {
         User user = null;
         user = userRepository.getUserById(userId);
         return user;
     }
 
     @Override
-    public long msgCount(int userId) {
+    public long msgCount(String userId) {
         long count = 0;
         count = chatRecordRepository.haveMsg(userId);
         return count;

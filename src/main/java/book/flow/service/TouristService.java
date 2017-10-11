@@ -106,7 +106,7 @@ public interface TouristService {
      * @param id 用户编号
      * @return 用户信息
      */
-    User getUserById(int id);
+    User getUserById(String id);
 
     /**
      * 通过用户名判断用户是否存在.
@@ -140,7 +140,7 @@ public interface TouristService {
      * @param userId 用户编号
      * @return 用户的借阅记录
      */
-    List<LoanRecord> getRecordsByUserId(int userId);
+    List<LoanRecord> getRecordsByUserId(String userId);
 
     /**
      * 获取通过用户名查询到的分页页数.
@@ -155,7 +155,7 @@ public interface TouristService {
      * @param friendId 好友编号
      * @return 是否已经添加， true为已添加
      */
-    boolean isFriendExist(int selfId, int friendId);
+    boolean isFriendExist(String selfId, String friendId);
 
     /**
      * 通过类型查找图书.

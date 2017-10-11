@@ -19,42 +19,42 @@ public interface UserFlowApplyService {
      * @param userId 申请人
      * @return 是否保存成功, true为成功
      */
-    boolean saveFlowApply(int bookId, int toUserId, String wantSay, int userId);
+    boolean saveFlowApply(int bookId, String toUserId, String wantSay, String userId);
 
     /**
      * 获取接收方的所有申请.
      * @param toUserId 接收方编号
      * @return 申请
      */
-    List<FlowApply> getFlowApplyByToUser(int toUserId);
+    List<FlowApply> getFlowApplyByToUser(String toUserId);
 
     /**
      * 获取接收方的未回复申请.
      * @param toUserId 接收方编号
      * @return 申请
      */
-    List<FlowApply> getNotLookApplyByToUser(int toUserId);
+    List<FlowApply> getNotLookApplyByToUser(String toUserId);
 
     /**
      * 获取接收方的已回复申请.
      * @param toUserId 接收方编号
      * @return 申请
      */
-    List<FlowApply> getLookedApplyByToUser(int toUserId);
+    List<FlowApply> getLookedApplyByToUser(String toUserId);
 
     /**
      * 获取正在处理的申请.
      * @param toUserId 接收方编号
      * @return 申请
      */
-    List<FlowApply> getDealingApplyByToUser(int toUserId);
+    List<FlowApply> getDealingApplyByToUser(String toUserId);
 
     /**
      * 获取我的传阅申请.
      * @param userId 用户编号
      * @return 申请
      */
-    List<FlowApply> getMyFlowApplies(int userId);
+    List<FlowApply> getMyFlowApplies(String userId);
 
     /**
      * 通过传阅申请编号查找申请.

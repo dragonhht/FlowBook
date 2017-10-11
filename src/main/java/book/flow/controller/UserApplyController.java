@@ -39,7 +39,7 @@ public class UserApplyController {
     public String apply(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
+            String userId = user.getUserId();
             List<Apply> allApplies = userApplyService.getAllAppliesByUserId(userId);
             List<Apply> waitApplies = userApplyService.getWaitAppliesByUserId(userId);
             List<Apply> passApplies = userApplyService.getPassAppliesByUserId(userId);
@@ -55,17 +55,16 @@ public class UserApplyController {
     /**
      * 申请图书退出.
      * @param bookId 图书编号
-     * @param imgs 申请相关图片
      * @param session session
      * @param model model
      * @return 信息页面
      */
     @PostMapping("/applyOut")
-    public String applyBookOut(Integer bookId, /*@RequestParam("imgs") List<Integer> imgs,*/
+    public String applyBookOut(Integer bookId,
                                MultipartFile[] fileSelect, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
+            String userId = user.getUserId();
             List<Integer> imags = new ArrayList<>();
             for (int i = 0; i < fileSelect.length; i++) {
                 int imgId = userApplyService.saveApplyImg(fileSelect[i], i, bookId, userId);
@@ -93,7 +92,7 @@ public class UserApplyController {
     public String uploadApplyImg(MultipartFile uploadImg, int index, int bookId, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
+            String userId = user.getUserId();
             int imgId = userApplyService.saveApplyImg(uploadImg, index, bookId, userId);
             return "" + imgId;
         }

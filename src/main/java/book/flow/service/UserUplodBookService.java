@@ -15,7 +15,7 @@ public interface UserUplodBookService {
      * @param userId 用户编号
      * @return 保存后的图书信息
      */
-    Book uploadBook(Book book, int userId);
+    Book uploadBook(Book book, String userId);
 
     /**
      * 更新图书封面.

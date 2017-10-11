@@ -29,7 +29,7 @@ public class UserFriendServiceImp implements UserFriendService {
     private ChatRecordRepository chatRecordRepository;
 
     @Override
-    public boolean addFriend(int selfId, int friendId) {
+    public boolean addFriend(String selfId, String friendId) {
         boolean ok = false;
         User self = userRepository.getUserById(selfId);
         User friend = userRepository.getUserById(friendId);
@@ -44,7 +44,7 @@ public class UserFriendServiceImp implements UserFriendService {
     }
 
     @Override
-    public boolean isFriendExist(int selfId, int friendId) {
+    public boolean isFriendExist(String selfId, String friendId) {
         boolean ok = false;
         Friends friend = friendsRepository.isFriendExist(selfId, friendId);
         if (friend != null) {
@@ -54,14 +54,14 @@ public class UserFriendServiceImp implements UserFriendService {
     }
 
     @Override
-    public List<User> getFriends(int selfId) {
+    public List<User> getFriends(String selfId) {
         List<User> friends = null;
         friends = friendsRepository.getUserFriends(selfId);
         return friends;
     }
 
     @Override
-    public List<Integer> getFriendsId(int selfId) {
+    public List<Integer> getFriendsId(String selfId) {
         List<Integer> ids = chatRecordRepository.getSenderId(selfId);
         if (ids == null) {
             ids = new ArrayList<>();
@@ -82,14 +82,14 @@ public class UserFriendServiceImp implements UserFriendService {
 
 
     @Override
-    public List<Integer> getSenderId(int userId) {
+    public List<Integer> getSenderId(String userId) {
         List<Integer> idList = null;
         idList = chatRecordRepository.getSenderId(userId);
         return idList;
     }
 
     @Override
-    public List<MsgModel> getFriendMsg(int selfId, int friendId) {
+    public List<MsgModel> getFriendMsg(String selfId, String friendId) {
         List<MsgModel> messages = null;
         messages = chatRecordRepository.getFriendMsg(selfId, friendId);
         return messages;
@@ -97,22 +97,22 @@ public class UserFriendServiceImp implements UserFriendService {
 
 
     @Override
-    public List<MsgModel> getToFriendMsg(int selfId, int friendId) {
+    public List<MsgModel> getToFriendMsg(String selfId, String friendId) {
         List<MsgModel> messages = null;
         messages = chatRecordRepository.getToFriendMsg(selfId, friendId);
         return messages;
     }
 
     @Override
-    public List<User> getNotFriend(int selfId) {
+    public List<User> getNotFriend(String selfId) {
         List<User> users = null;
-        List<Integer> ids = friendsRepository.getUserFriendsId(selfId);
+        List<String> ids = friendsRepository.getUserFriendsId(selfId);
         users = chatRecordRepository.getNotFriend(selfId, ids);
         return users;
     }
 
     @Override
-    public boolean setChatReaded(int selfId, int friendId) {
+    public boolean setChatReaded(String selfId, String friendId) {
         boolean ok = false;
         int c = 0;
         c = chatRecordRepository.setChatReaded(selfId, friendId);
@@ -123,7 +123,7 @@ public class UserFriendServiceImp implements UserFriendService {
     }
 
     @Override
-    public boolean delFriend(int selfId, int friendId) {
+    public boolean delFriend(String selfId, String friendId) {
         boolean ok = false;
         int l = 0;
         l = friendsRepository.delFriend(selfId, friendId);
@@ -134,7 +134,7 @@ public class UserFriendServiceImp implements UserFriendService {
     }
 
     @Override
-    public String getUserImg(int userId) {
+    public String getUserImg(String userId) {
         String s = "";
         s= userRepository.getUserImg(userId);
         return s;

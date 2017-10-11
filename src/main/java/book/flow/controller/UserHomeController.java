@@ -41,7 +41,7 @@ public class UserHomeController {
     public String userHome(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
+            String userId = user.getUserId();
             List<LoanRecord> nowHaveRecode = null;
             List<LoanRecord> allRecodes = null;
             user = userService.getUserById(userId);
@@ -84,7 +84,7 @@ public class UserHomeController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             String email = user.getUserEmail();
-            int userId= user.getUserId();
+            String userId= user.getUserId();
             if (!oldEmail.equals(email)) {
                 return "原邮箱不正确";
             }
@@ -141,7 +141,7 @@ public class UserHomeController {
         }
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId= user.getUserId();
+            String userId= user.getUserId();
             boolean ok = userHomeService.updateUserEmail(email, userId);
             if (ok) {
                 user = userService.getUserById(userId);
@@ -166,7 +166,7 @@ public class UserHomeController {
         }
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
+            String userId = user.getUserId();
             boolean ok = false;
             String imgPath = "head_img/" + userId + "/" + userId + ".png";
             imgPath = fileService.store(uploadImg, imgPath);

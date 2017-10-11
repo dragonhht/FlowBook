@@ -18,21 +18,21 @@ public interface UserApplyService {
      * @param userId 用户编号
      * @return 用户的所有申请
      */
-    List<Apply> getAllAppliesByUserId(int userId);
+    List<Apply> getAllAppliesByUserId(String userId);
 
     /**
      * 通过用户编号获取待审批的申请.
      * @param userId 用户编号
      * @return 待审批的申请
      */
-    List<Apply> getWaitAppliesByUserId(int userId);
+    List<Apply> getWaitAppliesByUserId(String userId);
 
     /**
      * 通过用户编号获取已审核的申请.
      * @param userId 用户编号
      * @return 已审核的申请
      */
-    List<Apply> getPassAppliesByUserId(int userId);
+    List<Apply> getPassAppliesByUserId(String userId);
 
     /**
      * 保存申请.
@@ -46,7 +46,7 @@ public interface UserApplyService {
      * @param userId 用户编号
      * @return 可申请的书籍
      */
-    List<Book> getBookToApply(int userId);
+    List<Book> getBookToApply(String userId);
 
     /**
      * 保存图书退出申请.
@@ -55,7 +55,7 @@ public interface UserApplyService {
      * @param imgs 图片
      * @return 是否保存成功， true为成功
      */
-    boolean applyBookOut(int bookId, int userId, List<Integer> imgs);
+    boolean applyBookOut(int bookId, String userId, List<Integer> imgs);
 
 
     /**
@@ -66,7 +66,7 @@ public interface UserApplyService {
      * @param userId 用户编号
      * @return 图片编号
      */
-    int saveApplyImg(MultipartFile uploadImg, int index, int bookId, int userId);
+    int saveApplyImg(MultipartFile uploadImg, int index, int bookId, String userId);
 
     /**
      * 通过申请编号获取申请.

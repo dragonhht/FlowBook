@@ -24,7 +24,7 @@ public class UserNoticeServiceImp implements UserNoticeService {
     private NoticeRepository noticeRepository;
 
     @Override
-    public boolean addNotice(String text, int userId) {
+    public boolean addNotice(String text, String userId) {
         boolean ok = false;
         Notice notice = new Notice();
         notice.setNoticeDate(new Date());

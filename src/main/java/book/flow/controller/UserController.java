@@ -52,7 +52,7 @@ public class UserController {
         if (user == null) {
             return "index";
         }
-        int userId = user.getUserId();
+        String userId = user.getUserId();
         userService.addComment(text, userId, bookId);
         return "redirect:/tourist/bookMessage/" + bookId;
     }

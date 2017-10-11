@@ -40,7 +40,7 @@ public class UserFlowApplyController {
         List<FlowApply> myApplies = null;
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
+            String userId = user.getUserId();
             allApplies = userFlowApplyService.getFlowApplyByToUser(userId);
             notApplies = userFlowApplyService.getNotLookApplyByToUser(userId);
 //            lookedApplies = userService.getLookedApplyByToUser(userId);
@@ -64,10 +64,10 @@ public class UserFlowApplyController {
      */
     @PostMapping("/wantBook")
     @ResponseBody
-    public String wantBook(int bookId, int toUserId, String wantSay, HttpSession session) {
+    public String wantBook(int bookId, String toUserId, String wantSay, HttpSession session) {
         User user = (User) session.getAttribute("user");
         if (user != null) {
-            int userId = user.getUserId();
+            String userId = user.getUserId();
             boolean ok = false;
             ok = userFlowApplyService.saveFlowApply(bookId, toUserId, wantSay, userId);
             if (ok) {

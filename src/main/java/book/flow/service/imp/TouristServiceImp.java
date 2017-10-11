@@ -185,7 +185,7 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
-    public User getUserById(int id) {
+    public User getUserById(String id) {
         User user = null;
         user = userRepository.getUserById(id);
         return user;
@@ -232,7 +232,7 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
-    public List<LoanRecord> getRecordsByUserId(int userId) {
+    public List<LoanRecord> getRecordsByUserId(String userId) {
         List<LoanRecord> records = null;
         records = recordRepository.getRecodeByUserId(userId);
         return records;
@@ -251,7 +251,7 @@ public class TouristServiceImp implements TouristService {
     }
 
     @Override
-    public boolean isFriendExist(int selfId, int friendId) {
+    public boolean isFriendExist(String selfId, String friendId) {
         boolean ok = false;
         Friends friend = friendsRepository.isFriendExist(selfId, friendId);
         if (friend != null) {

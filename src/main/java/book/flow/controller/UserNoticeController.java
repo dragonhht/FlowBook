@@ -45,7 +45,7 @@ public class UserNoticeController {
     @ResponseBody
     public String saveNotice(String text, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        int userId = 0;
+        String userId = null;
         if (user != null) {
             userId = user.getUserId();
         }

@@ -23,7 +23,7 @@ public interface RecordRepository extends JpaRepository<LoanRecord, Integer> {
      * @return 借阅信息
      */
     @Query("select r from LoanRecord r where r.user.userId = ?1 order by r.recordDate desc ")
-    List<LoanRecord> getRecodeByUserId(int userId);
+    List<LoanRecord> getRecodeByUserId(String userId);
 
     /**
      * 通过用户编号获取用户现在拥有的书籍.
@@ -31,7 +31,7 @@ public interface RecordRepository extends JpaRepository<LoanRecord, Integer> {
      * @return 现有书籍记录
      */
     @Query("select r from LoanRecord r where r.user.userId = ?1 and r.isOut = false order by r.recordDate desc ")
-    List<LoanRecord> getHaveRecodeByUserId(int userId);
+    List<LoanRecord> getHaveRecodeByUserId(String userId);
 
     /**
      * 通过用户编号获取用户借出的书籍.
@@ -39,7 +39,7 @@ public interface RecordRepository extends JpaRepository<LoanRecord, Integer> {
      * @return 借出的书籍记录
      */
     @Query("select r from LoanRecord r where r.user.userId = ?1 and r.isOut = true order by r.recordDate desc ")
-    List<LoanRecord> getOutRecodeByUserId(int userId);
+    List<LoanRecord> getOutRecodeByUserId(String userId);
 
     /**
      * 通过图书查询记录.
@@ -72,7 +72,7 @@ public interface RecordRepository extends JpaRepository<LoanRecord, Integer> {
      */
     @Query("select r.book from LoanRecord r where r.user.userId = ?1 and " +
             "r.book not in(select a.book from Apply a where r.user.userId = a.user.userId and a.status <> '待审批' and r.isOut = false)")
-    List<Book> getBookToApplyByUser(int userId);
+    List<Book> getBookToApplyByUser(String userId);
 
     /**
      * 通过图书获取当前拥有者的借阅记录.

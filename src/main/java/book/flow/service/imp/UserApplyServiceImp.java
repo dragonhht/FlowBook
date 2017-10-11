@@ -38,19 +38,19 @@ public class UserApplyServiceImp implements UserApplyService {
     private ReportImgRepository reportImgRepository;
 
     @Override
-    public List<Apply> getAllAppliesByUserId(int userId) {
+    public List<Apply> getAllAppliesByUserId(String userId) {
         List<Apply> applies = applyRepository.getAllAppliesByUserId(userId);
         return applies;
     }
 
     @Override
-    public List<Apply> getWaitAppliesByUserId(int userId) {
+    public List<Apply> getWaitAppliesByUserId(String userId) {
         List<Apply> applies = applyRepository.getWaitAppliesByUserId(userId);
         return applies;
     }
 
     @Override
-    public List<Apply> getPassAppliesByUserId(int userId) {
+    public List<Apply> getPassAppliesByUserId(String userId) {
         List<Apply> applies = applyRepository.getPassAppliesByUserId(userId);
         return applies;
     }
@@ -63,13 +63,13 @@ public class UserApplyServiceImp implements UserApplyService {
     }
 
     @Override
-    public List<Book> getBookToApply(int userId) {
+    public List<Book> getBookToApply(String userId) {
         List<Book> books = recordRepository.getBookToApplyByUser(userId);
         return books;
     }
 
     @Override
-    public boolean applyBookOut(int bookId, int userId, List<Integer> imgs) {
+    public boolean applyBookOut(int bookId, String userId, List<Integer> imgs) {
         boolean ok = false;
         int i = 0;
         String path;
@@ -99,7 +99,7 @@ public class UserApplyServiceImp implements UserApplyService {
 
 
     @Override
-    public int saveApplyImg(MultipartFile uploadImg, int index, int bookId, int userId) {
+    public int saveApplyImg(MultipartFile uploadImg, int index, int bookId, String userId) {
         int id = 0;
         String imgPath = "apply_img/" + userId + "/" + bookId + "_" + index + ".png";
         imgPath = fileService.store(uploadImg, imgPath);
