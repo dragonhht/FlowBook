@@ -34,7 +34,7 @@ CREATE TABLE comment (
   comment_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '评论编号',
   comment_text TEXT NOT NULL COMMENT '评论内容' ,
   comment_date TIMESTAMP COMMENT '评论时间',
-  user_id INT NOT NULL ,
+  user_id VARCHAR(11) NOT NULL ,
   book_id INT NOT NULL ,
   FOREIGN KEY (user_id) REFERENCES user(user_id) ,
   FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE
@@ -44,7 +44,7 @@ CREATE TABLE comment (
 CREATE TABLE book_route (
   route_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '路线编号',
   book_id INT NOT NULL COMMENT '图书编号',
-  user_id INT NOT NULL COMMENT '用户编号',
+  user_id VARCHAR(11) NOT NULL COMMENT '用户编号',
   route_date TIMESTAMP NOT NULL COMMENT '路线创建时间',
   FOREIGN KEY (user_id) REFERENCES user(user_id) ,
   FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE
@@ -55,7 +55,7 @@ CREATE TABLE notice (
   notice_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '编号',
   notice_date TIMESTAMP NOT NULL COMMENT '发布时间',
   notice_text TEXT NOT NULL COMMENT '公告内容',
-  user_id INT NOT NULL ,
+  user_id VARCHAR(11) NOT NULL ,
   FOREIGN KEY (user_id) REFERENCES user(user_id)
 ) CHARSET = utf8;
 
@@ -79,7 +79,7 @@ CREATE TABLE loan_record (
   is_out BOOLEAN COMMENT '是否借出标志',
   record_date TIMESTAMP COMMENT '借阅时间',
   book_id INT NOT NULL COMMENT '借阅书籍',
-  user_id INT NOT NULL COMMENT '借阅人',
+  user_id VARCHAR(11) NOT NULL COMMENT '借阅人',
   FOREIGN KEY (user_id) REFERENCES user(user_id),
   FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE
 ) CHARSET = utf8;
@@ -89,7 +89,7 @@ CREATE TABLE user_apply (
   apply_id INT AUTO_INCREMENT PRIMARY KEY ,
   apply_date TIMESTAMP NOT NULL ,
   apply_text TEXT NOT NULL ,
-  user_id INT NOT NULL,
+  user_id VARCHAR(11) NOT NULL,
   book_id INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES user(user_id),
   FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE
@@ -106,8 +106,8 @@ CREATE TABLE img (
 -- 聊天记录表
 CREATE TABLE chat_record (
   chat_id BIGINT AUTO_INCREMENT PRIMARY KEY ,
-  sender INT NOT NULL ,
-  receiver INT NOT NULL ,
+  sender VARCHAR(11) NOT NULL ,
+  receiver VARCHAR(11) NOT NULL ,
   message TEXT NOT NULL ,
   send_date TIMESTAMP NOT NULL ,
   looked BOOLEAN NOT NULL ,
@@ -118,8 +118,8 @@ CREATE TABLE chat_record (
 -- 图书传阅表
 CREATE TABLE flow_apply (
   id INT AUTO_INCREMENT PRIMARY KEY ,
-  apply_user INT NOT NULL ,
-  ok_user INT NOT NULL ,
+  apply_user VARCHAR(11) NOT NULL ,
+  ok_user VARCHAR(11) NOT NULL ,
   book_id INT NOT NULL ,
   want_say TEXT ,
   status INT DEFAULT 0,
@@ -147,11 +147,20 @@ CREATE TABLE report_img (
 -- 举报表
 CREATE TABLE report (
   report_id INT AUTO_INCREMENT PRIMARY KEY ,
-  report int NOT NULL ,
-  be_report int NOT NULL ,
+  report VARCHAR(11) NOT NULL ,
+  be_report VARCHAR(11) NOT NULL ,
   report_date TIMESTAMP NOT NULL ,
   report_text TEXT,
   status INT,
   FOREIGN KEY (report) REFERENCES user(user_id),
   FOREIGN KEY (be_report) REFERENCES user(user_id)
 ) CHARSET=utf8;
+
+-- 好友表
+CREATE TABLE friends (
+  id INT AUTO_INCREMENT PRIMARY KEY ,
+  friend_id VARCHAR(11) NOT NULL ,
+  user_id VARCHAR(11) NOT NULL ,
+  FOREIGN KEY (friend_id) REFERENCES user(user_id),
+  FOREIGN KEY (friend_id) REFERENCES user(user_id)
+) CHARSET = utf8
