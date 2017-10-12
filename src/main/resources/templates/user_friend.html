@@ -26,27 +26,29 @@
                 <li class="friend_group">
                     <div onclick="selectGroup(this)" class="list-group-item-info group_name">我的好友</div>
                     <ul class="list-group">
-                        <li class="list-group-item friend" style="cursor: pointer">
+
+                        <th:block th:each="friend : ${friends}">
+                            <li class="list-group-item friend" style="cursor: pointer">
                             <span onclick="chatWith(this)">
-                                <input type="text" value="用户ID" hidden="hidden"/>
-                                <img name="headImg" class="img-circle" src="../img/user.png"/>
-                                <span>用户名</span>
+                                <input type="text" th:value="${friend.userId}" hidden="hidden"/>
+                                <img name="headImg" class="img-circle" th:src="@{${friend.userImg}}"/>
+                                <span th:text="${friend.userName}"></span>
                             </span>
-                        </li>
-                        <li class="list-group-item friend" style="cursor: pointer">
-                            <span onclick="chatWith(this)">
-                                <input type="text" value="用户ID" hidden="hidden"/>
-                                <img name="headImg" class="img-circle" src="../img/user.png"/>
-                                <span>用户名</span>
-                            </span>
-                        </li>
-                        <li class="list-group-item friend" style="cursor: pointer">
-                            <span onclick="chatWith(this)">
-                                <input type="text" value="用户ID" hidden="hidden"/>
-                                <img name="headImg" class="img-circle" src="../img/user.png"/>
-                                <span>用户名</span>
-                            </span>
-                        </li>
+                            </li>
+
+                            <!--<li class="list-group-item friend" style="cursor: pointer">
+                                <span onclick="chatWith(this)">
+                                    <input type="text" th:value="${friend.userId}" hidden="hidden" />
+                                <img name="headImg" class="img-circle" th:src="@{${friend.userImg}}" />
+                                <span th:text="${friend.userName}"></span>
+                                <th:block th:each="sender : ${senderIds}">
+                                    <img class="msgTip" th:if="${sender eq friend.userId}" style="width: 7px;height: 7px;margin-bottom: 20px;"
+                                         th:src="@{/img/havemsg.png}" />
+                                </th:block>
+                                </span>
+                                <span th:unless="${session.user.userId eq friend.userId}" th:onclick="'javascript:return delFriend(this, \''+${friend.userId}+'\')'" class="close" >x</span>
+                            </li>-->
+                        </th:block>
                     </ul>
                 </li>
 
@@ -54,13 +56,23 @@
                 <li class="friend_group">
                     <div onclick="selectGroup(this)" class="list-group-item-info group_name">非好友</div>
                     <ul class="list-group">
-                            <li class="list-group-item friend" style="cursor: pointer">
+                        <th:block th:each="friend : ${notFriend}">
+                            <li th:unless="${session.user.userId eq friend.userId}" class="list-group-item friend"
+                                style="cursor: pointer">
                                 <span onclick="chatWith(this)">
-                                    <input type="text" hidden="hidden"/>
-                                <img name="headImg" class="img-circle" src="../img/user.png"/>
-                                <span >用户名</span>
+                                    <input type="text" th:value="${friend.userId}" hidden="hidden"/>
+                                <img name="headImg" class="img-circle" th:src="@{${friend.userImg}}"/>
+                                <span th:text="${friend.userName}"></span>
+                                <!--<th:block th:each="sender : ${senderIds}">
+                                    <img class="msgTip" th:if="${sender eq friend.userId}"
+                                         style="width: 7px;height: 7px;margin-bottom: 20px;"
+                                         th:src="@{/img/havemsg.png}"/>
+                                </th:block>-->
                                 </span>
+                                <span th:onclick="'javascript:return readedChat(this, \''+${friend.userId}+'\')'"
+                                      class="close">x</span>
                             </li>
+                        </th:block>
                     </ul>
                 </li>
             </ul>
@@ -102,6 +114,195 @@
         <a href="https://github.com/dragonhht" title="Github" target="_blank" style="color: gray;">dragonhht</a>
     </p>
 </div>
+
+<script type="text/javascript" th:inline="javascript">
+
+    var str;
+
+    function showMyMssage(text) {
+        str = '<div class="question">';
+        str += '<div class="heard_img right"><img th:src="@{${session.user.userImg}}"/></div>';
+        str += '<div class="question_text clear"><p>'+text+'</p><i></i>';
+        str += '</div></div>';
+        $('.speak_box').append(str);
+    }
+
+    function up_say(){
+        $('.write_list').remove();
+        var text = $('.input_div textarea').val();
+
+        if(text == ''){
+            alert('请输入内容！');
+            $('.input_div textarea').focus();
+        }else{
+
+            sendMessage();
+
+            showMyMssage(text);
+            $('.input_div textarea').val('');
+            $('.input_div textarea').focus();
+            autoWidth();
+            for_bottom();
+
+        }
+    }
+
+    function keyup(){
+        var footer_height = $('.wenwen-footer').outerHeight(),
+            text = $('.write_box input').val(),
+            str = '<div class="write_list">'+text+'</div>';
+        if (text == '' || text == undefined){
+            $('.write_list').remove();
+        }else{
+            $('.wenwen-footer').append(str);
+            $('.write_list').css('bottom',footer_height);
+        }
+    }
+
+    // 显示他人信息
+    function showMessage(text){
+        var img = $('#friendImg').val();
+        console.log(img);
+        var ans  = '<div class="answer"><div class="heard_img left"><img src="' + img + '" /></div>';
+        ans += '<div class="answer_text"><p>'+ text + '</p><i></i>';
+        ans += '</div></div>';
+        $('.speak_box').append(ans);
+        for_bottom();
+    }
+
+    function for_bottom(){
+        var speak_height = $('.speak_box').height();
+        $('.speak_box,.speak_window').animate({scrollTop:speak_height},500);
+        scrollToBottom();
+    }
+
+    function autoWidth(){
+        $('.question_text').css('max-width',$('.question').width()-60);
+    }
+    autoWidth();
+
+
+    var ws = new WebSocket("ws://localhost:8080/FlowBook/webSocketHandler");
+    ws.onopen = function () {
+        console.log("onpen");
+        ws.send("{}");
+    };
+    ws.onclose = function () {
+        console.log("onclose");
+    };
+    ws.onmessage = function (msg) {
+        var message = msg.data;
+        message = message.split("/[-=^*]");
+        console.log(message);
+        var chatWithId = $('#chatWithId').val().trim();
+        console.log(chatWithId);
+        console.log(message[1]);
+        if (chatWithId == message[0].trim()) {
+            showMessage(message[1]);
+        }
+
+    };
+
+    function sendMessage() {
+        var text = $('.input_div textarea').val();
+        var to = $('#chatWithId').val();
+        $.post('../message',
+            {
+                message : text,
+                userId : to
+            },
+            function (data) {
+                console.log("data:" + data);
+            })
+    }
+
+    function chatWith(n) {
+        $('.speak_box').html("");
+        var friendId = $(n).children('input').val().trim();
+        var friendName = $(n).children('span').html().trim();
+        $('#chatWithId').val(friendId);
+        $('#chatWithName').html(friendName);
+        $(n).children('.msgTip').hide();
+        getFriendMsg(friendId);
+    }
+
+    /*<![CDATA[*/
+    function getFriendMsg(friendId) {
+        $.post('../chatWith',
+            {
+                friendId : friendId
+            },
+            function (data) {
+                $('#friendImg').val(data.friendImg);
+                console.log(data);
+                var friendMsg = data.friendMsg;
+                var selfMsg = data.selfMsg;
+                var friendLenght = friendMsg.length;
+                var selfLenght = selfMsg.length;
+                var i = 0, j = 0;
+                while (i < friendLenght && j < selfLenght) {
+                    if (friendMsg[i].date < selfMsg[j].date) {
+                        showMessage(friendMsg[i].message);
+                        i++;
+                    } else {
+                        showMyMssage(selfMsg[j].message);
+                        j++;
+                    }
+                }
+                for ( ; i < friendLenght; i++) {
+                    showMessage(friendMsg[i].message);
+                }
+                for ( ; j < selfLenght; j++) {
+                    showMyMssage(selfMsg[j].message);
+                }
+            });
+    }
+    /*]]>*/
+
+    function scrollToBottom() {
+        var h = $('.speak_box').height();
+        $('#chat_div').animate({
+                scrollTop: h
+            },
+            500);
+    }
+
+    function delFriend(n, friendId) {
+        if (window.confirm("将会删除好友及相关聊天记录!")) {
+            $.post('delFriend',
+                {
+                    friendId : friendId
+                });
+            var chatWith = $('#chatWithId').val().trim();
+            if (chatWith == friendId) {
+                $('.speak_box').html("");
+            }
+            $(n).parent('li').hide();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function readedChat(n, friendId) {
+        if (window.confirm("将会删除相关聊天记录!")) {
+            $.post('readedChat',
+                {
+                    friendId : friendId
+                });
+            var chatWith = $('#chatWithId').val().trim();
+            if (chatWith == friendId) {
+                $('.speak_box').html("");
+            }
+            $(n).parent('li').hide();
+            return true;
+        } else {
+            console.log("uiui23 :" + friendId);
+            return false;
+        }
+    }
+
+</script>
 
 </body>
 </html>

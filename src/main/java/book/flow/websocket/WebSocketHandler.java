@@ -32,7 +32,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
     private UserFriendService userFriendService;
 
     //在线用户列表
-    private static Map<Integer, WebSocketSession> users = new HashMap<>();
+    private static Map<String, WebSocketSession> users = new HashMap<>();
     //用户标识
     private static final String CLIENT_ID = "userId";
 
@@ -40,7 +40,7 @@ public class WebSocketHandler extends TextWebSocketHandler{
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         System.out.println("成功建立连接");
-        Integer userId = getClientId(session);
+        String userId = getClientId(session);
         if (userId != null) {
             users.put(userId, session);
             // session.sendMessage(new TextMessage("成功建立socket连接"));
@@ -101,9 +101,9 @@ public class WebSocketHandler extends TextWebSocketHandler{
         }*/
     }
 
-    private Integer getClientId(WebSocketSession session) {
+    private String getClientId(WebSocketSession session) {
         try {
-            Integer clientId = (Integer) session.getAttributes().get(CLIENT_ID);
+            String clientId = (String) session.getAttributes().get(CLIENT_ID);
             return clientId;
         } catch (Exception e) {
             return null;
