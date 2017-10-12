@@ -16,88 +16,50 @@
 <body>
 
 <!--顶部-->
-<div>
-    <nav class="navbar navbar-default navber-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" style="cursor: pointer;">九江学院图书漂流</a>
-            </div>
-
-            <ul class="nav navbar-nav navbar-left">
-                <li class="active"><a href="index.html" onclick="selectNav(this)" style="color: gray;"><span
-                        class="glyphicon glyphicon-home"></span> 首页</a></li>
-                <li><a onclick="selectNav(this)"><span
-                        class="glyphicon glyphicon-tasks"></span> 用户寻书</a></li>
-                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
-                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-eur"></span> 新书漂流</a></li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-
-                <li><a onclick="selectNav(this)"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
-                <li><a onclick="selectNav(this)"><span class="glyphicon glyphicon-leaf"></span>注册</a></li>
-            </ul>
-        </div>
-    </nav>
-</div>
+<div th:include="assembly::navWithSearch"></div>
 
 <!--页面中部-->
 <div class="center_bg">
     <!--搜索框-->
-    <div class="center_search" id="center_search">
-        <form class="form-inline" method="get">
-            <select name="target" class="form-control">
-                <option value="0">书名</option>
-                <option value="1">作者</option>
-                <option value="2">出版社</option>
-                <option value="3">用户</option>
-            </select>
-            <div class="form-group">
-                <input type="number" hidden="hidden" name="pageNum" value="1"/>
-                <input name="searchText" type="text" class="search_input" placeholder="请输入您要搜索的内容"/>
-                <button type="submit" class="btn btn-info">搜索</button>
-            </div>
-        </form>
-    </div>
+    <div class="center_search" id="center_search" th:include="assembly::searchDiv"></div>
 
     <div class="center_user">
         <div class="user_img">
-            <img class="img-thumbnail" th:src="@{/img/user.png}"/>
+            <img class="img-thumbnail" th:src="@{${user.userImg}}"/>
         </div>
         <div class="user_message">
-            <div class="user_message_name">用户名</div>
+            <div class="user_message_name" th:text="${user.userName}"></div>
             <div class="user_credit user_message_message">
                 <label>用户信用：</label>
                 <div>
-                    <a style="line-height: 30px">
-                        <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
-                    </a>
-                    <a style="line-height: 30px">
-                        <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
-                    </a>
-                    <a style="line-height: 30px">
-                        <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
-                    </a>
-                    <a style="line-height: 30px">
-                        <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
-                    </a>
-                    <a style="line-height: 30px">
-                    <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
-                </a>
 
+                    <th:block th:unless="${user.getCredit() eq 0}">
+                        <th:block th:each="num : ${#numbers.sequence(1, user.getCredit())}">
+                            <a style="line-height: 30px">
+                                <i class="glyphicon glyphicon-star" style="color: green;font-size: medium;"></i>
+                            </a>
+                        </th:block>
+                    </th:block>
+                    <th:block th:unless="${user.getCredit() eq 5}">
+                        <th:block th:each="num : ${#numbers.sequence(user.getCredit()+1, 5)}">
+                            <a style="line-height: 30px">
+                                <i class="glyphicon glyphicon-star-empty" style="color: green;font-size: medium;"></i>
+                            </a>
+                        </th:block>
+                    </th:block>
                 </div>
             </div>
 
             <div class="add_user">
                 <th:block th:unless="${session.user eq null}">
-                    <input name="islogin" value="ok" hidden="hidden" />
+                    <input name="islogin" value="ok" hidden="hidden"/>
                 </th:block>
                 <th:block th:if="${session.user eq null}">
-                    <input name="islogin" value="false" hidden="hidden" />
+                    <input name="islogin" value="false" hidden="hidden"/>
                 </th:block>
 
                 <a th:unless="${isAdd}" id="addFriend" onclick="return loginTip();">
-                    <input id="friendId" hidden="hidden"/>
+                    <input id="friendId" hidden="hidden" th:value="${user.userId}"/>
                     <img th:src="@{/img/adduser.png}"/>
                     加入聊天列表
                 </a>
@@ -128,32 +90,14 @@
                 <td>出版社</td>
                 <td>日期</td>
             </tr>
-            <tr>
-                <td>图书编号</td>
+            <tr th:each="book:${user.contribution}">
+                <td th:text="${book.bookId}"></td>
                 <td>
-                    <a style="color: #333333;" href="#" target="_blank">图书名</a>
+                    <a style="color: #333333;" href="#" target="_blank" th:text="${book.bookName}"></a>
                 </td>
-                <td>作者</td>
-                <td>出版社</td>
-                <td>2017-09-23</td>
-            </tr>
-            <tr>
-                <td>图书编号</td>
-                <td>
-                    <a style="color: #333333;" href="#" target="_blank">图书名</a>
-                </td>
-                <td>作者</td>
-                <td>出版社</td>
-                <td>2017-09-23</td>
-            </tr>
-            <tr>
-                <td>图书编号</td>
-                <td>
-                    <a style="color: #333333;" href="#" target="_blank">图书名</a>
-                </td>
-                <td>作者</td>
-                <td>出版社</td>
-                <td>2017-09-23</td>
+                <td th:text="${book.author}"></td>
+                <td th:text="${book.publish}"></td>
+                <td th:text="${book.bookDate}"></td>
             </tr>
         </table>
 
@@ -167,13 +111,17 @@
                 <td>日期</td>
             </tr>
             <tr>
-                <td>图书编号</td>
+            <tr th:each="record : ${records}">
+                <td th:text="${record.book.bookId}"></td>
                 <td>
-                    <a style="color: #333333;" href="#" target="_blank">图书名</a>
+                    <a style="color: #333333;"
+                       th:href="@{/tourist/bookMessage/{bookId}(bookId = ${record.book.bookId})}"
+                       th:text="${record.book.bookName}" target="_blank"></a>
                 </td>
-                <td>作者</td>
-                <td>出版社</td>
-                <td>2017-09-23</td>
+                <td th:text="${record.book.author}"></td>
+                <td th:text="${record.book.publish}"></td>
+                <td th:text="${record.recordDate}"></td>
+            </tr>
             </tr>
         </table>
 
@@ -183,9 +131,9 @@
                 <td>寻书记录</td>
                 <td>日期</td>
             </tr>
-            <tr>
-                <td>图书名</td>
-                <td>2017-09-23</td>
+            <tr th:each="notice : ${user.notices}">
+                <td th:text="${notice.noticeText}"></td>
+                <td th:text="${notice.noticeDate}"></td>
             </tr>
         </table>
     </div>
@@ -206,59 +154,16 @@
 <div id="user_chat_div" class="user_chat_div" hidden="hidden">
     <!--头部-->
     <div class="chat_title">
-        <img class="img-rounded" th:src="@{/img/user.png}" width="40px" height="40px"/>
-        <span class="user_name">用户名</span>
+        <img class="img-circle" th:src="@{${user.userImg}}" width="40px" height="40px"/>
+        <span class="user_name" th:text="${user.userName}"></span>
         <span class="title_btn">
             <!--<a class="glyphicon glyphicon-minus"></a>-->
             <a id="close" class="glyphicon glyphicon-remove"></a>
         </span>
     </div>
     <!--信息展示框-->
+    <input hidden="hidden" type="text" id="chatWithId" th:value="${user.userId}"/>
     <div class="chat_show_div speak_box">
-        <!--他人信息-->
-        <div class="answer">
-            <div class="heard_img left"><img src="images/dglvyou.jpg"/></div>
-            <div class="answer_text"><p>你好！</p><i></i>
-            </div>
-        </div>
-
-        <!--我的信息-->
-        <div class="question">
-            <div class="heard_img right">
-                <img src="#"/></div>
-            <div class="question_text clear"><p>你好！</p><i></i>
-            </div>
-        </div>
-
-        <!--他人信息-->
-        <div class="answer">
-            <div class="heard_img left"><img src="images/dglvyou.jpg"/></div>
-            <div class="answer_text"><p>你好！</p><i></i>
-            </div>
-        </div>
-
-        <!--我的信息-->
-        <div class="question">
-            <div class="heard_img right">
-                <img src="#"/></div>
-            <div class="question_text clear"><p>你好！</p><i></i>
-            </div>
-        </div>
-
-        <!--他人信息-->
-        <div class="answer">
-            <div class="heard_img left"><img src="images/dglvyou.jpg"/></div>
-            <div class="answer_text"><p>你好！</p><i></i>
-            </div>
-        </div>
-
-        <!--我的信息-->
-        <div class="question">
-            <div class="heard_img right">
-                <img src="#"/></div>
-            <div class="question_text clear"><p>你好！</p><i></i>
-            </div>
-        </div>
 
     </div>
     <div class="chat_tools">
@@ -270,7 +175,7 @@
 
     </textarea>
     <div class="chat_btn">
-        <button type="button" class="btn btn-info">发送</button>
+        <button onclick="up_say()" type="button" class="btn btn-info">发送</button>
     </div>
 </div>
 
@@ -289,7 +194,7 @@
         <form class="form-horizontal" action="#" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label class="col-sm-1 control-label">被举报人：</label>
-                <span class="col-sm-2 control-label">被举报人</span>
+                <span class="col-sm-2 control-label" th:text="${user.userName}"></span>
             </div>
             <div class="form-group">
                 <label class="col-sm-1 control-label">举报理由：</label>
@@ -303,8 +208,6 @@
                 <div class="row col-sm-11" style="float: right;margin-right: 10px">
                     <div class="">
                         <input id="file-select" name="file-select[]" type="file" multiple="multiple"/>
-                        <!--<hr/>-->
-                        <!--<br/>-->
                     </div>
                 </div>
             </div>
@@ -319,6 +222,190 @@
 
 <!--添加提示框-->
 <div class="alert"></div>
+
+<script>
+    var str;
+
+    function showMyMssage(text) {
+        str = '<div class="question">';
+        str += '<div class="heard_img right">' +
+            '<th:block th:unless="${session.user eq null}"><img th:src="@{${session.user.userImg}}"/></th:block></div>';
+        str += '<div class="question_text clear"><p>' + text + '</p><i></i>';
+        str += '</div></div>';
+        $('.speak_box').append(str);
+    }
+
+    function up_say() {
+        $('.write_list').remove();
+        var text = $('.user_chat_div textarea').val();
+
+        if (text == '') {
+            alert('请输入内容！');
+            $('.user_chat_div textarea').focus();
+        } else {
+            sendMessage();
+            showMyMssage(text);
+            $('.input_div textarea').val('');
+            $('.input_div textarea').focus();
+            autoWidth();
+            for_bottom();
+
+        }
+    }
+
+    function keyup() {
+        var footer_height = $('.wenwen-footer').outerHeight(),
+            text = $('.write_box input').val(),
+            str = '<div class="write_list">' + text + '</div>';
+        if (text == '' || text == undefined) {
+            $('.write_list').remove();
+        } else {
+            $('.wenwen-footer').append(str);
+            $('.write_list').css('bottom', footer_height);
+        }
+    }
+
+    // 显示他人信息
+    function showMessage(text) {
+        var ans = '<div class="answer"><div class="heard_img left"><img th:src="@{${user.userImg}}" /></div>';
+        ans += '<div class="answer_text"><p>' + text + '</p><i></i>';
+        ans += '</div></div>';
+        $('.speak_box').append(ans);
+        for_bottom();
+    }
+
+    function for_bottom() {
+        var speak_height = $('.speak_box').height();
+        $('.speak_box').animate({scrollTop: speak_height}, 500);
+        scrollToBottom();
+    }
+
+    function autoWidth() {
+        $('.question_text').css('max-width', $('.question').width() - 60);
+    }
+
+    autoWidth();
+
+    var ws = null;
+
+    /** 联系判断用户是否登录. */
+    function chatLoginTip() {
+        var login = $('input[name="islogin"]').val();
+        if (login == 'ok') {
+            console.log('联系');
+            $('#chat').show();
+            $('#chat').focus();
+            ws = new WebSocket("ws://localhost:8080/FlowBook/webSocketHandler");
+            ws.onopen = function () {
+                console.log("onpen");
+                ws.send("{}");
+            };
+            chatWith();
+
+            var height = $(document).height();
+            var width = $(window).width();
+            var divWidth = $('#user_chat_div').width();
+            $('#out_bg').css('height', height);
+            $('#user_chat_div').css('left', (width - divWidth)/2 + "px");
+            $('#out_bg').show();
+            $('#user_chat_div').show();
+
+            return true;
+        } else {
+            if (window.confirm("请先登录!")) {
+                window.location.replace("../../login");
+                return false;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function closeChat() {
+        console.log('消失');
+        ws.onclose = function () {
+            console.log("onclose");
+        };
+        $('#chat').hide();
+    };
+
+    ws.onmessage = function (msg) {
+        var message = msg.data;
+        message = message.split("/[-=^*]");
+        var chatWithId = $('#chatWithId').val().trim();
+        if (chatWithId == message[0].trim()) {
+            showMessage(message[1]);
+        }
+    };
+
+    function sendMessage() {
+        var text = $('.user_chat_div textarea').val();
+        var to = $('#chatWithId').val();
+        $.post('../../message',
+            {
+                message: text,
+                userId: to
+            },
+            function (data) {
+                console.log("data:" + data);
+            })
+    }
+
+    function chatWith(n) {
+        $('.speak_box').html("");
+        var friendId = $('#chatWithId').val();
+        getFriendMsg(friendId);
+    }
+
+    /*<![CDATA[*/
+    function getFriendMsg(friendId) {
+        $.post('../../chatWith',
+            {
+                friendId: friendId
+            },
+            function (data) {
+                console.log(data);
+                var friendMsg = data.friendMsg;
+                var selfMsg = data.selfMsg;
+                var friendLenght = friendMsg.length;
+                var selfLenght = selfMsg.length;
+                var i = 0, j = 0;
+                while (i < friendLenght && j < selfLenght) {
+                    if (friendMsg[i].date < selfMsg[j].date) {
+                        showMessage(friendMsg[i].message);
+                        console.log("friend : " + friendMsg[i].date);
+                        i++;
+                    } else {
+                        showMyMssage(selfMsg[j].message);
+                        console.log("self : " + selfMsg[j].date);
+                        j++;
+                    }
+                }
+                console.log(i + ' : ' + j);
+
+                for (; i < friendLenght; i++) {
+                    showMessage(friendMsg[i].message);
+                }
+                for (; j < selfLenght; j++) {
+                    showMyMssage(selfMsg[j].message);
+                }
+                console.log(i + ' : ' + j);
+            });
+    }
+
+    /*]]>*/
+
+    function scrollToBottom() {
+        var h = $('.speak_box').height();
+        console.log("高度： " + h);
+        // $('.speak_box').scrollTop(h);
+        $('#chat_div').animate({
+                scrollTop: h
+            },
+            500);
+    }
+
+</script>
 
 </body>
 </html>

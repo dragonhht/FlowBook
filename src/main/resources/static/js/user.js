@@ -25,15 +25,9 @@ function selectTab(n) {
 }
 
 /** 联系. */
-function chatLoginTip() {
-    var height = $(document).height();
-    var width = $(window).width();
-    var divWidth = $('#user_chat_div').width();
-    $('#out_bg').css('height', height);
-    $('#user_chat_div').css('left', (width - divWidth)/2 + "px");
-    $('#out_bg').show();
-    $('#user_chat_div').show();
-}
+/*function chatLoginTip() {
+
+}*/
 
 /** 举报. */
 function showReportDiv() {
@@ -49,7 +43,8 @@ function showReportDiv() {
 /** 添加好友. */
 function addFriend() {
     var friendId = $('#friendId').val();
-    $.post('../user/addFriend',
+    console.log(friendId);
+    $.post('/FlowBook/user/addFriend',
         {
             friend : friendId
         },
