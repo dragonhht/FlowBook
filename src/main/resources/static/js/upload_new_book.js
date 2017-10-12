@@ -53,7 +53,7 @@ function selectType(n) {
             $('#addTypeBtn').before('<span id="type_' + $(n).attr('val') + '" class="type_select">\n' +
                         '<a style="color: #333333;" class="type_name"> ' + $(n).children('a').html() + '</a>\n' +
                         '<a class="del_type">X</a>\n' +
-                        '<input name="type" hidden="hidden" type="text" value=" ' + $(n).attr('val') + ' + " />\n' +
+                        '<input name="type" hidden="hidden" type="text" value="' + $(n).attr('val') + '" />\n' +
                         '</span>');
         } else {
             alert('最多只能选３个类型的标签');
@@ -70,4 +70,19 @@ function selectType(n) {
         }
 
     }
+}
+
+/** 星评. */
+function startLight(n) {
+    var index = parseInt($(n).attr('index')) + 1;
+    var a = $('#startComment').children('a');
+    for (var i = 0; i < index; i++) {
+        $($(a[i]).children('i')).removeClass('glyphicon-star-empty');
+        $($(a[i]).children('i')).addClass('glyphicon-star');
+    }
+    for (var j = i; j <= 5; j++) {
+        $($(a[j]).children('i')).removeClass('glyphicon-star');
+        $($(a[j]).children('i')).addClass('glyphicon-star-empty');
+    }
+    $('#bookStart').val(index);
 }
