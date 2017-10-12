@@ -47,8 +47,39 @@ function showReportDiv() {
 }
 
 /** 添加好友. */
+function addFriend() {
+    var friendId = $('#friendId').val();
+    $.post('../user/addFriend',
+        {
+            friend : friendId
+        },
+        function (data) {
+            if (data) {
+                $('.alert').html('添加好友成功').addClass('alert-success').show().delay(2000).fadeOut();
+                $('#addFriend').hide();
+            } else {
+                $('.alert').html('添加好友失败').addClass('alert-danger').show().delay(2000).fadeOut();
+            }
+            $('#result').show();
+        })
+}
+
+/** 判断是否登录. */
 function loginTip() {
-    $('.alert').html('操作成功').addClass('alert-success').show().delay(2000).fadeOut();
+    var login = $('input[name="islogin"]').val();
+    console.log(login);
+    if (login == 'ok') {
+        addFriend();
+        return true;
+    } else {
+        if (window.confirm("请先登录!")) {
+            window.location.replace("../../login");
+            return false;
+        } else {
+            return false;
+        }
+    }
+
 }
 
 $(document).ready(function () {
@@ -85,6 +116,5 @@ $(document).ready(function () {
         maxFileCount : 3,
         'elErrorContainer': '#errorBlock'
     });
-
 });
 

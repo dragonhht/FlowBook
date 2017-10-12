@@ -94,7 +94,7 @@
                 </a>
             </div>
             <div class="book_message_message_div">
-                <a href="#" target="_blank">
+                <a th:href="@{/tourist/user/{userId} (userId = ${user.userId})}" target="_blank">
                     <span class="book_name" th:text="${user.userName}"></span>
                 </a>
                 <div class="book_message">

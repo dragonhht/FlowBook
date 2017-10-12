@@ -57,6 +57,7 @@ public class UserFriendController {
     @PostMapping("/addFriend")
     @ResponseBody
     public boolean addFriend(String friend, HttpSession session) {
+        System.out.println("kk"+friend);
         boolean ok = false;
         User user = (User) session.getAttribute("user");
         if (user != null) {

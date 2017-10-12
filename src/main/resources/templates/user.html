@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>用户信息</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"/>
-    <script src="../static/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-    <script src="../static/js/bootstrap.js" type="text/javascript"></script>
-    <link href="../static/css/user.css" rel="stylesheet" type="text/css"/>
-    <script src="../static/js/user.js" type="text/javascript"></script>
-    <link href="../static/css/fileinput.min.css" rel="stylesheet" type="text/css"/>
-    <script src="../static/js/fileinput.js" type="text/javascript"></script>
-    <script src="../static/js/zh.js" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" href="../static/css/alert.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery-3.2.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+    <link th:href="@{/css/user.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/js/user.js}" type="text/javascript"></script>
+    <link th:href="@{/css/fileinput.min.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/js/fileinput.js}" type="text/javascript"></script>
+    <script th:src="@{/js/zh.js}" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/alert.css}"/>
 </head>
 <body>
 
@@ -62,7 +62,7 @@
 
     <div class="center_user">
         <div class="user_img">
-            <img class="img-thumbnail" src="../static/img/user.png"/>
+            <img class="img-thumbnail" th:src="@{/img/user.png}"/>
         </div>
         <div class="user_message">
             <div class="user_message_name">用户名</div>
@@ -89,17 +89,24 @@
             </div>
 
             <div class="add_user">
-                <a onclick="return loginTip();">
+                <th:block th:unless="${session.user eq null}">
+                    <input name="islogin" value="ok" hidden="hidden" />
+                </th:block>
+                <th:block th:if="${session.user eq null}">
+                    <input name="islogin" value="false" hidden="hidden" />
+                </th:block>
+
+                <a th:unless="${isAdd}" id="addFriend" onclick="return loginTip();">
                     <input id="friendId" hidden="hidden"/>
-                    <img src="../static/img/adduser.png"/>
+                    <img th:src="@{/img/adduser.png}"/>
                     加入聊天列表
                 </a>
                 <a onclick="return chatLoginTip();">
-                    <img src="../static/img/chat.png"/>
+                    <img th:src="@{/img/chat.png}"/>
                     联系
                 </a>
                 <a onclick="showReportDiv()">
-                    <img style="width: 15px;height: 15px" src="../static/img/report.png"/>
+                    <img style="width: 15px;height: 15px" th:src="@{/img/report.png}"/>
                     举报
                 </a>
             </div>
@@ -199,7 +206,7 @@
 <div id="user_chat_div" class="user_chat_div" hidden="hidden">
     <!--头部-->
     <div class="chat_title">
-        <img class="img-rounded" src="../static/img/user.png" width="40px" height="40px"/>
+        <img class="img-rounded" th:src="@{/img/user.png}" width="40px" height="40px"/>
         <span class="user_name">用户名</span>
         <span class="title_btn">
             <!--<a class="glyphicon glyphicon-minus"></a>-->
@@ -295,7 +302,7 @@
                 <label class="col-sm-1 control-label">备注图片：</label>
                 <div class="row col-sm-11" style="float: right;margin-right: 10px">
                     <div class="">
-                        <input id="file-select" name="file-select[]" type="file" multiple/>
+                        <input id="file-select" name="file-select[]" type="file" multiple="multiple"/>
                         <!--<hr/>-->
                         <!--<br/>-->
                     </div>
