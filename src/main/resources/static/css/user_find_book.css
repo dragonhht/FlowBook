@@ -21,16 +21,24 @@ a:hover {
     position: absolute;
     left: 55%;
     top: 10px;
-    width: 350px;
+//width: 350px;
+    border-bottom: 1px solid gray;
+}
+
+.top_form select {
+    width: 60px;
+    background-color: transparent;
+    border: none;
+    outline: none;
 }
 
 .top_form input {
-    width: 300px;
+    width: 240px;
     height: 30px;
     background-color: transparent;
     border: none;
     outline: none;
-    border-bottom: 1px solid gray;
+// border-bottom: 1px solid red;
 }
 
 .top_form button {

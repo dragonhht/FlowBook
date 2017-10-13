@@ -70,4 +70,10 @@ public class IndexController {
     public String register() {
         return "register";
     }
+
+    @RequestMapping("/msg")
+    public String msg(String flag, Model model) {
+        model.addAttribute("flag", flag);
+        return "msg";
+    }
 }

@@ -117,7 +117,7 @@ $(document).ready(function(){
             contentType: false,
             processData: false,
             success: function (data) {
-
+                window.location.replace("../msg?flag=applySeccuss");
             },
             error: function (data) {
 
