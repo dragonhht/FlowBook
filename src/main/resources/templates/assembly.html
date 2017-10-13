@@ -20,7 +20,12 @@
                 <li><a onclick="selectNav(this)"><span
                         class="glyphicon glyphicon-tasks"></span> 用户寻书</a></li>
                 <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
-                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-eur"></span> 新书漂流</a></li>
+                <li th:if="${session.user eq null}">
+                    <a th:href="@{/login}" onclick="selectNav(this)"><span class="glyphicon glyphicon-eur"></span> 新书漂流</a>
+                </li>
+                <li th:unless="${session.user eq null}">
+                    <a th:href="@{/user/uploadBook}" onclick="selectNav(this)"><span class="glyphicon glyphicon-eur"></span> 新书漂流</a>
+                </li>
 
             </ul>
 
@@ -72,7 +77,12 @@
                 <li><a onclick="selectNav(this)"><span
                         class="glyphicon glyphicon-tasks"></span> 用户寻书</a></li>
                 <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-fire"></span> 活动</a></li>
-                <li><a href="#" onclick="selectNav(this)"><span class="glyphicon glyphicon-eur"></span> 新书漂流</a></li>
+                <li th:if="${session.user eq null}">
+                    <a th:href="@{/login}" onclick="selectNav(this)"><span class="glyphicon glyphicon-eur"></span> 新书漂流</a>
+                </li>
+                <li th:unless="${session.user eq null}">
+                    <a th:href="@{/user/uploadBook}" onclick="selectNav(this)"><span class="glyphicon glyphicon-eur"></span> 新书漂流</a>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

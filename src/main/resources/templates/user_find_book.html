@@ -7,8 +7,9 @@
     <script th:src="@{/js/jquery-3.2.1.min.js}" type="text/javascript"></script>
     <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
     <link th:href="@{/css/user_find_book.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/alert.css}" type="text/css" rel="stylesheet" />
 </head>
-
+<body>
 <!--顶部-->
 <div th:include="assembly::navWithSearch"></div>
 
@@ -22,16 +23,9 @@
             <span>寻书</span>
         </div>
         <div class="center_left_body">
-            <!--<textarea id="noticeText" placeholder="请输入想看的书的书名...."></textarea>-->
             <input type="text" id="noticeText" placeholder="请输入想看的书的书名..."/>
             <button id="upload_btn" class="btn btn-primary">发布寻书</button>
         </div>
-        <!--<div class="form-group">
-            <div class="col-sm-offset-1 col-sm-10">
-                <button id="upload_btn" class="btn btn-primary">确定上传</button>
-                <span id="resultMessage" style="color: red;"></span>
-            </div>
-        </div>-->
 
         <!-- 用户寻书展示 -->
         <div class="show_book">
@@ -64,6 +58,28 @@
     </p>
 </div>
 
-<body>
+<!--添加提示框-->
+<div class="alert"></div>
+
+<script>
+    $(document).ready(function () {
+        $('#upload_btn').click(function () {
+            var text = $('#noticeText').val().trim();
+            $.post('saveNotice',
+                {
+                    text : text
+                },
+            function (data) {
+                if (data) {
+                    $('#noticeText').val('');
+                    $('.alert').html('上传成功').addClass('alert-success').show().delay(2000).fadeOut();
+                } else {
+                    $('.alert').html('上传失败，请稍后再试').addClass('alert-danger').show().delay(2000).fadeOut();
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

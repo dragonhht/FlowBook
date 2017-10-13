@@ -43,7 +43,7 @@ public class UserNoticeController {
      */
     @PostMapping("/saveNotice")
     @ResponseBody
-    public String saveNotice(String text, HttpSession session) {
+    public boolean saveNotice(String text, HttpSession session) {
         User user = (User) session.getAttribute("user");
         String userId = null;
         if (user != null) {
@@ -51,11 +51,7 @@ public class UserNoticeController {
         }
         boolean ok = false;
         ok = userNoticeService.addNotice(text, userId);
-        if (ok) {
-            return "上传成功";
-        } else {
-            return "上传失败";
-        }
+        return ok;
     }
 
 }
