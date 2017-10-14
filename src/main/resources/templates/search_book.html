@@ -77,12 +77,12 @@
         <!--一条图书信息-->
         <div class="book_message_div" th:each="book : ${books}">
             <div class="img_div">
-                <a href="#" target="_blank">
+                <a th:href="@{/tourist/bookMessage/{bookId} (bookId = ${book.bookId})}" target="_blank">
                     <img th:src="@{${book.bookImg}}"/>
                 </a>
             </div>
             <div class="book_message_message_div">
-                <a href="#" target="_blank">
+                <a th:href="@{/tourist/bookMessage/{bookId} (bookId = ${book.bookId})}" target="_blank">
                     <span class="book_name" th:text="${book.bookName}"></span>
                 </a>
                 <div class="book_message">

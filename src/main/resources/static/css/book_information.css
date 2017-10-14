@@ -1,0 +1,294 @@
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.container {
+    position: relative;
+}
+
+.nav li a {
+    cursor: pointer;
+}
+
+.top_form {
+    position: absolute;
+    left: 55%;
+    top: 10px;
+    width: 350px;
+}
+
+.top_form input {
+    width: 300px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid gray;
+}
+
+.top_form button {
+    background-color: transparent;
+}
+
+.center_bg {
+    /*border: 1px solid red;*/
+    margin: 30px auto;
+    width: 1200px;
+    position: relative;
+    min-height: 500px;
+}
+
+.center_search {
+// border: 1px solid red;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    width: 700px;
+    margin-left: 250px;
+    /*margin-right: auto;*/
+}
+
+.center_search select {
+    border: 1px solid gray;
+    height: 40px;
+}
+
+.search_input {
+    border: 1px solid gray;
+    width: 500px;
+    height: 40px;
+}
+
+.center_search button {
+    height: 40px;
+}
+
+.book_massage_div {
+    position: relative;
+    float: left;
+    border: 1px solid #EEEEEE;
+    width: 900px;
+    height: 500px;
+    margin-bottom: 30px;
+}
+
+.book_img {
+    position: absolute;
+    width: 220px;
+    height: 270px;
+    top: 35px;
+    left: 35px;
+}
+
+.book_base_massage {
+    position: absolute;
+    /*border: 1px solid red;*/
+    top: 35px;
+    left: 300px;
+    width: 585px;
+    height: 450px;
+}
+
+.book_base_massage label {
+    color: gray;
+    margin-right: 10px;
+    /*border: 1px solid red;*/
+    width: 80px;
+    text-align: right;
+}
+
+.book_massage {
+    /*border: 1px solid green;*/
+    height: 35px;
+    line-height: 35px;
+    padding-left: 10px;
+}
+
+.book_title {
+    /*border: 1px solid green;*/
+    height: 35px;
+    line-height: 35px;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.right_div {
+    float: right;
+    // border: 1px solid #EEEEEE;
+    width: 250px;
+    min-height: 800px;
+}
+
+.hot_book_div {
+    position: relative;
+    border: 1px solid #DEDEDE;
+    width: 250px;
+    height: 311px;
+}
+
+.hot_list_title {
+    position: absolute;
+    top: 0;
+    height: 30px;
+    width: 248px;
+    background-color: #DEDEDE;
+    line-height: 30px;
+}
+
+.hot_list_title li {
+    list-style: none;
+}
+
+.hot_list_title li a {
+    color: gray;
+}
+
+.hot_list_title .active_list_title_flag {
+    float: left;
+}
+
+.hot_list_title .active_list_title_more {
+    float: right;
+    margin-right: 10px;
+}
+
+.recommend_book_div {
+    margin-top: 30px;
+}
+
+.book_list_div {
+    position: absolute;
+    top: 30px;
+    /*border: 1px solid red;*/
+    width: 100%;
+    height: 270px;
+}
+
+.book_base {
+    border-bottom: 1px solid #DEDEDE;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.book_base .book_name a {
+    color: black;
+    font-size: large;
+}
+
+.book_base span {
+    color: grey;
+}
+
+.book_base span a {
+    color: grey;
+}
+
+.comment_div_0 {
+    float: left;
+    //border: 1px solid gray;
+    width: 900px;
+    min-height: 200px;
+    margin-bottom: 20px;
+}
+
+.comment_div {
+//border: 1px solid red;
+    margin-bottom: 20px;
+    padding-left: 10px;
+}
+
+.comment_div img {
+    width: 40px;
+    height: 40px;
+}
+
+.user_name {
+    margin-left: 10px;
+}
+
+.user_name a {
+    color: black;
+    font-weight: bolder;
+}
+
+.comment_date {
+//border: 1px solid gray;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+}
+
+.comment_text_div {
+//border: 1px solid green;
+    margin-top: 10px;
+    width: 100%;
+//background: #EEEEEE;
+}
+
+#route {
+    padding-top: 10px;
+}
+
+#route textarea {
+    width: 100%;
+    height: 300px;
+    resize: none;
+    outline: none;
+}
+
+.footer {
+    clear: both;
+    width: 1200px;
+    height: 50px;
+    margin: 0 auto;
+    border-top: 1px solid gray;
+    background-color: white;
+}
+
+.copyright {
+    color: gray;
+    line-height: 50px;
+}
+
+.out_bg {
+    position: absolute;
+    height: 106%;
+    width: 100%;
+    z-index: 2;
+    background-color: black;
+    opacity: 0.5;
+    top: 0;
+}
+
+.update_div {
+    background-color: white;
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    width: 600px;
+    height: 420px;
+    padding: 16px;
+    z-index: 3;
+}
+
+.update_top {
+    color: red;
+    border: 1px solid white;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 250px;
+}
+
+.update_div .close {
+    color: #0e0e0e;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 20px;
+    display: block;
+    height: 30px;
+}
