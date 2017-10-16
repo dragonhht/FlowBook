@@ -58,7 +58,7 @@ public interface FlowApplyRepository extends JpaRepository<FlowApply, Integer> {
      * @param toUserId 接收方编号
      * @return 申请
      */
-    @Query("select f from FlowApply f where f.okUser.userId = ?1 order by f.applyDate desc ")
+    @Query("select f from FlowApply f where f.okUser.userId = ?1 order by f.status asc ,f.applyDate desc ")
     List<FlowApply> getApplyByToUser(String toUserId);
 
     /**

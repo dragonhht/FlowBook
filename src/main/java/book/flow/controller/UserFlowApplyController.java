@@ -51,7 +51,7 @@ public class UserFlowApplyController {
         model.addAttribute("notApplies", notApplies);
         model.addAttribute("dealingApplies", dealingApplies);
         model.addAttribute("myApplies", myApplies);
-        return "flow_apply";
+        return "user_book_apply";
     }
 
     /**

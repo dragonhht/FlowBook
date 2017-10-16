@@ -21,8 +21,10 @@
                 <div class="title"></div>
                 <div class="index_list">
                     <ul>
-                        <li><a href="#">我要寻书</a></li>
-                        <li><a href="#">我的寻书记录</a></li>
+                        <li th:if="${session.user eq null}"><a th:href="@{/login}">我要寻书</a></li>
+                        <li th:unless="${session.user eq null}"><a th:href="@{/user/uploadNotice}">我要寻书</a></li>
+                        <li th:if="session.user eq null"><a th:href="@{/login}">我的寻书记录</a></li>
+                        <li th:unless="session.user eq null"><a th:href="@{/user/userHome}">我的寻书记录</a></li>
                     </ul>
                 </div>
             </div>

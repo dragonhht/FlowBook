@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>申请</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery-3.2.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+    <link th:href="@{/css/user_book_apply.css}" rel="stylesheet" type="text/css"/>
+    <script th:src="@{/js/user_book_apply.js}" type="text/javascript"></script>
+</head>
+<body>
+<!--顶部-->
+<div th:include="assembly::navWithSearch"></div>
+
+<!--页面中部-->
+<div class="center_bg">
+
+    <input hidden="hidden" id="userId" th:value="${session.user.userId}" />
+
+    <!--左边内容-->
+    <div class="center_left">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#otherApply" data-toggle="tab">他人申请</a>
+            </li>
+            <li><a href="#dealingApply" data-toggle="tab">他人未处理申请</a></li>
+            <li><a href="#dealedApply" data-toggle="tab">他人正在处理申请</a></li>
+            <li><a href="#myApply" data-toggle="tab">我的申请</a></li>
+
+        </ul>
+        <div id="myTabContent" class="tab-content">
+
+            <!--他人申请-->
+            <div class="tab-pane fade in active" id="otherApply">
+                <table id="book_contribution" class="table table-responsive">
+                    <tr>
+                        <!--<td>传阅申请编号</td>-->
+                        <td>申请图书</td>
+                        <td>申请人</td>
+                        <td>日期</td>
+                        <td>状态</td>
+                        <td>查看</td>
+                    </tr>
+                    <tr th:each="allApply : ${allApplies}">
+                        <!--<td th:text="${allApply.id}"></td>-->
+                        <td>
+                            <a th:href="@{/tourist/bookMessage/{bookId}(bookId = ${allApply.book.bookId})}" target="_blank"
+                               th:text="${allApply.book.bookName}"></a>
+                        </td>
+                        <td th:text="${allApply.applyUser.userName}"></td>
+                        <td th:text="${allApply.applyDate}"></td>
+                        <th:block th:if="${allApply.status eq 0}">
+                            <td>未处理</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 1}">
+                            <td>已完成</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 2}">
+                            <td>拒绝</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 3}">
+                            <td>处理中</td>
+                        </th:block>
+                        <th>
+                            <button th:if="${allApply.status eq 0}" th:onclick="'javascript:showApply(\''+${allApply.id}+'\', 0)'" class="btn btn-warning">处理</button>
+                            <button th:unless="${allApply.status eq 0}" th:onclick="'javascript:showApply(\''+${allApply.id}+'\', 0)'" class="btn btn-info">查看</button>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+
+            <!--他人未处理申请-->
+            <div class="tab-pane fade" id="dealingApply">
+                <table id="book_now_have" class="table table-responsive">
+                    <tr>
+                        <!--<td>传阅申请编号</td>-->
+                        <td>申请图书</td>
+                        <td>申请人</td>
+                        <td>日期</td>
+                        <td>状态</td>
+                        <td>查看</td>
+                    </tr>
+                    <tr th:each="allApply : ${notApplies}">
+                        <!--<td th:text="${allApply.id}"></td>-->
+                        <td>
+                            <a th:href="@{/tourist/bookMessage/{bookId}(bookId = ${allApply.book.bookId})}" target="_blank"
+                               th:text="${allApply.book.bookName}"></a>
+                        </td>
+                        <td th:text="${allApply.applyUser.userName}"></td>
+                        <td th:text="${allApply.applyDate}"></td>
+                        <th:block th:if="${allApply.status eq 0}">
+                            <td>未处理</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 1}">
+                            <td>已完成</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 2}">
+                            <td>拒绝</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 3}">
+                            <td>处理中</td>
+                        </th:block>
+                        <th>
+                            <button th:if="${allApply.status eq 0}" th:onclick="'javascript:showApply(\''+${allApply.id}+'\', 0)'" class="btn btn-warning">处理</button>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+
+            <!--他人正在处理申请-->
+            <div class="tab-pane fade" id="dealedApply">
+                <table id="book_borrow" class="table table-responsive">
+                    <tr>
+                        <!--<td>传阅申请编号</td>-->
+                        <td>申请图书</td>
+                        <td>申请人</td>
+                        <td>日期</td>
+                        <td>状态</td>
+                        <td>查看</td>
+                    </tr>
+                    <tr th:each="allApply : ${dealingApplies}">
+                        <!--<td th:text="${allApply.id}"></td>-->
+                        <td>
+                            <a th:href="@{/tourist/bookMessage/{bookId}(bookId = ${allApply.book.bookId})}" target="_blank"
+                               th:text="${allApply.book.bookName}"></a>
+                        </td>
+                        <td th:text="${allApply.applyUser.userName}"></td>
+                        <td th:text="${allApply.applyDate}"></td>
+                        <th:block th:if="${allApply.status eq 0}">
+                            <td>未处理</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 1}">
+                            <td>已完成</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 2}">
+                            <td>拒绝</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 3}">
+                            <td>处理中</td>
+                        </th:block>
+                        <th>
+                            <button th:onclick="'javascript:showApply(\''+${allApply.id}+'\', 0)'" class="btn btn-info">查看</button>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+
+            <!--我的申请-->
+            <div class="tab-pane fade" id="myApply">
+                <table id="notice" class="table table-responsive">
+                    <tr>
+                        <!--<td>传阅申请编号</td>-->
+                        <td>申请图书</td>
+                        <td>同意人</td>
+                        <td>日期</td>
+                        <td>状态</td>
+                        <td>查看</td>
+                    </tr>
+                    <tr th:each="allApply : ${myApplies}">
+                        <!--<td th:text="${allApply.id}"></td>-->
+                        <td>
+                            <a th:href="@{/tourist/bookMessage/{bookId}(bookId = ${allApply.book.bookId})}" target="_blank"
+                               th:text="${allApply.book.bookName}"></a>
+                        </td>
+                        <td th:text="${allApply.okUser.userName}"></td>
+                        <td th:text="${allApply.applyDate}"></td>
+                        <th:block th:if="${allApply.status eq 0}">
+                            <td>未处理</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 1}">
+                            <td>已完成</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 2}">
+                            <td>拒绝</td>
+                        </th:block>
+                        <th:block th:if="${allApply.status eq 3}">
+                            <td>处理中</td>
+                        </th:block>
+                        <th>
+                            <button th:if="${allApply.status eq 0}" th:onclick="'javascript:showApply(\''+${allApply.id}+'\', 1)'" class="btn btn-warning">处理</button>
+                            <button th:unless="${allApply.status eq 0}" th:onclick="'javascript:showApply(\''+${allApply.id}+'\', 1)'" class="btn btn-info">查看</button>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!--右边内容-->
+    <div class="center_right" th:include="assembly::navUserRight"></div>
+
+</div>
+
+<!--底部-->
+<div class="footer" align="center">
+    <p class="copyright">
+        Copyright © 2017. All Rights Reserved by dragonhht from
+        <a href="https://github.com/dragonhht" title="Github" target="_blank" style="color: gray;">dragonhht</a>
+    </p>
+</div>
+
+<!--弹出背景-->
+<div id="out_bg" class="out_bg" hidden="hidden"></div>
+
+<!--展示申请-->
+<div class="update_div" id="show_apply" hidden="hidden">
+    <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
+    <span class="update_top" id="applyResult"></span>
+    <input id="applyId" name="applyId" hidden="hidden" type="text"/>
+    <div class="form-group">
+        <label for="applyText">申请人：</label>
+        <a id="applyText" target="_blank"></a>
+    </div>
+    <div class="form-group">
+        <label for="applyForBook">相关书籍编号：</label>
+        <a id="applyForBook" target="_blank"></a>
+    </div>
+    <div class="form-group">
+        <label for="applyStatus">状态：</label>
+        <span id="applyStatus"></span>
+    </div>
+    <div class="form-group" style="position: relative;height: 110px">
+        <label for="applySay">说明：</label>
+        <div id="applySay" style="border: 1px solid #DDDDDD; width: 500px;height: 100px;position: absolute;left: 40px;top: 0;overflow-x: auto"></div>
+    </div>
+    <div class="form-group" id="applyBtn">
+
+    </div>
+    <div class="form-group" id="reason">
+
+    </div>
+</div>
+
+</body>
+</html>
