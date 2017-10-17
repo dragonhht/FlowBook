@@ -60,7 +60,7 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
      * 获得所有申请.
      * @return 所有申请
      */
-    @Query("select a from Apply a order by a.applyDate desc ")
+    @Query("select a from Apply a order by a.status asc ,a.applyDate desc ")
     List<Apply> getAllApplies();
 
     /**
