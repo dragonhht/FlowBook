@@ -52,12 +52,17 @@ public class UserReportController {
      */
     @PostMapping("/saveReport")
     @ResponseBody
-    public boolean saveReport(String informants, String reportText, String[] imgs, HttpSession session) {
+    public boolean saveReport(String informants, String reportText, MultipartFile[] imgs, HttpSession session) {
         boolean ok = false;
         User user = (User) session.getAttribute("user");
         if (user != null) {
             String userId = user.getUserId();
-            ok = userReportService.saveReport(userId, informants, reportText, imgs);
+            int[] imags = new int[imgs.length];
+            for (int i = 0; i < imgs.length; i++) {
+                int imgId = userReportService.saveReportImg(i, informants, userId, imgs[i]);
+                imags[i] = imgId;
+            }
+            ok = userReportService.saveReport(userId, informants, reportText, imags);
         }
         return ok;
     }

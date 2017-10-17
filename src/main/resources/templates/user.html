@@ -191,29 +191,37 @@
     </div>
     <!--举报内容-->
     <div class="report_body">
-        <form class="form-horizontal" action="#" method="post" enctype="multipart/form-data">
+        <form class="form-horizontal" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label class="col-sm-1 control-label">被举报人：</label>
                 <span class="col-sm-2 control-label" th:text="${user.userName}"></span>
+                <input id="beReportId" hidden="hidden" type="text" th:value="${user.userId}" />
             </div>
             <div class="form-group">
                 <label class="col-sm-1 control-label">举报理由：</label>
                 <div class="col-sm-7">
-                    <textarea class="form-control"></textarea>
+                    <textarea id="reason" class="form-control"></textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-1 control-label">备注图片：</label>
-                <div class="row col-sm-11" style="float: right;margin-right: 10px">
+                <!--<div class="row col-sm-11" style="float: right;margin-right: 10px">
                     <div class="">
                         <input id="file-select" name="file-select[]" type="file" multiple="multiple"/>
                     </div>
+                </div>-->
+                <div class="file">
+                    添加图片
+                    <input id="fileSelect" name="file_select" type="file"/>
+                </div>
+                <div id="img_show" class="img_show">
+                    <!--<img width="100px" height="130px" th:src="@{/img/21.png}" />-->
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-4">
-                    <button type="submit" class="btn btn-info btn-block">提交</button>
+                    <button id="submitBtn"  type="button" class="btn btn-info btn-block">提交</button>
                 </div>
             </div>
         </form>

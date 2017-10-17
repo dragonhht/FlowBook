@@ -27,6 +27,6 @@ public interface UserReportService {
      * @param img 图片
      * @return 结果
      */
-    boolean saveReport(String reportId, String beReportId, String text, String[] img);
+    boolean saveReport(String reportId, String beReportId, String text, int[] img);
 
 }

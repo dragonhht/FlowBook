@@ -55,16 +55,15 @@ public class UserReportServiceImp implements UserReportService {
     }
 
     @Override
-    public boolean saveReport(String reportId, String beReportId, String text, String[] img) {
+    public boolean saveReport(String reportId, String beReportId, String text, int[] img) {
         boolean ok = false;
         User report = userRepository.getUserById(reportId);
         User beReport = userRepository.getUserById(beReportId);
         Set<ReportImg> imgSet = new HashSet<>();
         if (img != null) {
             try {
-                for (String i : img) {
-                    int a = Integer.parseInt(i);
-                    ReportImg img1 = reportImgRepository.getReportImgById(a);
+                for (int i : img) {
+                    ReportImg img1 = reportImgRepository.getReportImgById(i);
                     imgSet.add(img1);
                 }
             } catch (Exception e) {

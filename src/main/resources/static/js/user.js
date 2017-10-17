@@ -101,15 +101,44 @@ $(document).ready(function () {
     });
 
     /** 图片. */
-    $('#file-select').fileinput({
-        language: 'zh',
-        uploadUrl: '#',
-        allowedFileExtensions : ['jpg', 'png','gif'],
-        showUpload : false,
-        showCaption: false,
-        dropZoneEnabled: false,
-        maxFileCount : 3,
-        'elErrorContainer': '#errorBlock'
+    var index = 0;
+    // 保存表单数据
+    var file = new FormData();
+    $('#fileSelect').change(function () {
+        if (index < 3) {
+            var files = $('#fileSelect')[0].files[0];
+            var url = window.URL.createObjectURL(files);
+            $('#img_show').append('<img width="100px" height="130px" src=" ' + url + '" />');
+            // 将图片数据保存
+            file.append('imgs', files);
+            index++;
+        } else {
+            alert('最多只能选择３张图片!');
+        }
     });
+    
+    $('#submitBtn').click(function () {
+        console.log("dflkdj");
+        var informants = $('#beReportId').val().trim();
+        var reason = $('#reason').val().trim();
+        file.append('informants', informants);
+        file.append('reportText', reason);
+        $.ajax({
+            url : '../../user/saveReport',
+            type : 'post',
+            data : file,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                window.location.replace("../msg?flag=applySeccuss");
+            },
+            error: function (data) {
+
+            }
+        });
+    });
+
 });
 
