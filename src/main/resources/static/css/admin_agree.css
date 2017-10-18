@@ -91,11 +91,11 @@ a:hover {
 
 .update_div {
 // display: none;
-    position: absolute;
-    top: 20%;
+    position: fixed;
+    top: 50px;
     left: 25%;
     width: 50%;
-    height: 200px;
+    min-height: 200px;
     padding: 16px;
     border: 3px solid gray;
     background-color: white;
@@ -108,7 +108,7 @@ a:hover {
 }
 
 #apply_ok {
-    height: 400px;
+    // height: 400px;
 }
 
 #report {

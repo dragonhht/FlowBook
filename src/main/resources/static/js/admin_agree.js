@@ -122,6 +122,8 @@ function refuseApply() {
 }
 
 function showReport(reportId) {
+    var height = $(document).height();
+    $('#out_bg').css('height', height);
 
     $('#reportResult').html(' ');
 
@@ -146,6 +148,7 @@ function showReport(reportId) {
             $('#reportBtn').append('<button onclick="punishReport()" class="btn btn-info">惩罚</button>&nbsp;&nbsp;' +
                 '<button onclick="notPunishReport()" class="btn btn-info">不惩罚</button>')
         }
+        $('#out_bg').show();
         $('#report').show();
     })
 }
@@ -187,6 +190,7 @@ $(document).ready(function () {
     $('#out_bg').click(function () {
         $('#out_bg').hide();
         $('#show_apply').hide();
+        $('#report').hide();
     });
 
 });
