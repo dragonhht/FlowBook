@@ -48,17 +48,16 @@ public class UserServiceImp implements UserService {
         User u = null;
         password = PasswordTool.encryptionMD5(password);
 
-        try {
-            // TODO 账号登录
-            u = userRepository.loginById(text, password, role);
-        } catch (Exception e) {
-            logger.info("未使用编号登录");
-        }
+        u = userRepository.loginById(text, password, role);
+
         if (u == null) {
             u = userRepository.loginByName(text, password, role);
         }
         if (u == null) {
             u = userRepository.loginByPhone(text, password, role);
+        }
+        if (u == null) {
+            u = userRepository.loginByEmail(text, password, role);
         }
         return u;
     }

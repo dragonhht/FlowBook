@@ -34,6 +34,8 @@ public class Book implements Serializable {
     /** 出版社. */
     @Size(min = 1, message = "{book.publish.null.error}")
     private String publish;
+    /** ISBN. */
+    private String ISBN;
     /** 简介. */
     private String introduction;
     /** 评价星级. */
@@ -269,5 +271,13 @@ public class Book implements Serializable {
 
     public void setRecords(Set<LoanRecord> records) {
         this.records = records;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
     }
 }

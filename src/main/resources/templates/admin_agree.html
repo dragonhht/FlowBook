@@ -24,7 +24,6 @@
             <li class="active" index="0" onclick="selectTab(this)"><a>图书退出申请</a></li>
             <li index="1" onclick="selectTab(this)"><a>活动申请</a></li>
             <li index="2" onclick="selectTab(this)"><a>用户举报</a></li>
-            <li index="3" onclick="selectTab(this)"><a>我的传阅申请</a></li>
         </ul>
 
         <table id="book_contribution" class="table table-responsive">
@@ -57,30 +56,6 @@
                 <td>状态</td>
                 <td>查看</td>
             </tr>
-            <!--<tr th:each="allApply : ${notApplies}">
-                &lt;!&ndash;<td th:text="${allApply.id}"></td>&ndash;&gt;
-                <td>
-                    <a th:href="@{/tourist/bookMessage/{bookId}(bookId = ${allApply.book.bookId})}" target="_blank"
-                       th:text="${allApply.book.bookName}"></a>
-                </td>
-                <td th:text="${allApply.wantSay}"></td>
-                <td th:text="${allApply.applyDate}"></td>
-                <th:block th:if="${allApply.status eq 0}">
-                    <td>未处理</td>
-                </th:block>
-                <th:block th:if="${allApply.status eq 1}">
-                    <td>已完成</td>
-                </th:block>
-                <th:block th:if="${allApply.status eq 2}">
-                    <td>拒绝</td>
-                </th:block>
-                <th:block th:if="${allApply.status eq 3}">
-                    <td>处理中</td>
-                </th:block>
-                <th>
-                    <button th:onclick="'javascript:showApply(\''+${allApply.id}+'\')'" class="btn btn-info">查看</button>
-                </th>
-            </tr>-->
         </table>
 
         <table id="book_borrow" class="table table-responsive" hidden="hidden">
@@ -114,46 +89,6 @@
                     <button th:unless="${allApply.status eq 0}" th:onclick="'javascript:showReport(\''+${allApply.reportId}+'\')'"  class="btn btn-info">查看</button>
                 </th>
             </tr>
-        </table>
-
-        <table id="notice" class="table table-responsive" hidden="hidden">
-            <tr>
-                <!--<td>传阅申请编号</td>-->
-                <td>申请图书</td>
-                <td>说明</td>
-                <td>日期</td>
-                <td>状态</td>
-                <td>查看</td>
-            </tr>
-            <!--<tr th:each="allApply : ${myApplies}">
-                &lt;!&ndash;<td th:text="${allApply.id}"></td>&ndash;&gt;
-                <td>
-                    <a th:href="@{/tourist/bookMessage/{bookId}(bookId = ${allApply.book.bookId})}" target="_blank"
-                       th:text="${allApply.book.bookName}"></a>
-                </td>
-                <td th:text="${allApply.wantSay}"></td>
-                <td th:text="${allApply.applyDate}"></td>
-                <th:block th:if="${allApply.status eq 0}">
-                    <td>未处理</td>
-                </th:block>
-                <th:block th:if="${allApply.status eq 1}">
-                    <td>已完成</td>
-                </th:block>
-                <th:block th:if="${allApply.status eq 2}">
-                    <td>拒绝</td>
-                </th:block>
-                <th:block th:if="${allApply.status eq 3}">
-                    <td>处理中</td>
-                </th:block>
-                <th>
-                    <th:block th:if="${allApply.status eq 3}">
-                        <button th:onclick="'javascript:showApplyOk(\''+${allApply.id}+'\')'" class="btn btn-warning">处理</button>
-                    </th:block>
-                    <th:block th:unless="${allApply.status eq 3}">
-                        <button th:onclick="'javascript:showApply(\''+${allApply.id}+'\')'" class="btn btn-info">查看</button>
-                    </th:block>
-                </th>
-            </tr>-->
         </table>
 
     </div>
