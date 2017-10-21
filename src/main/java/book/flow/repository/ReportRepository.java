@@ -56,4 +56,10 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
     @Modifying
     @Query("update Report r set r.status = 2 where r.reportId = ?1")
     int notPassReport(int reportId);
+
+    @Query("select r from Report r where r.beReport.identity = 1 order by r.status asc , r.reportDate desc ")
+    List<Report> getAdminReport();
+
+    @Query("select r from Report r where r.status = 0 and r.beReport.identity = 1")
+    List<Report> getAdminNotDealReport();
 }

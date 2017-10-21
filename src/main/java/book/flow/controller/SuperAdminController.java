@@ -1,9 +1,11 @@
 package book.flow.controller;
 
 import book.flow.enity.Apply;
+import book.flow.enity.Report;
 import book.flow.enity.User;
 import book.flow.service.AdminService;
 import book.flow.service.SuperAdminService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -108,6 +110,50 @@ public class SuperAdminController {
         boolean ok = false;
         adminService.delBook(applyId);
         ok = true;
+        return ok;
+    }
+
+    /**
+     * 跳转举报管理.
+     * @return
+     */
+    @RequestMapping("/adminReport")
+    public String adminReport(Model model) {
+        List<Report> reports = adminService.getAllReport();
+        List<Report> notReport = superAdminService.getAdminNotDealReport();
+        model.addAttribute("reports", reports);
+        model.addAttribute("notReport", notReport);
+        return "super_report";
+    }
+
+    /**
+     * 通过编号获取举报.
+     * @param reportId 编号
+     * @return 举报信息
+     */
+    @PostMapping("/getReportById")
+    @ResponseBody
+    public Report getReportById(int reportId) {
+        Report report = null;
+        report = adminService.getReportById(reportId);
+        return report;
+    }
+
+    @PostMapping("/punishReport")
+    @ResponseBody
+    public boolean punishReport(int reportId) {
+        boolean ok = false;
+        // TODO 惩罚用户
+        ok = adminService.passReport(reportId);
+        System.out.println("惩罚用户");
+        return ok;
+    }
+
+    @PostMapping("/notPunishReport")
+    @ResponseBody
+    public boolean notPunishReport(int reportId) {
+        boolean ok = false;
+        ok = adminService.notPassReport(reportId);
         return ok;
     }
 
