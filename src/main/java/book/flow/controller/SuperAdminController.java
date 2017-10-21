@@ -1,9 +1,12 @@
 package book.flow.controller;
 
+import book.flow.enity.Apply;
 import book.flow.enity.User;
+import book.flow.service.AdminService;
 import book.flow.service.SuperAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,8 @@ public class SuperAdminController {
 
     @Autowired
     private SuperAdminService superAdminService;
+    @Autowired
+    private AdminService adminService;
 
     @RequestMapping("/adminmanager")
     public String superAdmin() {
@@ -70,6 +75,40 @@ public class SuperAdminController {
     @ResponseBody
     public boolean delAdmin(String userId) {
         return superAdminService.delAdmin(userId);
+    }
+
+    /**
+     * 申请处理页面.
+     * @return
+     */
+    @RequestMapping("/adminApply")
+    public String adminApply(Model model) {
+        List<Apply> applies = superAdminService.getAdminBookApply();
+        model.addAttribute("applies", applies);
+        return "super_apply";
+    }
+
+    @PostMapping("/refuseApply")
+    @ResponseBody
+    public boolean refuseApply(int applyId) {
+        boolean ok = false;
+        ok = adminService.refuseApply(applyId);
+        return ok;
+    }
+
+    /**
+     * 同意图书退出申请后删除图书.
+     * @param applyId 图书退出申请
+     * @return 结果
+     */
+    @PostMapping("/delBook")
+    @ResponseBody
+    public boolean delBook(int applyId) {
+        // TODO 退出有问题
+        boolean ok = false;
+        adminService.delBook(applyId);
+        ok = true;
+        return ok;
     }
 
 }

@@ -1,0 +1,125 @@
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.top a {
+    line-height: 50px;
+    cursor: pointer;
+    color: #626262;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.center_bg {
+// border: 1px solid red;
+    margin: 30px auto;
+    width: 1100px;
+    position: relative;
+    min-height: 550px;
+}
+
+.center_left {
+    border: 1px solid #DDDDDD;
+    float: left;
+    width: 844px;
+    margin-bottom: 20px;
+    /*min-height: 550px;*/
+    min-height: calc(100vh - 150px);
+    padding-top: 20px;
+    padding-left: 10px;
+}
+
+.search {
+// border: 1px solid red;
+    margin-top: 20px;
+    margin-bottom: 20px;
+//width: 700px;
+    margin-left: 80px;
+    /*margin-right: auto;*/
+}
+
+.search select {
+    border: 1px solid gray;
+    height: 40px;
+}
+
+.search input {
+    border: 1px solid gray;
+    width: 500px;
+    height: 40px;
+}
+
+.search button {
+    height: 40px;
+}
+
+.center_right {
+    border: 1px solid #DDDDDD;
+    float: right;
+    width: 250px;
+    min-height: 550px;
+    margin-bottom: 20px;
+}
+
+.right_select {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.right_select ul li {
+    border-left: none;
+    border-right: none;
+    border-top: 1px dashed #DDDDDD;
+    border-bottom: 1px dashed #DDDDDD;
+}
+
+.right_select ul li a {
+// border: 1px solid red;
+    color: #3c3c3c;
+}
+
+.footer {
+    clear: both;
+    width: 1200px;
+    height: 50px;
+    margin: 0 auto;
+    border-top: 1px solid gray;
+    background-color: white;
+}
+
+.copyright {
+    color: gray;
+    line-height: 50px;
+}
+
+.out_bg {
+    position: absolute;
+    height: 106%;
+    width: 100%;
+    z-index: 2;
+    background-color: black;
+    opacity: 0.5;
+    top: 0;
+}
+
+.update_div {
+// display: none;
+    position: fixed;
+    top: 50px;
+    left: 25%;
+    width: 50%;
+    min-height: 200px;
+    padding: 16px;
+    border: 3px solid gray;
+    background-color: white;
+    z-index: 3;
+    overflow: auto;
+}
+
+#show_apply {
+    height: 470px;
+}

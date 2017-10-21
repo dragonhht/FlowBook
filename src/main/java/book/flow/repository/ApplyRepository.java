@@ -82,4 +82,7 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
     @Modifying
     @Query("update Apply a set a.status = '拒绝' where a.applyId = ?1")
     int refuseApply(int applyId);
+
+    @Query("select a from Apply a where a.user.identity = 0 order by a.status asc , a.applyDate desc ")
+    List<Apply> getAdminBookApply();
 }

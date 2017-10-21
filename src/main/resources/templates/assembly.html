@@ -197,5 +197,30 @@
     </form>
 </div>
 
+<!--右边内容-->
+<div class="center_right" th:fragment="adminRight">
+    <div class="right_select">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a th:href="@{/superadmin/adminmanager}">
+                    <span>管理员管理</span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a th:href="@{/superadmin/adminApply}">
+                    <span>申请处理</span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a th:href="@{/user/userFriend}">
+                    <span>举报管理</span>
+                    <!--<img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;"
+                         th:src="@{/img/havemsg.png}" />-->
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
 </body>
 </html>

@@ -77,29 +77,7 @@
 
 
     <!--右边内容-->
-    <div class="center_right">
-        <div class="right_select">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <a th:href="@{/superadmin/adminmanager}">
-                        <span>管理员管理</span>
-                    </a>
-                </li>
-                <li class="list-group-item">
-                    <a th:href="@{/user/uploadBook}">
-                        <span>申请处理</span>
-                    </a>
-                </li>
-                <li class="list-group-item">
-                    <a th:href="@{/user/userFriend}">
-                        <span>举报管理</span>
-                        <!--<img th:if="${session.haveMsg}" style="width: 7px;height: 7px;margin-bottom: 20px;"
-                             th:src="@{/img/havemsg.png}" />-->
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <div class="center_right" th:include="assembly::adminRight"></div>
 
 </div>
 

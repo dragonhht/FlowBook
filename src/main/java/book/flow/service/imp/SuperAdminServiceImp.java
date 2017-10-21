@@ -1,6 +1,8 @@
 package book.flow.service.imp;
 
+import book.flow.enity.Apply;
 import book.flow.enity.User;
+import book.flow.repository.ApplyRepository;
 import book.flow.repository.UserRepository;
 import book.flow.service.SuperAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class SuperAdminServiceImp implements SuperAdminService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ApplyRepository applyRepository;
 
 
     @Override
@@ -64,5 +68,10 @@ public class SuperAdminServiceImp implements SuperAdminService {
             ok = true;
         }
         return ok;
+    }
+
+    @Override
+    public List<Apply> getAdminBookApply() {
+        return applyRepository.getAdminBookApply();
     }
 }

@@ -107,6 +107,7 @@ public class UserApplyController {
     @PostMapping("/getApplyById")
     @ResponseBody
     public Apply getApplyById(int applyId) {
+        System.out.println(applyId);
         Apply apply = null;
         apply = userApplyService.getApplyById(applyId);
         return apply;

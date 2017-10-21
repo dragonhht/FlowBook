@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>申请处理</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery-3.2.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+    <link href="../static/css/super_apply.css" th:href="@{/css/super_apply.css}" rel="stylesheet"
+          type="text/css"/>
+    <link th:href="@{/css/alert.css}" type="text/css" rel="stylesheet"/>
+    <script th:src="@{/js/super_apply.js}" type="text/javascript"></script>
+</head>
+<body>
+<!--顶部-->
+<nav class="navbar navbar-default navber-fixed-top top" align="center">
+    <a>九江学院图书漂流 - 超级管理员 - 控制台</a>
+</nav>
+
+
+<!--页面中部-->
+<div class="center_bg">
+
+    <div class="center_left">
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#addAdmin" data-toggle="tab">
+                    图书退出申请审核
+                </a>
+            </li>
+            <li><a href="#updateAdmin" data-toggle="tab" onclick="getAdmin()">活动申请审核</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="addAdmin">
+                <table class="table table-responsive">
+                    <tr>
+                        <td>申请编号</td>
+                        <td>内容</td>
+                        <td>日期</td>
+                        <td>状态</td>
+                    </tr>
+                    <tbody>
+                        <tr th:each="apply : ${applies}">
+                            <td th:text="${apply.applyId}"></td>
+                            <td>
+                                <a th:onclick="'javascript:showApply(\''+${apply.applyId}+'\')'" th:text="${apply.applyText}"></a>
+                            </td>
+                            <td th:text="${apply.applyDate}"></td>
+                            <td th:text="${apply.status}"></td>
+                            <td>
+                                <button th:if="${apply.status == '待审批'}" th:onclick="'javascript:showApply(\''+${apply.applyId}+'\')'" class="btn btn-warning">处理</button>
+                                <button th:unless="${apply.status == '待审批'}" th:onclick="'javascript:showApply(\''+${apply.applyId}+'\')'" class="btn btn-info">查看</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="updateAdmin">
+                活动申请
+            </div>
+        </div>
+    </div>
+
+    <!--右边内容-->
+    <div class="center_right" th:include="assembly::adminRight"></div>
+
+</div>
+
+<!--底部-->
+<div class="footer" align="center">
+    <p class="copyright">
+        Copyright © 2017. All Rights Reserved by dragonhht from
+        <a href="https://github.com/dragonhht" title="Github" target="_blank" style="color: gray;">dragonhht</a>
+    </p>
+</div>
+
+<!--添加提示框-->
+<div class="alert"></div>
+
+<!--弹出背景-->
+<div id="out_bg" class="out_bg" hidden="hidden"></div>
+
+<!--展示图书退出申请-->
+<div class="update_div" id="show_apply" hidden="hidden">
+    <div class="close" onclick="hideUpdateDiv(this)" align="right">x</div>
+    <span class="update_top"></span>
+    <input hidden="hidden" id="applyId" type="text" />
+    <div class="form-group">
+        <label for="applyText">申请内容：</label>
+        <span  id="applyText"></span>
+    </div>
+    <div class="form-group">
+        <label for="applyForBook">相关书籍编号：</label>
+        <span  id="applyForBook"><a>书籍编号</a></span>
+    </div>
+    <div class="form-group">
+        <label for="applyForImg">图书损坏图片：</label>
+        <div>
+        <span id="applyForImg" class="book_img_div">
+
+        </span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="applyForStatus">申请状态：</label>
+        <span  id="applyForStatus">待审批</span>
+    </div>
+    <div class="form-group" id="dealBookOut">
+
+    </div>
+</div>
+
+</body>
+</html>
