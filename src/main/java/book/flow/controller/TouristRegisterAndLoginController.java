@@ -69,8 +69,13 @@ public class TouristRegisterAndLoginController {
             session.setAttribute("user", u);
             if (role == 1) {
                 session.setAttribute("role", "admin");
-            } else {
+            }
+            if (role == 0){
                 session.setAttribute("role", "user");
+            }
+            if (role == 2) {
+                session.setAttribute("role", "superAdmin");
+                return "redirect: /superadmin/adminmanager";
             }
             return "redirect:/index";
         } else {

@@ -10,6 +10,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.Size;
+import java.util.List;
+
 /**
  * 用户表的数据库操作.
  * User: huang
@@ -74,6 +77,36 @@ public interface UserRepository extends JpaRepository<User, String> {
      */
     @Query("select u from User u where u.userName = ?1")
     User getUserByUserName(String userName);
+
+    @Query("select u from User u where u.userId = ?1 and u.identity = 0")
+    User getNotAdminUserById(String id);
+
+    @Query("select u from User u where u.userName = ?1 and u.identity = 0")
+    User getNotAdminUserByUserName(String userName);
+
+    @Query("select u from User u where u.userEmail = ?1 and u.identity = 0")
+    User getNotAdminUserByEmail(String email);
+
+    @Query("select u from User u where u.userPhone = ?1 and u.identity = 0")
+    User getNotAdminUserByPhone(String phone);
+
+    /**
+     * 设置管理员
+     * @param userId
+     * @return
+     */
+    @Transactional
+    @Modifying
+    @Query("update User u set u.identity = 1 where u.userId = ?1")
+    int setAdmin(String userId);
+
+    @Query("select u from User u where u.identity = 1")
+    List<User> getAdmin();
+
+    @Transactional
+    @Modifying
+    @Query("update User u set u.identity = 0 where  u.userId = ?1")
+    int delAdmin(String userId);
 
     /**
      * 修改电子邮箱.

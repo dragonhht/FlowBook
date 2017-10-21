@@ -1,6 +1,7 @@
 package book.flow.enity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -52,6 +53,7 @@ public class User implements Serializable {
     private Date userDate;
     /** 密码. */
     @Size(min = 1, message = "{user.password.length.error}")
+    @JsonIgnore
     private String password;
     /** 评论. */
     @OneToMany
