@@ -1,9 +1,6 @@
 package book.flow.service.imp;
 
-import book.flow.enity.Apply;
-import book.flow.enity.Book;
-import book.flow.enity.ReportImg;
-import book.flow.enity.User;
+import book.flow.enity.*;
 import book.flow.repository.*;
 import book.flow.service.FileService;
 import book.flow.service.UserApplyService;
@@ -36,6 +33,8 @@ public class UserApplyServiceImp implements UserApplyService {
     private FileService fileService;
     @Autowired
     private ReportImgRepository reportImgRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
 
     @Override
     public List<Apply> getAllAppliesByUserId(String userId) {
@@ -119,6 +118,21 @@ public class UserApplyServiceImp implements UserApplyService {
         Apply apply = null;
         apply = applyRepository.getApplyById(applyId);
         return apply;
+    }
+
+    @Override
+    public boolean saveActivity(Activity activity, User user) {
+        boolean ok = false;
+
+        activity.setStatus(0);
+        activity.setUser(user);
+        activity.setActiveDate(new Date());
+        Activity act = activityRepository.save(activity);
+        if (act != null) {
+            ok = true;
+        }
+
+        return ok;
     }
 
 }

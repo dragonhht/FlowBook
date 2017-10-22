@@ -8,6 +8,7 @@
     <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
     <link th:href="@{/css/user_apply.css}" rel="stylesheet" type="text/css"/>
     <script th:src="@{/js/user_apply.js}" type="text/javascript"></script>
+    <script type="text/javascript" th:src="@{/wangEditor/wangEditor.min.js}"></script>
 </head>
 <body>
 <!--顶部-->
@@ -80,11 +81,13 @@
 
         <div id="notice" hidden="hidden">
             <ul class="pagination">
-                <li class="active" style="cursor: pointer;"><a>申请图书退出系统</a></li>
-                <li style="cursor: pointer;"><a>申请活动显示</a></li>
+                <li index="0" class="active" style="cursor: pointer;" onclick="selectApply(this)"><a>申请图书退出系统</a></li>
+                <li index="1" style="cursor: pointer;" onclick="selectApply(this)"><a>申请活动显示</a></li>
             </ul>
 
-            <div class="apply_out">
+            <div class="apply_out" id="bookApplyDiv">
+
+                <!--图书退出-->
                 <form id="applyForm" class="form-horizontal" enctype="multipart/form-data">
 
                     <div class="form-group" style="margin-left: auto;margin-right: auto;">
@@ -121,6 +124,23 @@
                     </div>
                 </form>
             </div>
+
+            <!--活动申请-->
+            <div id="activeDiv" hidden="hidden" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" th:align="right">活动标题：</label>
+                    <div class="col-sm-8">
+                        <input type="text" id="activeTitle" name="activeTitle" class="form-control"  />
+                    </div>
+                </div>
+                <div class="form-group" style="padding-left: 30px">
+                    <div style="text-align:left;width: 800px;">
+                        <div id="divDemo" index="0"><p>请编写活动内容...</p></div>
+                    </div><br/>
+                    <button id="uploadActive" class="btn btn-info">提交</button>
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -211,6 +231,47 @@
         <span  id="applyForStatus">待审批</span>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    var E = window.wangEditor;
+    var editor = new E('#divDemo');
+
+    // 下面两个配置，使用其中一个即可显示“上传图片”的tab。但是两者不要同时使用！！！
+    editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
+    // editor.customConfig.uploadImgServer = '/upload'  // 上传图片到服务器
+
+    editor.create()
+
+    /** 消失提示. */
+    $('#divDemo').click(function () {
+        var index = $('#divDemo').attr('index');
+        if (index == 0) {
+            editor.txt.html('');
+            $('#divDemo').attr('index', 1);
+        }
+    });
+
+    /** 提交活动. */
+    $('#uploadActive').click(function () {
+        var activeTitle = $('#activeTitle').val().trim();
+        var activeText = editor.txt.html();
+        console.log(activeText.length);
+        $.post('saveActive',
+            {
+                activeTitle : activeTitle,
+                activeText : activeText
+            },
+        function (data) {
+            if (data != 'false') {
+                window.location.replace("../msg?" + data);
+            } else {
+                console.log("失败");
+            }
+        })
+    });
+
+</script>
 
 </body>
 </html>

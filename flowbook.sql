@@ -163,4 +163,15 @@ CREATE TABLE friends (
   user_id VARCHAR(11) NOT NULL ,
   FOREIGN KEY (friend_id) REFERENCES user(user_id),
   FOREIGN KEY (friend_id) REFERENCES user(user_id)
-) CHARSET = utf8
+) CHARSET = utf8;
+
+-- 活动表
+CREATE TABLE activity (
+  active_id INT AUTO_INCREMENT PRIMARY KEY ,
+  user_id VARCHAR(11) NOT NULL ,
+  active_title VARCHAR(30) NOT NULL ,
+  active_date DATE NOT NULL ,
+  active_text MEDIUMTEXT,
+  status INT NOT NULL COMMENT '是否通过申请, 0 为未处理, 1, 为通过, 2, 为未通过',
+  FOREIGN KEY (user_id) REFERENCES user(user_id)
+) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;

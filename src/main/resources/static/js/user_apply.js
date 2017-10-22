@@ -72,6 +72,24 @@ function selectBook(id) {
     $('#applyBookId').val(id);
 }
 
+/** 选择申请类型. */
+function selectApply(n) {
+    var index = $(n).attr('index');
+    var par = $(n).parents('.pagination');
+    var lis = $(par).children('li');
+    for (var i=0; i < lis.length; i++) {
+        $(lis[i]).removeClass('active');
+    }
+    $(n).addClass('active');
+    if (index == 0) {   // 图书退出
+        $('#bookApplyDiv').show();
+        $('#activeDiv').hide();
+    } else {
+        $('#bookApplyDiv').hide();
+        $('#activeDiv').show();
+    }
+}
+
 $(document).ready(function(){
 
     $('#out_bg').click(function () {

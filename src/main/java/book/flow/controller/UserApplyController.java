@@ -1,5 +1,6 @@
 package book.flow.controller;
 
+import book.flow.enity.Activity;
 import book.flow.enity.Apply;
 import book.flow.enity.Book;
 import book.flow.enity.User;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,5 +114,26 @@ public class UserApplyController {
         Apply apply = null;
         apply = userApplyService.getApplyById(applyId);
         return apply;
+    }
+
+    /**
+     * 保存活动内容.
+     * @param activity
+     * @param session
+     * @return
+     */
+    @PostMapping("/saveActive")
+    @ResponseBody
+    public String saveActivite(Activity activity, HttpSession session) {
+        boolean ok = false;
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            ok = userApplyService.saveActivity(activity, user);
+        }
+        if (ok) {
+            return "flag=applySeccuss";
+        } else {
+            return "false";
+        }
     }
 }

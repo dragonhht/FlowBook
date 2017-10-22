@@ -75,7 +75,7 @@ public class TouristRegisterAndLoginController {
             }
             if (role == 2) {
                 session.setAttribute("role", "superAdmin");
-                return "redirect: /superadmin/adminmanager";
+                return "redirect:/superadmin/adminmanager";
             }
             return "redirect:/index";
         } else {
