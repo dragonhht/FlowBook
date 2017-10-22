@@ -1,5 +1,6 @@
 package book.flow.service;
 
+import book.flow.enity.Activity;
 import book.flow.enity.Apply;
 import book.flow.enity.Report;
 
@@ -59,4 +60,12 @@ public interface AdminService {
      * @return
      */
     boolean notPassReport(int reportId);
+
+    List<Activity> getAllActivity();
+
+    Activity getActivityById(int id);
+
+    boolean refuseActive(int activeId);
+
+    boolean okActive(int activeId);
 }

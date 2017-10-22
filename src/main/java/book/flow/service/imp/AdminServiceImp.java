@@ -1,9 +1,6 @@
 package book.flow.service.imp;
 
-import book.flow.enity.Apply;
-import book.flow.enity.Book;
-import book.flow.enity.Report;
-import book.flow.enity.ReportImg;
+import book.flow.enity.*;
 import book.flow.repository.*;
 import book.flow.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +33,8 @@ public class AdminServiceImp implements AdminService {
     private ReportRepository reportRepository;
     @Autowired
     private ReportImgRepository reportImgRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
 
     @Override
     public List<Apply> getAllApplies() {
@@ -112,6 +111,36 @@ public class AdminServiceImp implements AdminService {
         int i = 0;
         i = reportRepository.notPassReport(reportId);
         if (i > 0) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public List<Activity> getAllActivity() {
+        return activityRepository.getNotAdminAllActivies();
+    }
+
+    @Override
+    public Activity getActivityById(int id) {
+        return activityRepository.getActivitiesById(id);
+    }
+
+    @Override
+    public boolean refuseActive(int activeId) {
+        boolean ok =false;
+        int num = activityRepository.refuseActivity(activeId);
+        if (num > 0) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public boolean okActive(int activeId) {
+        boolean ok =false;
+        int num = activityRepository.okActivity(activeId);
+        if (num > 0) {
             ok = true;
         }
         return ok;

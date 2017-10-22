@@ -1,5 +1,6 @@
 package book.flow.controller;
 
+import book.flow.enity.Activity;
 import book.flow.enity.Apply;
 import book.flow.enity.Report;
 import book.flow.service.AdminService;
@@ -33,11 +34,13 @@ public class AdminController {
     public String adminAgree(Model model) {
         List<Apply> allBookApplies = null;
         List<Report> reports = null;
+        List<Activity> activities = null;
         allBookApplies = adminService.getAllApplies();
         reports = adminService.getAllReport();
-
+        activities = adminService.getAllActivity();
         model.addAttribute("allBookApplies", allBookApplies);
         model.addAttribute("reports", reports);
+        model.addAttribute("activities", activities);
         return "admin_agree";
     }
 
@@ -97,5 +100,23 @@ public class AdminController {
         boolean ok = false;
         ok = adminService.notPassReport(reportId);
         return ok;
+    }
+
+    @PostMapping("/getActivity")
+    @ResponseBody
+    public Activity getActivity(int activeId) {
+        return adminService.getActivityById(activeId);
+    }
+
+    @PostMapping("/refuseActivity")
+    @ResponseBody
+    public boolean refuseActivity(int activeId) {
+        return adminService.refuseActive(activeId);
+    }
+
+    @PostMapping("/okActivity")
+    @ResponseBody
+    public boolean okActivity(int activeId) {
+        return adminService.okActive(activeId);
     }
 }

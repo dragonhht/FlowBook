@@ -185,12 +185,66 @@ function notPunishReport() {
         });
 }
 
+/** 显示活动. */
+function showActivity(id) {
+    $.post("getActivity",
+        {
+            activeId : id
+        },
+        function (date) {
+            $('#activeId').val(id);
+            var height = $(document).height();
+            $('#out_bg').css('height', height);
+            var width = $(document).width();
+            var divWidth = $('#showActivity').width();
+            $('#showActivity').css('left', ((width-divWidth)/2) + "px")
+            $('#activeTextDiv').html("");
+            $('#activeTextDiv').html('' + date.activeText);
+            $('#activityBar').html('');
+            if (date.status == 0) {
+                $('#activityBar').append('<button onclick="okActivity()" class="btn btn-info">通过</button>\n' +
+                    '        <button onclick="refuseActivity()" class="btn btn-info">否决</button>');
+            }
+            $('#showActivity').show();
+            $('#out_bg').show();
+        })
+}
+
+function okActivity() {
+    var activeId = $('#activeId').val().trim();
+    console.log(activeId);
+    $.post('okActivity',
+        {
+            activeId : activeId
+        },
+        function (data) {
+            if (data) {
+                location.reload(true);
+            }
+        })
+}
+
+function refuseActivity() {
+    var activeId = $('#activeId').val().trim();
+    console.log(activeId);
+    $.post('refuseActivity',
+        {
+            activeId : activeId
+        },
+        function (data) {
+            if (data) {
+                location.reload(true);
+            }
+        })
+}
+
 $(document).ready(function () {
 
     $('#out_bg').click(function () {
         $('#out_bg').hide();
         $('#show_apply').hide();
         $('#report').hide();
+        $('#showActivity').hide();
     });
 
 });
