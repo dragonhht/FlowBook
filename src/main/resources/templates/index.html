@@ -64,9 +64,11 @@
             </ol>
 
             <div id="activeImage" class="carousel-inner">
-                <th:block th:each="image,imageStat : ${images}">
+                <th:block th:each="active,imageStat : ${images}">
                     <div class="item" th:class="${imageStat.index eq 0}? 'item active' : 'item'">
-                        <th:block th:utext="${image}"></th:block>
+                        <a th:href="@{/tourist/active/{activeId} (activeId = ${active.activeId})}" target="_blank">
+                            <th:block th:utext="${active.image}"></th:block>
+                        </a>
                     </div>
                 </th:block>
             </div>

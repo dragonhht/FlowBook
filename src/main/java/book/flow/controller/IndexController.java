@@ -3,6 +3,7 @@ package book.flow.controller;
 import book.flow.enity.Activity;
 import book.flow.enity.Book;
 import book.flow.enity.Notice;
+import book.flow.model.ActiveModel;
 import book.flow.service.TouristService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,13 +40,16 @@ public class IndexController {
         model.addAttribute("indexNotice", notices);
         model.addAttribute("activities", activities);
         int size = 0;
-        List<String> images = new ArrayList<>();
+        List<ActiveModel> images = new ArrayList<>();
         for (Activity act : activities) {
             String image = act.getActiveText();
             try {
                 image = image.substring(image.indexOf("<img src="), image.indexOf("style=\"max-width:100%;\">") + 24);
                 if (size < 2 && image != null) {
-                    images.add(image);
+                    ActiveModel actm = new ActiveModel();
+                    actm.setActiveId(act.getActiveId());
+                    actm.setImage(image);
+                    images.add(actm);
                     size++;
                 }
             } catch (Exception e) {
