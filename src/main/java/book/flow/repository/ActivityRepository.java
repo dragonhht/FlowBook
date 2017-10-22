@@ -36,4 +36,7 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
     @Query("select a from Activity a where a.status = 1 order by a.activeDate desc ")
     Page<Activity> getActivite(Pageable pageable);
 
+    @Query("select count(a) from Activity a where a.status = 1")
+    long getCountActivities();
+
 }

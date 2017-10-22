@@ -172,4 +172,8 @@ public interface TouristService {
     Page<Activity> getActivity();
 
     Activity getActivityById(int activeId);
+
+    Page<Activity> getActiveList(int pageNum);
+
+    long getActivitiesCount();
 }

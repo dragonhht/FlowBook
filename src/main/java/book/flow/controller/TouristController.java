@@ -147,4 +147,20 @@ public class TouristController {
         model.addAttribute("active", activity);
         return "activity_information";
     }
+
+    /**
+     * 跳转活动列表.
+     * @param model model
+     * @return
+     */
+    @RequestMapping("/activelist/{pageNum}")
+    public String activeList(@PathVariable("pageNum") int pageNum, Model model) {
+        model.addAttribute("nowPage", pageNum);
+        pageNum = pageNum - 1;
+        Page<Activity> activities = touristService.getActiveList(pageNum);
+        model.addAttribute("activies", activities);
+        long pageCount = touristService.getActivitiesCount();
+        model.addAttribute("lastPage", pageCount);
+        return "activity_list";
+    }
 }

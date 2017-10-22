@@ -22,9 +22,8 @@
                 <div class="index_list">
                     <ul>
                         <li th:if="${session.user eq null}"><a th:href="@{/login}">我要申请发布活动</a></li>
-                        <li th:unless="${session.user eq null}"><a th:href="@{/user/uploadNotice}">我要申请发布活动</a></li>
-                        <li th:if="session.user eq null"><a th:href="@{/login}">活动列表</a></li>
-                        <li th:unless="session.user eq null"><a th:href="@{/user/userHome}">活动列表</a></li>
+                        <li th:unless="${session.user eq null}"><a th:href="@{/user/apply}">我要申请发布活动</a></li>
+                        <li><a th:href="@{/tourist/activelist/1}">活动列表</a></li>
                     </ul>
                 </div>
             </div>

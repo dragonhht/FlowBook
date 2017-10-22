@@ -295,4 +295,21 @@ public class TouristServiceImp implements TouristService {
     public Activity getActivityById(int activeId) {
         return activityRepository.getActivitiesById(activeId);
     }
+
+    @Override
+    public Page<Activity> getActiveList(int pageNum) {
+        Pageable pageable = new PageRequest(pageNum, PAGE_SIZE);
+        return activityRepository.getActivite(pageable);
+    }
+
+    @Override
+    public long getActivitiesCount() {
+        long count = activityRepository.getCountActivities();
+        int add = 0;
+        if (count % PAGE_SIZE != 0) {
+            add = 1;
+        }
+        count = count / PAGE_SIZE + add;
+        return count;
+    }
 }

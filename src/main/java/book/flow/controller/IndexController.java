@@ -42,10 +42,14 @@ public class IndexController {
         List<String> images = new ArrayList<>();
         for (Activity act : activities) {
             String image = act.getActiveText();
-            image = image.substring(image.indexOf("<img src="), image.indexOf("style=\"max-width:100%;\">") + 24);
-            if (size < 2 && image != null) {
-                images.add(image);
-                size++;
+            try {
+                image = image.substring(image.indexOf("<img src="), image.indexOf("style=\"max-width:100%;\">") + 24);
+                if (size < 2 && image != null) {
+                    images.add(image);
+                    size++;
+                }
+            } catch (Exception e) {
+
             }
         }
         model.addAttribute("images", images);

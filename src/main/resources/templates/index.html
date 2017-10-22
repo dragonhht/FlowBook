@@ -84,7 +84,7 @@
             <nav class="active_list_title">
                 <ul>
                     <li class="active_list_title_flag"><a href="#">活动</a></li>
-                    <li class="active_list_title_more"><a href="#">更多>></a></li>
+                    <li class="active_list_title_more"><a th:href="@{/tourist/activelist/1}">更多>></a></li>
                 </ul>
             </nav>
             <div class="news-list">
@@ -94,26 +94,6 @@
                            th:text="${activity.activeTitle}"></a>
                         <span class="time" th:text="${activity.activeDate}"></span>
                     </li>
-                    <!--<li>
-                        <a href="#">关于新生入馆教育平台(试用)通知</a>
-                        <span class="time">2017-09-18</span>
-                    </li>
-                    <li>
-                        <a href="#">关于新生入馆教育平台(试用)通知</a>
-                        <span class="time">2017-09-18</span>
-                    </li>
-                    <li>
-                        <a href="#">关于新生入馆教育平台(试用)通知</a>
-                        <span class="time">2017-09-18</span>
-                    </li>
-                    <li>
-                        <a href="#">关于新生入馆教育平台(试用)通知</a>
-                        <span class="time">2017-09-18</span>
-                    </li>
-                    <li>
-                        <a href="#">关于新生入馆教育平台(试用)通知</a>
-                        <span class="time">2017-09-18</span>
-                    </li>-->
                 </ul>
             </div>
         </div>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户寻书</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <script th:src="@{/js/jquery-3.2.1.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/activity_list.css}" />
+    <!--<script th:src="@{/js/notice.js}" type="text/javascript"></script>-->
+</head>
+<body>
+
+<!--顶部-->
+<div th:include="assembly::navWithSearch"></div>
+
+    <!--页面中部-->
+    <div class="center_bg">
+        <div class="center_left_div">
+            <div class="notice_index_div">
+                <div class="title"></div>
+                <div class="index_list">
+                    <ul>
+                        <li th:if="${session.user eq null}"><a th:href="@{/login}">我要申请发布活动</a></li>
+                        <li th:unless="${session.user eq null}"><a th:href="@{/user/apply}">我要申请发布活动</a></li>
+                        <li><a th:href="@{/tourist/activelist/1}">活动列表</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="center_right_div">
+            <span class="notice_title">活动列表</span>
+            <div style="padding-bottom: 80px">
+
+                <ul class="activiteUl">
+                    <li th:each="active : ${activies}">
+                        <a th:href="@{/tourist/active/{activeId} (activeId = ${active.activeId})}"
+                           th:text="${active.activeTitle}"></a>
+                        <span class="time" th:text="${active.activeDate}"></span>
+                    </li>
+                </ul>
+
+                <!--<table class="table notice_table">
+                    <tr th:each="active : ${activies}">
+                        <td>
+                            <div class="notice_div">
+                            <span class="notice_text">
+                                <a th:href="@{/tourist/active/{activeId} (activeId = ${active.activeId})}" th:text="${active.activeTitle}"></a>
+                            </span>
+                                <div class="publisher_div">
+                                    <img th:src="@{${active.user.userImg}}" title="用户名" class="img-circle"/>
+                                    <span>
+                                        <a th:href="@{/tourist/active/{activeId} (activeId = ${active.activeId})}"
+                                            th:text="${active.user.userName}"></a>
+                                    </span>
+                                    <span class="date" th:text="${active.activeDate}"></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>-->
+            </div>
+
+            <div class="notice_page_btn" align="center">
+                <nav>
+                    <!--<ul class="pager">
+                        <li class="previous"><a href="#">向左</a> </li>
+                        <li class="next"><a href="#">向右</a> </li>
+                    </ul>-->
+                    <ul class="pagination">
+                        <th:block th:if="${1 eq nowPage}">
+                            <li class="disabled"><a >首页</a> </li>
+                            <li class="previous disabled"><a>上一页</a> </li>
+                        </th:block>
+                        <th:block th:unless="${1 eq nowPage}">
+                            <li><a th:href="@{/tourist/activelist/{pageNum} (pageNum = 1)}">首页</a> </li>
+                            <li class="previous"><a th:href="@{/tourist/activelist/{pageNum} (pageNum = ${nowPage - 1})}">上一页</a> </li>
+                        </th:block>
+
+                        <th:block th:if="${nowPage-2 gt 0}">
+                            <li><a href="#">...</a> </li>
+                            <li><a th:href="@{/tourist/activelist/{pageNum} (pageNum = ${nowPage - 2})}" th:text="${nowPage - 2}"></a></li>
+                        </th:block>
+
+                        <li th:if="${nowPage-1 gt 0}">
+                            <a th:href="@{/tourist/activelist/{pageNum} (pageNum = ${nowPage - 1})}" th:text="${nowPage - 1}"></a>
+                        </li>
+
+                        <li class="active"><a href="#" th:text="${nowPage}"></a> </li>
+
+                        <li th:if="${nowPage+1 le lastPage}">
+                            <a th:href="@{/tourist/activelist/{pageNum} (pageNum = ${nowPage + 1})}" th:text="${nowPage + 1}"></a>
+                        </li>
+
+                        <li th:if="${nowPage+2 le lastPage}">
+                            <a th:href="@{/tourist/activelist/{pageNum} (pageNum = ${nowPage + 2})}" th:text="${nowPage + 2}"></a>
+                        </li>
+
+                        <li th:if="${nowPage+2 lt lastPage}"><a href="#">...</a> </li>
+
+                        <th:block th:if="${lastPage eq nowPage}">
+                            <li class="next disabled"><a>下一页</a> </li>
+                            <li class="disabled"><a>尾页</a> </li>
+                        </th:block>
+                        <th:block th:unless="${lastPage eq nowPage}">
+                            <li class="next"><a th:href="@{/tourist/activelist/{pageNum} (pageNum = ${nowPage + 1})}">下一页</a> </li>
+                            <li><a th:href="@{/tourist/activelist/{pageNum} (pageNum = ${lastPage})}">尾页</a> </li>
+                        </th:block>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <p id="back-to-top"><a href="#top">回到<br/>顶部</a></p>
+
+    <!--底部-->
+    <div class="footer" align="center">
+        <p class="copyright">
+            Copyright © 2017. All Rights Reserved by dragonhht from
+            <a href="https://github.com/dragonhht" title="Github" target="_blank" style="color: gray;">dragonhht</a>
+        </p>
+    </div>
+
+</body>
+</html>
