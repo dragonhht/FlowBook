@@ -290,4 +290,9 @@ public class TouristServiceImp implements TouristService {
         activities = activityRepository.getActivite(pageable);
         return activities;
     }
+
+    @Override
+    public Activity getActivityById(int activeId) {
+        return activityRepository.getActivitiesById(activeId);
+    }
 }

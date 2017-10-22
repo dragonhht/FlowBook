@@ -170,4 +170,6 @@ public interface TouristService {
     long getBookByTypeIdCount(int typeId);
 
     Page<Activity> getActivity();
+
+    Activity getActivityById(int activeId);
 }

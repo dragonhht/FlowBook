@@ -33,7 +33,7 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
     @Query("update Activity a set a.status = 1 where a.activeId = ?1")
     int okActivity(int activeId);
 
-    @Query("select a from Activity a order by a.activeDate desc ")
+    @Query("select a from Activity a where a.status = 1 order by a.activeDate desc ")
     Page<Activity> getActivite(Pageable pageable);
 
 }

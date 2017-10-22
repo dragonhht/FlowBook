@@ -1,5 +1,6 @@
 package book.flow.controller;
 
+import book.flow.enity.Activity;
 import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
@@ -132,5 +133,18 @@ public class TouristController {
         model.addAttribute("user", user);
         model.addAttribute("records", records);
         return "user";
+    }
+
+    /**
+     * 跳转是活动详情页面.
+     * @param activeId
+     * @param model
+     * @return
+     */
+    @RequestMapping("/active/{activeId}")
+    public String toActivite(@PathVariable("activeId") int activeId, Model model) {
+        Activity activity = touristService.getActivityById(activeId);
+        model.addAttribute("active", activity);
+        return "activity_information";
     }
 }

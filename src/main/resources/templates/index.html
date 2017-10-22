@@ -90,7 +90,8 @@
             <div class="news-list">
                 <ul>
                     <li th:each="activity : ${activities}">
-                        <a href="#" th:text="${activity.activeTitle}"></a>
+                        <a th:href="@{/tourist/active/{activeId} (activeId = ${activity.activeId})}"
+                           th:text="${activity.activeTitle}"></a>
                         <span class="time" th:text="${activity.activeDate}"></span>
                     </li>
                     <!--<li>
