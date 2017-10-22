@@ -314,3 +314,8 @@ a:hover {
     color: gray;
     line-height: 50px;
 }
+
+#activeImage img {
+    width: 800px;
+    height: 290px;
+}

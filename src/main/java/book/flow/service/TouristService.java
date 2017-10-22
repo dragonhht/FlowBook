@@ -1,9 +1,6 @@
 package book.flow.service;
 
-import book.flow.enity.Book;
-import book.flow.enity.LoanRecord;
-import book.flow.enity.Notice;
-import book.flow.enity.User;
+import book.flow.enity.*;
 import org.springframework.data.domain.Page;
 import java.util.List;
 
@@ -171,4 +168,6 @@ public interface TouristService {
      * @return 图书信息总数量
      */
     long getBookByTypeIdCount(int typeId);
+
+    Page<Activity> getActivity();
 }

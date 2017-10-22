@@ -1,6 +1,8 @@
 package book.flow.repository;
 
 import book.flow.enity.Activity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,5 +32,8 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
     @Modifying
     @Query("update Activity a set a.status = 1 where a.activeId = ?1")
     int okActivity(int activeId);
+
+    @Query("select a from Activity a order by a.activeDate desc ")
+    Page<Activity> getActivite(Pageable pageable);
 
 }

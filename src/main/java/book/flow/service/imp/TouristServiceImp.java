@@ -33,11 +33,15 @@ public class TouristServiceImp implements TouristService {
     private RecordRepository recordRepository;
     @Autowired
     private FriendsRepository friendsRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
 
     /** 分页， 每页显示的最大数量. */
     private static final int PAGE_SIZE = 20;
     /** 热门图书数量. */
     private static final int HOT_SIZE = 4;
+    private static final int INDEX_ACTIVE_SIZE = 6;
+
 
     @Override
     //@Cacheable(value = "search_book_name")
@@ -277,5 +281,13 @@ public class TouristServiceImp implements TouristService {
         }
         count = count / PAGE_SIZE + add;
         return count;
+    }
+
+    @Override
+    public Page<Activity> getActivity() {
+        Page<Activity> activities = null;
+        Pageable pageable = new PageRequest(0, INDEX_ACTIVE_SIZE);
+        activities = activityRepository.getActivite(pageable);
+        return activities;
     }
 }

@@ -1,5 +1,6 @@
 package book.flow.controller;
 
+import book.flow.enity.Activity;
 import book.flow.enity.Book;
 import book.flow.enity.Notice;
 import book.flow.service.TouristService;
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * .
@@ -30,8 +34,21 @@ public class IndexController {
     public String index(Model model) {
         Page<Book> hotBook = touristService.getHotBook();
         Page<Notice> notices = touristService.getIndexNotice();
+        Page<Activity> activities = touristService.getActivity();
         model.addAttribute("hotBook", hotBook);
         model.addAttribute("indexNotice", notices);
+        model.addAttribute("activities", activities);
+        int size = 0;
+        List<String> images = new ArrayList<>();
+        for (Activity act : activities) {
+            String image = act.getActiveText();
+            image = image.substring(image.indexOf("<img src="), image.indexOf("style=\"max-width:100%;\">") + 24);
+            if (size < 2 && image != null) {
+                images.add(image);
+                size++;
+            }
+        }
+        model.addAttribute("images", images);
         return "index";
     }
 

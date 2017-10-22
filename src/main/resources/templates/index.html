@@ -63,14 +63,12 @@
                 <li data-target="#center_activity" data-slide-to="1">2</li>
             </ol>
 
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img style="width: 800px; height: 290px;" th:src="@{/img/active_0.png}" title="2"/>
-                </div>
-                <div class="item">
-                    <img style="width: 800px; height: 290px;" th:src="@{/img/active_1.jpg}
-" title="1"/>
-                </div>
+            <div id="activeImage" class="carousel-inner">
+                <th:block th:each="image,imageStat : ${images}">
+                    <div class="item" th:class="${imageStat.index eq 0}? 'item active' : 'item'">
+                        <th:block th:utext="${image}"></th:block>
+                    </div>
+                </th:block>
             </div>
 
             <a href="#center_activity" data-slide="prev" class="carousel-control left">
@@ -91,7 +89,11 @@
             </nav>
             <div class="news-list">
                 <ul>
-                    <li>
+                    <li th:each="activity : ${activities}">
+                        <a href="#" th:text="${activity.activeTitle}"></a>
+                        <span class="time" th:text="${activity.activeDate}"></span>
+                    </li>
+                    <!--<li>
                         <a href="#">关于新生入馆教育平台(试用)通知</a>
                         <span class="time">2017-09-18</span>
                     </li>
@@ -110,11 +112,7 @@
                     <li>
                         <a href="#">关于新生入馆教育平台(试用)通知</a>
                         <span class="time">2017-09-18</span>
-                    </li>
-                    <li>
-                        <a href="#">关于新生入馆教育平台(试用)通知</a>
-                        <span class="time">2017-09-18</span>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
         </div>
@@ -210,4 +208,12 @@
     </p>
 </div>
 </body>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+
+
+    /*]]>*/
+</script>
+
 </html>
