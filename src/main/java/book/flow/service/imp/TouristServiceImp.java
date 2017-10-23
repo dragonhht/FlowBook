@@ -3,12 +3,12 @@ package book.flow.service.imp;
 import book.flow.enity.*;
 import book.flow.repository.*;
 import book.flow.utils.PasswordTool;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import book.flow.service.TouristService;
 
@@ -311,5 +311,37 @@ public class TouristServiceImp implements TouristService {
         }
         count = count / PAGE_SIZE + add;
         return count;
+    }
+
+    @Override
+    public Page<Book> filterSearchBookByName(String name, int types, int pageNum) {
+        name = "%" + name + "%";
+
+            Sort sort = new Sort(Sort.Direction.DESC, "bookStart");
+            Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
+            List<Book> books = bookRepository.searchBookByBookName(name, types);
+            Page<Book> page = new PageImpl<Book>(books, pageable, books.size());
+            return page;
+    }
+
+    @Override
+    public Page<Book> filterSearchBookByAuthor(String name, int types, int pageNum) {
+        name = "%" + name + "%";
+        Sort sort = new Sort(Sort.Direction.DESC, "bookStart");
+        Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
+        List<Book> books = bookRepository.searchBookByBookAuthor(name, types);
+        Page<Book> page = new PageImpl<Book>(books, pageable, books.size());
+        return page;
+
+    }
+
+    @Override
+    public Page<Book> filterSearchBookByPublish(String name, int types, int pageNum) {
+        name = "%" + name + "%";
+        Sort sort = new Sort(Sort.Direction.DESC, "bookStart");
+        Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
+        List<Book> books = bookRepository.searchBookByBookPublish(name, types);
+        Page<Book> page = new PageImpl<Book>(books, pageable, books.size());
+        return page;
     }
 }

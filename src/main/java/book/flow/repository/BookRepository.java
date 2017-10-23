@@ -26,6 +26,18 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("select b from Book b where b.bookName like ?1")
     Page<Book> searchBookByBookName(String name, Pageable pageable);
 
+//    @Query("select b from Book b ")
+//    Page<Book> searchBookByBookName(String name, int type, Pageable pageable);
+
+    @Query("select b from Book b left outer join fetch b.types t where b.bookName like ?1 and t.typeId = ?2")
+    List<Book> searchBookByBookName(String name, int type);
+
+    @Query("select b from Book b left outer join fetch b.types t where b.bookName like ?1 and t.typeId = ?2 and t.typeId = ?3")
+    List<Book> searchBookByBookName(String name, int type_0, int type_1);
+
+    @Query("select b from Book b left outer join fetch b.types t where b.bookName like ?1 and t.typeId = ?2 and t.typeId = ?3 and t.typeId = ?4")
+    List<Book> searchBookByBookName(String name, int type_0, int type_1, int type_2);
+
     /**
      * 通过图书作者搜索图书.
      * @param author 作者名
@@ -34,6 +46,15 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      */
     @Query("select b from Book b where b.author like ?1")
     Page<Book> searchBookByBookAuthor(String author, Pageable pageable);
+
+    @Query("select b from Book b left outer join fetch b.types t where b.author like ?1 and t.typeId = ?2")
+    List<Book> searchBookByBookAuthor(String author, int type);
+
+    @Query("select b from Book b left outer join fetch b.types t where b.author like ?1 and t.typeId = ?2 and t.typeId = ?3")
+    List<Book> searchBookByBookAuthor(String author, int type_0, int type_1);
+
+    @Query("select b from Book b left outer join fetch b.types t where b.author like ?1 and t.typeId = ?2 and t.typeId = ?3 and t.typeId = ?4")
+    List<Book> searchBookByBookAuthor(String author, int type_0, int type_1, int type_2);
 
     /**
      * 通过图书出版社搜索图书.
@@ -44,6 +65,15 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("select b from Book b where b.publish like ?1")
     Page<Book> searchBookByBookPublish(String publish, Pageable pageable);
 
+    @Query("select b from Book b left outer join fetch b.types t where b.publish like ?1 and t.typeId = ?2")
+    List<Book> searchBookByBookPublish(String publish, int type);
+
+    @Query("select b from Book b left outer join fetch b.types t where b.publish like ?1 and t.typeId = ?2 and t.typeId = ?3")
+    List<Book> searchBookByBookPublish(String publish, int type_0, int type_1);
+
+    @Query("select b from Book b left outer join fetch b.types t where b.publish like ?1 and t.typeId = ?2 and t.typeId = ?3 and t.typeId = ?3")
+    List<Book> searchBookByBookPublish(String publish, int type_0, int type_1, int type_2);
+
 
     /**
      * 通过书名搜索图书获得的数量.
@@ -53,6 +83,16 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("select count(b) from Book b where b.bookName like ?1")
     long getBookCountByBookName(String name);
 
+    @Query("select count(b) from Book b where b.bookName like ?1 and b.types = ?2")
+    long getBookCountByBookName(String name, int type);
+
+    @Query("select count(b) from Book b where b.bookName like ?1 and b.types = ?2 and b.types = ?3")
+    long getBookCountByBookName(String name, int type_0, int type_1);
+
+    @Query("select count(b) from Book b where b.bookName like ?1 and b.types = ?2 and b.types = ?3 and b.types = ?4")
+    long getBookCountByBookName(String name, int type_0, int type_1, int type_2);
+
+
     /**
      * 通过图书作者搜索图书获得的数量.
      * @param author 作者名
@@ -61,6 +101,15 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("select count(b) from Book b where b.author like ?1")
     long getBookCountByBookAuthor(String author);
 
+    @Query("select count(b) from Book b where b.author like ?1 and b.types = ?2")
+    long getBookCountByBookAuthor(String author, int type);
+
+    @Query("select count(b) from Book b where b.author like ?1 and b.types = ?2 and b.types = ?3")
+    long getBookCountByBookAuthor(String author, int type_0, int type_1);
+
+    @Query("select count(b) from Book b where b.author like ?1 and b.types = ?2 and b.types = ?3 and b.types = ?4")
+    long getBookCountByBookAuthor(String author, int type_0, int type_1, int type_2);
+
     /**
      * 通过图书出版社搜索图书获得的数量.
      * @param publish 出版社
@@ -68,6 +117,15 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      */
     @Query("select count(b) from Book b where b.publish like ?1")
     long getBookCountByBookPublish(String publish);
+
+    @Query("select count(b) from Book b where b.publish like ?1 and b.types = ?2")
+    long getBookCountByBookPublish(String publish, int type);
+
+    @Query("select count(b) from Book b where b.publish like ?1 and b.types = ?2 and b.types = ?3")
+    long getBookCountByBookPublish(String publish, int type_0, int type_1);
+
+    @Query("select count(b) from Book b where b.publish like ?1 and b.types = ?2 and b.types = ?3 and b.types = ?4")
+    long getBookCountByBookPublish(String publish, int type_0, int type_1, int type_2);
 
     /**
      * 查询热门图书（评论最多）.

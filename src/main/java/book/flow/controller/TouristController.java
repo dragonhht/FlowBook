@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 游客操作控制器.
@@ -83,8 +84,32 @@ public class TouristController {
      * @return
      */
     @GetMapping("/search/filter")
-    public String filetrSearch(Model model, String searchText, String target, int pageNum, int[] types) {
-
+    public String filetrSearch(Model model, String searchText, String target, int pageNum, int typeList) {
+        model.addAttribute("nowPage", pageNum);
+        pageNum = pageNum - 1;
+        Page<Book> books = null;
+        if ("bookName".equals(target)) {    // 按书名查找
+            books = touristService.filterSearchBookByName(searchText, typeList, pageNum);
+            long size = books.getTotalPages();
+            model.addAttribute("lastPage", 23);
+            model.addAttribute("books", books);
+            model.addAttribute("target", "bookName");
+        }
+        if ("author".equals(target)) {    // 按作者查找
+            books = touristService.filterSearchBookByAuthor(searchText, typeList, pageNum);
+            long size = books.getTotalPages();
+            model.addAttribute("lastPage", size);
+            model.addAttribute("books", books);
+            model.addAttribute("target", "author");
+        }
+        if ("publish".equals(target)) {    // 按出版社查找
+            books = touristService.filterSearchBookByPublish(searchText, typeList, pageNum);
+            long size = books.getTotalPages();
+            model.addAttribute("lastPage", size);
+            model.addAttribute("books", books);
+            model.addAttribute("target", "publish");
+        }
+        model.addAttribute("searchText", searchText);
         return "search_book";
     }
 
