@@ -21,55 +21,60 @@
 
     <div class="book_type">
         <nav class="book_type_title">类型</nav>
-        <ul class="list-group">
-            <li class="list-group-item">
+        <form method="get" th:action="@{/tourist/search/filter}">
+            <input type="text" hidden="hidden" name="target" th:value="${target}" />
+            <input type="text" hidden="hidden" name="searchText" th:value="${searchText}" />
+            <input type="text" hidden="hidden" name="pageNum" th:value="1" />
+            <ul class="list-group">
+                <li class="list-group-item">
                 <span>
                     <input type="checkbox" name="types" value="0"/>
                     <span>文学类</span>
                 </span>
-            </li>
-            <li class="list-group-item">
+                </li>
+                <li class="list-group-item">
                 <span>
                     <input type="checkbox" name="types" value="1"/>
                     <span>教科书</span>
                 </span>
-            </li>
-            <li class="list-group-item">
+                </li>
+                <li class="list-group-item">
                 <span>
                     <input type="checkbox" name="types" value="2"/>
                     <span>自然科学</span>
                 </span>
-            </li>
-            <li class="list-group-item">
+                </li>
+                <li class="list-group-item">
                 <span>
                     <input type="checkbox" name="types" value="3"/>
                     <span>社会科学</span>
                 </span>
-            </li>
-            <li class="list-group-item">
+                </li>
+                <li class="list-group-item">
                 <span>
                     <input type="checkbox" name="types" value="4"/>
                     <span>刊物</span>
                 </span>
-            </li>
-            <li class="list-group-item">
+                </li>
+                <li class="list-group-item">
                 <span>
                     <input type="checkbox" name="types" value="5"/>
                     <span>艺术</span>
                 </span>
-            </li>
-            <li class="list-group-item">
+                </li>
+                <li class="list-group-item">
                 <span>
                     <input type="checkbox" name="types" value="6"/>
                     <span>综合类图书</span>
                 </span>
-            </li>
-        </ul>
+                </li>
+            </ul>
 
-        <div class="book_type_btn">
-            <button class="btn btn-info" name="ok" value="true">确定</button>
-            <button class="btn" name="ok" value="false">清空</button>
-        </div>
+            <div class="book_type_btn">
+                <button class="btn btn-info" name="ok" value="true">确定</button>
+                <button class="btn" name="ok" value="false">清空</button>
+            </div>
+        </form>
     </div>
 
     <div class="search_list_div">

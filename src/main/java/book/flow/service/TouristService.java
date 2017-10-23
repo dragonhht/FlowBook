@@ -176,4 +176,6 @@ public interface TouristService {
     Page<Activity> getActiveList(int pageNum);
 
     long getActivitiesCount();
+
+//    Page<Book> filterSearchBook();
 }

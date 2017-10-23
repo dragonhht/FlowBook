@@ -1,5 +1,6 @@
 package book.flow.controller;
 
+import book.flow.enity.Activity;
 import book.flow.enity.Apply;
 import book.flow.enity.Report;
 import book.flow.enity.User;
@@ -86,7 +87,9 @@ public class SuperAdminController {
     @RequestMapping("/adminApply")
     public String adminApply(Model model) {
         List<Apply> applies = superAdminService.getAdminBookApply();
+        List<Activity> activities = superAdminService.getAllActivities();
         model.addAttribute("applies", applies);
+        model.addAttribute("activities", activities);
         return "super_apply";
     }
 
@@ -155,6 +158,24 @@ public class SuperAdminController {
         boolean ok = false;
         ok = adminService.notPassReport(reportId);
         return ok;
+    }
+
+    @PostMapping("/getActivity")
+    @ResponseBody
+    public Activity getActivity(int activeId) {
+        return adminService.getActivityById(activeId);
+    }
+
+    @PostMapping("/refuseActivity")
+    @ResponseBody
+    public boolean refuseActivity(int activeId) {
+        return adminService.refuseActive(activeId);
+    }
+
+    @PostMapping("/okActivity")
+    @ResponseBody
+    public boolean okActivity(int activeId) {
+        return adminService.okActive(activeId);
     }
 
 }

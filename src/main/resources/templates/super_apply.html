@@ -56,7 +56,38 @@
                 </table>
             </div>
             <div class="tab-pane fade" id="updateAdmin">
-                活动申请
+                <table id="book_now_have" class="table table-responsive">
+                    <tr>
+                        <!--<td>传阅申请编号</td>-->
+                        <td>申请人</td>
+                        <td>活动标题</td>
+                        <td>日期</td>
+                        <td>状态</td>
+                        <td>查看</td>
+                    </tr>
+                    <tr th:each="activity : ${activities}">
+                        <!--<td th:text="${allApply.id}"></td>-->
+                        <td>
+                            <a th:href="@{/tourist/user/{userId} (userId = ${activity.user.userId})}" target="_blank"
+                               th:text="${activity.user.userName}"></a>
+                        </td>
+                        <td th:text="${activity.activeTitle}"></td>
+                        <td th:text="${activity.activeDate}"></td>
+                        <th:block th:if="${activity.status eq 0}">
+                            <td>未处理</td>
+                        </th:block>
+                        <th:block th:if="${activity.status eq 1}">
+                            <td>申请成功</td>
+                        </th:block>
+                        <th:block th:if="${activity.status eq 2}">
+                            <td>申请失败</td>
+                        </th:block>
+                        <th>
+                            <button th:if="${activity.status eq 0}" th:onclick="'javascript:showActivity(\''+${activity.activeId}+'\')'"  class="btn btn-warning">处理</button>
+                            <button th:unless="${activity.status eq 0}" th:onclick="'javascript:showActivity(\''+${activity.activeId}+'\')'"  class="btn btn-info">查看</button>
+                        </th>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
@@ -108,6 +139,15 @@
     <div class="form-group" id="dealBookOut">
 
     </div>
+</div>
+
+<!--显示活动-->
+<div class="update_div" id="showActivity" hidden="hidden">
+    <input type="text" id="activeId" hidden="hidden" />
+    <div id="activityBar" style="margin-bottom: 5px;position: fixed;width: 880px;background-color: #DEDEDE;height: 50px;line-height: 50px" align="center">
+
+    </div>
+    <div id="activeTextDiv" style="margin-top: 60px"></div>
 </div>
 
 </body>

@@ -1,5 +1,6 @@
 package book.flow.service;
 
+import book.flow.enity.Activity;
 import book.flow.enity.Apply;
 import book.flow.enity.Report;
 import book.flow.enity.User;
@@ -37,5 +38,7 @@ public interface SuperAdminService {
     List<Report> getAdminAllReport();
 
     List<Report> getAdminNotDealReport();
+
+    List<Activity> getAllActivities();
 
 }

@@ -74,6 +74,20 @@ public class TouristController {
         }
     }
 
+    /**
+     * 图书搜索结果过滤.
+     * @param model
+     * @param searchText
+     * @param target
+     * @param pageNum
+     * @return
+     */
+    @GetMapping("/search/filter")
+    public String filetrSearch(Model model, String searchText, String target, int pageNum, int[] types) {
+
+        return "search_book";
+    }
+
     @RequestMapping("/bookType/{typeId}/{pageNum}")
     public String getBookByType(@PathVariable("typeId") int typeId,@PathVariable("pageNum") int pageNum, Model model) {
         List<Book> books = null;

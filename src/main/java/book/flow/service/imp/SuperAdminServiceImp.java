@@ -1,8 +1,10 @@
 package book.flow.service.imp;
 
+import book.flow.enity.Activity;
 import book.flow.enity.Apply;
 import book.flow.enity.Report;
 import book.flow.enity.User;
+import book.flow.repository.ActivityRepository;
 import book.flow.repository.ApplyRepository;
 import book.flow.repository.ReportRepository;
 import book.flow.repository.UserRepository;
@@ -26,6 +28,8 @@ public class SuperAdminServiceImp implements SuperAdminService {
     private ApplyRepository applyRepository;
     @Autowired
     private ReportRepository reportRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
 
 
     @Override
@@ -87,5 +91,10 @@ public class SuperAdminServiceImp implements SuperAdminService {
     @Override
     public List<Report> getAdminNotDealReport() {
         return reportRepository.getAdminNotDealReport();
+    }
+
+    @Override
+    public List<Activity> getAllActivities() {
+        return activityRepository.getAdminAllActivies();
     }
 }

@@ -26,6 +26,11 @@ public class IndexController {
     @Autowired
     private TouristService touristService;
 
+    @RequestMapping("/")
+    public String rootRoute() {
+        return "redirect:/index";
+    }
+
     /**
      * 返回首页.
      * @param model 用于返回数据

@@ -20,6 +20,9 @@ public interface ActivityRepository extends JpaRepository<Activity, Integer> {
     @Query("select a from Activity a where a.user.identity = 0 order by a.status asc , a.activeDate desc ")
     List<Activity> getNotAdminAllActivies();
 
+    @Query("select a from Activity a where a.user.identity = 1 order by a.status asc , a.activeDate desc ")
+    List<Activity> getAdminAllActivies();
+
     @Query("select a from Activity a where a.activeId = ?1")
     Activity getActivitiesById(int id);
 

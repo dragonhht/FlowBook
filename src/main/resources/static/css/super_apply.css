@@ -123,3 +123,13 @@ a:hover {
 #show_apply {
     height: 470px;
 }
+
+
+#showActivity {
+    padding: 5px;
+    overflow-x: auto;
+    height: 600px;
+    width: 900px;
+    left: 25%;
+    padding-top: 0px;
+}
