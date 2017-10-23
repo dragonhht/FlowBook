@@ -21,53 +21,58 @@
     <div class="center_search" id="center_search" th:include="assembly::searchDiv"></div>
 
     <div class="book_type">
-        <div class="sort_value">
-            <nav class="book_type_title">排序</nav>
-            <ul class="list-group">
-                <li class="list-group-item">
+        <form th:action="@{/tourist/search/user/sort}" method="get">
+            <input type="text" hidden="hidden" name="target" th:value="${target}" />
+            <input type="text" hidden="hidden" name="searchText" th:value="${searchText}" />
+            <input type="text" hidden="hidden" name="pageNum" th:value="1" />
+            <div class="sort_value">
+                <nav class="book_type_title">排序</nav>
+                <ul class="list-group">
+                    <li class="list-group-item">
                 <span>
-                    <input type="radio" name="types" value="0" checked="checked"/>
+                    <input type="radio" name="types" value="date" checked="checked"/>
                     <span>注册时间</span>
                 </span>
-                </li>
-                <li class="list-group-item">
+                    </li>
+                    <li class="list-group-item">
                 <span>
-                    <input type="radio" name="types" value="1" />
+                    <input type="radio" name="types" value="get" />
                     <span>贡献度</span>
                 </span>
-                </li>
-                <li class="list-group-item">
+                    </li>
+                    <li class="list-group-item">
                 <span>
-                    <input type="radio" name="types" value="2" />
+                    <input type="radio" name="types" value="belive" />
                     <span>信用度</span>
                 </span>
-                </li>
-            </ul>
-        </div>
-
-        <div class="sort_value">
-            <nav class="book_type_title">顺序</nav>
-            <ul class="list-group">
-                <li class="list-group-item">
-                <span>
-                    <input type="radio" name="order" value="0" checked="checked"/>
-                    <span>升序</span>
-                </span>
-                </li>
-                <li class="list-group-item">
-                <span>
-                    <input type="radio" name="order" value="1" />
-                    <span>降序</span>
-                </span>
-                </li>
-            </ul>
-
-            <div class="book_type_btn">
-                <button class="btn btn-info" name="ok" value="true">确定</button>
-                <button class="btn" name="ok" value="false">清空</button>
+                    </li>
+                </ul>
             </div>
 
-        </div>
+            <div class="sort_value">
+                <nav class="book_type_title">顺序</nav>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                <span>
+                    <input type="radio" name="order" value="up" checked="checked"/>
+                    <span>升序</span>
+                </span>
+                    </li>
+                    <li class="list-group-item">
+                <span>
+                    <input type="radio" name="order" value="down" />
+                    <span>降序</span>
+                </span>
+                    </li>
+                </ul>
+
+                <div class="book_type_btn">
+                    <button class="btn btn-info" name="ok" value="true">确定</button>
+                    <button class="btn" name="ok" value="false">清空</button>
+                </div>
+
+            </div>
+        </form>
     </div>
 
     <div class="search_list_div">

@@ -344,4 +344,31 @@ public class TouristServiceImp implements TouristService {
         Page<Book> page = new PageImpl<Book>(books, pageable, books.size());
         return page;
     }
+
+    @Override
+    public Page<User> orderUserSearch(String name, String types, String order, int pageNum) {
+        name = "%" + name + "%";
+        Page<User> users = null;
+        Sort sort = null;
+        Sort.Direction direction = null;
+        String type = "";
+        if ("date".equals(types)) {
+            type = "userDate";
+        }
+        if ("get".equals(types)) {
+            type = "contributeNum";
+        }
+        if ("belive".equals(types)) {
+            type = "credit";
+        }
+        if ("up".equals(order)) {
+            direction = Sort.Direction.ASC;
+        } else {
+            direction = Sort.Direction.DESC;
+        }
+        sort = new Sort(direction, type);
+        Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
+        users = userRepository.searchUserByName(name, pageable);
+        return users;
+    }
 }

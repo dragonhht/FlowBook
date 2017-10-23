@@ -113,6 +113,21 @@ public class TouristController {
         return "search_book";
     }
 
+    @GetMapping("/search/user/sort")
+    public String sortUser(Model model, String searchText, String target, int pageNum, String types, String order) {
+        model.addAttribute("nowPage", pageNum);
+        model.addAttribute("target", "bookName");
+        pageNum = pageNum - 1;
+        Page<User> users = null;
+        users = touristService.orderUserSearch(searchText, types, order, pageNum);
+        long size = users.getTotalPages();
+        model.addAttribute("lastPage", size);
+        model.addAttribute("users", users);
+        model.addAttribute("searchText", searchText);
+        model.addAttribute("target", "user");
+        return "search_user";
+    }
+
     @RequestMapping("/bookType/{typeId}/{pageNum}")
     public String getBookByType(@PathVariable("typeId") int typeId,@PathVariable("pageNum") int pageNum, Model model) {
         List<Book> books = null;

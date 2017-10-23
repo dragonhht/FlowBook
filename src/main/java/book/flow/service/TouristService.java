@@ -182,4 +182,6 @@ public interface TouristService {
     Page<Book> filterSearchBookByAuthor(String name, int types, int pageNum);
 
     Page<Book> filterSearchBookByPublish(String name, int types, int pageNum);
+
+    Page<User> orderUserSearch(String name, String types, String order, int pageNum);
 }
