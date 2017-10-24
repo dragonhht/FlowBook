@@ -35,6 +35,8 @@ public class AdminServiceImp implements AdminService {
     private ReportImgRepository reportImgRepository;
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<Apply> getAllApplies() {
@@ -101,6 +103,14 @@ public class AdminServiceImp implements AdminService {
         i = reportRepository.passReport(reportId);
         if (i > 0) {
             ok = true;
+        }
+        if (true) {
+            User user = reportRepository.getReportById(reportId).getBeReport();
+            int num = user.getCredit();
+            if (num > 1) {
+                user.setCredit(num-1);
+                userRepository.save(user);
+            }
         }
         return ok;
     }
