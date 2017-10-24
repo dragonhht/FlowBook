@@ -28,23 +28,29 @@ $(document).ready(function () {
         var bookId = $('#bookId').val().trim();
         var toUserId = $('#toUserId').val().trim();
         var wantSay = $('#wantSay').val().trim();
-        $.post('../../user/wantBook',
-            {
-                bookId : bookId,
-                toUserId : toUserId,
-                wantSay : wantSay
-            },
-            function (data) {
-                if (data == 'ok') {
-                    $('.alert').html('提交成功').addClass('alert-success').show().delay(2000).fadeOut();
-                    $('#wantLook').hide();
-                    $('#out_bg').hide();
-                } else {
-                    $('.alert').html('提交失败').addClass('alert-danger').show().delay(2000).fadeOut();
-                    $('#wantLook').hide();
-                    $('#out_bg').hide();
-                }
-            })
+        var credit = $('#ownerCredit').val().trim();
+        if (credit > 3) {
+            $.post('../../user/wantBook',
+                {
+                    bookId : bookId,
+                    toUserId : toUserId,
+                    wantSay : wantSay
+                },
+                function (data) {
+                    if (data == 'ok') {
+                        $('.alert').html('提交成功').addClass('alert-success').show().delay(2000).fadeOut();
+                        $('#wantLook').hide();
+                        $('#out_bg').hide();
+                    } else {
+                        $('.alert').html('提交失败').addClass('alert-danger').show().delay(2000).fadeOut();
+                        $('#wantLook').hide();
+                        $('#out_bg').hide();
+                    }
+                })
+        } else {
+            $('.alert').html('信用过低，无法申请').addClass('alert-danger').show().delay(2000).fadeOut();
+        }
+
     });
 
 });

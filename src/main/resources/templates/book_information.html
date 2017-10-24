@@ -47,6 +47,7 @@
             </div>
             <div class="book_massage">
                 <label>拥有者：</label>
+                <input type="text" id="ownerCredit" th:value="${nowOwner.credit}" hidden="hidden"/>
                 <span>
                     <a style="color: black;" th:href="@{/tourist/user/{userId} (userId = ${nowOwner.userId})}">
                         <img style="width: 20px;height: 20px" th:src="@{${nowOwner.userImg}}" title="用户名" class="img-circle" />
