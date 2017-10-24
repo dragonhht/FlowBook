@@ -89,7 +89,7 @@ public interface TouristService {
      * 获取热门图书.
      * @return 热门图书
      */
-    Page<Book> getHotBook();
+    Page<Book> getHotBook(int size);
 
     /**
      * 通过图书编号查询图书.
@@ -184,4 +184,6 @@ public interface TouristService {
     Page<Book> filterSearchBookByPublish(String name, int types, int pageNum);
 
     Page<User> orderUserSearch(String name, String types, String order, int pageNum);
+
+    Page<Book> getGoodBook(int size);
 }

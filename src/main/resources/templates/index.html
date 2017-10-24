@@ -106,7 +106,7 @@
         <nav class="hot_title">
             <ul>
                 <li class="hot_title_flag"><span>热门图书</span></li>
-                <li class="hot_title_more"><a href="#">更多>></a></li>
+                <li class="hot_title_more"><a th:href="@{/gethotbook}">更多>></a></li>
             </ul>
         </nav>
         <div class="hot_list_div">
@@ -114,7 +114,7 @@
                 <li th:each="hotbook : ${hotBook}">
                     <div class="hot_book_div">
                         <a th:href="@{/tourist/bookMessage/{bookId} (bookId = ${hotbook.bookId})}" target="_blank">
-                            <img th:src="@{${hotbook.bookImg}}" />
+                            <img th:src="@{${hotbook.bookImg}}"/>
                             <span th:text="${'《'+ hotbook.bookName+'》'}"></span>
                         </a>
                     </div>
@@ -128,7 +128,7 @@
         <nav class="find_title">
             <ul>
                 <li class="find_title_flag"><i class="glyphicon glyphicon-bullhorn"></i> <span>用户寻书</span></li>
-                <li class="find_title_more"><a href="#">更多>></a></li>
+                <li class="find_title_more"><a th:href="@{/notice/1}">更多>></a></li>
             </ul>
         </nav>
         <div class="center_notice">
@@ -136,7 +136,7 @@
                 <ul class="list-group" id="run_list">
                     <li class="list-group-item" th:each="notice : ${indexNotice}">
                         <a th:href="@{/tourist/user/{userId} (userId = ${notice.user.userId})}" target="_blank"
-                                th:text="${notice.user.userName + ' 寻《'+ notice.noticeText + '》'}"></a>
+                           th:text="${notice.user.userName + ' 寻《'+ notice.noticeText + '》'}"></a>
                     </li>
                 </ul>
             </div>
@@ -148,12 +148,20 @@
         <nav class="hot_title">
             <ul>
                 <li class="hot_title_flag"><span>推荐图书</span></li>
-                <li class="hot_title_more"><a href="#">更多>></a></li>
+                <li class="hot_title_more"><a th:href="@{/getgoodbookbyloarn}">更多>></a></li>
             </ul>
         </nav>
         <div class="hot_list_div">
-            <ul>
-                <li>
+            <ul id="recommendBookUl">
+                <li th:each="book : ${goodBooks}">
+                    <div class="hot_book_div">
+                        <a th:href="@{/tourist/bookMessage/{bookId} (bookId = ${book.bookId})}" target="_blank">
+                            <img th:src="@{${book.bookImg}}"/>
+                            <span th:text="'《' + ${book.bookName} +'》'"></span>
+                        </a>
+                    </div>
+                </li>
+                <!--<li>
                     <div class="hot_book_div">
                         <img src="../img/book_list.jpg"/>
                         <span>《图书名》</span>
@@ -170,13 +178,7 @@
                         <img src="../img/book_list.jpg"/>
                         <span>《图书名》</span>
                     </div>
-                </li>
-                <li>
-                    <div class="hot_book_div">
-                        <img src="../img/book_list.jpg"/>
-                        <span>《图书名》</span>
-                    </div>
-                </li>
+                </li>-->
             </ul>
         </div>
     </div>
@@ -193,8 +195,40 @@
 </body>
 <script th:inline="javascript">
     /*<![CDATA[*/
+    /*var dt = sessionStorage.getItem("types");
+    //alert(dt);
 
+    //清空所有的key-value数据。
+    //localStorage.clear();
+    // alert(sessionStorage.length);
 
+    var size = sessionStorage.length;
+    if (size > 0) {
+        $.post('',
+            {
+
+            },
+        function (data) {
+            
+        })
+    } else {
+        $.post('getgoodbookbyloarn',{},
+        function (data) {
+            console.log(data);
+            var book = data.content;
+            $('#recommendBookUl').html("");
+            for (var i=0; i < book.length; i++) {
+                $('#recommendBookUl').append('<li>\n' +
+                    '                    <div class="hot_book_div">\n' +
+                    '<a href="tourist/bookMessage/' + book[i].bookId + '" target="_blank">' +
+                    '                        <img src="' + book[i].bookImg + '"/>\n' +
+                    '                        <span>《' + book[i].bookName + '》</span>\n' +
+                    '</a>' +
+                    '                    </div>\n' +
+                    '                </li>');
+            }
+        })
+    }*/
 
     /*]]>*/
 </script>

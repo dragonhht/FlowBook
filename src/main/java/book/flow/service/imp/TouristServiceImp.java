@@ -172,9 +172,9 @@ public class TouristServiceImp implements TouristService {
 
     @Override
     // @Cacheable(value = "hot_boot")
-    public Page<Book> getHotBook() {
+    public Page<Book> getHotBook(int size) {
         Page<Book> books = null;
-        Pageable pageable = new PageRequest(0, HOT_SIZE);
+        Pageable pageable = new PageRequest(0, size);
         books = bookRepository.getHotBooks(pageable);
         return books;
     }
@@ -370,5 +370,11 @@ public class TouristServiceImp implements TouristService {
         Pageable pageable = new PageRequest(pageNum, PAGE_SIZE, sort);
         users = userRepository.searchUserByName(name, pageable);
         return users;
+    }
+
+    @Override
+    public Page<Book> getGoodBook(int size) {
+        Pageable pageable = new PageRequest(0, size);
+        return bookRepository.getGoodBook(pageable);
     }
 }

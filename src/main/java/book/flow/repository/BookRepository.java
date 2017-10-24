@@ -181,4 +181,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Modifying
     @Query("delete from Book b where b.bookId = ?1")
     int delBookById(int bookId);
+
+    @Query("select b from Book b order by b.records.size desc ")
+    Page<Book> getGoodBook(Pageable pageable);
 }
