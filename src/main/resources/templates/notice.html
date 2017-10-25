@@ -38,7 +38,7 @@
                         <td>
                             <div class="notice_div">
                             <span class="notice_text">
-                                <a th:href="@{/tourist/user/{userId} (userId = ${notice.user.userId})}" th:text="${'寻《' +notice.noticeText + '》'}"></a>
+                                <a th:href="@{/tourist/user/{userId} (userId = ${notice.user.userId})}" th:text="${'寻 ' +notice.noticeText + ' '}"></a>
                             </span>
                                 <div class="publisher_div">
                                     <img th:src="@{${notice.user.userImg}}" title="用户名" class="img-circle" />

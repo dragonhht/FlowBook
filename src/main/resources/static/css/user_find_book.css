@@ -78,8 +78,12 @@ a:hover {
     margin: 0 auto;
 }
 
+.center_left_body select {
+    width: 60px;
+}
+
 .center_left_body input {
-    width: 570px;
+    width: 460px;
     height: 35px;
 }
 

@@ -17,14 +17,14 @@
 <div class="center_bg">
 
     <!--搜索框-->
-    <div class="center_search" id="center_search" th:include="assembly::searchDiv" ></div>
+    <div class="center_search" id="center_search" th:include="assembly::searchDiv"></div>
 
     <div class="book_type">
         <nav class="book_type_title">类型</nav>
         <form method="get" th:action="@{/tourist/search/filter}">
-            <input type="text" hidden="hidden" name="target" th:value="${target}" />
-            <input type="text" hidden="hidden" name="searchText" th:value="${searchText}" />
-            <input type="text" hidden="hidden" name="pageNum" th:value="1" />
+            <input type="text" hidden="hidden" id="target" name="target" th:value="${target}"/>
+            <input type="text" hidden="hidden" id="searchText" name="searchText" th:value="${searchText}"/>
+            <input type="text" hidden="hidden" name="pageNum" th:value="1"/>
             <ul class="list-group">
                 <li class="list-group-item">
                 <span>
@@ -118,7 +118,8 @@
                             <th:block th:unless="${book.bookStart eq 5}">
                                 <th:block th:each="num : ${#numbers.sequence(book.bookStart+1, 5)}">
                                     <a>
-                                        <i class="glyphicon glyphicon-star-empty" style="color: green;font-size: small"></i>
+                                        <i class="glyphicon glyphicon-star-empty"
+                                           style="color: green;font-size: small"></i>
                                     </a>
                                 </th:block>
                             </th:block>
@@ -131,101 +132,115 @@
         </div>
 
         <div class="book_list_page_btn" align="center">
-            <nav>
-                <!--<ul class="pagination">
-                    <li class="disabled"><a href="#">首页</a></li>
-                    <li class="previous disabled"><a href="#">向左</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">...</a></li>
-                    <li><a href="#">54</a></li>
-                    <li><a href="#">55</a></li>
-                    <li class="next"><a href="#">向右</a></li>
-                    <li><a href="#">尾页</a></li>
-                </ul>-->
 
-                <ul th:if="${byType eq null }" class="pagination">
-                    <th:block th:if="${1 eq nowPage}">
-                        <li class="disabled"><a >首页</a> </li>
-                        <li class="previous disabled"><a>上一页</a> </li>
-                    </th:block>
-                    <th:block th:unless="${1 eq nowPage}">
-                        <li><a th:onclick="'javascript:selectPage(\''+${1}+'\')'">首页</a> </li>
-                        <li class="previous"><a th:onclick="'javascript:selectPage(\''+${nowPage -1}+'\')'">上一页</a> </li>
-                    </th:block>
+            <th:block th:unless="${typeId eq null}">
+                <nav>
+                    <ul class="pagination">
+                        <th:block th:if="${1 eq nowPage}">
+                            <li class="disabled"><a>首页</a></li>
+                            <li class="previous disabled"><a>上一页</a></li>
+                        </th:block>
+                        <th:block th:unless="${1 eq nowPage}">
+                            <li><a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = ${typeId}, pageNum = 1)}">首页</a></li>
+                            <li class="previous"><a
+                                    th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = ${typeId}, pageNum = ${nowPage - 1})}">上一页</a>
+                            </li>
+                        </th:block>
 
-                    <th:block th:if="${nowPage-2 gt 0}">
-                        <li><a href="#">...</a> </li>
-                        <li><a th:onclick="'javascript:selectPage(\''+${nowPage -2}+'\')'" th:text="${nowPage - 2}"></a></li>
-                    </th:block>
+                        <th:block th:if="${nowPage-2 gt 0}">
+                            <li><a href="#">...</a></li>
+                            <li><a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = ${typeId}, pageNum = ${nowPage - 2})}"
+                                   th:text="${nowPage - 2}"></a></li>
+                        </th:block>
 
-                    <li th:if="${nowPage-1 gt 0}">
-                        <a th:onclick="'javascript:selectPage(\''+${nowPage -1}+'\')'" th:text="${nowPage - 1}"></a>
-                    </li>
+                        <li th:if="${nowPage-1 gt 0}">
+                            <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = ${typeId}, pageNum = ${nowPage - 1})}"
+                               th:text="${nowPage - 1}"></a>
+                        </li>
 
-                    <li class="active"><a href="#" th:text="${nowPage}"></a> </li>
+                        <li class="active"><a href="#" th:text="${nowPage}"></a></li>
 
-                    <li th:if="${nowPage+1 le lastPage}">
-                        <a th:onclick="'javascript:selectPage(\''+${nowPage + 1}+'\')'" th:text="${nowPage + 1}"></a>
-                    </li>
+                        <li th:if="${nowPage+1 le lastPage}">
+                            <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = ${typeId}, pageNum = ${nowPage + 1})}"
+                               th:text="${nowPage + 1}"></a>
+                        </li>
 
-                    <li th:if="${nowPage+2 le lastPage}">
-                        <a th:onclick="'javascript:selectPage(\''+${nowPage + 2}+'\')'" th:text="${nowPage + 2}"></a>
-                    </li>
+                        <li th:if="${nowPage+2 le lastPage}">
+                            <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = ${typeId}, pageNum = ${nowPage + 2})}"
+                               th:text="${nowPage + 2}"></a>
+                        </li>
 
-                    <li th:if="${nowPage+2 lt lastPage}"><a href="#">...</a> </li>
+                        <li th:if="${nowPage+2 lt lastPage}"><a href="#">...</a></li>
 
-                    <th:block th:if="${lastPage eq nowPage}">
-                        <li class="next disabled"><a>下一页</a> </li>
-                        <li class="disabled"><a>尾页</a> </li>
-                    </th:block>
-                    <th:block th:unless="${lastPage eq nowPage}">
-                        <li class="next"><a th:onclick="'javascript:selectPage(\''+${nowPage +1}+'\')'">下一页</a> </li>
-                        <li><a th:onclick="'javascript:selectPage(\''+${lastPage}+'\')'">尾页</a> </li>
-                    </th:block>
-                </ul>
+                        <th:block th:if="${lastPage le nowPage}">
+                            <li class="next disabled"><a>下一页</a></li>
+                            <li class="disabled"><a>尾页</a></li>
+                        </th:block>
+                        <th:block th:unless="${lastPage le nowPage}">
+                            <li class="next"><a
+                                    th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = ${typeId}, pageNum = ${nowPage + 1})}">下一页</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = ${typeId}, pageNum = ${lastPage})}">尾页</a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </nav>
+            </th:block>
+            <th:block th:if="${type eq null}">
+                <nav>
+                    <ul class="pagination">
+                        <th:block th:if="${1 eq nowPage}">
+                            <li class="disabled"><a>首页</a></li>
+                            <li class="previous disabled"><a>上一页</a></li>
+                        </th:block>
+                        <th:block th:unless="${1 eq nowPage}">
+                            <li><a th:onclick="'javascript:selectPage(\''+${1}+'\')'">首页</a></li>
+                            <li class="previous"><a
+                                    th:onclick="'javascript:selectPage(\''+${nowPage-1}+'\')'">上一页</a>
+                            </li>
+                        </th:block>
 
-                <ul th:unless="${byType eq null }" class="pagination">
-                    <th:block th:if="${1 eq nowPage}">
-                        <li class="disabled"><a >首页</a> </li>
-                        <li class="previous disabled"><a>上一页</a> </li>
-                    </th:block>
-                    <th:block th:unless="${1 eq nowPage}">
-                        <li><a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 1, pageNum = 1)}">首页</a> </li>
-                        <li class="previous"><a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 1, pageNum = ${nowPage -1})}">上一页</a> </li>
-                    </th:block>
+                        <th:block th:if="${nowPage-2 gt 0}">
+                            <li><a href="#">...</a></li>
+                            <li><a th:onclick="'javascript:selectPage(\''+${nowPage-2}+'\')'"
+                                   th:text="${nowPage - 2}"></a></li>
+                        </th:block>
 
-                    <th:block th:if="${nowPage-2 gt 0}">
-                        <li><a href="#">...</a> </li>
-                        <li><a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 1, pageNum = ${nowPage - 2})}" th:text="${nowPage - 2}"></a></li>
-                    </th:block>
+                        <li th:if="${nowPage-1 gt 0}">
+                            <a th:onclick="'javascript:selectPage(\''+${nowPage-1}+'\')'"
+                               th:text="${nowPage - 1}"></a>
+                        </li>
 
-                    <li th:if="${nowPage-1 gt 0}">
-                        <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 1, pageNum = ${nowPage - 1})}" th:text="${nowPage - 1}"></a>
-                    </li>
+                        <li class="active"><a href="#" th:text="${nowPage}"></a></li>
 
-                    <li class="active"><a href="#" th:text="${nowPage}"></a> </li>
+                        <li th:if="${nowPage+1 le lastPage}">
+                            <a th:onclick="'javascript:selectPage(\''+${nowPage+1}+'\')'"
+                               th:text="${nowPage + 1}"></a>
+                        </li>
 
-                    <li th:if="${nowPage+1 le lastPage}">
-                        <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 1, pageNum = ${nowPage + 1})}" th:text="${nowPage + 1}"></a>
-                    </li>
+                        <li th:if="${nowPage+2 le lastPage}">
+                            <a th:onclick="'javascript:selectPage(\''+${nowPage+2}+'\')'"
+                               th:text="${nowPage + 2}"></a>
+                        </li>
 
-                    <li th:if="${nowPage+2 le lastPage}">
-                        <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 1, pageNum = ${nowPage + 2})}" th:text="${nowPage + 2}"></a>
-                    </li>
+                        <li th:if="${nowPage+2 lt lastPage}"><a href="#">...</a></li>
 
-                    <li th:if="${nowPage+2 lt lastPage}"><a href="#">...</a> </li>
-
-                    <th:block th:if="${lastPage eq nowPage}">
-                        <li class="next disabled"><a>下一页</a> </li>
-                        <li class="disabled"><a>尾页</a> </li>
-                    </th:block>
-                    <th:block th:unless="${lastPage eq nowPage}">
-                        <li class="next"><a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 1, pageNum = ${nowPage + 1})}">下一页</a> </li>
-                        <li><a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = 1, pageNum = ${lastPage})}">尾页</a> </li>
-                    </th:block>
-                </ul>
-            </nav>
+                        <th:block th:if="${lastPage le nowPage}">
+                            <li class="next disabled"><a>下一页</a></li>
+                            <li class="disabled"><a>尾页</a></li>
+                        </th:block>
+                        <th:block th:unless="${lastPage le nowPage}">
+                            <li class="next"><a
+                                    th:onclick="'javascript:selectPage(\''+${nowPage+1}+'\')'">下一页</a>
+                            </li>
+                            <li>
+                                <a th:onclick="'javascript:selectPage(\''+${lastPage}+'\')'">尾页</a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </nav>
+            </th:block>
         </div>
 
     </div>

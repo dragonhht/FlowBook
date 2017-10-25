@@ -139,6 +139,7 @@ public class TouristController {
         model.addAttribute("lastPage", size);
         model.addAttribute("books", books);
         model.addAttribute("byType", "type");
+        model.addAttribute("typeId", typeId);
         return "search_book";
     }
 
@@ -158,6 +159,10 @@ public class TouristController {
         user = touristService.getNowOwner(bookId);
         commentSize = book.getComments().size();
         records = touristService.getRecordByBookId(bookId);
+        Page<Book> hotBook = touristService.getHotBook(5);
+        Page<Book> goodBooks = touristService.getGoodBook(5);
+        model.addAttribute("goodBooks", goodBooks);
+        model.addAttribute("hotBooks", hotBook);
         model.addAttribute("book", book);
         model.addAttribute("nowOwner", user);
         model.addAttribute("commentSize", commentSize);

@@ -93,12 +93,28 @@
         <div class="hot_book_div">
             <nav class="hot_list_title">
                 <ul>
-                    <li class="active_list_title_flag"><i class="glyphicon glyphicon-fire"></i> <a href="#">相关推荐</a></li>
-                    <li class="active_list_title_more"><a href="#">更多>></a></li>
+                    <li class="active_list_title_flag"><i class="glyphicon glyphicon-fire"></i> <a href="#">热门图书</a></li>
+                    <li class="active_list_title_more"><a th:href="@{/gethotbook}">更多>></a></li>
                 </ul>
             </nav>
             <div class="book_list_div">
                 <!--一条信息-->
+                <div class="book_base" th:each="book : ${hotBooks}">
+                    <div class="book_name" align="center">
+                        <a th:href="@{/tourist/bookMessage/{bookId} (bookId = ${book.bookId})}"
+                           th:text="${book.bookName}" target="_blank"></a>
+                    </div>
+                    <span>
+                        <span>类型：</span>
+                        <span th:each="type : ${book.types}">
+                            <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = ${type.typeId}, pageNum = 1)}"
+                               th:text="${type.typeName}" target="_blank"></a>
+                        </span>
+                        <!--<span><a href="#">自然科学</a></span>
+                        <span><a href="#">自然科学</a></span>-->
+                    </span>
+                </div>
+                <!--一条信息
                 <div class="book_base">
                     <div class="book_name" align="center"><a href="#">图书名</a></div>
                     <span>
@@ -107,7 +123,7 @@
                         <span><a href="#">自然科学</a></span>
                     </span>
                 </div>
-                <!--一条信息-->
+                &lt;!&ndash;一条信息&ndash;&gt;
                 <div class="book_base">
                     <div class="book_name" align="center"><a href="#">图书名</a></div>
                     <span>
@@ -116,7 +132,7 @@
                         <span><a href="#">自然科学</a></span>
                     </span>
                 </div>
-                <!--一条信息-->
+                &lt;!&ndash;一条信息&ndash;&gt;
                 <div class="book_base">
                     <div class="book_name" align="center"><a href="#">图书名</a></div>
                     <span>
@@ -125,7 +141,7 @@
                         <span><a href="#">自然科学</a></span>
                     </span>
                 </div>
-                <!--一条信息-->
+                &lt;!&ndash;一条信息&ndash;&gt;
                 <div class="book_base">
                     <div class="book_name" align="center"><a href="#">图书名</a></div>
                     <span>
@@ -134,7 +150,7 @@
                         <span><a href="#">自然科学</a></span>
                     </span>
                 </div>
-                <!--一条信息-->
+                &lt;!&ndash;一条信息&ndash;&gt;
                 <div class="book_base">
                     <div class="book_name" align="center"><a href="#">图书名</a></div>
                     <span>
@@ -142,7 +158,7 @@
                         <span><a href="#">自然科学</a></span>
                         <span><a href="#">自然科学</a></span>
                     </span>
-                </div>
+                </div>-->
             </div>
         </div>
 
@@ -150,21 +166,75 @@
         <div class="hot_book_div recommend_book_div">
             <nav class="hot_list_title">
                 <ul>
-                    <li class="active_list_title_flag"><i class="glyphicon glyphicon-fire"></i> <a href="#">热门图书</a></li>
-                    <li class="active_list_title_more"><a href="#">更多>></a></li>
+                    <li class="active_list_title_flag"><i class="glyphicon glyphicon-flag"></i> <a href="#">推荐图书</a></li>
+                    <li class="active_list_title_more"><a th:href="@{/getgoodbookbyloarn}">更多>></a></li>
                 </ul>
             </nav>
+            <div class="book_list_div">
+                <!--一条信息-->
+                <div class="book_base" th:each="book : ${goodBooks}">
+                    <div class="book_name" align="center">
+                        <a th:href="@{/tourist/bookMessage/{bookId} (bookId = ${book.bookId})}"
+                           th:text="${book.bookName}"></a>
+                    </div>
+                    <span>
+                        <span>类型：</span>
+                        <span th:each="type : ${book.types}">
+                            <a th:href="@{/tourist/bookType/{typeId}/{pageNum} (typeId = ${type.typeId}, pageNum = 1)}"
+                               th:text="${type.typeName}"></a>
+                        </span>
+                        <!--<span><a href="#">自然科学</a></span>
+                        <span><a href="#">自然科学</a></span>-->
+                    </span>
+                </div>
+                <!--&lt;!&ndash;一条信息&ndash;&gt;
+                <div class="book_base">
+                    <div class="book_name" align="center"><a href="#">图书名</a></div>
+                    <span>
+                        <span>类型：</span>
+                        <span><a href="#">自然科学</a></span>
+                        <span><a href="#">自然科学</a></span>
+                    </span>
+                </div>
+                &lt;!&ndash;一条信息&ndash;&gt;
+                <div class="book_base">
+                    <div class="book_name" align="center"><a href="#">图书名</a></div>
+                    <span>
+                        <span>类型：</span>
+                        <span><a href="#">自然科学</a></span>
+                        <span><a href="#">自然科学</a></span>
+                    </span>
+                </div>
+                &lt;!&ndash;一条信息&ndash;&gt;
+                <div class="book_base">
+                    <div class="book_name" align="center"><a href="#">图书名</a></div>
+                    <span>
+                        <span>类型：</span>
+                        <span><a href="#">自然科学</a></span>
+                        <span><a href="#">自然科学</a></span>
+                    </span>
+                </div>
+                &lt;!&ndash;一条信息&ndash;&gt;
+                <div class="book_base">
+                    <div class="book_name" align="center"><a href="#">图书名</a></div>
+                    <span>
+                        <span>类型：</span>
+                        <span><a href="#">自然科学</a></span>
+                        <span><a href="#">自然科学</a></span>
+                    </span>
+                </div>-->
+            </div>
         </div>
 
         <!--推荐图书-->
-        <div class="hot_book_div recommend_book_div">
+        <!--<div class="hot_book_div recommend_book_div">
             <nav class="hot_list_title">
                 <ul>
                     <li class="active_list_title_flag"><i class="glyphicon glyphicon-flag"></i> <a href="#">推荐图书</a></li>
-                    <li class="active_list_title_more"><a href="#">更多>></a></li>
+                    <li class="active_list_title_more"><a th:href="@{/getgoodbookbyloarn}">更多>></a></li>
                 </ul>
             </nav>
-        </div>
+        </div>-->
     </div>
 
     <!--评论区-->

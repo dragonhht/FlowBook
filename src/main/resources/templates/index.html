@@ -136,7 +136,7 @@
                 <ul class="list-group" id="run_list">
                     <li class="list-group-item" th:each="notice : ${indexNotice}">
                         <a th:href="@{/tourist/user/{userId} (userId = ${notice.user.userId})}" target="_blank"
-                           th:text="${notice.user.userName + ' 寻《'+ notice.noticeText + '》'}"></a>
+                           th:text="${notice.user.userName + ' 寻  '+ notice.noticeText + ''}"></a>
                     </li>
                 </ul>
             </div>

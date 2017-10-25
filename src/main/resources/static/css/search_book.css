@@ -171,3 +171,7 @@ a:hover {
     color: gray;
     line-height: 50px;
 }
+
+.book_list_page_btn a {
+    cursor: pointer;
+}
