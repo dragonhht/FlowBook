@@ -45,11 +45,11 @@ public class Book implements Serializable {
     /** 上传时间. */
     @Temporal(TemporalType.TIMESTAMP)
     private Date bookDate;
-    /** 借阅路线. */
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "bookId")
-    @JsonBackReference
-    private Set<BookRoute> bookRoute;
+//    /** 借阅路线. */
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "bookId")
+//    @JsonBackReference
+//    private Set<BookRoute> bookRoute;
     /** 评论. */
     @OneToMany
     @JoinColumn(name = "bookId")
@@ -225,13 +225,13 @@ public class Book implements Serializable {
     }
 
 
-    public Set<BookRoute> getBookRoute() {
-        return bookRoute;
-    }
-
-    public void setBookRoute(Set<BookRoute> bookRoute) {
-        this.bookRoute = bookRoute;
-    }
+//    public Set<BookRoute> getBookRoute() {
+//        return bookRoute;
+//    }
+//
+//    public void setBookRoute(Set<BookRoute> bookRoute) {
+//        this.bookRoute = bookRoute;
+//    }
 
     public Set<Comment> getComments() {
         return comments;

@@ -165,3 +165,46 @@ a:hover {
     color: gray;
     line-height: 50px;
 }
+
+.update_div {
+    position: fixed;
+    top: 20%;
+    left: 25%;
+    width: 50%;
+    height: 425px;
+    /*border: 3px solid gray;*/
+    background-color: white;
+    z-index: 3;
+// overflow: auto;
+}
+
+.update_div .showDiv {
+    // border: 1px solid red;
+    border-top: 3px solid red;
+    border-bottom: 2px solid #DEDEDE;
+    height: 375px;
+    overflow-x: auto;
+    padding-right: 16px;
+}
+
+.update_div #okDiv {
+    height: 50px;
+    line-height: 50px;
+}
+
+.update_div #okDiv button {
+    width:200px;
+    height: 40px;
+    background-color: #F73500;
+    font-weight: bolder;
+}
+
+.out_bg {
+    position: absolute;
+    height: 106%;
+    width: 100%;
+    z-index: 2;
+    background-color: black;
+    opacity: 0.5;
+    top: 0;
+}

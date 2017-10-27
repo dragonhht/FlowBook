@@ -28,12 +28,12 @@ public class User implements Serializable {
     /** 用户名称. */
     @Size(min = 1, max = 30, message = "{user.name.length.error}")
     private String userName;
-    /** 用户年龄. */
-    private int userAge;
-    /** 用户性别. */
-    private String userSex;
-    /** 住址. */
-    private String userAddress;
+//    /** 用户年龄. */
+//    private int userAge;
+//    /** 用户性别. */
+//    private String userSex;
+//    /** 住址. */
+//    private String userAddress;
     /** 电子邮箱. */
     @Email(message = "{user.email.format.error}")
     private String userEmail;
@@ -42,10 +42,10 @@ public class User implements Serializable {
     private String userPhone;
     /** 用户头像. */
     private String userImg = "http://localhost:8080/FlowBook/img/user.png";
-    /** 省份. */
-    private String provice;
-    /** 城市. */
-    private String city;
+//    /** 省份. */
+//    private String provice;
+//    /** 城市. */
+//    private String city;
     /** 身份. */
     private int identity = 0;
     /** 注册时间. */
@@ -60,11 +60,11 @@ public class User implements Serializable {
     @JoinColumn(name = "userId")
     @JsonBackReference
     private Set<Comment> comments;
-    /** 图书路线. */
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId")
-    @JsonBackReference
-    private Set<BookRoute> bookRoute;
+//    /** 图书路线. */
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "userId")
+//    @JsonBackReference
+//    private Set<BookRoute> bookRoute;
     /** 发布的公告. */
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
@@ -123,59 +123,59 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-    /**
-     * 获取 用户年龄.
-     *
-     * @return userAge 用户年龄.
-     */
-    public int getUserAge() {
-        return this.userAge;
-    }
-
-    /**
-     * 设置 用户年龄.
-     *
-     * @param userAge 用户年龄.
-     */
-    public void setUserAge(int userAge) {
-        this.userAge = userAge;
-    }
-
-    /**
-     * 获取 用户性别.
-     *
-     * @return userSex 用户性别.
-     */
-    public String getUserSex() {
-        return this.userSex;
-    }
-
-    /**
-     * 设置 用户性别.
-     *
-     * @param userSex 用户性别.
-     */
-    public void setUserSex(String userSex) {
-        this.userSex = userSex;
-    }
-
-    /**
-     * 获取 住址.
-     *
-     * @return userAddress 住址.
-     */
-    public String getUserAddress() {
-        return this.userAddress;
-    }
-
-    /**
-     * 设置 住址.
-     *
-     * @param userAddress 住址.
-     */
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
-    }
+//    /**
+//     * 获取 用户年龄.
+//     *
+//     * @return userAge 用户年龄.
+//     */
+//    public int getUserAge() {
+//        return this.userAge;
+//    }
+//
+//    /**
+//     * 设置 用户年龄.
+//     *
+//     * @param userAge 用户年龄.
+//     */
+//    public void setUserAge(int userAge) {
+//        this.userAge = userAge;
+//    }
+//
+//    /**
+//     * 获取 用户性别.
+//     *
+//     * @return userSex 用户性别.
+//     */
+//    public String getUserSex() {
+//        return this.userSex;
+//    }
+//
+//    /**
+//     * 设置 用户性别.
+//     *
+//     * @param userSex 用户性别.
+//     */
+//    public void setUserSex(String userSex) {
+//        this.userSex = userSex;
+//    }
+//
+//    /**
+//     * 获取 住址.
+//     *
+//     * @return userAddress 住址.
+//     */
+//    public String getUserAddress() {
+//        return this.userAddress;
+//    }
+//
+//    /**
+//     * 设置 住址.
+//     *
+//     * @param userAddress 住址.
+//     */
+//    public void setUserAddress(String userAddress) {
+//        this.userAddress = userAddress;
+//    }
 
     /**
      * 获取 电子邮箱.
@@ -286,13 +286,13 @@ public class User implements Serializable {
         this.comments = comments;
     }
 
-    public Set<BookRoute> getBookRoute() {
-        return bookRoute;
-    }
-
-    public void setBookRoute(Set<BookRoute> bookRoute) {
-        this.bookRoute = bookRoute;
-    }
+//    public Set<BookRoute> getBookRoute() {
+//        return bookRoute;
+//    }
+//
+//    public void setBookRoute(Set<BookRoute> bookRoute) {
+//        this.bookRoute = bookRoute;
+//    }
 
     public Set<Notice> getNotices() {
         return notices;
@@ -334,21 +334,21 @@ public class User implements Serializable {
         this.applies = applies;
     }
 
-    public String getProvice() {
-        return provice;
-    }
-
-    public void setProvice(String provice) {
-        this.provice = provice;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
+//    public String getProvice() {
+//        return provice;
+//    }
+//
+//    public void setProvice(String provice) {
+//        this.provice = provice;
+//    }
+//
+//    public String getCity() {
+//        return city;
+//    }
+//
+//    public void setCity(String city) {
+//        this.city = city;
+//    }
 
     public int getIdentity() {
         return identity;
@@ -361,16 +361,20 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
+                "userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
-                ", userAge=" + userAge +
-                ", userSex='" + userSex + '\'' +
-                ", userAddress='" + userAddress + '\'' +
                 ", userEmail='" + userEmail + '\'' +
                 ", userPhone='" + userPhone + '\'' +
                 ", userImg='" + userImg + '\'' +
+                ", identity=" + identity +
                 ", userDate=" + userDate +
                 ", password='" + password + '\'' +
+                ", comments=" + comments +
+                ", notices=" + notices +
+                ", contribution=" + contribution +
+                ", contributeNum=" + contributeNum +
+                ", credit=" + credit +
+                ", applies=" + applies +
                 '}';
     }
 }

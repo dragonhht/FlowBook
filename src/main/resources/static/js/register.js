@@ -82,6 +82,10 @@ $(document).ready(function () {
 
 
         }
+
+        var height = $(document).height();
+        $('#out_bg').css('height', height);
+
     });
 
     /** 用户基本信息下一步. */
@@ -216,6 +220,9 @@ $(document).ready(function () {
                     // TODO 手机校验码发送后
                 });
         }
+        step = 0;
+        id = '#phoneCodeBtn';
+        codeIntervalId = setInterval(setCodeStep, 1000);
     });
 
     /** 绑定邮箱下一步. */
@@ -265,7 +272,6 @@ $(document).ready(function () {
             $('.alert').html('请输入可用的电子邮箱').addClass('alert-danger').show().delay(2000).fadeOut();
             return;
         } else {
-
             $.post('tourist/testemail',
                 {
                     email : emailVal
@@ -273,9 +279,46 @@ $(document).ready(function () {
                 function (data) {
                     //　TODO 发送邮件后
                 });
-
         }
+        step = 0;
+        id = '#emailCodeBtn';
+        codeIntervalId = setInterval(setCodeStep, 1000);
     });
 
+    $('#okBtn').click(function () {
+        $('#out_bg').hide();
+        $('#update_phone').hide();
+    });
+
+    /** 协议倒计时. */
+    var step = 0;
+    var intervalId = setInterval(showBtn, 1000);
+    function showBtn() {
+        step++;
+        $('#okBtn').html('同意协议(' + step +'S)');
+        if (step >= 6) {
+            clearInterval(intervalId);
+            $('#okBtn').html('同意协议');
+            $('#okBtn').attr('disabled', false);
+        }
+    }
+
+    /** 验证码等待提示. */
+    var codeIntervalId;
+    var id;
+    function setCodeStep() {
+        step++;
+        if (step == 1) {
+            $(id).attr('disabled', true);
+        }
+        console.log("ID:" + codeIntervalId);
+        $(id).html('获取验证码(' + step + 'S)');
+        if (step >= 30) {
+            clearInterval(codeIntervalId);
+            $(id).html('获取验证码');
+            $(id).attr('disabled', false);
+        }
+        console.log(step);
+    }
 });
 

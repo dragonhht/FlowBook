@@ -3,9 +3,9 @@ use FlowBook;
 CREATE TABLE user (
   user_id VARCHAR(11) PRIMARY KEY COMMENT '用户编号',
   user_name VARCHAR(30) NOT NULL COMMENT '用户名',
-  user_age INT comment '用户年龄',
-  user_sex VARCHAR(2) DEFAULT '男' COMMENT '性别',
-  user_address TEXT COMMENT '住址',
+--  user_age INT comment '用户年龄',
+--  user_sex VARCHAR(2) DEFAULT '男' COMMENT '性别',
+--  user_address TEXT COMMENT '住址',
   user_email VARCHAR(50) COMMENT '电子邮件',
   user_phone VARCHAR(11) NOT NULL COMMENT '电话号码' ,
   user_img TEXT NOT NULL COMMENT '用户头像',
@@ -96,12 +96,12 @@ CREATE TABLE user_apply (
 ) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;
 
 -- 图片表
-CREATE TABLE img (
+/*CREATE TABLE img (
   img_id INT AUTO_INCREMENT PRIMARY KEY ,
   img_path TEXT NOT NULL ,
   apply_id INT NOT NULL ,
   FOREIGN KEY (apply_id) REFERENCES user_apply(apply_id)
-) CHARSET=utf8;
+) CHARSET=utf8;*/
 
 -- 聊天记录表
 CREATE TABLE chat_record (
