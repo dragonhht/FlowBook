@@ -39,6 +39,41 @@ $(document).ready(function () {
 
     $('#userImg').hide();
 
+    /** 校验ISBN. */
+    $('#ISBN').blur(function () {
+        var isbn = $('#ISBN').val().trim();
+        var len = isbn.length;
+        var sum = 0, index = 1, step = 0;
+        var result = 0, num = isbn[len - 1];
+        /** 13位ISBN校验. */
+        if (len == 17) {
+            for (var i=0; i < 15; i++) {
+                if (isbn[i] == '-') {
+                    continue;
+                }
+                step++;
+                if (step % 2 == 0) {
+                    index = 3;
+                } else {
+                    index = 1;
+                }
+                sum = sum + index * isbn[i];
+            }
+            var m = sum % 10;
+            result = 10 - m;
+            if (result == 10) {
+                result = 0;
+            }
+            if (result != num) {
+                $('.alert').html('ISBN错误').addClass('alert-danger').show().delay(2000).fadeOut();
+                $('#isbnDiv').addClass('has-error');
+            } else {
+                $('#isbnDiv').removeClass('has-error');
+            }
+        }
+
+    });
+
 });
 
 /** 选择标签. */

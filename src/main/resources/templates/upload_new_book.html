@@ -8,11 +8,15 @@
     <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
     <link th:href="@{/css/upload_new_book.css}" rel="stylesheet" type="text/css"/>
     <script th:src="@{/js/upload_new_book.js}" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/alert.css}"/>
 </head>
 <body>
 
 <!--顶部-->
 <div th:include="assembly::navWithSearch"></div>
+
+<!--添加提示框-->
+<div class="alert"></div>
 
 <!--页面中部-->
 <div class="center_bg">
@@ -44,8 +48,8 @@
             </div>
             <div class="form-group" style="margin-left: auto;margin-right: auto;">
                 <label class="col-sm-2 control-label">ISBN：</label>
-                <div class="col-sm-7">
-                    <input type="text" class="form-control" name="ISBN" placeholder="请输入图书的ISBN号" />
+                <div class="col-sm-7" id="isbnDiv">
+                    <input type="text" id="ISBN" class="form-control" name="ISBN" placeholder="请输入图书的ISBN号" />
                 </div>
             </div>
             <div class="form-group" style="margin-left: auto;margin-right: auto;">
