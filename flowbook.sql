@@ -175,3 +175,12 @@ CREATE TABLE activity (
   status INT NOT NULL COMMENT '是否通过申请, 0 为未处理, 1, 为通过, 2, 为未通过',
   FOREIGN KEY (user_id) REFERENCES user(user_id)
 ) AUTO_INCREMENT=1000000 DEFAULT CHARSET=utf8;
+
+-- 管理员申请表
+CREATE TABLE apply_admin(
+  apply_id INT AUTO_INCREMENT PRIMARY KEY ,
+  user_id VARCHAR(11) NOT NULL ,
+  apply_text TEXT,
+  status INT DEFAULT 0 NOT NULL COMMENT '是否通过申请, 0 为未处理, 1, 为通过, 2, 为未通过',
+  FOREIGN KEY (user_id) REFERENCES user(user_id)
+)DEFAULT CHARSET=utf8;

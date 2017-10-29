@@ -26,6 +26,7 @@
             <li index="1" onclick="selectTab(this)"><a>待批申请</a></li>
             <li index="2" onclick="selectTab(this)"><a>已批申请</a></li>
             <li index="3" onclick="selectTab(this)"><a>提交新申请</a></li>
+            <li index="4" th:unless="${admins eq null}" onclick="selectTab(this)"><a>我的管理员申请</a></li>
         </ul>
 
         <table id="book_contribution" class="table table-responsive">
@@ -76,6 +77,26 @@
                 </td>
                 <td th:text="${passApply.applyDate}"></td>
                 <td th:text="${passApply.status}"></td>
+            </tr>
+        </table>
+
+        <!--管理员申请-->
+        <table id="admin_apply_table" class="table table-responsive" hidden="hidden">
+            <tr>
+                <td>备注</td>
+                <td>日期</td>
+                <td>状态</td>
+            </tr>
+            <tr th:each="apply : ${admins}">
+                <td>
+                    <a th:text="${apply.applyText}"></a>
+                </td>
+                <td th:text="${apply.applyDate}"></td>
+                <td>
+                    <a th:if="${apply.status eq 0}" class="btn btn-warning" style="color: white">待处理</a>
+                    <a th:if="${apply.status eq 1}" class="btn btn-info" style="color: white">通过</a>
+                    <a th:if="${apply.status eq 3}" class="btn btn-info" style="color: white">未通过</a>
+                </td>
             </tr>
         </table>
 

@@ -1,5 +1,6 @@
 package book.flow.controller;
 
+import book.flow.enity.ApplyAdmin;
 import book.flow.enity.LoanRecord;
 import book.flow.enity.User;
 import book.flow.service.FileService;
@@ -178,5 +179,23 @@ public class UserHomeController {
             }
         }
         return "失败";
+    }
+
+    /**
+     * 申请管理员.
+     * @param text
+     * @param session
+     * @param model
+     * @return
+     */
+    @PostMapping("/applyAdmin")
+    @ResponseBody
+    public boolean applyAdmin(String text, HttpSession session, Model model) {
+        boolean ok  =false;
+        User user = (User) session.getAttribute("user");
+        if (user != null) {
+            ok = userHomeService.applyAdmin(user, text);
+        }
+        return ok;
     }
 }

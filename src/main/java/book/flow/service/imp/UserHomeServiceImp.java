@@ -1,6 +1,9 @@
 package book.flow.service.imp;
 
+import book.flow.enity.ApplyAdmin;
 import book.flow.enity.LoanRecord;
+import book.flow.enity.User;
+import book.flow.repository.ApplyAdminRepository;
 import book.flow.repository.RecordRepository;
 import book.flow.repository.UserRepository;
 import book.flow.service.UserHomeService;
@@ -8,6 +11,7 @@ import book.flow.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -23,6 +27,8 @@ public class UserHomeServiceImp implements UserHomeService {
     private UserRepository userRepository;
     @Autowired
     private RecordRepository recordRepository;
+    @Autowired
+    private ApplyAdminRepository applyAdminRepository;
 
     @Override
     public List<LoanRecord> getAllRecode(String userId) {
@@ -79,6 +85,21 @@ public class UserHomeServiceImp implements UserHomeService {
         int i = 0;
         i = userRepository.updateUserImg(path, userId);
         if (i > 0) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public boolean applyAdmin(User user, String text) {
+        boolean ok = false;
+        ApplyAdmin applyAdmin = new ApplyAdmin();
+        applyAdmin.setApplyText(text);
+        applyAdmin.setStatus(0);
+        applyAdmin.setUser(user);
+        applyAdmin.setApplyDate(new Date());
+        ApplyAdmin u = applyAdminRepository.save(applyAdmin);
+        if (u != null) {
             ok = true;
         }
         return ok;

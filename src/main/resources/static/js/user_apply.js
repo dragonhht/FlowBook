@@ -11,6 +11,7 @@ function selectTab(n) {
         $('#book_borrow').hide();
         $('#notice').hide();
         $('#book_contribution').show();
+        $('#admin_apply_table').hide();
         return;
     }
     if (index == 1) {
@@ -18,6 +19,7 @@ function selectTab(n) {
         $('#book_borrow').hide();
         $('#notice').hide();
         $('#book_now_have').show();
+        $('#admin_apply_table').hide();
         return;
     }
     if (index == 2) {
@@ -25,6 +27,7 @@ function selectTab(n) {
         $('#book_now_have').hide();
         $('#notice').hide();
         $('#book_borrow').show();
+        $('#admin_apply_table').hide();
         return;
     }
     if (index == 3) {
@@ -32,6 +35,15 @@ function selectTab(n) {
         $('#book_now_have').hide();
         $('#book_borrow').hide();
         $('#notice').show();
+        $('#admin_apply_table').hide();
+        return;
+    }
+    if (index == 4) {
+        $('#book_contribution').hide();
+        $('#book_now_have').hide();
+        $('#book_borrow').hide();
+        $('#admin_apply_table').show();
+        $('#notice').hide();
     }
 }
 

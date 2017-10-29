@@ -1,13 +1,7 @@
 package book.flow.service.imp;
 
-import book.flow.enity.Activity;
-import book.flow.enity.Apply;
-import book.flow.enity.Report;
-import book.flow.enity.User;
-import book.flow.repository.ActivityRepository;
-import book.flow.repository.ApplyRepository;
-import book.flow.repository.ReportRepository;
-import book.flow.repository.UserRepository;
+import book.flow.enity.*;
+import book.flow.repository.*;
 import book.flow.service.SuperAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +24,8 @@ public class SuperAdminServiceImp implements SuperAdminService {
     private ReportRepository reportRepository;
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private ApplyAdminRepository applyAdminRepository;
 
 
     @Override
@@ -96,5 +92,30 @@ public class SuperAdminServiceImp implements SuperAdminService {
     @Override
     public List<Activity> getAllActivities() {
         return activityRepository.getAdminAllActivies();
+    }
+
+    @Override
+    public List<ApplyAdmin> getAllApplyAdmin() {
+        return applyAdminRepository.getAllApplies();
+    }
+
+    @Override
+    public boolean okApply(String userId, int applyId) {
+        boolean ok = false;
+        int num = applyAdminRepository.okApply(applyId);
+        if (num > 0) {
+            ok = setAdmin(userId);
+        }
+        return ok;
+    }
+
+    @Override
+    public boolean delApply(int applyId) {
+        boolean ok = false;
+        int num = applyAdminRepository.delApply(applyId);
+        if (num > 0) {
+            ok = true;
+        }
+        return ok;
     }
 }

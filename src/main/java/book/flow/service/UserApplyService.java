@@ -1,9 +1,6 @@
 package book.flow.service;
 
-import book.flow.enity.Activity;
-import book.flow.enity.Apply;
-import book.flow.enity.Book;
-import book.flow.enity.User;
+import book.flow.enity.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -84,5 +81,11 @@ public interface UserApplyService {
      * @return
      */
     boolean saveActivity(Activity activity, User user);
+
+    /**
+     * 获取我的管理员申请.
+     * @return
+     */
+    List<ApplyAdmin> getMyApplyAdmin();
 
 }

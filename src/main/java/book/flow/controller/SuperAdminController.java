@@ -1,9 +1,6 @@
 package book.flow.controller;
 
-import book.flow.enity.Activity;
-import book.flow.enity.Apply;
-import book.flow.enity.Report;
-import book.flow.enity.User;
+import book.flow.enity.*;
 import book.flow.service.AdminService;
 import book.flow.service.SuperAdminService;
 import com.sun.org.apache.regexp.internal.RE;
@@ -176,6 +173,29 @@ public class SuperAdminController {
     @ResponseBody
     public boolean okActivity(int activeId) {
         return adminService.okActive(activeId);
+    }
+
+    @GetMapping("/getApplyAdmin")
+    @ResponseBody
+    public List<ApplyAdmin> getApplyAdmin() {
+        return superAdminService.getAllApplyAdmin();
+    }
+
+    @PostMapping("/okApply")
+    @ResponseBody
+    public boolean okApply(String userId, int applyId) {
+        System.out.println(userId + ":" + applyId);
+        boolean ok = false;
+        ok = superAdminService.okApply(userId, applyId);
+        return ok;
+    }
+
+    @PostMapping("/delApply")
+    @ResponseBody
+    public boolean delApply(int applyId) {
+        boolean ok = false;
+        ok = superAdminService.delApply(applyId);
+        return ok;
     }
 
 }

@@ -1,6 +1,8 @@
 package book.flow.service;
 
 import book.flow.enity.LoanRecord;
+import book.flow.enity.User;
+
 import java.util.List;
 
 /**
@@ -53,4 +55,12 @@ public interface UserHomeService {
      * @return 是否修改成功, true为成功
      */
     boolean updateUserImg(String path, String userId);
+
+    /**
+     * 提交申请管理员.
+     * @param user
+     * @param text
+     * @return
+     */
+    boolean applyAdmin(User user, String text);
 }

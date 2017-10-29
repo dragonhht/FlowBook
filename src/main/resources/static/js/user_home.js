@@ -164,4 +164,20 @@ $(document).ready(function () {
             });
     });
 
+    /** 申请管理员. */
+    $('#applyBtn').click(function () {
+        var text = $('#applyText').val().trim();
+        $.post('applyAdmin',
+            {
+                text : text
+            },
+            function (data) {
+                if (data) {
+                    window.location.replace("../msg?flag=applySeccuss");
+                } else {
+                    $('.alert').html('上传失败，请稍后再试').addClass('alert-danger').show().delay(2000).fadeOut();
+                }
+            })
+    })
+
 });

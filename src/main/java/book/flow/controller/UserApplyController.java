@@ -1,9 +1,6 @@
 package book.flow.controller;
 
-import book.flow.enity.Activity;
-import book.flow.enity.Apply;
-import book.flow.enity.Book;
-import book.flow.enity.User;
+import book.flow.enity.*;
 import book.flow.service.UserApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,6 +44,10 @@ public class UserApplyController {
             List<Apply> waitApplies = userApplyService.getWaitAppliesByUserId(userId);
             List<Apply> passApplies = userApplyService.getPassAppliesByUserId(userId);
             List<Book> canApplyBook = userApplyService.getBookToApply(userId);
+            List<ApplyAdmin> applyAdmins = userApplyService.getMyApplyAdmin();
+            if (applyAdmins != null && applyAdmins.size() > 0) {
+                model.addAttribute("admins", applyAdmins);
+            }
             model.addAttribute("allApplies", allApplies);
             model.addAttribute("waitApplies", waitApplies);
             model.addAttribute("passApplies", passApplies);

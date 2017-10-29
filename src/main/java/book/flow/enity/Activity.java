@@ -15,7 +15,7 @@ public class Activity {
     @Id
     @GeneratedValue
     private int activeId;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIME)
     private Date activeDate;
     private String activeTitle;
     private int status = 0;

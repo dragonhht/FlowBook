@@ -12,7 +12,9 @@
 <body>
 <!--顶部-->
 <nav class="navbar navbar-default navber-fixed-top top" align="center">
-    <a>九江学院图书漂流 - 超级管理员 - 控制台</a>
+    <a>九江学院图书漂流 - 超级管理员 - 控制台
+        <span th:text="${'(' + session.user.userName + ')'}"></span>
+    </a>
 </nav>
 
 
@@ -27,6 +29,7 @@
                 </a>
             </li>
             <li><a href="#updateAdmin" data-toggle="tab" onclick="getAdmin()">普通管理员管理</a></li>
+            <li><a href="#okAdmin" data-toggle="tab" onclick="getApply()">申请处理</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">
             <input type="text" hidden="hidden" id="userId"/>
@@ -68,6 +71,23 @@
                         <td>操作</td>
                     </tr>
                     <tbody id="updateAdminTbody">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="okAdmin">
+                <table class="table table-responsive">
+                    <tr>
+                        <td>用户编号</td>
+                        <td>用户名</td>
+                        <td>手机号</td>
+                        <td>电子邮箱</td>
+                        <td>贡献度</td>
+                        <td>信用</td>
+                        <td>备注</td>
+                        <td>操作</td>
+                    </tr>
+                    <tbody id="okAdminTbody">
 
                     </tbody>
                 </table>
@@ -155,7 +175,7 @@
                     '<td>' + data[i].userName + '</td>' +
                     '<td>' + data[i].userPhone+ '</td>' +
                     '<td>' + data[i].userEmail+ '</td>' +
-                    '<td></td>' +
+                    '<td>' + data[i].contributeNum + '</td>' +
                     '<td>' + data[i].credit + '</td>' +
                     '<td><button onclick="delAdmin(this, ' + data[i].userId + ')" class="btn btn-warning">撤销管理员</button></td>' +
                     '</tr>');
@@ -175,6 +195,57 @@
                     $('.alert').html('设置成功').addClass('alert-success').show().delay(2000).fadeOut();
                     $(par).remove();
                 } else {
+                    $('.alert').html('设置失败').addClass('alert-danger').show().delay(2000).fadeOut();
+                }
+            })
+    }
+
+    /** 管理员申请处理. */
+    function getApply() {
+        $.get('getApplyAdmin',function (data) {
+            $('#okAdminTbody').html('');
+            /*<![CDATA[*/
+            for (var i=0; i<data.length; i++) {
+                $('#okAdminTbody').append('<tr>' +
+                    '<td>' + data[i].user.userId + '</td>' +
+                    '<td>' + data[i].user.userName + '</td>' +
+                    '<td>' + data[i].user.userPhone+ '</td>' +
+                    '<td>' + data[i].user.userEmail+ '</td>' +
+                    '<td>' + data[i].user.contributeNum + '</td>' +
+                    '<td>' + data[i].user.credit + '</td>' +
+                    '<td>' + data[i].applyText + '</td>' +
+                    '<td><button onclick="okApply(this, ' + data[i].user.userId + ' , ' + data[i].applyId + ')" class="btn btn-warning">通过</button>&nbsp;' +
+                    '<button onclick="delApply(this, ' + data[i].applyId + ')" class="btn btn-danger">否决</button></td>' +
+                    '</tr>');
+            }
+            /*]]>*/
+        })
+    }
+    
+    function okApply(n, userId, applyId) {
+        $.post('okApply',
+            {
+                userId : userId,
+                applyId : applyId
+            },function (data) {
+                if (data) {
+                    var par = $(n).parents('tr');
+                    $(par).remove();
+                } else  {
+                    $('.alert').html('设置失败').addClass('alert-danger').show().delay(2000).fadeOut();
+                }
+            })
+    }
+
+    function delApply(n, applyId) {
+        $.post('delApply',
+            {
+                applyId : applyId
+            },function (data) {
+                if (data) {
+                    var par = $(n).parents('tr');
+                    $(par).remove();
+                } else  {
                     $('.alert').html('设置失败').addClass('alert-danger').show().delay(2000).fadeOut();
                 }
             })

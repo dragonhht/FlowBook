@@ -60,6 +60,11 @@ public class User implements Serializable {
     @JoinColumn(name = "userId")
     @JsonBackReference
     private Set<Comment> comments;
+    /** 管理员申请. */
+    @OneToMany
+    @JoinColumn(name = "userId")
+    @JsonBackReference
+    private Set<ApplyAdmin> applyAdmins;
 //    /** 图书路线. */
 //    @OneToMany(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "userId")
@@ -356,6 +361,14 @@ public class User implements Serializable {
 
     public void setIdentity(int identity) {
         this.identity = identity;
+    }
+
+    public Set<ApplyAdmin> getApplyAdmins() {
+        return applyAdmins;
+    }
+
+    public void setApplyAdmins(Set<ApplyAdmin> applyAdmins) {
+        this.applyAdmins = applyAdmins;
     }
 
     @Override

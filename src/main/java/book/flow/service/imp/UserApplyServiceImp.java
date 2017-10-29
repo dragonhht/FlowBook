@@ -5,6 +5,7 @@ import book.flow.repository.*;
 import book.flow.service.FileService;
 import book.flow.service.UserApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,6 +36,8 @@ public class UserApplyServiceImp implements UserApplyService {
     private ReportImgRepository reportImgRepository;
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private ApplyAdminRepository applyAdminRepository;
 
     @Override
     public List<Apply> getAllAppliesByUserId(String userId) {
@@ -133,6 +136,12 @@ public class UserApplyServiceImp implements UserApplyService {
         }
 
         return ok;
+    }
+
+    @Override
+    public List<ApplyAdmin> getMyApplyAdmin() {
+        Sort sort = new Sort(Sort.Direction.DESC, "applyDate");
+        return applyAdminRepository.findAll(sort);
     }
 
 }

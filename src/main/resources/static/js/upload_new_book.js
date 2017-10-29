@@ -69,9 +69,11 @@ $(document).ready(function () {
                 $('#isbnDiv').addClass('has-error');
             } else {
                 $('#isbnDiv').removeClass('has-error');
+                return;
             }
         }
-
+        $('.alert').html('ISBN错误').addClass('alert-danger').show().delay(2000).fadeOut();
+        $('#isbnDiv').addClass('has-error');
     });
 
 });

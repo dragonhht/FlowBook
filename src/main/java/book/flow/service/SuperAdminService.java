@@ -1,9 +1,6 @@
 package book.flow.service;
 
-import book.flow.enity.Activity;
-import book.flow.enity.Apply;
-import book.flow.enity.Report;
-import book.flow.enity.User;
+import book.flow.enity.*;
 
 import java.util.List;
 
@@ -40,5 +37,11 @@ public interface SuperAdminService {
     List<Report> getAdminNotDealReport();
 
     List<Activity> getAllActivities();
+
+    List<ApplyAdmin> getAllApplyAdmin();
+
+    boolean okApply(String userId, int applyId);
+
+    boolean delApply(int applyId);
 
 }
