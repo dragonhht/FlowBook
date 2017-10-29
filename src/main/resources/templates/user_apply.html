@@ -31,13 +31,11 @@
 
         <table id="book_contribution" class="table table-responsive">
             <tr>
-                <td>申请编号</td>
                 <td>内容</td>
                 <td>日期</td>
                 <td>状态</td>
             </tr>
             <tr th:each="allApply : ${allApplies}">
-                <td th:text="${allApply.applyId}"></td>
                 <td>
                     <a th:onclick="'javascript:showApply(\''+${allApply.applyId}+'\')'" th:text="${allApply.applyText}"></a>
                 </td>
@@ -48,13 +46,11 @@
 
         <table id="book_now_have" class="table table-responsive" hidden="hidden">
             <tr>
-                <td>申请编号</td>
                 <td>内容</td>
                 <td>日期</td>
                 <td>状态</td>
             </tr>
             <tr th:each="waitApply : ${waitApplies}">
-                <td th:text="${waitApply.applyId}"></td>
                 <td>
                     <a th:onclick="'javascript:showApply(\''+${waitApply.applyId}+'\')'" th:text="${waitApply.applyText}"></a>
                 </td>
@@ -65,13 +61,11 @@
 
         <table id="book_borrow" class="table table-responsive" hidden="hidden">
             <tr>
-                <td>申请编号</td>
                 <td>内容</td>
                 <td>日期</td>
                 <td>状态</td>
             </tr>
             <tr th:each="passApply : ${passApplies}">
-                <td th:text="${passApply.applyId}"></td>
                 <td>
                     <a th:onclick="'javascript:showApply(\''+${passApply.applyId}+'\')'" th:text="${passApply.applyText}"></a>
                 </td>
@@ -95,7 +89,7 @@
                 <td>
                     <a th:if="${apply.status eq 0}" class="btn btn-warning" style="color: white">待处理</a>
                     <a th:if="${apply.status eq 1}" class="btn btn-info" style="color: white">通过</a>
-                    <a th:if="${apply.status eq 3}" class="btn btn-info" style="color: white">未通过</a>
+                    <a th:if="${apply.status eq 2}" class="btn btn-info" style="color: white">未通过</a>
                 </td>
             </tr>
         </table>
