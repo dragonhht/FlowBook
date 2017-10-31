@@ -184,7 +184,6 @@ public class SuperAdminController {
     @PostMapping("/okApply")
     @ResponseBody
     public boolean okApply(String userId, int applyId) {
-        System.out.println(userId + ":" + applyId);
         boolean ok = false;
         ok = superAdminService.okApply(userId, applyId);
         return ok;
