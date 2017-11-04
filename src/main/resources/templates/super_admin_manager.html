@@ -62,6 +62,7 @@
             <div class="tab-pane fade" id="updateAdmin">
                 <table class="table table-responsive">
                     <tr>
+                        <td>优先级</td>
                         <td>用户编号</td>
                         <td>用户名</td>
                         <td>手机号</td>
@@ -171,6 +172,7 @@
             /*<![CDATA[*/
             for (var i=0; i<data.length; i++) {
                 $('#updateAdminTbody').append('<tr>' +
+                    '<td>' + (i + 1) + '</td>' +
                     '<td>' + data[i].userId + '</td>' +
                     '<td>' + data[i].userName + '</td>' +
                     '<td>' + data[i].userPhone+ '</td>' +

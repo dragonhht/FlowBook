@@ -100,7 +100,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("update User u set u.identity = 1 where u.userId = ?1")
     int setAdmin(String userId);
 
-    @Query("select u from User u where u.identity = 1")
+    @Query("select u from User u where u.identity = 1 order by u.credit desc , u.contributeNum desc ")
     List<User> getAdmin();
 
     @Transactional
