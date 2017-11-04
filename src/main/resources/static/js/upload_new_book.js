@@ -72,6 +72,29 @@ $(document).ready(function () {
                 return;
             }
         }
+        if (len == 13) {
+            for (var i=0; i < 12; i++) {
+                step++;
+                if (step % 2 == 0) {
+                    index = 3;
+                } else {
+                    index = 1;
+                }
+                sum = sum + index * isbn[i];
+            }
+            var m = sum % 10;
+            result = 10 - m;
+            if (result == 10) {
+                result = 0;
+            }
+            if (result != num) {
+                $('.alert').html('ISBN错误').addClass('alert-danger').show().delay(2000).fadeOut();
+                $('#isbnDiv').addClass('has-error');
+            } else {
+                $('#isbnDiv').removeClass('has-error');
+                return;
+            }
+        }
         $('.alert').html('ISBN错误').addClass('alert-danger').show().delay(2000).fadeOut();
         $('#isbnDiv').addClass('has-error');
     });
