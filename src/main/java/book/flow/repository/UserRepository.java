@@ -147,4 +147,10 @@ public interface UserRepository extends JpaRepository<User, String> {
      */
     @Query("select u.userImg from User u where u.userId = ?1")
     String getUserImg(String userId);
+
+    @Query("select count(u) from User u where u.userPhone = ?1")
+    int findUserByPhone(String phone);
+
+    @Query("select count(u) from User u where u.userEmail = ?1")
+    int findUserCountByEmail(String email);
 }

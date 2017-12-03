@@ -332,4 +332,17 @@ public class TouristRegisterAndLoginController {
 
         return ok;
     }
+
+    @PostMapping("/testPhone")
+    @ResponseBody
+    public boolean testPhone(String phone) {
+        System.out.println(phone);
+        return touristService.isExistPhone(phone);
+    }
+
+    @PostMapping("/hasEmail")
+    @ResponseBody
+    public boolean hasEmail(String email) {
+        return touristService.isExistEmail(email);
+    }
 }

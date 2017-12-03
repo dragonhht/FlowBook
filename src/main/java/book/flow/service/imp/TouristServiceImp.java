@@ -377,4 +377,24 @@ public class TouristServiceImp implements TouristService {
         Pageable pageable = new PageRequest(0, size);
         return bookRepository.getGoodBook(pageable);
     }
+
+    @Override
+    public boolean isExistPhone(String phone) {
+        boolean ok = false;
+        int num = userRepository.findUserByPhone(phone);
+        if (num > 0) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public boolean isExistEmail(String email) {
+        boolean ok = false;
+        int num = userRepository.findUserCountByEmail(email);
+        if (num > 0) {
+            ok = true;
+        }
+        return ok;
+    }
 }

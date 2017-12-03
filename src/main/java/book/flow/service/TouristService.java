@@ -186,4 +186,8 @@ public interface TouristService {
     Page<User> orderUserSearch(String name, String types, String order, int pageNum);
 
     Page<Book> getGoodBook(int size);
+
+    boolean isExistPhone(String phone);
+
+    boolean isExistEmail(String email);
 }

@@ -212,17 +212,28 @@ $(document).ready(function () {
             phone = true;
         }
         if (phone) {
-            $.post('tourist/sendSMS',
+            $.post('tourist/testPhone',
                 {
-                    recipient : phoneVal
+                    phone: phoneVal
                 },
                 function (data) {
-                    // TODO 手机校验码发送后
-                });
+                    if (!data) {
+                        $('#phoneDiv').removeClass('has-error');
+                        $.post('tourist/sendSMS',
+                            {
+                                recipient : phoneVal
+                            },
+                            function (data) {
+                                step = 0;
+                                id = '#phoneCodeBtn';
+                                codeIntervalId = setInterval(setCodeStep, 1000);
+                            });
+                    } else {
+                        $('.alert').html('手机号已注册！').addClass('alert-danger').show().delay(2000).fadeOut();
+                        $('#phoneDiv').addClass('has-error');
+                    }
+                })
         }
-        step = 0;
-        id = '#phoneCodeBtn';
-        codeIntervalId = setInterval(setCodeStep, 1000);
     });
 
     /** 绑定邮箱下一步. */
@@ -272,17 +283,29 @@ $(document).ready(function () {
             $('.alert').html('请输入可用的电子邮箱').addClass('alert-danger').show().delay(2000).fadeOut();
             return;
         } else {
-            $.post('tourist/testemail',
+            $.post('tourist/hasEmail',
                 {
-                    email : emailVal
+                    email: emailVal
                 },
                 function (data) {
-                    //　TODO 发送邮件后
-                });
+                    if (!data) {
+                        $('#emailDiv').removeClass('has-error');
+                        $.post('tourist/testemail',
+                            {
+                                email : emailVal
+                            },
+                            function (data) {
+                                step = 0;
+                                id = '#emailCodeBtn';
+                                codeIntervalId = setInterval(setCodeStep, 1000);
+                            });
+                    } else {
+                        $('.alert').html('手机号已注册！').addClass('alert-danger').show().delay(2000).fadeOut();
+                        $('#emailDiv').addClass('has-error');
+                    }
+                })
+
         }
-        step = 0;
-        id = '#emailCodeBtn';
-        codeIntervalId = setInterval(setCodeStep, 1000);
     });
 
     $('#okBtn').click(function () {
