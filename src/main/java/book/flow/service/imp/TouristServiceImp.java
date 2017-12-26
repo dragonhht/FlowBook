@@ -397,4 +397,25 @@ public class TouristServiceImp implements TouristService {
         }
         return ok;
     }
+
+    @Override
+    public boolean isUserExistByEmail(String userId, String email) {
+        boolean ok = false;
+        int num = userRepository.isUserExistByEmail(userId, email);
+        if (num > 0 ) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @Override
+    public boolean updatePassword(String password, String userId) {
+        boolean ok = false;
+        password = PasswordTool.encryptionMD5(password);
+        int num = userRepository.updatePassword(password, userId);
+        if (num > 0 ) {
+            ok = true;
+        }
+        return ok;
+    }
 }

@@ -7,6 +7,7 @@
     <script th:src="@{/js/jquery-3.2.1.min.js}" type="text/javascript"></script>
     <script th:src="@{/js/bootstrap.js}" type="text/javascript"></script>
     <link th:href="@{/css/login.css}" rel="stylesheet" type="text/css"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/alert.css}"/>
 </head>
 <body>
 
@@ -53,7 +54,7 @@
                 </div>
             </form>
             <div class="login_link" align="right">
-                <a href="#" >忘记密码</a>
+                <a href="#" onclick="showDiv()">忘记密码</a>
                 <a th:href="@{/register}" >免费注册</a>
             </div>
         </div>
@@ -66,5 +67,212 @@
             <a href="https://github.com/dragonhht" title="Github" target="_blank" style="color: gray;">dragonhht</a>
         </p>
     </div>
+
+<!--通过电子邮箱-->
+<div class="update_div" id="update_email" hidden="hidden">
+    <span class="update_top" id="emailResult"></span>
+    <div class="close glyphicon glyphicon-remove" onclick="hideUpdateDiv(this)" align="right"></div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>账号: </label>
+        <div class="col-sm-9 input-group">
+            <input id="stuIdEmail" type="text" class="form-control" placeholder="请输入绑学号"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>电子邮箱: </label>
+        <div class="col-sm-9 input-group">
+            <input id="newEmail" type="text" class="form-control" placeholder="请输入绑定的电子邮箱"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="checkEmailBtn" type="button" style="margin-bottom: 20px;" class="btn btn-info">获取检验码
+            </button>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>校验码</label>
+        <div class="col-sm-9 input-group">
+            <input id="updateEmailCode" type="text" class="form-control" placeholder="请输入邮箱接收到的校验码"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <div class="col-sm-offset-2 col-sm-6">
+            <button id="updateEmailBtn" class="btn btn-info">修改密码</button>
+        </div>
+        <!--<div class="col-sm-3">
+            <select id="select0" class="form-control" style="float: right">
+                <option value="0">通过邮箱</option>
+                <option value="1">通过手机</option>
+            </select>
+        </div>-->
+    </div>
+</div>
+
+
+<!--通过手机-->
+<div class="update_div" id="update_phone" hidden="hidden">
+    <span class="update_top" id="phoneResult"></span>
+    <div class="close glyphicon glyphicon-remove" onclick="hideUpdateDiv(this)" align="right"></div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>账号: </label>
+        <div class="col-sm-9 input-group">
+            <input id="stuIdPhone" type="text" class="form-control" placeholder="请输入绑学号"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>手机号码: </label>
+        <div class="col-sm-9 input-group">
+            <input id="newPhone" type="text" class="form-control" placeholder="请输入绑定的手机号码"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="checkPhoneBtn" type="button" style="margin-bottom: 20px;" class="btn btn-info">获取检验码
+            </button>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>校验码</label>
+        <div class="col-sm-9 input-group">
+            <input id="updatePhonelCode" type="text" class="form-control" placeholder="请输入手机接收到的校验码"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <div class="col-sm-offset-2 col-sm-6">
+            <button id="updatePhoneBtn" class="btn btn-info">确认修改</button>
+        </div>
+        <div class="col-sm-3">
+            <select id="select1"  class="form-control" style="float: right">
+                <option value="1">通过手机</option>
+                <option value="0">通过邮箱</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!--弹出背景-->
+<div id="out_bg" class="out_bg" hidden="hidden"></div>
+
+<div class="update_div" id="update_password" hidden="hidden">
+    <span class="update_top" ></span>
+    <div class="close glyphicon glyphicon-remove" onclick="hideUpdateDiv(this)" align="right"></div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>新密码: </label>
+        <div class="col-sm-9 input-group">
+            <input id="newPassword" type="password" class="form-control" placeholder="请输入新密码"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <label class="col-sm-2 control-label"><span style="color: red">*</span>确认密码: </label>
+        <div class="col-sm-9 input-group">
+            <input id="rePassword" type="password" class="form-control" placeholder="确认密码"/>
+        </div>
+    </div>
+    <div class="form-group form_group">
+        <div class="col-sm-offset-2 col-sm-6">
+            <button id="updatePasswordBtn" class="btn btn-info">确认修改</button>
+        </div>
+    </div>
+</div>
+
+<!--添加提示框-->
+<div class="alert"></div>
+
+<script>
+    function showDiv() {
+        var height = $(document).height();
+        $('#out_bg').css('height', height);
+        $('#out_bg').show();
+        $('#update_email').show();
+    }
+
+    $('#select0').change(function () {
+        $('#update_email').hide();
+        $('#update_phone').show();
+        $("#select0").val('1');
+    });
+
+    $('#select1').change(function () {
+        $('#update_email').show();
+        $('#update_phone').hide();
+        $("#select0").val('0');
+    });
+
+    /** 隐藏修改框. */
+    function hideUpdateDiv(n) {
+        var parent = $(n).parent();
+        $(parent).hide();
+        $('#out_bg').hide();
+        $('#update_img').hide();
+    }
+
+    /** 点击弹出框外部，隐藏弹出框. */
+    $('#out_bg').click(function () {
+        $('.update_div').hide();
+        $('#out_bg').hide();
+    });
+
+    var stuId;
+    /** 校验邮箱. */
+    $('#checkEmailBtn').click(function () {
+        stuId = $('#stuIdEmail').val().trim();
+        var newEmail = $('#newEmail').val().trim();
+        $.post('tourist/isExitByEmail',
+            {
+                userId : stuId,
+                email : newEmail
+            },
+        function (data) {
+            if (data) {
+                $.post('tourist/testemail',
+                    {
+                        email : newEmail
+                    },
+                    function (data) {
+                        if (data) {
+                            // TODO 校验处理
+                        }
+                    });
+            } else {
+                $('.alert').html('账号或邮箱错误').addClass('alert-danger').show().delay(2000).fadeOut();
+            }
+        })
+    });
+
+    $('#updateEmailBtn').click(function () {
+        var code = $('#updateEmailCode').val().trim();
+        $.post('tourist/checkEmail',
+            {
+                code : code
+            },
+        function (data) {
+            if (data) {
+                $('#update_password').show();
+            } else {
+                $('.alert').html('验证码错误').addClass('alert-danger').show().delay(2000).fadeOut();
+            }
+        })
+    });
+    
+    $('#updatePasswordBtn').click(function () {
+        var passowrd = $('#newPassword').val().trim();
+        var repassword = $('#rePassword').val().trim();
+        if (passowrd != repassword) {
+            return;
+        }
+        $.post('tourist/updatePassword',
+            {
+                userId : stuId,
+                password : passowrd
+            },
+        function (data) {
+            $('#update_password').hide();
+            $('.alert').html('修改成功').addClass('alert-success').show().delay(2000).fadeOut();
+        })
+    });
+
+</script>
+
 </body>
 </html>

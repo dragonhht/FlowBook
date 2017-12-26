@@ -300,7 +300,7 @@ $(document).ready(function () {
                                 codeIntervalId = setInterval(setCodeStep, 1000);
                             });
                     } else {
-                        $('.alert').html('手机号已注册！').addClass('alert-danger').show().delay(2000).fadeOut();
+                        $('.alert').html('电子邮箱已注册！').addClass('alert-danger').show().delay(2000).fadeOut();
                         $('#emailDiv').addClass('has-error');
                     }
                 })

@@ -190,4 +190,8 @@ public interface TouristService {
     boolean isExistPhone(String phone);
 
     boolean isExistEmail(String email);
+
+    boolean isUserExistByEmail(String userId, String email);
+
+    boolean updatePassword(String password, String userId);
 }

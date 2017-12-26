@@ -345,4 +345,28 @@ public class TouristRegisterAndLoginController {
     public boolean hasEmail(String email) {
         return touristService.isExistEmail(email);
     }
+
+    @PostMapping("/isExitByEmail")
+    @ResponseBody
+    public boolean isExitByEmail(String userId, String email) {
+        System.out.println(userId + " : " + email);
+        return touristService.isUserExistByEmail(userId, email);
+    }
+
+    @PostMapping("/checkEmail")
+    @ResponseBody
+    public boolean checkEmail(String code, HttpSession session) {
+        boolean ok = false;
+        String emailCode = (String) session.getAttribute("emailCode");
+        if (code != null && code.equals(emailCode)) {
+            ok = true;
+        }
+        return ok;
+    }
+
+    @PostMapping("/updatePassword")
+    @ResponseBody
+    public boolean updatePassword(String userId, String password) {
+        return touristService.updatePassword(password, userId);
+    }
 }

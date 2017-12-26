@@ -80,6 +80,7 @@
     <div class="search_list_div">
 
         <!--一条图书信息-->
+        <div th:unless="${books eq null}" align="center">搜索结果为空</div>
         <div class="book_message_div" th:each="book : ${books}">
             <div class="img_div">
                 <a th:href="@{/tourist/bookMessage/{bookId} (bookId = ${book.bookId})}" target="_blank">

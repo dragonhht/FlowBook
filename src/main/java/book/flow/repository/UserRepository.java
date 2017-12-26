@@ -153,4 +153,12 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     @Query("select count(u) from User u where u.userEmail = ?1")
     int findUserCountByEmail(String email);
+
+    @Query("select count(u) from User u where u.userId = ?1 and u.userEmail = ?2")
+    int isUserExistByEmail(String userId, String email);
+
+    @Modifying
+    @Transactional
+    @Query("update User u set u.password = ?1 where u.userId = ?2")
+    public int updatePassword(String password, String userId);
 }
