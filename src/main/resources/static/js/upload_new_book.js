@@ -1,3 +1,5 @@
+var isbnStatus = false;
+
 $(document).ready(function () {
 
     $('.change_btn').hide();
@@ -69,6 +71,7 @@ $(document).ready(function () {
                 $('#isbnDiv').addClass('has-error');
             } else {
                 $('#isbnDiv').removeClass('has-error');
+                isbnStatus = true;
                 return;
             }
         }
@@ -92,6 +95,7 @@ $(document).ready(function () {
                 $('#isbnDiv').addClass('has-error');
             } else {
                 $('#isbnDiv').removeClass('has-error');
+                isbnStatus = true;
                 return;
             }
         }
@@ -145,4 +149,9 @@ function startLight(n) {
         $($(a[j]).children('i')).addClass('glyphicon-star-empty');
     }
     $('#bookStart').val(index);
+}
+
+function upload() {
+    console.log(isbnStatus)
+    return isbnStatus;
 }
