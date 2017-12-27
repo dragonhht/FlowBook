@@ -45,6 +45,52 @@ function showApply(id, flag) {
         });
 }
 
+function showApplyMy(id, flag) {
+    console.log('flag: ' + flag);
+    $.post('getFlowApplyById',
+        {
+            flowApplyId : id
+        },
+        function(data) {
+            var height = $(document).height();
+            $('#out_bg').css('height', height);
+            $('#out_bg').show();
+            $('#applyId').val(id);
+            $('#applyText').html(data.applyUser.userName);
+            $('#applyForBook').html(data.book.bookName + '(' + data.book.bookId + ')');
+            var status;
+            if (data.status == 0) {
+                status = '未处理';
+            }
+            if (data.status == 1) {
+                status = '同意';
+            }
+            if (data.status == 2) {
+                status = '拒绝';
+            }
+            if (data.status == 3) {
+                status = '处理中'
+            }
+            $('#applyStatus').html(status);
+            $('#applySay').html(data.wantSay);
+            $('#applyBtn').html("");
+            if (data.status == 0) {
+                /*$('#applyBtn').append('<br/><button onclick="applyOk()" id="okBtn" class="btn btn-info">同意</button>&nbsp;' +
+                    '<button onclick="refuse()" class="btn btn-info">拒绝</button>');*/
+            }
+            if (data.status == 3 && flag == 1) {
+                $('#applyBtn').append('<span>双方传递图书，完成传阅</span>&nbsp;<a target="_blank" href="../tourist/user/' + data.applyUser.userId + '">联系对方</a>&nbsp;' +
+                    '<button onclick="okApply()" class="btn btn-info">确认图书到达</button> ');
+            }
+            if (data.status == 3 && flag == 0) {
+                $('#applyBtn').append('<span>请将图书传阅至对方,等待对方确认，完成传阅</span>&nbsp;<a target="_blank" href="../tourist/user/' + data.applyUser.userId + '">联系对方</a>');
+            }
+            $('#reason').html("");
+            $('#show_apply').show();
+            console.log(data);
+        });
+}
+
 /** 同意申请. */
 function applyOk() {
     var applyId = $('#applyId').val();

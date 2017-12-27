@@ -178,8 +178,8 @@
                             <td>处理中</td>
                         </th:block>
                         <th>
-                            <button th:if="${allApply.status eq 0}" th:onclick="'javascript:showApply(\''+${allApply.id}+'\', 1)'" class="btn btn-warning">处理</button>
-                            <button th:unless="${allApply.status eq 0}" th:onclick="'javascript:showApply(\''+${allApply.id}+'\', 1)'" class="btn btn-info">查看</button>
+                            <button th:unless="${allApply.status eq 0}" th:onclick="'javascript:showApply(\''+${allApply.id}+'\', 1)'" class="btn btn-warning">处理</button>
+                            <button th:if="${allApply.status eq 0}" th:onclick="'javascript:showApplyMy(\''+${allApply.id}+'\', 1)'" class="btn btn-info">查看</button>
                         </th>
                     </tr>
                 </table>

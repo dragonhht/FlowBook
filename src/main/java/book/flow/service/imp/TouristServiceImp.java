@@ -152,7 +152,7 @@ public class TouristServiceImp implements TouristService {
     @Override
     public Page<Notice> getIndexNotice() {
         Page<Notice> notices = null;
-        notices = notice(0, HOT_SIZE);
+        notices = notice(0, 20);
         return notices;
     }
 
