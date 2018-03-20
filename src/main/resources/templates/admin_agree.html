@@ -34,7 +34,7 @@
                 <td>操作</td>
             </tr>
             <tr th:each="allApply : ${allBookApplies}">
-                <td th:text="${allApply.applyId}"></td>
+                <!--<td th:text="${allApply.applyId}"></td>-->
                 <td>
                     <a th:onclick="'javascript:showApply(\''+${allApply.applyId}+'\')'" th:text="${allApply.applyText}"></a>
                 </td>

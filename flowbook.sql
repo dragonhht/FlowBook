@@ -3,9 +3,6 @@ use FlowBook;
 CREATE TABLE user (
   user_id VARCHAR(11) PRIMARY KEY COMMENT '用户编号',
   user_name VARCHAR(30) NOT NULL COMMENT '用户名',
---  user_age INT comment '用户年龄',
---  user_sex VARCHAR(2) DEFAULT '男' COMMENT '性别',
---  user_address TEXT COMMENT '住址',
   user_email VARCHAR(50) COMMENT '电子邮件',
   user_phone VARCHAR(11) NOT NULL COMMENT '电话号码' ,
   user_img TEXT NOT NULL COMMENT '用户头像',
@@ -14,7 +11,6 @@ CREATE TABLE user (
   credit INT COMMENT '信用度',
   identity INT COMMENT '身份， 1 为管理员， 0 为普通用户',
   password TEXT NOT NULL COMMENT '密码'
-  CHECK (user_sex IN ('男', '女'))
 ) DEFAULT CHARSET=utf8;
 
 -- 图书表
