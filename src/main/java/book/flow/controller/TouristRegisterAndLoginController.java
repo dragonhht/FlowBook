@@ -5,6 +5,7 @@ import book.flow.service.TouristService;
 import book.flow.service.UserHomeService;
 import book.flow.service.UserService;
 import book.flow.utils.SmsUtils;
+import com.aliyuncs.exceptions.ClientException;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -328,7 +329,12 @@ public class TouristRegisterAndLoginController {
         String code = smsUtils.getCode();
         System.out.println("CODE: " + code);
         session.setAttribute("smsCode", code);
-        ok = smsUtils.sendSmsCode(code, recipient);
+        try {
+            smsUtils.sendCode(recipient, code);
+            ok = true;
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
 
         return ok;
     }
