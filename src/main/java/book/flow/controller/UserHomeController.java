@@ -1,7 +1,8 @@
 package book.flow.controller;
 
-import book.flow.enity.ApplyAdmin;
+import book.flow.enity.Book;
 import book.flow.enity.LoanRecord;
+import book.flow.enity.Notice;
 import book.flow.enity.User;
 import book.flow.service.FileService;
 import book.flow.service.UserHomeService;
@@ -9,12 +10,11 @@ import book.flow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 用户主页控制器.
@@ -197,5 +197,25 @@ public class UserHomeController {
             ok = userHomeService.applyAdmin(user, text);
         }
         return ok;
+    }
+
+    @GetMapping("/{userId}/contribution")
+    @ResponseBody
+    public Set<Book> getContribution(@PathVariable("userId") String userId) {
+        User user = userService.getUserById(userId);
+        return user.getContribution();
+    }
+
+    @GetMapping("/{userId}/allRecode")
+    @ResponseBody
+    public List<LoanRecord> getAllRecode(@PathVariable("userId") String userId) {
+        return userHomeService.getAllRecode(userId);
+    }
+
+    @GetMapping("/{userId}/noties")
+    @ResponseBody
+    public Set<Notice> getNoties(@PathVariable("userId") String userId) {
+        User user = userService.getUserById(userId);
+        return user.getNotices();
     }
 }

@@ -62,6 +62,11 @@ public class UserServiceImp implements UserService {
         return u;
     }
 
+    @Override
+    public User login(String name, String pwd) {
+        return userRepository.loginByPhone(name, pwd);
+    }
+
 
     @Override
     public boolean addComment(String text, String userId, int bookId) {

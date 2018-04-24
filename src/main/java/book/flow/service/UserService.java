@@ -23,6 +23,8 @@ public interface UserService {
      */
     User login(String text, String password, int role);
 
+    User login(String name, String pwd);
+
     /**
      * 评论图书.
      * @param text 评论内容

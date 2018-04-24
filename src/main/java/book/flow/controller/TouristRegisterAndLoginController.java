@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -374,5 +375,11 @@ public class TouristRegisterAndLoginController {
     @ResponseBody
     public boolean updatePassword(String userId, String password) {
         return touristService.updatePassword(password, userId);
+    }
+
+    @PostMapping("/login/phone")
+    @ResponseBody
+    public User login(@RequestParam("userName") String userName, @RequestParam("pwd") String pwd) {
+        return userService.login(userName, pwd);
     }
 }

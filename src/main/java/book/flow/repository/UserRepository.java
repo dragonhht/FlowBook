@@ -41,6 +41,9 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("select u from User u where u.userId = ?1 and u.password = ?2 and u.identity = ?3")
     User loginById(String userId, String password, int role);
 
+    @Query("select u from User u where u.userName = ?1 and u.password = ?2")
+    User loginByPhone(String name, String pwd);
+
     /**
      * 用户登录查询(通过用户名).
      * @param userName 用户名

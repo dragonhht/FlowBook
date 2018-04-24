@@ -7,9 +7,8 @@ import book.flow.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -128,5 +127,17 @@ public class UserFlowApplyController {
         boolean ok = false;
         ok = userFlowApplyService.refuseFlowApply(refuse, applyId);
         return ok;
+    }
+
+    @GetMapping("/{userId}/myApplies")
+    @ResponseBody
+    public List<FlowApply> myApplies(@PathVariable("userId") String userId) {
+        return userFlowApplyService.getMyFlowApplies(userId);
+    }
+
+    @GetMapping("/{userId}/{applyId}/apply")
+    @ResponseBody
+    public FlowApply getApply(@PathVariable("applyId") int applyId) {
+        return userFlowApplyService.getFlowApplyById(applyId);
     }
 }
