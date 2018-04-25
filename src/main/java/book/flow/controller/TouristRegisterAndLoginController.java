@@ -1,20 +1,20 @@
 package book.flow.controller;
 
 import book.flow.enity.User;
+import book.flow.model.PhoneLogin;
 import book.flow.service.TouristService;
 import book.flow.service.UserHomeService;
 import book.flow.service.UserService;
 import book.flow.utils.SmsUtils;
 import com.aliyuncs.exceptions.ClientException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -379,7 +379,14 @@ public class TouristRegisterAndLoginController {
 
     @PostMapping("/login/phone")
     @ResponseBody
-    public User login(@RequestParam("userName") String userName, @RequestParam("pwd") String pwd) {
-        return userService.login(userName, pwd);
+    public PhoneLogin login(@RequestBody String text) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        PhoneLogin user = mapper.readValue(text, PhoneLogin.class);
+        User u = userService.login(user.getUserName(), user.getPassword());
+        if (u != null) {
+            user.setUserId(u.getUserId());
+            return user;
+        }
+        return null;
     }
 }

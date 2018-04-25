@@ -57,4 +57,10 @@ public class UserController {
         return "redirect:/tourist/bookMessage/" + bookId;
     }
 
+    @GetMapping("/{userId}/user")
+    @ResponseBody
+    public User getUserById(@PathVariable("userId") String userId) {
+        return userService.getUserById(userId);
+    }
+
 }

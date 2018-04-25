@@ -64,6 +64,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User login(String name, String pwd) {
+        pwd = PasswordTool.encryptionMD5(pwd);
         return userRepository.loginByPhone(name, pwd);
     }
 

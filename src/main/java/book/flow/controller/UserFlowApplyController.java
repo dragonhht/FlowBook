@@ -2,14 +2,17 @@ package book.flow.controller;
 
 import book.flow.enity.FlowApply;
 import book.flow.enity.User;
+import book.flow.model.Apply;
 import book.flow.service.UserFlowApplyService;
 import book.flow.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -139,5 +142,13 @@ public class UserFlowApplyController {
     @ResponseBody
     public FlowApply getApply(@PathVariable("applyId") int applyId) {
         return userFlowApplyService.getFlowApplyById(applyId);
+    }
+
+    @PostMapping("/flowToNextPhone")
+    @ResponseBody
+    public boolean flowToNextPhone(@RequestBody String json) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        Apply apply = mapper.readValue(json, Apply.class);
+        return flowToNext(apply.getId());
     }
 }
