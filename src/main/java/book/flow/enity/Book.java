@@ -78,6 +78,8 @@ public class Book implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     @JsonBackReference
     private Set<LoanRecord> records;
+    /** 0为未退出图书，1为已退出图书. */
+    private int status = 0;
 
     /**
      * 获取 图书编号.
@@ -279,5 +281,13 @@ public class Book implements Serializable {
 
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

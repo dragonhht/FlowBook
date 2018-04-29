@@ -23,19 +23,19 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @param pageable 分页参数
      * @return 搜索结果
      */
-    @Query("select b from Book b where b.bookName like ?1")
+    @Query("select b from Book b where b.bookName like ?1 and b.status = 0")
     Page<Book> searchBookByBookName(String name, Pageable pageable);
 
 //    @Query("select b from Book b ")
 //    Page<Book> searchBookByBookName(String name, int type, Pageable pageable);
 
-    @Query("select b from Book b left outer join fetch b.types t where b.bookName like ?1 and t.typeId = ?2")
+    @Query("select b from Book b left outer join fetch b.types t where b.bookName like ?1 and t.typeId = ?2 and b.status = 0")
     List<Book> searchBookByBookName(String name, int type);
 
-    @Query("select b from Book b left outer join fetch b.types t where b.bookName like ?1 and t.typeId = ?2 and t.typeId = ?3")
+    @Query("select b from Book b left outer join fetch b.types t where b.bookName like ?1 and t.typeId = ?2 and t.typeId = ?3 and b.status = 0")
     List<Book> searchBookByBookName(String name, int type_0, int type_1);
 
-    @Query("select b from Book b left outer join fetch b.types t where b.bookName like ?1 and t.typeId = ?2 and t.typeId = ?3 and t.typeId = ?4")
+    @Query("select b from Book b left outer join fetch b.types t where b.bookName like ?1 and t.typeId = ?2 and t.typeId = ?3 and t.typeId = ?4 and b.status = 0")
     List<Book> searchBookByBookName(String name, int type_0, int type_1, int type_2);
 
     /**
@@ -44,16 +44,16 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @param pageable 分页参数
      * @return 搜索结果
      */
-    @Query("select b from Book b where b.author like ?1")
+    @Query("select b from Book b where b.author like ?1 and b.status = 0")
     Page<Book> searchBookByBookAuthor(String author, Pageable pageable);
 
-    @Query("select b from Book b left outer join fetch b.types t where b.author like ?1 and t.typeId = ?2")
+    @Query("select b from Book b left outer join fetch b.types t where b.author like ?1 and t.typeId = ?2 and b.status = 0")
     List<Book> searchBookByBookAuthor(String author, int type);
 
-    @Query("select b from Book b left outer join fetch b.types t where b.author like ?1 and t.typeId = ?2 and t.typeId = ?3")
+    @Query("select b from Book b left outer join fetch b.types t where b.author like ?1 and t.typeId = ?2 and t.typeId = ?3 and b.status = 0")
     List<Book> searchBookByBookAuthor(String author, int type_0, int type_1);
 
-    @Query("select b from Book b left outer join fetch b.types t where b.author like ?1 and t.typeId = ?2 and t.typeId = ?3 and t.typeId = ?4")
+    @Query("select b from Book b left outer join fetch b.types t where b.author like ?1 and t.typeId = ?2 and t.typeId = ?3 and t.typeId = ?4 and b.status = 0")
     List<Book> searchBookByBookAuthor(String author, int type_0, int type_1, int type_2);
 
     /**
@@ -62,16 +62,16 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @param pageable 分页参数
      * @return 搜索结果
      */
-    @Query("select b from Book b where b.publish like ?1")
+    @Query("select b from Book b where b.publish like ?1 and b.status = 0")
     Page<Book> searchBookByBookPublish(String publish, Pageable pageable);
 
-    @Query("select b from Book b left outer join fetch b.types t where b.publish like ?1 and t.typeId = ?2")
+    @Query("select b from Book b left outer join fetch b.types t where b.publish like ?1 and t.typeId = ?2 and b.status = 0")
     List<Book> searchBookByBookPublish(String publish, int type);
 
-    @Query("select b from Book b left outer join fetch b.types t where b.publish like ?1 and t.typeId = ?2 and t.typeId = ?3")
+    @Query("select b from Book b left outer join fetch b.types t where b.publish like ?1 and t.typeId = ?2 and t.typeId = ?3 and b.status = 0")
     List<Book> searchBookByBookPublish(String publish, int type_0, int type_1);
 
-    @Query("select b from Book b left outer join fetch b.types t where b.publish like ?1 and t.typeId = ?2 and t.typeId = ?3 and t.typeId = ?3")
+    @Query("select b from Book b left outer join fetch b.types t where b.publish like ?1 and t.typeId = ?2 and t.typeId = ?3 and t.typeId = ?3 and b.status = 0")
     List<Book> searchBookByBookPublish(String publish, int type_0, int type_1, int type_2);
 
 
@@ -80,16 +80,16 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @param name 图书名
      * @return 搜索结果数量
      */
-    @Query("select count(b) from Book b where b.bookName like ?1")
+    @Query("select count(b) from Book b where b.bookName like ?1 and b.status = 0")
     long getBookCountByBookName(String name);
 
-    @Query("select count(b) from Book b where b.bookName like ?1 and b.types = ?2")
+    @Query("select count(b) from Book b where b.bookName like ?1 and b.types = ?2 and b.status = 0")
     long getBookCountByBookName(String name, int type);
 
-    @Query("select count(b) from Book b where b.bookName like ?1 and b.types = ?2 and b.types = ?3")
+    @Query("select count(b) from Book b where b.bookName like ?1 and b.types = ?2 and b.types = ?3 and b.status = 0")
     long getBookCountByBookName(String name, int type_0, int type_1);
 
-    @Query("select count(b) from Book b where b.bookName like ?1 and b.types = ?2 and b.types = ?3 and b.types = ?4")
+    @Query("select count(b) from Book b where b.bookName like ?1 and b.types = ?2 and b.types = ?3 and b.types = ?4 and b.status = 0")
     long getBookCountByBookName(String name, int type_0, int type_1, int type_2);
 
 
@@ -98,16 +98,16 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @param author 作者名
      * @return 搜索结果的数量
      */
-    @Query("select count(b) from Book b where b.author like ?1")
+    @Query("select count(b) from Book b where b.author like ?1 and b.status = 0")
     long getBookCountByBookAuthor(String author);
 
-    @Query("select count(b) from Book b where b.author like ?1 and b.types = ?2")
+    @Query("select count(b) from Book b where b.author like ?1 and b.types = ?2 and b.status = 0")
     long getBookCountByBookAuthor(String author, int type);
 
-    @Query("select count(b) from Book b where b.author like ?1 and b.types = ?2 and b.types = ?3")
+    @Query("select count(b) from Book b where b.author like ?1 and b.types = ?2 and b.types = ?3 and b.status = 0")
     long getBookCountByBookAuthor(String author, int type_0, int type_1);
 
-    @Query("select count(b) from Book b where b.author like ?1 and b.types = ?2 and b.types = ?3 and b.types = ?4")
+    @Query("select count(b) from Book b where b.author like ?1 and b.types = ?2 and b.types = ?3 and b.types = ?4 and b.status = 0")
     long getBookCountByBookAuthor(String author, int type_0, int type_1, int type_2);
 
     /**
@@ -115,23 +115,23 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @param publish 出版社
      * @return 搜索结果的数量
      */
-    @Query("select count(b) from Book b where b.publish like ?1")
+    @Query("select count(b) from Book b where b.publish like ?1 and b.status = 0")
     long getBookCountByBookPublish(String publish);
 
-    @Query("select count(b) from Book b where b.publish like ?1 and b.types = ?2")
+    @Query("select count(b) from Book b where b.publish like ?1 and b.types = ?2 and b.status = 0")
     long getBookCountByBookPublish(String publish, int type);
 
-    @Query("select count(b) from Book b where b.publish like ?1 and b.types = ?2 and b.types = ?3")
+    @Query("select count(b) from Book b where b.publish like ?1 and b.types = ?2 and b.types = ?3 and b.status = 0")
     long getBookCountByBookPublish(String publish, int type_0, int type_1);
 
-    @Query("select count(b) from Book b where b.publish like ?1 and b.types = ?2 and b.types = ?3 and b.types = ?4")
+    @Query("select count(b) from Book b where b.publish like ?1 and b.types = ?2 and b.types = ?3 and b.types = ?4 and b.status = 0")
     long getBookCountByBookPublish(String publish, int type_0, int type_1, int type_2);
 
     /**
      * 查询热门图书（评论最多）.
      * @return 人们图书
      */
-    @Query("select b from Book b order by b.comments.size desc")
+    @Query("select b from Book b where b.status = 0 order by b.comments.size desc")
     Page<Book> getHotBooks(Pageable pageable);
 
     /**
@@ -139,7 +139,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @param id 图书编号
      * @return 图书信息
      */
-    @Query("select b from Book b where b.bookId = ?1")
+    @Query("select b from Book b where b.bookId = ?1 and b.status = 0")
     Book getBookById(int id);
 
     /**
@@ -149,7 +149,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      */
     @Transactional
     @Modifying
-    @Query("update Book b set b.bookImg = ?1 where b.bookId = ?2")
+    @Query("update Book b set b.bookImg = ?1 where b.bookId = ?2 and b.status = 0")
     void updateBookImg(String imgPath, int bookId);
 
     /**
@@ -160,7 +160,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @return 图书
      */
     @Query(nativeQuery = true, value = "SELECT b.* FROM book b, book_type bt" +
-            " where b.book_id = bt.book_id and bt.type_id = ?1 limit ?2, ?3")
+            " where b.book_id = bt.book_id and bt.type_id = ?1 and b.status = 0 limit ?2, ?3")
     List<Book> getBookByTypeId1(int typeId, int start, int size);
 
     /**
@@ -169,7 +169,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      * @return 总数
      */
     @Query(nativeQuery = true, value = "SELECT COUNT(b.book_id) FROM book b, book_type bt" +
-            " where b.book_id = bt.book_id and bt.type_id = ?1")
+            " where b.book_id = bt.book_id and bt.type_id = ?1 and b.status = 0")
     long getBookByTypeCount(int typeId);
 
     /**
@@ -179,9 +179,10 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      */
     @Transactional
     @Modifying
-    @Query("delete from Book b where b.bookId = ?1")
+//    @Query("delete from Book b where b.bookId = ?1")
+    @Query("update Book b set b.status = 1 where b.bookId = ?1")
     int delBookById(int bookId);
 
-    @Query("select b from Book b order by b.records.size desc ")
+    @Query("select b from Book b where b.status = 0 order by b.records.size desc ")
     Page<Book> getGoodBook(Pageable pageable);
 }

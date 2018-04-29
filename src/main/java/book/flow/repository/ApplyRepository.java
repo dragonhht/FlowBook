@@ -70,7 +70,8 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer> {
      */
     @Transactional
     @Modifying
-    @Query("delete from Apply a where a.book.bookId = ?1")
+//    @Query("delete from Apply a where a.book.bookId = ?1")
+    @Query("update Apply a set a.status = '已处理' where a.book.bookId = ?1")
     int delApplyByBook(int bookId);
 
     /**

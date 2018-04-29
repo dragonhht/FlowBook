@@ -52,8 +52,11 @@ public class IndexController {
         List<ActiveModel> images = new ArrayList<>();
         for (Activity act : activities) {
             String image = act.getActiveText();
+
+            String str_1 = "style=\"max-width:100%;\" class=\"\">";
+
             try {
-                image = image.substring(image.indexOf("<img src="), image.indexOf("style=\"max-width:100%;\" class=\"\">") + 24);
+                image = image.substring(image.indexOf("<img src="), image.indexOf("style=\"max-width:100%;\">") + 23);
                 if (size < 2 && image != null) {
                     ActiveModel actm = new ActiveModel();
                     actm.setActiveId(act.getActiveId());
@@ -62,7 +65,7 @@ public class IndexController {
                     size++;
                 }
             } catch (Exception e) {
-//                e.printStackTrace();
+                e.printStackTrace();
             }
         }
         model.addAttribute("images", images);

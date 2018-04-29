@@ -38,7 +38,7 @@ public interface UserRepository extends JpaRepository<User, String> {
      * @param password 用户密码
      * @return 用户信息
      */
-    @Query("select u from User u where u.userId = ?1 and u.password = ?2 and u.identity = ?3")
+    @Query("select u from User u where u.userId = ?1 and u.password = ?2 and u.identity >= ?3")
     User loginById(String userId, String password, int role);
 
     @Query("select u from User u where u.userName = ?1 and u.password = ?2")
@@ -50,7 +50,7 @@ public interface UserRepository extends JpaRepository<User, String> {
      * @param password 用户密码
      * @return 用户信息
      */
-    @Query("select u from User u where u.userName = ?1 and u.password = ?2 and u.identity = ?3")
+    @Query("select u from User u where u.userName = ?1 and u.password = ?2 and u.identity >= ?3")
     User loginByName(String userName, String password, int role);
 
     /**
@@ -62,7 +62,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("select u from User u where u.userPhone = ?1 and u.password = ?2 and u.identity = ?3")
     User loginByPhone(String userPhone, String password, int role);
 
-    @Query("select u from User u where u.userEmail = ?1 and u.password = ?2 and u.identity = ?3")
+    @Query("select u from User u where u.userEmail = ?1 and u.password = ?2 and u.identity >= ?3")
     User loginByEmail(String userEmail, String password, int role);
 
     /**

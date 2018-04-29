@@ -50,16 +50,16 @@ public class AdminServiceImp implements AdminService {
     public void delBook(int applyId) {
         Apply apply = applyRepository.getApplyById(applyId);
         Book book = apply.getBook();
-        recordRepository.delRecordByBook(book.getBookId());
+/*        recordRepository.delRecordByBook(book.getBookId());
         commentRepository.delCommentByBook(book.getBookId());
         Set<ReportImg> imgSet = apply.getImgs();
         System.out.println("Size : " + imgSet.size());
         for (ReportImg img : imgSet) {
             System.out.println(img.getId());
             reportImgRepository.delImg(img.getId());
-        }
+        }*/
         applyRepository.delApplyByBook(book.getBookId());
-        flowApplyRepository.delFlowApplyByBook(book.getBookId());
+//        flowApplyRepository.delFlowApplyByBook(book.getBookId());
         int i = bookRepository.delBookById(book.getBookId());
         System.out.println(i);
     }

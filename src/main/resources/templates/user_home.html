@@ -105,8 +105,9 @@
                 <tr th:each="book : ${session.user.getContribution()}">
                     <td th:text="${#lists.size(book.records)}"></td>
                     <td style="cursor: pointer">
-                        <a target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${book.bookId})}"
+                        <a th:if="${book.status == 0}" target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${book.bookId})}"
                            th:text="${book.getBookName()}" style="color: #333333;"></a>
+                        <span th:if="${book.status == 1}" th:text="${book.getBookName() + '【已退出】'}"></span>
                     </td>
                     <td th:text="${book.getAuthor()}"></td>
                     <td th:text="${book.getPublish()}"></td>
