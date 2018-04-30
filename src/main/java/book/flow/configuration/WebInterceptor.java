@@ -2,6 +2,7 @@ package book.flow.configuration;
 
 import book.flow.interceptors.AdminInterceptor;
 import book.flow.interceptors.LoginInterceptor;
+import book.flow.interceptors.SuperAdminInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -27,6 +28,7 @@ public class WebInterceptor extends WebMvcConfigurerAdapter {
                 .excludePathPatterns("/user/{userId}/**", "/user/flowToNextPhone");
         // 拦截管理员操作
         registry.addInterceptor(getAdminInterceptor()).addPathPatterns("/admin/**");
+        registry.addInterceptor(getSuperAdminInterceptor()).addPathPatterns("/superadmin/**");
     }
 
     /**
@@ -43,5 +45,9 @@ public class WebInterceptor extends WebMvcConfigurerAdapter {
      */
     private AdminInterceptor getAdminInterceptor() {
         return new AdminInterceptor();
+    }
+
+    private SuperAdminInterceptor getSuperAdminInterceptor() {
+        return new SuperAdminInterceptor();
     }
 }
