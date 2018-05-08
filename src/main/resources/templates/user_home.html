@@ -124,8 +124,9 @@
                 </tr>
                 <tr th:each="record : ${nowRecodes}">
                     <td style="cursor: pointer">
-                        <a target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${record.book.bookId})}"
+                        <a th:if="${record.book.status == 0}" target="_blank" th:href="@{/tourist/bookMessage/{bookId}(bookId = ${record.book.bookId})}"
                            th:text="${record.book.getBookName()}" style="color: #333333;"></a>
+                        <span th:if="${record.book.status == 1}" th:text="${record.book.getBookName() + '【已退出】'}"></span>
                     </td>
                     <td th:text="${record.book.author}"></td>
                     <td th:text="${record.book.publish}"></td>
